@@ -1,0 +1,71 @@
+{
+  "name": "gatsby-casper",
+  "description": "Casper for gatsby",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Scott Cooper <scttcper@gmail.com>",
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "rimraf public",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
+    "dev": "gatsby develop",
+    "lint": "tslint 'src/**/*.{ts,tsx}'",
+    "start": "npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "babel-plugin-styled-components": "^1.6.4",
+    "classnames": "^2.2.6",
+    "emotion": "^9.2.8",
+    "emotion-server": "^9.2.8",
+    "gatsby": "next",
+    "gatsby-image": "next",
+    "gatsby-plugin-canonical-urls": "next",
+    "gatsby-plugin-emotion": "next",
+    "gatsby-plugin-postcss": "next",
+    "gatsby-plugin-react-helmet": "next",
+    "gatsby-plugin-sharp": "next",
+    "gatsby-plugin-typescript": "next",
+    "gatsby-remark-copy-linked-files": "next",
+    "gatsby-remark-images": "next",
+    "gatsby-remark-prismjs": "next",
+    "gatsby-remark-responsive-iframe": "next",
+    "gatsby-remark-smartypants": "next",
+    "gatsby-source-filesystem": "next",
+    "gatsby-transformer-json": "next",
+    "gatsby-transformer-remark": "next",
+    "gatsby-transformer-sharp": "next",
+    "modern-normalize": "^0.5.0",
+    "normalize.css": "^8.0.0",
+    "polished": "^2.0.3",
+    "prism-themes": "^1.0.1",
+    "prismjs": "^1.15.0",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-emotion": "^9.2.8",
+    "react-helmet": "^5.2.0",
+    "typescript": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.6",
+    "@types/node": "^10.9.4",
+    "@types/react": "^16.4.13",
+    "@types/react-dom": "^16.0.7",
+    "@types/react-helmet": "^5.0.7",
+    "gh-pages": "^1.2.0",
+    "prettier": "^1.14.2",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.11.0",
+    "tslint-config-blvd": "^1.2.1",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-plugin-prettier": "^1.3.0"
+  }
+}
