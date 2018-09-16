@@ -1,9 +1,8 @@
-'use strict'
-
-const path = require('path')
+const path = require('path');
+const _ = require('lodash');
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
-  const { createNodeField } = actions
+  const { createNodeField } = actions;
 
   // Sometimes, optional fields tend to get not picked up by the GraphQL
   // interpreter if not a single content uses it. Therefore, we're putting them
@@ -12,40 +11,46 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   switch (node.internal.type) {
     case 'MarkdownRemark': {
-      const { permalink, layout } = node.frontmatter
-      const { relativePath } = getNode(node.parent)
+      const { permalink, layout } = node.frontmatter;
+      const { relativePath } = getNode(node.parent);
 
-      let slug = permalink
+      let slug = permalink;
 
       if (!slug) {
-        slug = `/${relativePath.replace('.md', '')}/`
+        slug = `/${relativePath.replace('.md', '')}/`;
       }
 
       // Used to generate URL to view this content.
       createNodeField({
         node,
         name: 'slug',
-        value: slug || ''
-      })
+        value: slug || '',
+      });
 
       // Used to determine a page layout.
       createNodeField({
         node,
         name: 'layout',
-        value: layout || ''
-      })
+        value: layout || '',
+      });
     }
   }
-}
+};
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
   const allMarkdown = await graphql(`
     {
-      allMarkdownRemark(limit: 1000) {
+      allMarkdownRemark(limit: 2000) {
         edges {
           node {
+            frontmatter {
+              title
+              tags
+              date
+              feature_image
+            }
             fields {
               layout
               slug
@@ -54,15 +59,15 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `)
+  `);
 
   if (allMarkdown.errors) {
-    console.error(allMarkdown.errors)
-    throw new Error(allMarkdown.errors)
+    console.error(allMarkdown.errors);
+    throw new Error(allMarkdown.errors);
   }
 
   allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    const { slug, layout } = node.fields
+    const { slug, layout } = node.fields;
 
     createPage({
       path: slug,
@@ -78,8 +83,30 @@ exports.createPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/${layout || 'page'}.tsx`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
-        slug
-      }
-    })
-  })
-}
+        slug,
+      },
+    });
+  });
+
+  const tagTemplate = path.resolve('./src/templates/tags.tsx');
+  let tags = [];
+  // Iterate through each post, putting all found tags into `tags`
+  _.each(allMarkdown.data.allMarkdownRemark.edges, edge => {
+    if (_.get(edge, 'node.frontmatter.tags')) {
+      tags = tags.concat(edge.node.frontmatter.tags);
+    }
+  });
+  // Eliminate duplicate tags
+  tags = _.uniq(tags);
+
+  // Make tag pages
+  tags.forEach(tag => {
+    createPage({
+      path: `/tags/${_.kebabCase(tag)}/`,
+      component: tagTemplate,
+      context: {
+        tag,
+      },
+    });
+  });
+};

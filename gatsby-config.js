@@ -3,6 +3,7 @@ module.exports = {
     title: 'Casper',
     description: 'The professional publishing platform',
     siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com',
+    logo: 'https://demo.ghost.io/content/images/2014/09/Ghost-Transparent-for-DARK-BG.png',
     author: {
       name: 'Resi Respati',
       url: 'https://twitter.com/resir014',
@@ -53,5 +54,14 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-plugin-postcss',
+      options: {
+        postCssPlugins: [
+          require("postcss-color-function"),
+          require('cssnano')(),
+        ],
+      },
+    },
   ],
 };

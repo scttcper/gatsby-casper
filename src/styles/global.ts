@@ -1,5 +1,5 @@
 import { injectGlobal } from 'emotion';
-import { lighten } from 'polished';
+import { lighten, setLightness } from 'polished';
 
 export const colors = {
   blue: '#3eb0ef',
@@ -273,7 +273,7 @@ injectGlobal`
   }
   body {
     overflow-x: hidden;
-    color: ${lighten('-25%', colors.lightgrey)};
+    color: ${lighten(-0.25, colors.lightgrey)};
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.5rem;
     line-height: 1.6em;
@@ -290,7 +290,7 @@ injectGlobal`
 
   ::selection {
     text-shadow: none;
-    background: color(var(--blue) lightness(+30%));
+    background: color(${colors.blue} lightness(+30%));
   }
 
   hr {
@@ -407,7 +407,7 @@ injectGlobal`
   }
 
   a {
-    color: color(var(--blue) l(-5%));
+    color: ${lighten(-0.05, colors.blue)};
     text-decoration: none;
   }
 

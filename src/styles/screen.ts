@@ -401,7 +401,7 @@ injectGlobal`
     display: block;
     width: 100%;
     height: 100%;
-    background: color(var(--lightgrey) l(+10%));
+    background: color(${colors.lightgrey} l(+10%));
     border-radius: 100%;
 
     object-fit: cover;
@@ -496,7 +496,7 @@ injectGlobal`
     font-size: 1.2rem;
     letter-spacing: 0.2px;
     white-space: nowrap;
-    background: var(--darkgrey);
+    background: ${colors.darkgrey};
     border-radius: 3px;
     box-shadow: rgba(39,44,49,0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
     opacity: 0;
@@ -519,7 +519,7 @@ injectGlobal`
   .reading-time {
     flex-shrink: 0;
     margin-left: 20px;
-    color: var(--midgrey);
+    color: ${colors.midgrey};
     font-size: 1.2rem;
     line-height: 33px;
     font-weight: 500;
@@ -610,19 +610,19 @@ injectGlobal`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--midgrey);
+    color: ${colors.midgrey};
     font-size: 1.4rem;
     font-weight: 600;
     text-transform: uppercase;
   }
 
   .post-full-meta-date {
-    color: var(--blue);
+    color: ${colors.blue};
   }
 
   .post-full-title {
     margin: 0;
-    color: color(var(--darkgrey) l(-5%));
+    color: ${lighten('-5%', colors.darkgrey)};
   }
 
   .date-divider {
@@ -633,7 +633,7 @@ injectGlobal`
   .post-full-image {
     margin: 0 -10vw -165px;
     height: 800px;
-    background: var(--lightgrey) center center;
+    background: ${colors.lightgrey} center center;
     background-size: cover;
     border-radius: 5px;
   }
@@ -739,17 +739,17 @@ injectGlobal`
   .post-full-content a {
     color: #000;
     word-break: break-word;
-    box-shadow: var(--blue) 0 -1px 0 inset;
+    box-shadow: ${colors.blue} 0 -1px 0 inset;
   }
 
   .post-full-content a:hover {
-    color: var(--blue);
+    color: ${colors.blue};
     text-decoration: none;
   }
 
   .post-full-content strong,
   .post-full-content em {
-    color: color(var(--darkgrey) l(-5%));
+    color: ${lighten('-5%', colors.darkgrey)};
   }
 
   .post-full-content small {
@@ -817,7 +817,7 @@ injectGlobal`
     font-size: 0.8em;
     line-height: 1em;
     font-weight: 400!important;
-    background: var(--whitegrey);
+    background: ${colors.whitegrey};
     border-radius: 3px;
   }
 
@@ -826,11 +826,11 @@ injectGlobal`
     margin: 1.5em 0 3em;
     padding: 20px;
     max-width: 100%;
-    border: color(var(--darkgrey) l(-10%)) 1px solid;
-    color: var(--whitegrey);
+    border: color(${colors.darkgrey} l(-10%)) 1px solid;
+    color: ${colors.whitegrey};
     font-size: 1.4rem;
     line-height: 1.5em;
-    background: color(var(--darkgrey) l(-3%));
+    background: color(${colors.darkgrey} l(-3%));
     border-radius: 5px;
   }
 
@@ -862,7 +862,7 @@ injectGlobal`
     margin-left: -10px;
     width: 1px;
     height: 30px;
-    background: color(var(--lightgrey) l(+10%));
+    background: color(${colors.lightgrey} l(+10%));
     box-shadow: #fff 0 0 0 5px;
     transform: rotate(45deg);
   }
@@ -873,7 +873,7 @@ injectGlobal`
   .post-full-content h4,
   .post-full-content h5,
   .post-full-content h6 {
-    color: color(var(--darkgrey) l(-5%));
+    color: color(${colors.darkgrey} l(-5%));
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
@@ -926,7 +926,7 @@ injectGlobal`
     margin: 0.5em 0;
     padding: 1em 0 1.5em;
     border: 0;
-    color: var(--blue);
+    color: ${colors.blue};
     font-family: Georgia,serif;
     font-size: 3.2rem;
     line-height: 1.35em;
@@ -969,7 +969,7 @@ injectGlobal`
   }
 
   .footnote-backref {
-    color: var(--blue) !important;
+    color: ${colors.blue} !important;
     font-size: 1.2rem;
     font-weight: bold;
     text-decoration: none !important;
@@ -1033,35 +1033,35 @@ injectGlobal`
   }
 
   .post-full-content table th {
-    color: var(--darkgrey);
+    color: ${colors.darkgrey};
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.2px;
     text-align: left;
     text-transform: uppercase;
-    background-color: color(var(--whitegrey) l(+4%));
+    background-color: color(${colors.whitegrey} l(+4%));
   }
 
   .post-full-content table th,
   .post-full-content table td {
     padding: 6px 12px;
-    border: color(var(--whitegrey) l(-1%) s(-5%)) 1px solid;
+    border: color(${colors.whitegrey} l(-1%) s(-5%)) 1px solid;
   }
 
 
   .subscribe-form {
     margin: 1.5em 0;
     padding: 6.5vw 7vw 7vw;
-    border: color(var(--whitegrey) l(+2%)) 1px solid;
+    border: color(${colors.whitegrey} l(+2%)) 1px solid;
     text-align: center;
-    background: color(var(--whitegrey) l(+4%));
+    background: color(${colors.whitegrey} l(+4%));
     border-radius: 7px;
   }
 
   .subscribe-form-title {
     margin: 0 0 3px 0;
     padding: 0;
-    color: var(--darkgrey);
+    color: ${colors.darkgrey};
     font-size: 3.5rem;
     line-height: 1;
     font-weight: 700;
@@ -1069,7 +1069,7 @@ injectGlobal`
 
   .subscribe-form p {
     margin-bottom: 1em;
-    color: var(--midgrey);
+    color: ${colors.midgrey};
     font-size: 2.2rem;
     line-height: 1.55em;
     letter-spacing: 0.2px;
@@ -1091,8 +1091,8 @@ injectGlobal`
     display: block;
     padding: 10px;
     width: 100%;
-    border: color(var(--lightgrey) l(+7%)) 1px solid;
-    color: var(--midgrey);
+    border: color(${colors.lightgrey} l(+7%)) 1px solid;
+    color: ${colors.midgrey};
     font-size: 1.8rem;
     line-height: 1em;
     font-weight: normal;
@@ -1105,7 +1105,7 @@ injectGlobal`
 
   .subscribe-email:focus {
     outline: 0;
-    border-color: color(var(--lightgrey) l(-2%));
+    border-color: color(${colors.lightgrey} l(-2%));
   }
 
   .subscribe-form button {
@@ -1121,10 +1121,10 @@ injectGlobal`
     text-align: center;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
     background: linear-gradient(
-    color(var(--blue) whiteness(+7%)),
-    color(var(--blue) lightness(-7%) saturation(-10%)) 60%,
-    color(var(--blue) lightness(-7%) saturation(-10%)) 90%,
-    color(var(--blue) lightness(-4%) saturation(-10%))
+    color(${colors.blue} whiteness(+7%)),
+    color(${colors.blue} lightness(-7%) saturation(-10%)) 60%,
+    color(${colors.blue} lightness(-7%) saturation(-10%)) 90%,
+    color(${colors.blue} lightness(-4%) saturation(-10%))
     );
     border-radius: 5px;
     box-shadow: 0 0 0 1px inset rgba(0,0,0,0.14);
@@ -1134,7 +1134,7 @@ injectGlobal`
 
   .subscribe-form button:active,
   .subscribe-form button:focus {
-    background: color(var(--blue) lightness(-9%) saturation(-10%));
+    background: color(${colors.blue} lightness(-9%) saturation(-10%));
   }
 
   @media (max-width: 650px) {
@@ -1188,7 +1188,7 @@ injectGlobal`
   }
 
   .author-card-name a {
-    color: var(--darkgrey);
+    color: ${colors.darkgrey};
     font-weight: 700;
   }
 
@@ -1198,7 +1198,7 @@ injectGlobal`
 
   .author-card-content p {
     margin: 0;
-    color: var(--midgrey);
+    color: ${colors.midgrey};
     line-height: 1.3em;
   }
 
@@ -1210,8 +1210,8 @@ injectGlobal`
   .author-card-button {
     display: block;
     padding: 9px 16px;
-    border: color(var(--midgrey) l(+20%)) 1px solid;
-    color: var(--midgrey);
+    border: color(${colors.midgrey} l(+20%)) 1px solid;
+    color: ${colors.midgrey};
     font-size: 1.2rem;
     line-height: 1;
     font-weight: 500;
@@ -1220,8 +1220,8 @@ injectGlobal`
   }
 
   .author-card-button:hover {
-    border-color: var(--blue);
-    color: var(--blue);
+    border-color: ${colors.blue};
+    color: ${colors.blue};
     text-decoration: none;
   }
 
@@ -1233,7 +1233,7 @@ injectGlobal`
     align-items: center;
     margin-top: 20px;
     padding-top: 40px;
-    border-top: color(var(--lightgrey) l(+10%)) 1px solid;
+    border-top: color(${colors.lightgrey} l(+10%)) 1px solid;
   }
 
   .post-full-authors-content {
@@ -1242,7 +1242,7 @@ injectGlobal`
 
   .post-full-authors-content p {
     margin-bottom: 0;
-    color: var(--midgrey);
+    color: ${colors.midgrey};
     font-size: 1.4rem;
     letter-spacing: 0.2px;
     text-align: center;
@@ -1251,7 +1251,7 @@ injectGlobal`
 
   .post-full-authors-content a {
     display: inline-block;
-    color: color(var(--darkgrey) l(+20%));
+    color: color(${colors.darkgrey} l(+20%));
     font-size: 1.4rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -1313,7 +1313,7 @@ injectGlobal`
     align-items: center;
     padding: 30px 20px 20px 20px;
     color: #fff;
-    background: var(--darkgrey);
+    background: ${colors.darkgrey};
     border-radius: 6px 6px 0 0;
   }
 
@@ -1377,7 +1377,7 @@ injectGlobal`
     margin: 0 20px 40px;
     padding: 25px;
     color: #fff;
-    background: var(--darkgrey) center center;
+    background: ${colors.darkgrey} center center;
     background-size: cover;
     border-radius: 5px;
     box-shadow: rgba(39,44,49,0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
@@ -1536,7 +1536,7 @@ injectGlobal`
   .floating-header-logo a {
     display: flex;
     align-items: center;
-    color: var(--darkgrey);
+    color: ${colors.darkgrey};
     line-height: 1.1em;
     font-weight: 700;
   }
@@ -1633,7 +1633,7 @@ injectGlobal`
     width: 100%;
     height: 2px;
     border: none;
-    color: var(--blue);
+    color: ${colors.blue};
     background: transparent;
 
     appearance: none;
@@ -1644,11 +1644,11 @@ injectGlobal`
   }
 
   .progress::-webkit-progress-value {
-    background-color: var(--blue);
+    background-color: ${colors.blue};
   }
 
   .progress::-moz-progress-bar {
-    background-color: var(--blue);
+    background-color: ${colors.blue};
   }
 
   .progress-container {
@@ -1665,7 +1665,7 @@ injectGlobal`
     display: block;
     width: 50%;
     height: inherit;
-    background-color: var(--blue);
+    background-color: ${colors.blue};
   }
 
   @media (max-width: 900px) {
@@ -1889,7 +1889,7 @@ injectGlobal`
 
   .error-description {
     margin: 0;
-    color: var(--midgrey);
+    color: ${colors.midgrey};
     font-size: 3rem;
     line-height: 1.3em;
     font-weight: 400;
@@ -1986,7 +1986,7 @@ injectGlobal`
     padding: 14px 20px;
     width: 100%;
     border: none;
-    color: var(--midgrey);
+    color: ${colors.midgrey};
     font-size: 2rem;
     line-height: 1em;
     font-weight: normal;
@@ -2000,7 +2000,7 @@ injectGlobal`
 
   .subscribe-email:focus {
     outline: 0;
-    border-color: color(var(--lightgrey) l(-2%));
+    border-color: color(${colors.lightgrey} l(-2%));
   }
 
   .subscribe-overlay button {
@@ -2016,10 +2016,10 @@ injectGlobal`
     text-align: center;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.1);
     background: linear-gradient(
-    color(var(--blue) whiteness(+7%)),
-    color(var(--blue) lightness(-7%) saturation(-10%)) 60%,
-    color(var(--blue) lightness(-7%) saturation(-10%)) 90%,
-    color(var(--blue) lightness(-4%) saturation(-10%))
+    color(${colors.blue} whiteness(+7%)),
+    color(${colors.blue} lightness(-7%) saturation(-10%)) 60%,
+    color(${colors.blue} lightness(-7%) saturation(-10%)) 90%,
+    color(${colors.blue} lightness(-4%) saturation(-10%))
     );
     border-radius: 8px;
     box-shadow: 0 0 0 1px inset rgba(0,0,0,0.14);
@@ -2029,7 +2029,7 @@ injectGlobal`
 
   .subscribe-overlay button:active,
   .subscribe-overlay button:focus {
-    background: color(var(--blue) lightness(-9%) saturation(-10%));
+    background: color(${colors.blue} lightness(-9%) saturation(-10%));
   }
 
   .subscribe-overlay-close {
@@ -2077,7 +2077,7 @@ injectGlobal`
     padding-top: 20px;
     padding-bottom: 60px;
     color: #fff;
-    background: color(var(--darkgrey) l(-15%));
+    background: color(${colors.darkgrey} l(-15%));
   }
 
   .site-footer-content {

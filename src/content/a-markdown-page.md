@@ -1,10 +1,25 @@
 ---
 layout: page
 title: "Example Markdown page"
+tags: ["Getting Started"]
+feature_image: https://casper.ghost.org/v2.0.0/images/welcome-to-ghost.jpg
+date: "2015-05-06T23:46:37.121Z"
 ---
 
-Now we're writing in Markdown! Pretty nice, huh?
+👋 Welcome, it's great to have you here.
 
-This starter has out-of-the-box support for basic Markdown rendering. The `content/` directory is where you put all of your Markdown content in. Gatsby will build your pages out of it. Gatsby will also follow the directory structure of your files too, so when you store a page at e.g. `content/projects/large-hadron-collider.md`, it will be built in `/projects/large-hadron-collider/`.
+We know that first impressions are important, so we've populated your new site with some initial __getting started__ posts that will help you get familiar with everything in no time. This is the first one!
+
+__A few things you should know upfront__:
+1. Ghost is designed for ambitious, professional publishers who want to actively build a business around their content. That's who it works best for. 
+2. The entire platform can be modified and customised to suit your needs. It's very powerful, but does require some knowledge of code. Ghost is not necessarily a good platform for beginners or people who just want a simple personal blog. 
+3. For the best experience we recommend downloading the Ghost Desktop App for your computer, which is the best way to access your Ghost site on a desktop device. 
+
+Ghost is made by an independent non-profit organisation called the Ghost Foundation. We are 100% self funded by revenue from our Ghost(Pro) service, and every penny we make is re-invested into funding further development of free, open source technology for modern publishing.  
+
+The version of Ghost you are looking at right now would not have been made possible without generous contributions from the open source community.  
+## Next up, the editor
+The main thing you'll want to read about next is probably: the Ghost editor. This is where the good stuff happens.
+> By the way, once you're done reading, you can simply delete the default __Ghost__ user from your team to remove all of these introductory posts! 
 
 [That's cool! Okay, take me back home.](/)
