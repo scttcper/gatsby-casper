@@ -3,7 +3,7 @@ layout: post
 title: "Welcome to Ghost"
 author: Ghost
 tags: ["Getting Started"]
-feature_image: https://casper.ghost.org/v2.0.0/images/welcome-to-ghost.jpg
+image: https://casper.ghost.org/v2.0.0/images/welcome-to-ghost.jpg
 date: "2015-05-06T23:46:37.121Z"
 draft: false
 ---

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { StaticQuery, graphql } from 'gatsby';
+import { StaticQuery, graphql, Link } from 'gatsby';
 
 import Wrapper from '../components/Wrapper';
 import SiteNav from '../components/header/SiteNav';
-import { Link } from '@reach/router';
 import IndexLayout from '../layouts';
+import Footer from '../components/Footer';
 
 type StaticQueryProps = {
   children?: any;
@@ -14,15 +14,17 @@ type StaticQueryProps = {
         title: string;
         description: string;
         siteUrl: string;
+        coverImage: string;
         logo?: string;
       };
     };
     allMarkdownRemark: {
       edges: {
         node: {
+          timeToRead: number;
           frontmatter: {
             title: string;
-            feature_image?: string;
+            image?: string;
             tags?: string[];
           };
           excerpt: string;
@@ -44,7 +46,7 @@ export default (props: StaticQueryProps) => {
         <header
           className="site-header outer"
           style={{
-            backgroundImage: 'url(https://demo.ghost.io/content/images/2017/07/blog-cover.jpg)',
+            backgroundImage: `url(${props.data.site.siteMetadata.coverImage})`,
           }}
         >
           <div className="inner">
@@ -76,7 +78,7 @@ export default (props: StaticQueryProps) => {
                         <div
                           className="post-card-image"
                           style={{
-                            backgroundImage: `url(${post.node.frontmatter.feature_image})`,
+                            backgroundImage: `url(${post.node.frontmatter.image})`,
                           }}
                         />
                       </Link>
@@ -106,7 +108,7 @@ export default (props: StaticQueryProps) => {
                           </li>
                         </ul>
 
-                        <span className="reading-time">1 min read</span>
+                        <span className="reading-time">{post.node.timeToRead} min read</span>
                       </footer>
                     </div>
                   </article>
@@ -116,6 +118,8 @@ export default (props: StaticQueryProps) => {
           </div>
         </main>
         {props.children}
+
+        <Footer site={props.data.site} />
       </Wrapper>
     </IndexLayout>
   );
@@ -128,15 +132,18 @@ export const pageQuery = graphql`
         title
         description
         logo
+        siteUrl
+        coverImage
       }
     }
     allMarkdownRemark(limit: 1000) {
       edges {
         node {
+          timeToRead
           frontmatter {
             title
             tags
-            feature_image
+            image
           }
           excerpt
           fields {

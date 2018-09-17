@@ -1,14 +1,17 @@
 module.exports = {
   siteMetadata: {
-    title: 'Casper',
+    title: 'Ghost',
     description: 'The professional publishing platform',
     siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com',
     logo: 'https://demo.ghost.io/content/images/2014/09/Ghost-Transparent-for-DARK-BG.png',
+    coverImage: 'https://demo.ghost.io/content/images/2017/07/blog-cover.jpg',
     author: {
       name: 'Resi Respati',
       url: 'https://twitter.com/resir014',
       email: 'resir014@gmail.com',
     },
+    facebook: 'https://www.facebook.com/ghost',
+    twitter: 'https://twitter.com/tryghost',
   },
   mapping: {
     'MarkdownRemark.frontmatter.author': 'AuthorYaml',
@@ -38,7 +41,7 @@ module.exports = {
             resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 1140,
-              quality: 90,
+              quality: 100,
               linkImagesToOriginal: false,
             },
           },

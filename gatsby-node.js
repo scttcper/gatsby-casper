@@ -8,10 +8,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   // interpreter if not a single content uses it. Therefore, we're putting them
   // through `createNodeField` so that the fields still exist and GraphQL won't
   // trip up. An empty string is still required in replacement to `null`.
-
+  // console.log(node)
   switch (node.internal.type) {
     case 'MarkdownRemark': {
-      const { permalink, layout } = node.frontmatter;
+      const { permalink, layout, primaryTag } = node.frontmatter;
       const { relativePath } = getNode(node.parent);
 
       let slug = permalink;
@@ -33,6 +33,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         name: 'layout',
         value: layout || '',
       });
+
+      createNodeField({
+        node,
+        name: 'primaryTag',
+        value: primaryTag || '',
+      });
     }
   }
 };
@@ -45,11 +51,26 @@ exports.createPages = async ({ graphql, actions }) => {
       allMarkdownRemark(limit: 2000) {
         edges {
           node {
+            excerpt
+            timeToRead
             frontmatter {
               title
               tags
               date
-              feature_image
+              image
+              author {
+                id
+                bio
+                avatar {
+                  children {
+                    ... on ImageSharp {
+                      fixed(quality: 100) {
+                        src
+                      }
+                    }
+                  }
+                }
+              }
             }
             fields {
               layout
@@ -66,8 +87,11 @@ exports.createPages = async ({ graphql, actions }) => {
     throw new Error(allMarkdown.errors);
   }
 
-  allMarkdown.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  const posts = allMarkdown.data.allMarkdownRemark.edges;
+  posts.forEach(({ node }, index) => {
     const { slug, layout } = node.fields;
+    const prev = index === 0 ? null : posts[index - 1].node;
+    const next = index === posts.length - 1 ? null : posts[index + 1].node;
 
     createPage({
       path: slug,
@@ -84,6 +108,9 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug,
+        prev,
+        next,
+        primaryTag: node.frontmatter.tags[0],
       },
     });
   });

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { graphql, Link } from 'gatsby';
 import * as _ from 'lodash';
+import rehypeReact from 'rehype-react';
 
 import Page from '../components/Page';
 import Container from '../components/Container';
@@ -8,6 +9,9 @@ import IndexLayout from '../layouts';
 import Wrapper from '../components/Wrapper';
 import SiteNav from '../components/header/SiteNav';
 import BylineSingle from '../components/BylineSingle';
+import InfinityIcon from '../components/icons/infinity';
+import PostCard from '../components/PostCard';
+import Footer from '../components/Footer';
 
 interface PageTemplateProps {
   data: {
@@ -16,6 +20,9 @@ interface PageTemplateProps {
         title: string;
         description: string;
         siteUrl: string;
+        coverImage: string;
+        facebook: string;
+        twitter: string;
         logo: string;
         author: {
           name: string;
@@ -25,12 +32,14 @@ interface PageTemplateProps {
     };
     markdownRemark: {
       html: string;
+      htmlAst: any;
       excerpt: string;
+      timeToRead: string;
       frontmatter: {
         title: string;
         date: string;
         userDate: string;
-        featureImage: string;
+        image: string;
         tags: string[];
         author: {
           id: string;
@@ -45,8 +54,54 @@ interface PageTemplateProps {
         };
       };
     };
+    relatedPosts: {
+      totalCount: number;
+      edges: {
+        node: {
+          timeToRead: number;
+          frontmatter: {
+            title: string;
+          };
+        };
+      }[];
+    };
+  };
+  pageContext: {
+    prev: PageContext;
+    next: PageContext;
   };
 }
+
+export interface PageContext {
+  excerpt: string;
+  timeToRead: number;
+  fields: {
+    slug: string;
+  };
+  frontmatter: {
+    image?: string;
+    title: string;
+    date: string;
+    tags: string[];
+    author: {
+      id: string;
+      bio: string;
+      avatar: {
+        children: {
+          fixed: {
+            src: string;
+          };
+        }[];
+      };
+    };
+  };
+}
+
+const renderAst = new rehypeReact({
+  createElement: React.createElement,
+  // components: { 'interactive-counter': Counter },
+  components: {},
+}).Compiler;
 
 const PageTemplate: React.SFC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
@@ -78,11 +133,12 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                 <h1 className="post-full-title">{post.frontmatter.title}</h1>
               </header>
 
-              {post.frontmatter.featureImage && (
-                <figure className="post-full-image" style={{ backgroundImage: `url(${post.frontmatter.featureImage})` }} />
+              {post.frontmatter.image && (
+                <figure className="post-full-image" style={{ backgroundImage: `url(${post.frontmatter.image})` }} />
               )}
               <section className="post-full-content">
-                <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} />
+                {/* <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} /> */}
+                {renderAst(post.htmlAst)}
               </section>
 
               {/* The big email subscribe modal content */}
@@ -120,17 +176,63 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                       </p>
                     )}
                   </section>
-                  
                 </section>
                 <div className="post-full-footer-right">
-                    <a className="author-card-button" href="{{url}}">Read More</a>
-                  </div>
+                  <a className="author-card-button" href="{{url}}">
+                    Read More
+                  </a>
+                </div>
               </footer>
             </article>
           </div>
         </main>
-        {/* <h1>{post.frontmatter.title}</h1> */}
+
+        {/* Links to Previous/Next posts */}
+        <aside className="read-next outer">
+          <div className="inner">
+            <div className="read-next-feed">
+              {props.data.relatedPosts && (
+                <article
+                  className="read-next-card"
+                  style={{ backgroundImage: `url(${props.data.site.siteMetadata.coverImage})` }}
+                >
+                  <header className="read-next-card-header">
+                    <small className="read-next-card-header-sitetitle">&mdash; {props.data.site.siteMetadata.title} &mdash;</small>
+                    <h3 className="read-next-card-header-title">
+                      <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link>
+                    </h3>
+                  </header>
+                  <div className="read-next-divider">
+                    <InfinityIcon />
+                  </div>
+                  <div className="read-next-card-content">
+                    <ul>
+                      {props.data.relatedPosts.edges.map(n => {
+                        return (
+                          <li key={n.node.frontmatter.title}>
+                            <a href="">{n.node.frontmatter.title}</a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                  <footer className="read-next-card-footer">
+                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                      {props.data.relatedPosts.totalCount > 1 && `See all ${props.data.relatedPosts.totalCount} posts`}
+                      {props.data.relatedPosts.totalCount === 1 && `1 post`}
+                      {props.data.relatedPosts.totalCount === 0 && `No posts`} →
+                    </Link>
+                  </footer>
+                </article>
+              )}
+
+              {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
+              {props.pageContext.next && <PostCard post={props.pageContext.next} />}
+            </div>
+          </div>
+        </aside>
       </Wrapper>
+      <Footer site={props.data.site} />
     </IndexLayout>
   );
 };
@@ -138,12 +240,16 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
 export default PageTemplate;
 
 export const query = graphql`
-  query PageTemplateQuery($slug: String!) {
+  query($slug: String, $primaryTag: String) {
     site {
       siteMetadata {
         title
         description
         logo
+        siteUrl
+        coverImage
+        facebook
+        twitter
         author {
           name
           url
@@ -152,13 +258,15 @@ export const query = graphql`
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
+      htmlAst
       excerpt
+      timeToRead
       frontmatter {
         title
         userDate: date(formatString: "D MMMM YYYY")
         date
         tags
-        featureImage: feature_image
+        image
         author {
           id
           bio
@@ -170,6 +278,22 @@ export const query = graphql`
                 }
               }
             }
+          }
+        }
+      }
+    }
+    relatedPosts: allMarkdownRemark(filter: { frontmatter: { tags: { in: [$primaryTag] }, draft: { ne: true } } }, limit: 3) {
+      totalCount
+      edges {
+        node {
+          id
+          timeToRead
+          excerpt
+          frontmatter {
+            title
+          }
+          fields {
+            slug
           }
         }
       }
