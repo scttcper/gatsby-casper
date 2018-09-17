@@ -7,7 +7,7 @@ import Container from '../components/Container';
 import IndexLayout from '../layouts';
 import Wrapper from '../components/Wrapper';
 import SiteNav from '../components/header/SiteNav';
-import BylineMultiple from '../components/BylineMultiple';
+import BylineSingle from '../components/BylineSingle';
 
 interface PageTemplateProps {
   data: {
@@ -32,12 +32,24 @@ interface PageTemplateProps {
         userDate: string;
         featureImage: string;
         tags: string[];
+        author: {
+          id: string;
+          bio: string;
+          avatar: {
+            children: {
+              fixed: {
+                src: string;
+              };
+            }[];
+          };
+        };
       };
     };
   };
 }
 
 const PageTemplate: React.SFC<PageTemplateProps> = props => {
+  const post = props.data.markdownRemark;
   console.log(props);
   return (
     <IndexLayout>
@@ -57,25 +69,20 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
             <article className="post-full {{post_class}} {{#unless feature_image}}no-image{{/unless}}">
               <header className="post-full-header">
                 <section className="post-full-meta">
-                  <time className="post-full-meta-date" dateTime={props.data.markdownRemark.frontmatter.date}>
-                    {props.data.markdownRemark.frontmatter.userDate}
+                  <time className="post-full-meta-date" dateTime={post.frontmatter.date}>
+                    {post.frontmatter.userDate}
                   </time>
                   <span className="date-divider">/</span>
-                  <Link to={`/tags/${_.kebabCase(props.data.markdownRemark.frontmatter.tags[0])}/`}>
-                    {props.data.markdownRemark.frontmatter.tags[0]}
-                  </Link>
+                  <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link>
                 </section>
-                <h1 className="post-full-title">{props.data.markdownRemark.frontmatter.title}</h1>
+                <h1 className="post-full-title">{post.frontmatter.title}</h1>
               </header>
 
-              {props.data.markdownRemark.frontmatter.featureImage && (
-                <figure
-                  className="post-full-image"
-                  style={{ backgroundImage: `url(${props.data.markdownRemark.frontmatter.featureImage})` }}
-                />
+              {post.frontmatter.featureImage && (
+                <figure className="post-full-image" style={{ backgroundImage: `url(${post.frontmatter.featureImage})` }} />
               )}
               <section className="post-full-content">
-                <div className="post-content" dangerouslySetInnerHTML={{ __html: props.data.markdownRemark.html }} />
+                <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} />
               </section>
 
               {/* The big email subscribe modal content */}
@@ -96,14 +103,33 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                 </form>
               </section>
 
-              <footer class="post-full-footer">
-                <BylineMultiple/>
+              <footer className="post-full-footer">
+                <section className="author-card">
+                  {/* TODO: default avatar */}
+                  {/* TODO: author page url */}
+                  <img className="author-profile-image" src={post.frontmatter.author.avatar.children[0].fixed.src} alt={name} />
+                  <section className="author-card-content">
+                    <h4 className="author-card-name">
+                      <a href="{url}">{post.frontmatter.author.id}</a>
+                    </h4>
+                    {post.frontmatter.author.bio ? (
+                      <p>{post.frontmatter.author.bio}</p>
+                    ) : (
+                      <p>
+                        Read <a href="url">more posts</a> by this author.
+                      </p>
+                    )}
+                  </section>
+                  
+                </section>
+                <div className="post-full-footer-right">
+                    <a className="author-card-button" href="{{url}}">Read More</a>
+                  </div>
               </footer>
-
             </article>
           </div>
         </main>
-        {/* <h1>{props.data.markdownRemark.frontmatter.title}</h1> */}
+        {/* <h1>{post.frontmatter.title}</h1> */}
       </Wrapper>
     </IndexLayout>
   );
@@ -133,6 +159,19 @@ export const query = graphql`
         date
         tags
         featureImage: feature_image
+        author {
+          id
+          bio
+          avatar {
+            children {
+              ... on ImageSharp {
+                fixed(quality: 100) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

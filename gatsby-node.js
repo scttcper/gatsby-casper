@@ -76,11 +76,11 @@ exports.createPages = async ({ graphql, actions }) => {
       //
       // Feel free to set any `layout` as you'd like in the frontmatter, as
       // long as the corresponding template file exists in src/templates.
-      // If no template is set, it will fall back to the default `page`
+      // If no template is set, it will fall back to the default `post`
       // template.
       //
       // Note that the template has to exist first, or else the build will fail.
-      component: path.resolve(`./src/templates/${layout || 'page'}.tsx`),
+      component: path.resolve(`./src/templates/${layout || 'post'}.tsx`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug,

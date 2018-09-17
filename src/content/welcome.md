@@ -1,9 +1,11 @@
 ---
-layout: page
-title: "Example Markdown page"
+layout: post
+title: "Welcome to Ghost"
+author: Ghost
 tags: ["Getting Started"]
 feature_image: https://casper.ghost.org/v2.0.0/images/welcome-to-ghost.jpg
 date: "2015-05-06T23:46:37.121Z"
+draft: false
 ---
 
 👋 Welcome, it's great to have you here.
@@ -21,5 +23,3 @@ The version of Ghost you are looking at right now would not have been made possi
 ## Next up, the editor
 The main thing you'll want to read about next is probably: the Ghost editor. This is where the good stuff happens.
 > By the way, once you're done reading, you can simply delete the default __Ghost__ user from your team to remove all of these introductory posts! 
-
-[That's cool! Okay, take me back home.](/)

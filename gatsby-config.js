@@ -10,6 +10,9 @@ module.exports = {
       email: 'resir014@gmail.com',
     },
   },
+  mapping: {
+    'MarkdownRemark.frontmatter.author': 'AuthorYaml',
+  },
   plugins: [
     {
       resolve: 'gatsby-source-filesystem',
@@ -54,13 +57,13 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    'gatsby-transformer-yaml',
     {
       resolve: 'gatsby-plugin-postcss',
       options: {
-        postCssPlugins: [
-          require("postcss-color-function"),
-          require('cssnano')(),
-        ],
+        postCssPlugins: [require('postcss-color-function'), require('cssnano')()],
       },
     },
   ],

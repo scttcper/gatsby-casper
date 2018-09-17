@@ -1,14 +1,10 @@
 {
   "name": "gatsby-casper",
   "description": "Casper for gatsby",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
   "author": "Scott Cooper <scttcper@gmail.com>",
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
-  "main": "n/a",
   "scripts": {
     "build": "gatsby build",
     "clean": "rimraf public",
@@ -18,15 +14,12 @@
     "start": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "engines": {
-    "node": ">=8.0.0"
-  },
   "dependencies": {
     "babel-plugin-styled-components": "^1.7.1",
     "classnames": "^2.2.6",
     "cssnano": "^4.1.0",
-    "emotion": "^9.2.8",
-    "emotion-server": "^9.2.8",
+    "emotion": "^9.2.9",
+    "emotion-server": "^9.2.9",
     "gatsby": "next",
     "gatsby-image": "next",
     "gatsby-plugin-canonical-urls": "next",
@@ -44,6 +37,7 @@
     "gatsby-transformer-json": "next",
     "gatsby-transformer-remark": "next",
     "gatsby-transformer-sharp": "next",
+    "gatsby-transformer-yaml": "next",
     "lodash": "^4.17.11",
     "modern-normalize": "^0.5.0",
     "normalize.css": "^8.0.0",
@@ -53,7 +47,7 @@
     "prismjs": "^1.15.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
-    "react-emotion": "^9.2.8",
+    "react-emotion": "^9.2.9",
     "react-helmet": "^5.2.0",
     "typescript": "^3.0.3"
   },
@@ -64,12 +58,15 @@
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
     "@types/react-helmet": "^5.0.7",
-    "gh-pages": "^1.2.0",
+    "gh-pages": "^2.0.0",
     "prettier": "^1.14.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.11.0",
     "tslint-config-blvd": "^1.2.1",
     "tslint-config-prettier": "^1.15.0",
-    "tslint-plugin-prettier": "^1.3.0"
+    "tslint-plugin-prettier": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }
