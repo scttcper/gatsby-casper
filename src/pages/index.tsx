@@ -136,7 +136,7 @@ export const pageQuery = graphql`
         coverImage
       }
     }
-    allMarkdownRemark(limit: 1000) {
+    allMarkdownRemark(limit: 1000, sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           timeToRead

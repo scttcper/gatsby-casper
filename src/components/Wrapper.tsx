@@ -4,7 +4,7 @@ import styled from 'react-emotion'
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  min-height: 100vh;
 `
 
 interface WrapperProps {

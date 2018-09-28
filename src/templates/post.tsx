@@ -12,6 +12,7 @@ import BylineSingle from '../components/BylineSingle';
 import InfinityIcon from '../components/icons/infinity';
 import PostCard from '../components/PostCard';
 import Footer from '../components/Footer';
+import { Helmet } from 'react-helmet';
 
 interface PageTemplateProps {
   data: {
@@ -103,11 +104,19 @@ const renderAst = new rehypeReact({
   components: {},
 }).Compiler;
 
+const Ast = ({ ast, ...props }) => {
+  ast.properties = props
+  return renderAst(ast)
+}
+
 const PageTemplate: React.SFC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
   console.log(props);
   return (
-    <IndexLayout>
+    <IndexLayout className="post-template">
+      <Helmet>
+        <title>{post.frontmatter.title}</title>
+      </Helmet>
       <Wrapper className="post-template">
         <header className="site-header outer">
           <div className="inner">
@@ -127,8 +136,10 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                   <time className="post-full-meta-date" dateTime={post.frontmatter.date}>
                     {post.frontmatter.userDate}
                   </time>
-                  <span className="date-divider">/</span>
-                  <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link>
+                  { post.frontmatter.tags && post.frontmatter.tags.length > 0 &&
+                    (<><span className="date-divider">/</span>
+                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link></>)
+                  }
                 </section>
                 <h1 className="post-full-title">{post.frontmatter.title}</h1>
               </header>
@@ -138,7 +149,8 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
               )}
               <section className="post-full-content">
                 {/* <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} /> */}
-                {renderAst(post.htmlAst)}
+                {/* TODO: this will apply the class when rehype-react is published https://github.com/rhysd/rehype-react/pull/11 */}
+                <Ast className="post-content" ast={post.htmlAst}/>
               </section>
 
               {/* The big email subscribe modal content */}
@@ -163,7 +175,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                 <section className="author-card">
                   {/* TODO: default avatar */}
                   {/* TODO: author page url */}
-                  <img className="author-profile-image" src={post.frontmatter.author.avatar.children[0].fixed.src} alt={name} />
+                  <img className="author-profile-image" src={post.frontmatter.author.avatar.children[0].fixed.src} alt={post.frontmatter.author.id} />
                   <section className="author-card-content">
                     <h4 className="author-card-name">
                       <a href="{url}">{post.frontmatter.author.id}</a>
@@ -231,8 +243,8 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
             </div>
           </div>
         </aside>
-      </Wrapper>
       <Footer site={props.data.site} />
+      </Wrapper>
     </IndexLayout>
   );
 };

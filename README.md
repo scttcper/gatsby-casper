@@ -4,11 +4,11 @@ A port of [Casper](https://github.com/TryGhost/Casper) v2 for gatsby in TypeScri
 
 
 ### TODO
-- [ ] home page
-- [ ] tag page
+- [x] home page
+- [x] tag page
 - [ ] author page
-- [ ] blog page
-  - [x] blog tags
-  - [ ] blog author
-  - [ ] blog multiple authors?
-  - [ ] blog drafts
+- [x] blog page
+  - [ ] progress bar?
+- [ ] polish ✨
+  - [ ] meta tags
+  - [ ] page titles

@@ -2,11 +2,15 @@ import * as React from 'react';
 
 import '../assets/screen.min.css';
 
-const IndexLayout: React.SFC = props => {
+interface IndexProps {
+  className?: string
+}
+
+const IndexLayout: React.SFC<IndexProps> = props => {
   return (
-    <>
+    <div className={props.className}>
       {props.children}
-    </>
+    </div>
   );
 };
 

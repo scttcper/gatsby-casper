@@ -4,7 +4,7 @@ title: "The Purpose of Education"
 author: Ghost
 tags: ["Speeches"]
 image: https://demo.ghost.io/content/images/2015/04/demo4.jpg
-date: "2018-08-20T15:11:55.000Z"
+date: "2012-08-20T15:11:55.000Z"
 draft: false
 ---
 
