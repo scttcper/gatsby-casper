@@ -70,7 +70,7 @@ interface PageTemplateProps {
           };
           fields: {
             slug: string;
-          }
+          };
         };
       }[];
     };
@@ -89,9 +89,9 @@ export interface PageContext {
   };
   frontmatter: {
     image: {
-      children: {
+      childImageSharp: {
         sizes: any;
-      }[];
+      };
     };
     title: string;
     date: string;
@@ -198,21 +198,21 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                   />
                   <section className="author-card-content">
                     <h4 className="author-card-name">
-                      <a href="{url}">{post.frontmatter.author.id}</a>
+                      <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>{post.frontmatter.author.id}</Link>
                     </h4>
                     {post.frontmatter.author.bio ? (
                       <p>{post.frontmatter.author.bio}</p>
                     ) : (
                       <p>
-                        Read <a href="url">more posts</a> by this author.
+                        Read <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>more posts</Link> by this author.
                       </p>
                     )}
                   </section>
                 </section>
                 <div className="post-full-footer-right">
-                  <a className="author-card-button" href="{{url}}">
+                  <Link className="author-card-button" to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>
                     Read More
-                  </a>
+                  </Link>
                 </div>
               </footer>
             </article>

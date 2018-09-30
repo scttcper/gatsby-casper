@@ -46,7 +46,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const allMarkdown = await graphql(`
+  const result = await graphql(`
     {
       allMarkdownRemark(limit: 2000) {
         edges {
@@ -89,15 +89,23 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allAuthorYaml {
+        edges {
+          node {
+            id
+          }
+        }
+      }
     }
   `);
 
-  if (allMarkdown.errors) {
-    console.error(allMarkdown.errors);
-    throw new Error(allMarkdown.errors);
+  if (result.errors) {
+    console.error(result.errors);
+    throw new Error(result.errors);
   }
 
-  const posts = allMarkdown.data.allMarkdownRemark.edges;
+  // Create post pages
+  const posts = result.data.allMarkdownRemark.edges;
   posts.forEach(({ node }, index) => {
     const { slug, layout } = node.fields;
     const prev = index === 0 ? null : posts[index - 1].node;
@@ -125,10 +133,11 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
+  // Create tag pages
   const tagTemplate = path.resolve('./src/templates/tags.tsx');
   let tags = [];
   // Iterate through each post, putting all found tags into `tags`
-  _.each(allMarkdown.data.allMarkdownRemark.edges, edge => {
+  _.each(result.data.allMarkdownRemark.edges, edge => {
     if (_.get(edge, 'node.frontmatter.tags')) {
       tags = tags.concat(edge.node.frontmatter.tags);
     }
@@ -145,5 +154,23 @@ exports.createPages = async ({ graphql, actions }) => {
         tag,
       },
     });
+  });
+
+  // Create author pages
+  const authorTemplate = path.resolve('./src/templates/author.tsx');
+  result.data.allAuthorYaml.edges.forEach(edge => {
+    createPage({
+      path: `/author/${_.kebabCase(edge.node.id)}/`,
+      component: authorTemplate,
+      context: {
+        author: edge.node.id,
+      },
+    })
+  })
+};
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    devtool: 'eval-source-map',
   });
 };

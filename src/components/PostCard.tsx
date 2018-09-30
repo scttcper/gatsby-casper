@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
+import * as _ from 'lodash';
 
 export interface PostCardProps {
   post: {
@@ -56,13 +57,13 @@ const PostCard: React.SFC<PostCardProps> = props => (
         <ul className="author-list">
           <li className="author-list-item">
             <div className="author-name-tooltip">{props.post.frontmatter.author.id}</div>
-            <a href="{{url}}" className="static-avatar">
+            <Link className="static-avatar" to={`/author/${_.kebabCase(props.post.frontmatter.author.id)}/`}>
               <img
                 className="author-profile-image"
                 src={props.post.frontmatter.author.avatar.children[0].fixed.src}
                 alt={props.post.frontmatter.author.id}
               />
-            </a>
+            </Link>
           </li>
         </ul>
         <span className="reading-time">{props.post.timeToRead} min read</span>

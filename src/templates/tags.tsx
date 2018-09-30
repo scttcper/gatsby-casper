@@ -85,7 +85,7 @@ const Tags: React.SFC<TagTemplateProps> = props => {
               logo={props.data.site.siteMetadata.logo}
             />
             <div className="site-header-content">
-              <h1 className="site-title">Getting Started</h1>
+              <h1 className="site-title">{tag}</h1>
               {/* TODO: tag description */}
               <h2 className="site-description">
                 A collection of {totalCount > 1 && `${totalCount} posts`}
