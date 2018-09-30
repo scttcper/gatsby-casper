@@ -46,7 +46,11 @@ export interface PageContext {
     slug: string;
   };
   frontmatter: {
-    image?: string;
+    image?: {
+      childImageSharp: {
+        sizes: any;
+      };
+    };
     title: string;
     date: string;
     tags: string[];
@@ -66,7 +70,6 @@ export interface PageContext {
 
 const Tags: React.SFC<TagTemplateProps> = props => {
   const tag = props.pageContext.tag;
-  console.log(props);
   const { edges, totalCount } = props.data.allMarkdownRemark;
   const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
 
@@ -101,7 +104,7 @@ const Tags: React.SFC<TagTemplateProps> = props => {
             </div>
           </div>
         </main>
-      <Footer site={props.data.site} />
+        <Footer site={props.data.site} />
       </Wrapper>
     </IndexLayout>
   );
@@ -136,7 +139,13 @@ export const pageQuery = graphql`
             title
             tags
             date
-            image
+            image {
+              childImageSharp {
+                sizes(maxWidth: 1240) {
+                  ...GatsbyImageSharpSizes
+                }
+              }
+            }
             author {
               id
               bio

@@ -17,6 +17,7 @@ module.exports = {
     'MarkdownRemark.frontmatter.author': 'AuthorYaml',
   },
   plugins: [
+    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -40,9 +41,8 @@ module.exports = {
           {
             resolve: 'gatsby-remark-images',
             options: {
-              maxWidth: 1140,
+              maxWidth: 1170,
               quality: 100,
-              linkImagesToOriginal: false,
             },
           },
         ],
@@ -52,15 +52,13 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com',
+        siteUrl: 'https://gatsby-casper.netlify.com',
       },
     },
     'gatsby-plugin-emotion',
     'gatsby-plugin-typescript',
-    'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-transformer-yaml',
     {

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
+import Img from 'gatsby-image';
 
 export interface PostCardProps {
   post: {
@@ -9,7 +10,11 @@ export interface PostCardProps {
       slug: string;
     };
     frontmatter: {
-      image?: string;
+      image?: {
+        childImageSharp: {
+          sizes: any;
+        };
+      };
       title: string;
       date: string;
       tags: string[];
@@ -32,7 +37,9 @@ const PostCard: React.SFC<PostCardProps> = props => (
   <article className="post-card {{post_class}}{{#unless feature_image}} no-image{{/unless}}">
     {props.post.frontmatter.image && (
       <Link className="post-card-image-link" to={props.post.fields.slug}>
-        <div className="post-card-image" style={{ backgroundImage: `url(${props.post.frontmatter.image})` }} />
+        <div className="post-card-image">
+          {props.post.frontmatter.image && props.post.frontmatter.image.childImageSharp.sizes && <Img sizes={props.post.frontmatter.image.childImageSharp.sizes} />}
+        </div>
       </Link>
     )}
     <div className="post-card-content">

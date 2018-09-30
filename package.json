@@ -15,13 +15,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "babel-plugin-styled-components": "1.7.1",
+    "babel-plugin-styled-components": "1.8.0",
     "classnames": "2.2.6",
     "cssnano": "4.1.4",
     "emotion": "9.2.10",
     "emotion-server": "9.2.10",
     "gatsby": "2.0.12",
-    "gatsby-image": "2.0.11",
+    "gatsby-image": "2.0.12",
     "gatsby-plugin-canonical-urls": "2.0.5",
     "gatsby-plugin-emotion": "2.0.5",
     "gatsby-plugin-postcss": "2.0.0",
@@ -41,7 +41,7 @@
     "lodash": "4.17.11",
     "modern-normalize": "0.5.0",
     "normalize.css": "8.0.0",
-    "polished": "2.1.1",
+    "polished": "2.2.0",
     "postcss-color-function": "4.0.1",
     "prism-themes": "1.0.1",
     "prismjs": "1.15.0",
@@ -55,7 +55,7 @@
   "devDependencies": {
     "@types/classnames": "2.2.6",
     "@types/lodash": "4.14.116",
-    "@types/node": "10.11.2",
+    "@types/node": "10.11.3",
     "@types/react": "16.4.14",
     "@types/react-dom": "16.0.8",
     "@types/react-helmet": "5.0.7",

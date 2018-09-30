@@ -2,6 +2,7 @@ import * as React from 'react';
 import { graphql, Link } from 'gatsby';
 import * as _ from 'lodash';
 import rehypeReact from 'rehype-react';
+import Img from 'gatsby-image';
 
 import Page from '../components/Page';
 import Container from '../components/Container';
@@ -40,7 +41,11 @@ interface PageTemplateProps {
         title: string;
         date: string;
         userDate: string;
-        image: string;
+        image: {
+          childImageSharp: {
+            sizes: any;
+          };
+        };
         tags: string[];
         author: {
           id: string;
@@ -63,6 +68,9 @@ interface PageTemplateProps {
           frontmatter: {
             title: string;
           };
+          fields: {
+            slug: string;
+          }
         };
       }[];
     };
@@ -80,7 +88,11 @@ export interface PageContext {
     slug: string;
   };
   frontmatter: {
-    image?: string;
+    image: {
+      children: {
+        sizes: any;
+      }[];
+    };
     title: string;
     date: string;
     tags: string[];
@@ -105,13 +117,12 @@ const renderAst = new rehypeReact({
 }).Compiler;
 
 const Ast = ({ ast, ...props }) => {
-  ast.properties = props
-  return renderAst(ast)
-}
+  ast.properties = props;
+  return renderAst(ast);
+};
 
 const PageTemplate: React.SFC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
-  console.log(props);
   return (
     <IndexLayout className="post-template">
       <Helmet>
@@ -136,21 +147,26 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                   <time className="post-full-meta-date" dateTime={post.frontmatter.date}>
                     {post.frontmatter.userDate}
                   </time>
-                  { post.frontmatter.tags && post.frontmatter.tags.length > 0 &&
-                    (<><span className="date-divider">/</span>
-                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link></>)
-                  }
+                  {post.frontmatter.tags &&
+                    post.frontmatter.tags.length > 0 && (
+                      <>
+                        <span className="date-divider">/</span>
+                        <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link>
+                      </>
+                    )}
                 </section>
                 <h1 className="post-full-title">{post.frontmatter.title}</h1>
               </header>
 
-              {post.frontmatter.image && (
-                <figure className="post-full-image" style={{ backgroundImage: `url(${post.frontmatter.image})` }} />
+              {post.frontmatter.image.childImageSharp && (
+                <figure className="post-full-image">
+                  <Img sizes={post.frontmatter.image.childImageSharp.sizes} />
+                </figure>
               )}
               <section className="post-full-content">
                 {/* <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} /> */}
                 {/* TODO: this will apply the class when rehype-react is published https://github.com/rhysd/rehype-react/pull/11 */}
-                <Ast className="post-content" ast={post.htmlAst}/>
+                <Ast className="post-content" ast={post.htmlAst} />
               </section>
 
               {/* The big email subscribe modal content */}
@@ -175,7 +191,11 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                 <section className="author-card">
                   {/* TODO: default avatar */}
                   {/* TODO: author page url */}
-                  <img className="author-profile-image" src={post.frontmatter.author.avatar.children[0].fixed.src} alt={post.frontmatter.author.id} />
+                  <img
+                    className="author-profile-image"
+                    src={post.frontmatter.author.avatar.children[0].fixed.src}
+                    alt={post.frontmatter.author.id}
+                  />
                   <section className="author-card-content">
                     <h4 className="author-card-name">
                       <a href="{url}">{post.frontmatter.author.id}</a>
@@ -204,10 +224,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
           <div className="inner">
             <div className="read-next-feed">
               {props.data.relatedPosts && (
-                <article
-                  className="read-next-card"
-                  style={{ backgroundImage: `url(${props.data.site.siteMetadata.coverImage})` }}
-                >
+                <article className="read-next-card" style={{ backgroundImage: `url(${props.data.site.siteMetadata.coverImage})` }}>
                   <header className="read-next-card-header">
                     <small className="read-next-card-header-sitetitle">&mdash; {props.data.site.siteMetadata.title} &mdash;</small>
                     <h3 className="read-next-card-header-title">
@@ -222,7 +239,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                       {props.data.relatedPosts.edges.map(n => {
                         return (
                           <li key={n.node.frontmatter.title}>
-                            <a href="">{n.node.frontmatter.title}</a>
+                            <Link to={n.node.fields.slug}>{n.node.frontmatter.title}</Link>
                           </li>
                         );
                       })}
@@ -243,7 +260,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
             </div>
           </div>
         </aside>
-      <Footer site={props.data.site} />
+        <Footer site={props.data.site} />
       </Wrapper>
     </IndexLayout>
   );
@@ -278,7 +295,13 @@ export const query = graphql`
         userDate: date(formatString: "D MMMM YYYY")
         date
         tags
-        image
+        image {
+          childImageSharp {
+            sizes(maxWidth: 1240) {
+              ...GatsbyImageSharpSizes
+            }
+          }
+        }
         author {
           id
           bio

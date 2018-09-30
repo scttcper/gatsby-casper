@@ -2,7 +2,7 @@
 title: "Gettysburg Address"
 author: Ghost
 tags: []
-image: https://demo.ghost.io/content/images/2015/04/demo1.jpg
+image: img/demo1.jpg
 date: "1863-11-19T10:00:00.000Z"
 draft: false
 ---

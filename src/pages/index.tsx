@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { StaticQuery, graphql, Link } from 'gatsby';
+import Img from 'gatsby-image';
 
 import Wrapper from '../components/Wrapper';
 import SiteNav from '../components/header/SiteNav';
@@ -24,7 +25,11 @@ type StaticQueryProps = {
           timeToRead: number;
           frontmatter: {
             title: string;
-            image?: string;
+            image: {
+              childImageSharp: {
+                sizes: any;
+              };
+            };
             tags?: string[];
           };
           excerpt: string;
@@ -39,7 +44,6 @@ type StaticQueryProps = {
 };
 
 export default (props: StaticQueryProps) => {
-  console.log(props);
   return (
     <IndexLayout>
       <Wrapper className="home-template">
@@ -64,7 +68,12 @@ export default (props: StaticQueryProps) => {
               </h1>
               <h2 className="site-description">{props.data.site.siteMetadata.description}</h2>
             </div>
-            <SiteNav isHome={true} title={props.data.site.siteMetadata.title} siteUrl={props.data.site.siteMetadata.siteUrl} logo={props.data.site.siteMetadata.logo} />
+            <SiteNav
+              isHome={true}
+              title={props.data.site.siteMetadata.title}
+              siteUrl={props.data.site.siteMetadata.siteUrl}
+              logo={props.data.site.siteMetadata.logo}
+            />
           </div>
         </header>
         <main id="site-main" className="site-main outer">
@@ -75,12 +84,9 @@ export default (props: StaticQueryProps) => {
                   <article key={idx} className="post-card">
                     {
                       <Link to={post.node.fields.slug} className="post-card-image-link">
-                        <div
-                          className="post-card-image"
-                          style={{
-                            backgroundImage: `url(${post.node.frontmatter.image})`,
-                          }}
-                        />
+                        <div className="post-card-image">
+                          <Img sizes={post.node.frontmatter.image.childImageSharp.sizes} />
+                        </div>
                       </Link>
                     }
                     <div className="post-card-content">
@@ -143,7 +149,13 @@ export const pageQuery = graphql`
           frontmatter {
             title
             tags
-            image
+            image {
+              childImageSharp {
+                sizes(maxWidth: 1240) {
+                  ...GatsbyImageSharpSizes
+                }
+              }
+            }
           }
           excerpt
           fields {

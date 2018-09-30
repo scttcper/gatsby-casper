@@ -3,7 +3,7 @@ layout: post
 title: "Using The Ghost Editor"
 author: Ghost
 tags: ["Getting Started"]
-image: https://casper.ghost.org/v1.0.0/images/writing.jpg
+image: img/writing.jpg
 date: "2015-02-02T23:46:37.121Z"
 draft: false
 ---
@@ -35,7 +35,7 @@ Images in Markdown look just the same as links, except they're prefixed with an 
 
 `![Image description](/path/to/image.jpg)`
 
-![Computer](https://casper.ghost.org/v1.0.0/images/computer.jpg)
+![Computer](img/computer.jpg)
 
 Most Markdown editors don't make you type this out, though. In Ghost you can click on the image icon in the toolbar at the bottom of the editor, or you can just click and drag an image from your desktop directly into the editor. Both will upload the image for you and generate the appropriate Markdown.
 
