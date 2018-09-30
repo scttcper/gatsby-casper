@@ -69,6 +69,7 @@ export interface PageContext {
 }
 
 const Tags: React.SFC<TagTemplateProps> = props => {
+  const siteMetadata = props.data.site.siteMetadata;
   const tag = props.pageContext.tag;
   const { edges, totalCount } = props.data.allMarkdownRemark;
   const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
@@ -104,7 +105,7 @@ const Tags: React.SFC<TagTemplateProps> = props => {
             </div>
           </div>
         </main>
-        <Footer site={props.data.site} />
+        <Footer siteMetadata={siteMetadata} />
       </Wrapper>
     </IndexLayout>
   );

@@ -28,6 +28,7 @@
     "gatsby-plugin-react-helmet": "3.0.0",
     "gatsby-plugin-sharp": "2.0.5",
     "gatsby-plugin-typescript": "2.0.0",
+    "gatsby-remark-abbr": "^1.0.0",
     "gatsby-remark-copy-linked-files": "2.0.5",
     "gatsby-remark-images": "2.0.3",
     "gatsby-remark-prismjs": "3.0.1",

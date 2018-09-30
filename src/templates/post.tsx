@@ -1,19 +1,17 @@
-import * as React from 'react';
 import { graphql, Link } from 'gatsby';
-import * as _ from 'lodash';
-import rehypeReact from 'rehype-react';
 import Img from 'gatsby-image';
+import * as _ from 'lodash';
+import * as React from 'react';
+import { Helmet } from 'react-helmet';
+import rehypeReact from 'rehype-react';
 
-import Page from '../components/Page';
-import Container from '../components/Container';
-import IndexLayout from '../layouts';
-import Wrapper from '../components/Wrapper';
+import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import BylineSingle from '../components/BylineSingle';
 import InfinityIcon from '../components/icons/infinity';
 import PostCard from '../components/PostCard';
-import Footer from '../components/Footer';
-import { Helmet } from 'react-helmet';
+import Wrapper from '../components/Wrapper';
+import IndexLayout from '../layouts';
+
 
 interface PageTemplateProps {
   data: {
@@ -123,6 +121,8 @@ const Ast = ({ ast, ...props }) => {
 
 const PageTemplate: React.SFC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
+  const siteMetadata = props.data.site.siteMetadata;
+  
   return (
     <IndexLayout className="post-template">
       <Helmet>
@@ -160,7 +160,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
 
               {post.frontmatter.image.childImageSharp && (
                 <figure className="post-full-image">
-                  <Img sizes={post.frontmatter.image.childImageSharp.sizes} />
+                  <Img style={{ height: '100%' }} sizes={post.frontmatter.image.childImageSharp.sizes} />
                 </figure>
               )}
               <section className="post-full-content">
@@ -260,7 +260,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
             </div>
           </div>
         </aside>
-        <Footer site={props.data.site} />
+        <Footer siteMetadata={siteMetadata} />
       </Wrapper>
     </IndexLayout>
   );

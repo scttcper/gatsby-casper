@@ -1,11 +1,12 @@
-import * as React from 'react';
-import { StaticQuery, graphql, Link } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
+import * as React from 'react';
 
-import Wrapper from '../components/Wrapper';
-import SiteNav from '../components/header/SiteNav';
-import IndexLayout from '../layouts';
 import Footer from '../components/Footer';
+import SiteNav from '../components/header/SiteNav';
+import Wrapper from '../components/Wrapper';
+import IndexLayout from '../layouts';
+import PostCard from '../components/PostCard';
 
 type StaticQueryProps = {
   children?: any;
@@ -17,6 +18,8 @@ type StaticQueryProps = {
         siteUrl: string;
         coverImage: string;
         logo?: string;
+        facebook: string;
+        twitter: string;
       };
     };
     allMarkdownRemark: {
@@ -25,9 +28,21 @@ type StaticQueryProps = {
           timeToRead: number;
           frontmatter: {
             title: string;
+            date: string;
             image: {
               childImageSharp: {
                 sizes: any;
+              };
+            };
+            author: {
+              id: string;
+              bio: string;
+              avatar: {
+                children: {
+                  fixed: {
+                    src: string;
+                  };
+                }[];
               };
             };
             tags?: string[];
@@ -44,88 +59,46 @@ type StaticQueryProps = {
 };
 
 export default (props: StaticQueryProps) => {
+  const siteMetadata = props.data.site.siteMetadata;
   return (
     <IndexLayout>
       <Wrapper className="home-template">
         <header
           className="site-header outer"
           style={{
-            backgroundImage: `url(${props.data.site.siteMetadata.coverImage})`,
+            backgroundImage: `url(${siteMetadata.coverImage})`,
           }}
         >
           <div className="inner">
             <div className="site-header-content">
               <h1 className="site-title">
-                {props.data.site.siteMetadata.logo ? (
+                {siteMetadata.logo ? (
                   <img
                     className="site-logo"
                     src="https://demo.ghost.io/content/images/2014/09/Ghost-Transparent-for-DARK-BG.png"
-                    alt={props.data.site.siteMetadata.title}
+                    alt={siteMetadata.title}
                   />
                 ) : (
-                  props.data.site.siteMetadata.title
+                  siteMetadata.title
                 )}
               </h1>
-              <h2 className="site-description">{props.data.site.siteMetadata.description}</h2>
+              <h2 className="site-description">{siteMetadata.description}</h2>
             </div>
-            <SiteNav
-              isHome={true}
-              title={props.data.site.siteMetadata.title}
-              siteUrl={props.data.site.siteMetadata.siteUrl}
-              logo={props.data.site.siteMetadata.logo}
-            />
+            <SiteNav isHome={true} title={siteMetadata.title} siteUrl={siteMetadata.siteUrl} logo={siteMetadata.logo} />
           </div>
         </header>
         <main id="site-main" className="site-main outer">
           <div className="inner">
             <div className="post-feed">
-              {props.data.allMarkdownRemark.edges.map((post, idx) => {
-                return (
-                  <article key={idx} className="post-card">
-                    {
-                      <Link to={post.node.fields.slug} className="post-card-image-link">
-                        <div className="post-card-image">
-                          <Img sizes={post.node.frontmatter.image.childImageSharp.sizes} />
-                        </div>
-                      </Link>
-                    }
-                    <div className="post-card-content">
-                      <Link className="post-card-content-link" to={post.node.fields.slug}>
-                        <header className="post-card-header">
-                          {post.node.frontmatter.tags && <span className="post-card-tags">{post.node.frontmatter.tags[0]}</span>}
-                          <h2 className="post-card-title">{post.node.frontmatter.title}</h2>
-                        </header>
-                        <section className="post-card-excerpt">
-                          <p>{post.node.excerpt}</p>
-                        </section>
-                      </Link>
-                      <footer className="post-card-meta">
-                        <ul className="author-list">
-                          <li className="author-list-item">
-                            <div className="author-name-tooltip">Ghost</div>
-
-                            <a href="/author/ghost/" className="static-avatar">
-                              <img
-                                className="author-profile-image"
-                                src="https://demo.ghost.io/content/images/2017/07/ghost-icon.png"
-                                alt="Ghost"
-                              />
-                            </a>
-                          </li>
-                        </ul>
-
-                        <span className="reading-time">{post.node.timeToRead} min read</span>
-                      </footer>
-                    </div>
-                  </article>
-                );
+              {props.data.allMarkdownRemark.edges.map(post => {
+                return <PostCard key={post.node.fields.slug} post={post.node} />;
               })}
             </div>
           </div>
         </main>
         {props.children}
 
-        <Footer site={props.data.site} />
+        <Footer siteMetadata={siteMetadata} />
       </Wrapper>
     </IndexLayout>
   );
@@ -140,6 +113,8 @@ export const pageQuery = graphql`
         logo
         siteUrl
         coverImage
+        facebook
+        twitter
       }
     }
     allMarkdownRemark(limit: 1000, sort: { fields: [frontmatter___date], order: DESC }) {
@@ -148,11 +123,25 @@ export const pageQuery = graphql`
           timeToRead
           frontmatter {
             title
+            date
             tags
             image {
               childImageSharp {
                 sizes(maxWidth: 1240) {
                   ...GatsbyImageSharpSizes
+                }
+              }
+            }
+            author {
+              id
+              bio
+              avatar {
+                children {
+                  ... on ImageSharp {
+                    fixed(quality: 100) {
+                      src
+                    }
+                  }
                 }
               }
             }

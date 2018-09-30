@@ -1,18 +1,16 @@
-import * as React from 'react'
-import styled from 'react-emotion'
+import * as React from 'react';
+import styled from 'react-emotion';
 
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-`
+`;
 
 interface WrapperProps {
-  className?: string
+  className?: string;
 }
 
-const Wrapper: React.SFC<WrapperProps> = ({ children, className }) => (
-  <StyledWrapper className={className}>{children}</StyledWrapper>
-)
+const Wrapper: React.SFC<WrapperProps> = ({ children, className }) => <StyledWrapper className={className}>{children}</StyledWrapper>;
 
-export default Wrapper
+export default Wrapper;

@@ -1,35 +1,94 @@
-import { StaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
+import { setLightness } from 'polished';
 import * as React from 'react';
+import styled from 'react-emotion';
+
+import { colors } from '../styles/colors';
+
+const SiteFooter = styled.div`
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  color: #fff;
+  background: ${setLightness('0.0015', colors.darkgrey)};
+`;
+
+const SiteFooterContent = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.3rem;
+  a {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  a:hover {
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
+  }
+  @media (max-width: 650px) {
+    flex-direction: column;
+  }
+`;
+
+const SiteFooterNav = styled.nav`
+  display: flex;
+
+  a {
+    position: relative;
+    margin-left: 20px;
+  }
+
+  a:before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: -11px;
+    display: block;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 100%;
+  }
+
+  a:first-of-type:before {
+    display: none;
+  }
+  @media (max-width: 650px) {
+    a:first-child {
+      margin-left: 0;
+    }
+  }
+`;
 
 export interface FooterProps {
-  site: {
-    siteMetadata: {
-      title: string;
-      description: string;
-      siteUrl: string;
-      facebook: string;
-      twitter: string;
-      logo?: string;
-    };
+  siteMetadata: {
+    title: string;
+    description: string;
+    siteUrl: string;
+    facebook: string;
+    twitter: string;
+    logo?: string;
   };
 }
 
-const Footer: React.SFC<FooterProps> = ({ site }) => {
+const Footer: React.SFC<FooterProps> = ({ siteMetadata }) => {
   return (
-    <footer className="site-footer outer">
-      <div className="site-footer-content inner">
+    <SiteFooter className="outer">
+      <SiteFooterContent className="inner">
         <section className="copyright">
-          <Link to={site.siteMetadata.siteUrl}>{site.siteMetadata.title}</Link> &copy; swag
+          <Link to={siteMetadata.siteUrl}>{siteMetadata.title}</Link> &copy; swag
         </section>
-        <nav className="site-footer-nav">
-          <Link to={site.siteMetadata.siteUrl}>Latest Posts</Link>
-          {site.siteMetadata.facebook && (
-            <a href={site.siteMetadata.facebook} target="_blank" rel="noopener">
+        <SiteFooterNav>
+          <Link to={siteMetadata.siteUrl}>Latest Posts</Link>
+          {siteMetadata.facebook && (
+            <a href={siteMetadata.facebook} target="_blank" rel="noopener">
               Facebook
             </a>
           )}
-          {site.siteMetadata.twitter && (
-            <a href={site.siteMetadata.twitter} target="_blank" rel="noopener">
+          {siteMetadata.twitter && (
+            <a href={siteMetadata.twitter} target="_blank" rel="noopener">
               Twitter
             </a>
           )}
@@ -37,9 +96,9 @@ const Footer: React.SFC<FooterProps> = ({ site }) => {
           <a href="https://ghost.org" target="_blank" rel="noopener">
             Ghost
           </a>
-        </nav>
-      </div>
-    </footer>
+        </SiteFooterNav>
+      </SiteFooterContent>
+    </SiteFooter>
   );
 };
 

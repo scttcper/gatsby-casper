@@ -18,7 +18,7 @@ export interface PostCardProps {
       };
       title: string;
       date: string;
-      tags: string[];
+      tags?: string[];
       author: {
         id: string;
         bio: string;
@@ -39,14 +39,17 @@ const PostCard: React.SFC<PostCardProps> = props => (
     {props.post.frontmatter.image && (
       <Link className="post-card-image-link" to={props.post.fields.slug}>
         <div className="post-card-image">
-          {props.post.frontmatter.image && props.post.frontmatter.image.childImageSharp.sizes && <Img sizes={props.post.frontmatter.image.childImageSharp.sizes} />}
+          {props.post.frontmatter.image &&
+            props.post.frontmatter.image.childImageSharp.sizes && (
+              <Img style={{ height: '100%' }} sizes={props.post.frontmatter.image.childImageSharp.sizes} />
+            )}
         </div>
       </Link>
     )}
     <div className="post-card-content">
       <Link className="post-card-content-link" to={props.post.fields.slug}>
         <header className="post-card-header">
-          <span className="post-card-tags">{props.post.frontmatter.tags[0]}</span>
+          {props.post.frontmatter.tags && <span className="post-card-tags">{props.post.frontmatter.tags[0]}</span>}
           <h2 className="post-card-title">{props.post.frontmatter.title}</h2>
         </header>
         <section className="post-card-excerpt">

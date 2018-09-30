@@ -1,11 +1,8 @@
-import * as React from 'react';
-import styled from 'react-emotion';
-import { transparentize } from 'polished';
 import { Link } from 'gatsby';
+import * as React from 'react';
 
-import { heights, dimensions, colors } from '../../styles/variables';
-import Container from '../Container';
 import SiteNavLogo from './SiteNavLogo';
+
 
 interface SiteNavProps {
   logo?: string;
@@ -28,10 +25,7 @@ const SiteNav: React.SFC<SiteNavProps> = ({ isHome, title, siteUrl, logo }) => (
           <Link to="/about">About</Link>
         </li>
         <li className="nav-getting-started" role="menuitem">
-          <a href="https://demo.ghost.io/tag/getting-started/">Getting Started</a>
-        </li>
-        <li className="nav-try-ghost" role="menuitem">
-          <a href="https://ghost.org">Try Ghost</a>
+          <Link to="/tags/getting-started/">Getting Started</Link>
         </li>
       </ul>
     </div>
