@@ -92,6 +92,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
   const { edges, totalCount } = props.data.allMarkdownRemark;
   const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} by "${author.id}"`;
+  const siteMetadata = props.data.site.siteMetadata;
 
   return (
     <IndexLayout className="tag-template tag-fiction">
@@ -184,7 +185,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
             </div>
           </div>
         </main>
-        <Footer site={props.data.site} />
+        <Footer siteMetadata={siteMetadata} />
       </Wrapper>
     </IndexLayout>
   );

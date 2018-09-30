@@ -3,15 +3,61 @@ import Img from 'gatsby-image';
 import * as _ from 'lodash';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import rehypeReact from 'rehype-react';
+import styled from 'react-emotion';
+import { setLightness } from 'polished';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
 import InfinityIcon from '../components/icons/infinity';
 import PostCard from '../components/PostCard';
 import Wrapper from '../components/Wrapper';
+import PostContent from '../components/PostContent';
+import SubscribeForm from '../components/SubscribeForm';
 import IndexLayout from '../layouts';
+import { colors } from '../styles/colors';
 
+const PostFullHeader = styled.header`
+  margin: 0 auto;
+  padding: 6vw 3vw 3vw;
+  max-width: 1040px;
+  text-align: center;
+
+  @media (max-width: 500px) {
+    padding: 14vw 3vw 10vw;
+  }
+`;
+
+const PostFullMeta = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${colors.midgrey};
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @media (max-width: 500px) {
+    font-size: 1.2rem;
+    line-height: 1.3em;
+  }
+`;
+
+const PostFullMetaDate = styled.time`
+  color: ${colors.blue};
+`;
+
+const PostFullTitle = styled.h1`
+  margin: 0;
+  color: ${setLightness('0.05', colors.darkgrey)};
+  @media (max-width: 500px) {
+    font-size: 2.9rem;
+  }
+`;
+
+const DateDivider = styled.span`
+  display: inline-block;
+  margin: 0 6px 1px;
+`;
 
 interface PageTemplateProps {
   data: {
@@ -108,21 +154,10 @@ export interface PageContext {
   };
 }
 
-const renderAst = new rehypeReact({
-  createElement: React.createElement,
-  // components: { 'interactive-counter': Counter },
-  components: {},
-}).Compiler;
-
-const Ast = ({ ast, ...props }) => {
-  ast.properties = props;
-  return renderAst(ast);
-};
-
 const PageTemplate: React.SFC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
   const siteMetadata = props.data.site.siteMetadata;
-  
+
   return (
     <IndexLayout className="post-template">
       <Helmet>
@@ -141,51 +176,30 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
         </header>
         <main id="site-main" className="site-main outer">
           <div className="inner">
-            <article className="post-full {{post_class}} {{#unless feature_image}}no-image{{/unless}}">
-              <header className="post-full-header">
-                <section className="post-full-meta">
-                  <time className="post-full-meta-date" dateTime={post.frontmatter.date}>
-                    {post.frontmatter.userDate}
-                  </time>
+            <article className="post-full {{#unless feature_image}}no-image{{/unless}}">
+              <PostFullHeader>
+                <PostFullMeta>
+                  <PostFullMetaDate dateTime={post.frontmatter.date}>{post.frontmatter.userDate}</PostFullMetaDate>
                   {post.frontmatter.tags &&
                     post.frontmatter.tags.length > 0 && (
                       <>
-                        <span className="date-divider">/</span>
+                        <DateDivider>/</DateDivider>
                         <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link>
                       </>
                     )}
-                </section>
-                <h1 className="post-full-title">{post.frontmatter.title}</h1>
-              </header>
+                </PostFullMeta>
+                <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
+              </PostFullHeader>
 
               {post.frontmatter.image.childImageSharp && (
                 <figure className="post-full-image">
                   <Img style={{ height: '100%' }} sizes={post.frontmatter.image.childImageSharp.sizes} />
                 </figure>
               )}
-              <section className="post-full-content">
-                {/* <div className="post-content" dangerouslySetInnerHTML={{ __html: post.html }} /> */}
-                {/* TODO: this will apply the class when rehype-react is published https://github.com/rhysd/rehype-react/pull/11 */}
-                <Ast className="post-content" ast={post.htmlAst} />
-              </section>
+              <PostContent htmlAst={post.htmlAst} />
 
               {/* The big email subscribe modal content */}
-
-              <section className="subscribe-form">
-                <h3 className="subscribe-form-title">Subscribe to {props.data.site.siteMetadata.title}</h3>
-                <p>Get the latest posts delivered right to your inbox</p>
-
-                {/* TODO: setup form to submit somewhere */}
-                <form method="post" action="/subscribe/">
-                  {/* This is required for the form to work correctly  */}
-                  <div className="form-group">
-                    <input className="subscribe-email" type="email" name="email" placeholder="youremail@example.com" />
-                  </div>
-                  <button type="submit">
-                    <span>Subscribe</span>
-                  </button>
-                </form>
-              </section>
+              <SubscribeForm title={siteMetadata.title}/>
 
               <footer className="post-full-footer">
                 <section className="author-card">
