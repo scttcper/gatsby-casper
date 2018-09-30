@@ -43,6 +43,11 @@ interface AuthorTemplateProps {
       twitter?: string;
       facebook?: string;
       location?: string;
+      profile_image?: {
+        childImageSharp: {
+          sizes: any;
+        };
+      };
       bio?: string;
       avatar: {
         childImageSharp: {
@@ -91,7 +96,10 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
   return (
     <IndexLayout className="tag-template tag-fiction">
       <Wrapper>
-        <header className="site-header outer no-cover">
+        <header
+          className="site-header outer no-cover"
+          style={{ backgroundImage: author.profile_image ? `url(${author.profile_image.childImageSharp.sizes.src})` : '' }}
+        >
           <div className="inner">
             <SiteNav
               isHome={false}
@@ -165,9 +173,14 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
         <main id="site-main" className="site-main outer">
           <div className="inner">
             <div className="post-feed">
-              {edges.map(({ node }) => (
-                <PostCard key={node.fields.slug} post={node} />
-              ))}
+              {edges.map(({ node }) => {
+                if (node.frontmatter.author) {
+                  if (node.frontmatter.author.id === author.id) {
+                    return <PostCard key={node.fields.slug} post={node} />;
+                  }
+                }
+                return null;
+              })}
             </div>
           </div>
         </main>
@@ -203,6 +216,13 @@ export const pageQuery = graphql`
       bio
       facebook
       location
+      profile_image {
+        childImageSharp {
+          sizes {
+            ...GatsbyImageSharpSizes
+          }
+        }
+      }
       avatar {
         childImageSharp {
           sizes(maxWidth: 200) {
