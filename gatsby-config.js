@@ -1,9 +1,10 @@
+const path = require('path');
+
 module.exports = {
   siteMetadata: {
     title: 'Ghost',
     description: 'The professional publishing platform',
     siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com',
-    logo: 'https://demo.ghost.io/content/images/2014/09/Ghost-Transparent-for-DARK-BG.png',
     coverImage: 'https://demo.ghost.io/content/images/2017/07/blog-cover.jpg',
     author: {
       name: 'Resi Respati',
@@ -22,7 +23,7 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'content',
-        path: `${__dirname}/src/content`,
+        path: path.join(__dirname, 'src', 'content'),
       },
     },
     {

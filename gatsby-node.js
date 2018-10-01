@@ -165,12 +165,14 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         author: edge.node.id,
       },
-    })
-  })
+    });
+  });
 };
 
-exports.onCreateWebpackConfig = ({ actions }) => {
-  actions.setWebpackConfig({
-    devtool: 'eval-source-map',
-  });
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  if (stage === `develop` || stage === `develop-html`) {
+    actions.setWebpackConfig({
+      devtool: 'eval-source-map',
+    });
+  }
 };
