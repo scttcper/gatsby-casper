@@ -1,6 +1,7 @@
 import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import * as React from 'react';
+import styled from 'react-emotion';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -8,16 +9,27 @@ import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import PostCard from '../components/PostCard';
 
-type StaticQueryProps = {
-  children?: any;
+const SiteTitle = styled.h1`
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  font-size: 3.8rem;
+  font-weight: 700;
+`;
+
+export interface IndexProps {
   data: {
+    logo: {
+      childImageSharp: {
+        fixed: any;
+      };
+    }
     site: {
       siteMetadata: {
         title: string;
         description: string;
         siteUrl: string;
         coverImage: string;
-        logo?: string;
         facebook: string;
         twitter: string;
       };
@@ -58,8 +70,9 @@ type StaticQueryProps = {
   };
 };
 
-export default (props: StaticQueryProps) => {
+const IndexPage: React.SFC<IndexProps> = (props) => {
   const siteMetadata = props.data.site.siteMetadata;
+  console.log(props);
   return (
     <IndexLayout>
       <Wrapper className="home-template">
@@ -71,20 +84,16 @@ export default (props: StaticQueryProps) => {
         >
           <div className="inner">
             <div className="site-header-content">
-              <h1 className="site-title">
-                {siteMetadata.logo ? (
-                  <img
-                    className="site-logo"
-                    src="https://demo.ghost.io/content/images/2014/09/Ghost-Transparent-for-DARK-BG.png"
-                    alt={siteMetadata.title}
-                  />
+              <SiteTitle>
+                {props.data.logo ? (
+                  <img className="site-logo" src={props.data.logo.childImageSharp.fixed.src} alt={siteMetadata.title} />
                 ) : (
                   siteMetadata.title
                 )}
-              </h1>
+              </SiteTitle>
               <h2 className="site-description">{siteMetadata.description}</h2>
             </div>
-            <SiteNav isHome={true} title={siteMetadata.title} siteUrl={siteMetadata.siteUrl} logo={siteMetadata.logo} />
+            <SiteNav isHome={true} title={siteMetadata.title} siteUrl={siteMetadata.siteUrl} />
           </div>
         </header>
         <main id="site-main" className="site-main outer">
@@ -104,13 +113,23 @@ export default (props: StaticQueryProps) => {
   );
 };
 
+export default IndexPage;
+
 export const pageQuery = graphql`
   query {
+    logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fixed {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
     site {
       siteMetadata {
         title
         description
-        logo
         siteUrl
         coverImage
         facebook

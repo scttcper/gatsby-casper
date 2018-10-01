@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'gatsby';
+import Img from 'gatsby-image';
 import { css } from 'react-emotion';
 
 const SiteNavLogoStyles = css`
@@ -25,14 +26,18 @@ const SiteNavLogoStyles = css`
 `;
 
 interface SiteNavLogoProps {
-  logo?: string;
+  logo?: {
+    childImageSharp: {
+      fixed: any;
+    };
+  };
   title: string;
 }
 
 const SiteNavLogo: React.SFC<SiteNavLogoProps> = props =>
   props.logo ? (
     <Link className={`${SiteNavLogoStyles}`} to="/">
-      <img src={props.logo} alt={props.title} />
+      <img src={props.logo.childImageSharp.fixed.src} alt={props.title} />
     </Link>
   ) : (
     <Link className={`${SiteNavLogoStyles}`} to="/">

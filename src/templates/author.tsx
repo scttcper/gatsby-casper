@@ -16,6 +16,11 @@ interface AuthorTemplateProps {
     author: string;
   };
   data: {
+    logo: {
+      childImageSharp: {
+        fixed: any;
+      };
+    };
     site: {
       siteMetadata: {
         title: string;
@@ -24,7 +29,6 @@ interface AuthorTemplateProps {
         coverImage: string;
         facebook: string;
         twitter: string;
-        logo: string;
         author: {
           name: string;
           url: string;
@@ -199,7 +203,6 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         description
-        logo
         siteUrl
         coverImage
         facebook

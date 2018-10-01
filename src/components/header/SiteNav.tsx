@@ -3,28 +3,30 @@ import * as React from 'react';
 
 import SiteNavLogo from './SiteNavLogo';
 
-
 interface SiteNavProps {
-  logo?: string;
+  logo: {
+    childImageSharp: {
+      fixed: any;
+    };
+  };
   title: string;
   siteUrl: string;
   isHome: boolean;
 }
-
-// TODO: mark nav item current
 
 const SiteNav: React.SFC<SiteNavProps> = ({ isHome, title, siteUrl, logo }) => (
   <nav className="site-nav">
     <div className="site-nav-left">
       {!isHome && <SiteNavLogo title={title} logo={logo} />}
       <ul className="nav" role="menu">
-        <li className="nav-home nav-current" role="menuitem">
+        {/* TODO: mark current nav item - add class nav-current */}
+        <li role="menuitem">
           <Link to="/">Home</Link>
         </li>
-        <li className="nav-about" role="menuitem">
+        <li role="menuitem">
           <Link to="/about">About</Link>
         </li>
-        <li className="nav-getting-started" role="menuitem">
+        <li role="menuitem">
           <Link to="/tags/getting-started/">Getting Started</Link>
         </li>
       </ul>

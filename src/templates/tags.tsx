@@ -15,6 +15,11 @@ interface TagTemplateProps {
     tag: string;
   };
   data: {
+    logo: {
+      childImageSharp: {
+        fixed: any;
+      };
+    };
     site: {
       siteMetadata: {
         title: string;
@@ -23,7 +28,6 @@ interface TagTemplateProps {
         coverImage: string;
         facebook: string;
         twitter: string;
-        logo: string;
         author: {
           name: string;
           url: string;
@@ -83,7 +87,6 @@ const Tags: React.SFC<TagTemplateProps> = props => {
               isHome={false}
               title={tagHeader}
               siteUrl={props.data.site.siteMetadata.siteUrl}
-              logo={props.data.site.siteMetadata.logo}
             />
             <div className="site-header-content">
               <h1 className="site-title">{tag}</h1>
@@ -115,11 +118,19 @@ export default Tags;
 
 export const pageQuery = graphql`
   query($tag: String) {
+    logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fixed {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
     site {
       siteMetadata {
         title
         description
-        logo
         siteUrl
         coverImage
         facebook

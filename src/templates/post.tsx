@@ -1,18 +1,21 @@
 import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import * as _ from 'lodash';
-import * as React from 'react';
-import { Helmet } from 'react-helmet';
-import styled from 'react-emotion';
 import { setLightness } from 'polished';
+import * as React from 'react';
+import styled from 'react-emotion';
+import { Helmet } from 'react-helmet';
 
+import AuthorCard from '../components/AuthorCard';
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
 import InfinityIcon from '../components/icons/infinity';
 import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
 import PostContent from '../components/PostContent';
+import PostFullFooter from '../components/PostFullFooter';
+import PostFullFooterRight from '../components/PostFullFooterRight';
 import SubscribeForm from '../components/SubscribeForm';
+import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 
@@ -61,6 +64,11 @@ const DateDivider = styled.span`
 
 interface PageTemplateProps {
   data: {
+    logo: {
+      childImageSharp: {
+        fixed: any;
+      };
+    };
     site: {
       siteMetadata: {
         title: string;
@@ -170,7 +178,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
               isHome={false}
               title={props.data.site.siteMetadata.title}
               siteUrl={props.data.site.siteMetadata.siteUrl}
-              logo={props.data.site.siteMetadata.logo}
+              logo={props.data.logo}
             />
           </div>
         </header>
@@ -199,36 +207,12 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
               <PostContent htmlAst={post.htmlAst} />
 
               {/* The big email subscribe modal content */}
-              <SubscribeForm title={siteMetadata.title}/>
+              <SubscribeForm title={siteMetadata.title} />
 
-              <footer className="post-full-footer">
-                <section className="author-card">
-                  {/* TODO: default avatar */}
-                  {/* TODO: author page url */}
-                  <img
-                    className="author-profile-image"
-                    src={post.frontmatter.author.avatar.children[0].fixed.src}
-                    alt={post.frontmatter.author.id}
-                  />
-                  <section className="author-card-content">
-                    <h4 className="author-card-name">
-                      <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>{post.frontmatter.author.id}</Link>
-                    </h4>
-                    {post.frontmatter.author.bio ? (
-                      <p>{post.frontmatter.author.bio}</p>
-                    ) : (
-                      <p>
-                        Read <Link to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>more posts</Link> by this author.
-                      </p>
-                    )}
-                  </section>
-                </section>
-                <div className="post-full-footer-right">
-                  <Link className="author-card-button" to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>
-                    Read More
-                  </Link>
-                </div>
-              </footer>
+              <PostFullFooter>
+                <AuthorCard author={post.frontmatter.author} />
+                <PostFullFooterRight authorId={post.frontmatter.author.id} />
+              </PostFullFooter>
             </article>
           </div>
         </main>
@@ -284,11 +268,19 @@ export default PageTemplate;
 
 export const query = graphql`
   query($slug: String, $primaryTag: String) {
+    logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fixed {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
     site {
       siteMetadata {
         title
         description
-        logo
         siteUrl
         coverImage
         facebook
