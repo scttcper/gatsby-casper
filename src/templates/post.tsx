@@ -80,16 +80,21 @@ const PostFullImage = styled.figure`
     height: 400px;
   }
   @media (max-width: 500px) {
-    .post-full-image {
-      margin-bottom: 4vw;
-      height: 350px;
-    }
+    margin-bottom: 4vw;
+    height: 350px;
   }
 `;
 
 const DateDivider = styled.span`
   display: inline-block;
   margin: 0 6px 1px;
+`;
+
+const ReadNextFeed = styled.div`
+display: flex;
+    flex-wrap: wrap;
+    margin: 0 -20px;
+    padding: 40px 0 0 0;
 `;
 
 interface PageTemplateProps {
@@ -244,9 +249,9 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
         </main>
 
         {/* Links to Previous/Next posts */}
-        <aside className="read-next outer">
-          <div className="inner">
-            <div className="read-next-feed">
+        <aside className={`read-next ${outer}`}>
+          <div className={`${inner}`}>
+            <ReadNextFeed>
               {props.data.relatedPosts && (
                 <article className="read-next-card" style={{ backgroundImage: `url(${props.data.site.siteMetadata.coverImage})` }}>
                   <header className="read-next-card-header">
@@ -281,10 +286,10 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
 
               {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
               {props.pageContext.next && <PostCard post={props.pageContext.next} />}
-            </div>
+            </ReadNextFeed>
           </div>
         </aside>
-        <Footer siteMetadata={siteMetadata} />
+        <Footer />
       </Wrapper>
     </IndexLayout>
   );

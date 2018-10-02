@@ -1,11 +1,12 @@
 import { Link, StaticQuery, graphql } from 'gatsby';
 import { setLightness } from 'polished';
 import * as React from 'react';
-import styled from 'react-emotion';
+import styled, { css } from 'react-emotion';
 
 import { colors } from '../styles/colors';
+import { outer, inner } from '../styles/shared';
 
-const SiteFooter = styled.div`
+const SiteFooter = css`
   position: relative;
   padding-top: 20px;
   padding-bottom: 60px;
@@ -13,7 +14,7 @@ const SiteFooter = styled.div`
   background: ${setLightness('0.0015', colors.darkgrey)};
 `;
 
-const SiteFooterContent = styled.div`
+const SiteFooterContent = css`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -63,13 +64,15 @@ const SiteFooterNav = styled.nav`
 `;
 
 export interface FooterProps {
-  siteMetadata: {
-    title: string;
-    description: string;
-    siteUrl: string;
-    facebook: string;
-    twitter: string;
-    logo?: string;
+  site: {
+    siteMetadata: {
+      title: string;
+      description: string;
+      siteUrl: string;
+      facebook: string;
+      twitter: string;
+      logo?: string;
+    };
   };
 }
 
@@ -89,8 +92,8 @@ const Footer: React.SFC = () => {
         }
       `}
       render={({ site }: FooterProps) => (
-        <SiteFooter className="outer">
-          <SiteFooterContent className="inner">
+        <footer className={`${outer} ${SiteFooter}`}>
+          <div className={`${inner} ${SiteFooterContent}`}>
             <section className="copyright">
               <Link to={site.siteMetadata.siteUrl}>{site.siteMetadata.title}</Link> &copy; swag
             </section>
@@ -111,8 +114,8 @@ const Footer: React.SFC = () => {
                 Ghost
               </a>
             </SiteFooterNav>
-          </SiteFooterContent>
-        </SiteFooter>
+          </div>
+        </footer>
       )}
     />
   );

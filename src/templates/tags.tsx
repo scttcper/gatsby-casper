@@ -9,6 +9,7 @@ import Wrapper from '../components/Wrapper';
 import SiteNav from '../components/header/SiteNav';
 import Footer from '../components/Footer';
 import PostCard from '../components/PostCard';
+import { inner } from '../styles/shared';
 
 interface TagTemplateProps {
   pageContext: {
@@ -100,7 +101,7 @@ const Tags: React.SFC<TagTemplateProps> = props => {
           </div>
         </header>
         <main id="site-main" className="site-main outer">
-          <div className="inner">
+          <div className={`${inner}`}>
             <div className="post-feed">
               {edges.map(({ node }) => (
                 <PostCard key={node.fields.slug} post={node} />

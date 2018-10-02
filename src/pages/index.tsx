@@ -138,7 +138,7 @@ const IndexPage: React.SFC<IndexProps> = props => {
             <SiteHeaderContent>
               <SiteTitle>
                 {props.data.logo ? (
-                  <img className="site-logo" src={props.data.logo.childImageSharp.fixed.src} alt={siteMetadata.title} />
+                  <img style={{ maxHeight: '45px' }} src={props.data.logo.childImageSharp.fixed.src} alt={siteMetadata.title} />
                 ) : (
                   siteMetadata.title
                 )}
