@@ -1,18 +1,124 @@
 import { css } from 'emotion';
+import styled from 'react-emotion';
+import { colors } from './colors';
+import { darken } from 'polished';
 
-// tslint:disable-next-line:no-unused-expression
 export const outer = css`
-  .outer {
-    position: relative;
-    padding: 0 4vw;
-  }
+  position: relative;
+  padding: 0 4vw;
 `;
 
 /* Centered content container blocks */
 export const inner = css`
-  .inner {
-    margin: 0 auto;
-    max-width: 1040px;
-    width: 100%;
+  margin: 0 auto;
+  max-width: 1040px;
+  width: 100%;
+`;
+
+export const SiteMain = css`
+  z-index: 100;
+  flex-grow: 1;
+`;
+
+export const PostFeed = css`
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -20px;
+  padding: 40px 0 0 0;
+`;
+
+export const PostFeedRaise = css`
+  @media (min-width: 900px) {
+    margin-top: -70px;
+    padding-top: 0;
+  }
+`;
+
+export const SiteHeader = css`
+  position: relative;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: #fff;
+  /* background: color(var(--darkgrey) l(-5%)) no-repeat center center; */
+  background: ${darken('0.05', colors.darkgrey)} no-repeat center center;
+  background-size: cover;
+
+  :before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: block;
+    background: rgba(0, 0, 0, 0.18);
+  }
+
+  :after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    z-index: 10;
+    display: block;
+    height: 80px;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  }
+`;
+
+export const SiteHeaderContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10vw 4vw;
+  min-height: 200px;
+  max-height: 450px;
+  text-align: center;
+`;
+
+export const SiteHeaderStyles = css`
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  z-index: 10;
+  display: block;
+  height: 80px;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+
+  :before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: block;
+    background: rgba(0, 0, 0, 0.18);
+  }
+
+  :after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    z-index: 10;
+    display: block;
+    height: 80px;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  }
+  @media (max-width: 700px) {
+    padding-right: 0;
+    padding-left: 0;
   }
 `;

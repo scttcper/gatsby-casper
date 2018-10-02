@@ -2,14 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import Img from 'gatsby-image';
+import { graphql } from 'gatsby';
+import styled, { css } from 'react-emotion';
 
 // Components
-import { Link, graphql } from 'gatsby';
 import IndexLayout from '../layouts';
 import Wrapper from '../components/Wrapper';
 import SiteNav from '../components/header/SiteNav';
 import Footer from '../components/Footer';
 import PostCard from '../components/PostCard';
+import { inner, outer, PostFeed, PostFeedRaise } from '../styles/shared';
+
+const HiddenMobile = css`
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
+
+const AuthorLocationSvg = css`
+  height: 1.9rem;
+  stroke: #fff;
+`;
+
+const AuthorMeta = styled.div`
+    z-index: 10;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 10px 0;
+    font-family: Georgia, serif;
+    font-style: italic;
+`;
 
 interface AuthorTemplateProps {
   pageContext: {
@@ -19,20 +43,6 @@ interface AuthorTemplateProps {
     logo: {
       childImageSharp: {
         fixed: any;
-      };
-    };
-    site: {
-      siteMetadata: {
-        title: string;
-        description: string;
-        siteUrl: string;
-        coverImage: string;
-        facebook: string;
-        twitter: string;
-        author: {
-          name: string;
-          url: string;
-        };
       };
     };
     allMarkdownRemark: {
@@ -92,11 +102,8 @@ export interface PageContext {
 }
 
 const Author: React.SFC<AuthorTemplateProps> = props => {
-  console.log(props);
   const author = props.data.authorYaml;
   const { edges, totalCount } = props.data.allMarkdownRemark;
-  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} by "${author.id}"`;
-  const siteMetadata = props.data.site.siteMetadata;
 
   return (
     <IndexLayout className="tag-template tag-fiction">
@@ -105,24 +112,19 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
           className="site-header outer no-cover"
           style={{ backgroundImage: author.profile_image ? `url(${author.profile_image.childImageSharp.sizes.src})` : '' }}
         >
-          <div className="inner">
-            <SiteNav
-              isHome={false}
-              title={tagHeader}
-              siteUrl={props.data.site.siteMetadata.siteUrl}
-              logo={props.data.site.siteMetadata.logo}
-            />
+          <div className={`${inner}`}>
+            <SiteNav isHome={false} />
             <div className="site-header-content">
               <Img className="author-profile-image" sizes={props.data.authorYaml.avatar.childImageSharp.sizes} alt="Ghost" />
               <h1 className="site-title">{author.id}</h1>
               {author.bio && <h2 className="author-bio">{author.bio}</h2>}
-              <div className="author-meta">
+              <AuthorMeta>
                 {author.location && (
-                  <div className="author-location">
+                  <div className={`${AuthorLocationSvg} ${HiddenMobile}`}>
                     {author.location} <span className="bull">&bull;</span>
                   </div>
                 )}
-                <div className="author-stats">
+                <div className={`${HiddenMobile}`}>
                   {totalCount > 1 && `${totalCount} posts`}
                   {totalCount === 1 && `1 post`}
                   {totalCount === 0 && `No posts`} <span className="bull">•</span>
@@ -171,13 +173,13 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                     <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z" />
                   </svg>
                 </a> */}
-              </div>
+              </AuthorMeta>
             </div>
           </div>
         </header>
-        <main id="site-main" className="site-main outer">
-          <div className="inner">
-            <div className="post-feed">
+        <main id="site-main" className={`${outer}`}>
+          <div className={`${inner}`}>
+            <div className={`${PostFeed} ${PostFeedRaise}`}>
               {edges.map(({ node }) => {
                 if (node.frontmatter.author) {
                   if (node.frontmatter.author.id === author.id) {
@@ -189,7 +191,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
             </div>
           </div>
         </main>
-        <Footer siteMetadata={siteMetadata} />
+        <Footer />
       </Wrapper>
     </IndexLayout>
   );
@@ -199,20 +201,6 @@ export default Author;
 
 export const pageQuery = graphql`
   query($author: String) {
-    site {
-      siteMetadata {
-        title
-        description
-        siteUrl
-        coverImage
-        facebook
-        twitter
-        author {
-          name
-          url
-        }
-      }
-    }
     authorYaml(id: { eq: $author }) {
       id
       website

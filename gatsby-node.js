@@ -135,17 +135,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   // Create tag pages
   const tagTemplate = path.resolve('./src/templates/tags.tsx');
-  let tags = [];
-  // Iterate through each post, putting all found tags into `tags`
-  _.each(result.data.allMarkdownRemark.edges, edge => {
-    if (_.get(edge, 'node.frontmatter.tags')) {
-      tags = tags.concat(edge.node.frontmatter.tags);
-    }
-  });
-  // Eliminate duplicate tags
-  tags = _.uniq(tags);
-
-  // Make tag pages
+  const tags = _.uniq(_.flatten(result.data.allMarkdownRemark.edges.map(edge => _.get(edge, 'node.frontmatter.tags') || [])));
   tags.forEach(tag => {
     createPage({
       path: `/tags/${_.kebabCase(tag)}/`,
@@ -170,6 +160,7 @@ exports.createPages = async ({ graphql, actions }) => {
 };
 
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  // adds sourcemaps for tsx in dev mode
   if (stage === `develop` || stage === `develop-html`) {
     actions.setWebpackConfig({
       devtool: 'eval-source-map',

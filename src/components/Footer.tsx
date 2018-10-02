@@ -1,4 +1,4 @@
-import { Link } from 'gatsby';
+import { Link, StaticQuery, graphql } from 'gatsby';
 import { setLightness } from 'polished';
 import * as React from 'react';
 import styled from 'react-emotion';
@@ -73,32 +73,48 @@ export interface FooterProps {
   };
 }
 
-const Footer: React.SFC<FooterProps> = ({ siteMetadata }) => {
+const Footer: React.SFC = () => {
   return (
-    <SiteFooter className="outer">
-      <SiteFooterContent className="inner">
-        <section className="copyright">
-          <Link to={siteMetadata.siteUrl}>{siteMetadata.title}</Link> &copy; swag
-        </section>
-        <SiteFooterNav>
-          <Link to={siteMetadata.siteUrl}>Latest Posts</Link>
-          {siteMetadata.facebook && (
-            <a href={siteMetadata.facebook} target="_blank" rel="noopener">
-              Facebook
-            </a>
-          )}
-          {siteMetadata.twitter && (
-            <a href={siteMetadata.twitter} target="_blank" rel="noopener">
-              Twitter
-            </a>
-          )}
+    <StaticQuery
+      query={graphql`
+        query FooterQuery {
+          site {
+            siteMetadata {
+              title
+              siteUrl
+              facebook
+              twitter
+            }
+          }
+        }
+      `}
+      render={({ site }: FooterProps) => (
+        <SiteFooter className="outer">
+          <SiteFooterContent className="inner">
+            <section className="copyright">
+              <Link to={site.siteMetadata.siteUrl}>{site.siteMetadata.title}</Link> &copy; swag
+            </section>
+            <SiteFooterNav>
+              <Link to={site.siteMetadata.siteUrl}>Latest Posts</Link>
+              {site.siteMetadata.facebook && (
+                <a href={site.siteMetadata.facebook} target="_blank" rel="noopener">
+                  Facebook
+                </a>
+              )}
+              {site.siteMetadata.twitter && (
+                <a href={site.siteMetadata.twitter} target="_blank" rel="noopener">
+                  Twitter
+                </a>
+              )}
 
-          <a href="https://ghost.org" target="_blank" rel="noopener">
-            Ghost
-          </a>
-        </SiteFooterNav>
-      </SiteFooterContent>
-    </SiteFooter>
+              <a href="https://ghost.org" target="_blank" rel="noopener">
+                Ghost
+              </a>
+            </SiteFooterNav>
+          </SiteFooterContent>
+        </SiteFooter>
+      )}
+    />
   );
 };
 

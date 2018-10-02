@@ -3,7 +3,7 @@ import Img from 'gatsby-image';
 import * as _ from 'lodash';
 import { setLightness } from 'polished';
 import * as React from 'react';
-import styled from 'react-emotion';
+import styled, { css } from 'react-emotion';
 import { Helmet } from 'react-helmet';
 
 import AuthorCard from '../components/AuthorCard';
@@ -18,6 +18,12 @@ import SubscribeForm from '../components/SubscribeForm';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
+import { outer, SiteHeader, SiteMain, inner } from '../styles/shared';
+
+const PostFull = css`
+  position: relative;
+  z-index: 50;
+`;
 
 const PostFullHeader = styled.header`
   margin: 0 auto;
@@ -54,6 +60,30 @@ const PostFullTitle = styled.h1`
   color: ${setLightness('0.05', colors.darkgrey)};
   @media (max-width: 500px) {
     font-size: 2.9rem;
+  }
+`;
+
+const PostFullImage = styled.figure`
+  margin: 0 -10vw -165px;
+  height: 800px;
+  background: var(--lightgrey) center center;
+  background-size: cover;
+  border-radius: 5px;
+
+  @media (max-width: 1170px) {
+    margin: 0 -4vw -100px;
+    height: 600px;
+    border-radius: 0;
+  }
+
+  @media (max-width: 800px) {
+    height: 400px;
+  }
+  @media (max-width: 500px) {
+    .post-full-image {
+      margin-bottom: 4vw;
+      height: 350px;
+    }
   }
 `;
 
@@ -172,19 +202,15 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
         <title>{post.frontmatter.title}</title>
       </Helmet>
       <Wrapper className="post-template">
-        <header className="site-header outer">
+        <header className={`${SiteHeader} ${outer}`}>
           <div className="inner">
-            <SiteNav
-              isHome={false}
-              title={props.data.site.siteMetadata.title}
-              siteUrl={props.data.site.siteMetadata.siteUrl}
-              logo={props.data.logo}
-            />
+            <SiteNav isHome={false} />
           </div>
         </header>
-        <main id="site-main" className="site-main outer">
-          <div className="inner">
-            <article className="post-full {{#unless feature_image}}no-image{{/unless}}">
+        <main id="site-main" className={`${SiteMain} ${outer}`}>
+          <div className={`${inner}`}>
+            {/* TODO: no-image css tag? */}
+            <article className={`${PostFull}`}>
               <PostFullHeader>
                 <PostFullMeta>
                   <PostFullMetaDate dateTime={post.frontmatter.date}>{post.frontmatter.userDate}</PostFullMetaDate>
@@ -200,9 +226,9 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
               </PostFullHeader>
 
               {post.frontmatter.image.childImageSharp && (
-                <figure className="post-full-image">
+                <PostFullImage>
                   <Img style={{ height: '100%' }} sizes={post.frontmatter.image.childImageSharp.sizes} />
-                </figure>
+                </PostFullImage>
               )}
               <PostContent htmlAst={post.htmlAst} />
 

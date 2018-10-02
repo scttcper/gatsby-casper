@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'Ghost',
     description: 'The professional publishing platform',
-    siteUrl: 'https://gatsby-starter-typescript-plus.netlify.com',
+    siteUrl: 'https://gatsby-casper.netlify.com',
     coverImage: 'https://demo.ghost.io/content/images/2017/07/blog-cover.jpg',
     author: {
       name: 'Resi Respati',

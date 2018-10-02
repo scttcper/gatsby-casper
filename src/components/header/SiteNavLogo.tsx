@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'gatsby';
+import { Link, StaticQuery, graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import { css } from 'react-emotion';
 
@@ -34,14 +34,38 @@ interface SiteNavLogoProps {
   title: string;
 }
 
-const SiteNavLogo: React.SFC<SiteNavLogoProps> = props =>
-  props.logo ? (
-    <Link className={`${SiteNavLogoStyles}`} to="/">
-      <img src={props.logo.childImageSharp.fixed.src} alt={props.title} />
-    </Link>
-  ) : (
-    <Link className={`${SiteNavLogoStyles}`} to="/">
-      {props.title}
-    </Link>
-  );
+const SiteNavLogo = () => (
+  <StaticQuery
+    query={graphql`
+      query HeadingQuery {
+        logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
+          childImageSharp {
+            # Specify the image processing specifications right in the query.
+            # Makes it trivial to update as your page's design changes.
+            fixed {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+        site {
+          siteMetadata {
+            title
+          }
+        }
+      }
+    `}
+    render={(data: SiteNavLogoProps) =>
+      data.logo ? (
+        <Link className={`${SiteNavLogoStyles}`} to="/">
+          <img src={data.logo.childImageSharp.fixed.src} alt={data.title} />
+        </Link>
+      ) : (
+        <Link className={`${SiteNavLogoStyles}`} to="/">
+          {data.title}
+        </Link>
+      )
+    }
+  />
+);
+
 export default SiteNavLogo;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import '../assets/screen.min.css';
+import '../assets/global.css';
 
 interface IndexProps {
   className?: string

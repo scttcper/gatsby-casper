@@ -14,6 +14,7 @@ A port of [Casper](https://github.com/TryGhost/Casper) v2 for gatsby in TypeScri
   - [ ] subscribe form? - this doesn't really work without a backend. maybe mailchimp?
   - [ ] reading progress? - i don't even really like the reading progress bar
 - [ ] 404 page
+- [ ] subscribe modal
 - [ ] rss feed
 - [ ] amp?
 - [ ] polish ✨
