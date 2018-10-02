@@ -84,11 +84,7 @@ const Tags: React.SFC<TagTemplateProps> = props => {
       <Wrapper>
         <header className="site-header outer no-cover">
           <div className="inner">
-            <SiteNav
-              isHome={false}
-              title={tagHeader}
-              siteUrl={props.data.site.siteMetadata.siteUrl}
-            />
+            <SiteNav isHome={false} />
             <div className="site-header-content">
               <h1 className="site-title">{tag}</h1>
               {/* TODO: tag description */}

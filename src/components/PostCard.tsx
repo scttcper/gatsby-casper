@@ -225,8 +225,8 @@ const PostCard: React.SFC<PostCardProps> = props => (
   // TODO: no-image class?
   <article className={`post-card ${PostCardStyles}`}>
     {props.post.frontmatter.image && (
-      <Link className={`${PostCardImageLink}`} to={props.post.fields.slug}>
-        <PostCardImage>
+      <Link className={`${PostCardImageLink} post-card-image-link`} to={props.post.fields.slug}>
+        <PostCardImage className="post-card-image">
           {props.post.frontmatter.image &&
             props.post.frontmatter.image.childImageSharp.sizes && (
               <Img style={{ height: '100%' }} sizes={props.post.frontmatter.image.childImageSharp.sizes} />
@@ -234,8 +234,8 @@ const PostCard: React.SFC<PostCardProps> = props => (
         </PostCardImage>
       </Link>
     )}
-    <PostCardContent>
-      <Link className={`${PostCardContentLink}`} to={props.post.fields.slug}>
+    <PostCardContent className="post-card-content">
+      <Link className={`${PostCardContentLink} post-card-content-link`} to={props.post.fields.slug}>
         <header className="post-card-header">
           {props.post.frontmatter.tags && <PostCardTags>{props.post.frontmatter.tags[0]}</PostCardTags>}
           <PostCardTitle>{props.post.frontmatter.title}</PostCardTitle>
@@ -244,7 +244,7 @@ const PostCard: React.SFC<PostCardProps> = props => (
           <p>{props.post.excerpt}</p>
         </PostCardExcerpt>
       </Link>
-      <PostCardMeta>
+      <PostCardMeta className="post-card-meta">
         <AuthorList>
           <AuthorListItem>
             <AuthorNameTooltip>{props.post.frontmatter.author.id}</AuthorNameTooltip>

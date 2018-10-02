@@ -126,7 +126,7 @@ const IndexPage: React.SFC<IndexProps> = props => {
   const siteMetadata = props.data.site.siteMetadata;
   console.log(props);
   return (
-    <IndexLayout>
+    <IndexLayout className={`${HomePosts}`}>
       <Wrapper>
         <header
           className={`${SiteHeader} ${outer}`}
