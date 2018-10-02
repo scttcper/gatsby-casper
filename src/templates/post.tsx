@@ -19,6 +19,7 @@ import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { outer, SiteHeader, SiteMain, inner } from '../styles/shared';
+import ReadNextCard from '../components/ReadNextCard';
 
 const PostFull = css`
   position: relative;
@@ -91,10 +92,10 @@ const DateDivider = styled.span`
 `;
 
 const ReadNextFeed = styled.div`
-display: flex;
-    flex-wrap: wrap;
-    margin: 0 -20px;
-    padding: 40px 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -20px;
+  padding: 40px 0 0 0;
 `;
 
 interface PageTemplateProps {
@@ -252,37 +253,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
         <aside className={`read-next ${outer}`}>
           <div className={`${inner}`}>
             <ReadNextFeed>
-              {props.data.relatedPosts && (
-                <article className="read-next-card" style={{ backgroundImage: `url(${props.data.site.siteMetadata.coverImage})` }}>
-                  <header className="read-next-card-header">
-                    <small className="read-next-card-header-sitetitle">&mdash; {props.data.site.siteMetadata.title} &mdash;</small>
-                    <h3 className="read-next-card-header-title">
-                      <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>{post.frontmatter.tags[0]}</Link>
-                    </h3>
-                  </header>
-                  <div className="read-next-divider">
-                    <InfinityIcon />
-                  </div>
-                  <div className="read-next-card-content">
-                    <ul>
-                      {props.data.relatedPosts.edges.map(n => {
-                        return (
-                          <li key={n.node.frontmatter.title}>
-                            <Link to={n.node.fields.slug}>{n.node.frontmatter.title}</Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                  <footer className="read-next-card-footer">
-                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                      {props.data.relatedPosts.totalCount > 1 && `See all ${props.data.relatedPosts.totalCount} posts`}
-                      {props.data.relatedPosts.totalCount === 1 && `1 post`}
-                      {props.data.relatedPosts.totalCount === 0 && `No posts`} →
-                    </Link>
-                  </footer>
-                </article>
-              )}
+              {props.data.relatedPosts && <ReadNextCard tags={post.frontmatter.tags} relatedPosts={props.data.relatedPosts} />}
 
               {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
               {props.pageContext.next && <PostCard post={props.pageContext.next} />}
