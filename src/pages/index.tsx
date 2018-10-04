@@ -10,7 +10,7 @@ import IndexLayout from '../layouts';
 import PostCard from '../components/PostCard';
 import { SiteHeader, outer, SiteHeaderContent, inner, PostFeed, PostFeedRaise, SiteMain } from '../styles/shared';
 
-const SiteTitle = styled.h1`
+export const SiteTitle = styled.h1`
   z-index: 10;
   margin: 0;
   padding: 0;

@@ -1,23 +1,13 @@
 import { Link } from 'gatsby';
 import * as _ from 'lodash';
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from 'react-emotion';
+
 import { colors } from '../styles/colors';
-import { lighten } from 'polished';
+import { AuthorProfileImage } from '../styles/shared';
 
 const AuthorCardSection = styled.section`
   display: flex;
-`;
-
-const AuthorProfileImage = css`
-  display: block;
-  /* background: color(var(--lightgrey) l(+10%)); */
-  background: ${lighten('0.1', colors.lightgrey)};
-  border-radius: 100%;
-  object-fit: cover;
-  margin-right: 15px;
-  width: 60px;
-  height: 60px;
 `;
 
 const AuthorCardName = styled.h4`

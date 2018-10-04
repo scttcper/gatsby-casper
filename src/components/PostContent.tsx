@@ -361,6 +361,16 @@ const PostFullContent = styled.section`
     /* border: color(var(--whitegrey) l(-1%) s(-5%)) 1px solid; */
     border: ${setSaturation('0.05', darken('0.01', colors.whitegrey))} 1px solid;
   }
+
+  @media (max-width: 500px) {
+    padding: 0;
+    :before {
+      display: none;
+    }
+    :after {
+      display: none;
+    }
+  }
 `;
 
 const renderAst = new rehypeReact({

@@ -1,7 +1,7 @@
 import { css } from 'emotion';
 import styled from 'react-emotion';
 import { colors } from './colors';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const outer = css`
   position: relative;
@@ -121,4 +121,15 @@ export const SiteHeaderStyles = css`
     padding-right: 0;
     padding-left: 0;
   }
+`;
+
+export const AuthorProfileImage = css`
+  display: block;
+  /* background: color(var(--lightgrey) l(+10%)); */
+  background: ${lighten('0.1', colors.lightgrey)};
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: 15px;
+  width: 60px;
+  height: 60px;
 `;

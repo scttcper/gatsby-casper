@@ -33,6 +33,11 @@ const SubscribeFormSection = styled.section`
   .form-group {
     flex-grow: 1;
   }
+  @media (max-width: 650px) {
+    p {
+      font-size: 1.6rem;
+    }
+  }
 `;
 
 const SubscribeFormTitle = css`
@@ -42,6 +47,16 @@ const SubscribeFormTitle = css`
   font-size: 3.5rem;
   line-height: 1;
   font-weight: 700;
+  @media (max-width: 650px) {
+    font-size: 2.4rem;
+  }
+`;
+
+const SubscribeFormStyles = css`
+  @media (max-width: 500px) {
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 `;
 
 const SubscribeEmail = styled.input`
@@ -89,7 +104,6 @@ const SubscribeFormButton = styled.button`
     ${desaturate('0.1', darken('0.07', colors.blue))} 60%,
     ${desaturate('0.1', darken('0.07', colors.blue))} 90%,
     ${desaturate('0.1', darken('0.04', colors.blue))}
-
   );
   border-radius: 5px;
   box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.14);
@@ -100,6 +114,17 @@ const SubscribeFormButton = styled.button`
   :focus {
     /* background: color(var(--blue) lightness(-9%) saturation(-10%)); */
     background: ${desaturate('0.1', darken('0.09', colors.blue))};
+  }
+  @media (max-width: 500px) {
+    margin: 10px 0 0;
+    width: 100%;
+  }
+`;
+
+const FormGroup = styled.div`
+  flex-grow: 1;
+  @media (max-width: 500px) {
+    width: 100%;
   }
 `;
 
@@ -114,11 +139,11 @@ const SubscribeForm: React.SFC<SubscribeFormProps> = props => {
       <p>Get the latest posts delivered right to your inbox</p>
 
       {/* TODO: setup form to submit somewhere */}
-      <form method="post" action="/subscribe/">
+      <form className={`${SubscribeFormStyles}`} method="post" action="/subscribe/">
         {/* This is required for the form to work correctly  */}
-        <div className="form-group">
+        <FormGroup>
           <SubscribeEmail type="email" name="email" placeholder="youremail@example.com" />
-        </div>
+        </FormGroup>
         <SubscribeFormButton type="submit">
           <span>Subscribe</span>
         </SubscribeFormButton>

@@ -129,6 +129,10 @@ const AuthorListItem = styled.li`
   :nth-child(10) {
     z-index: 1;
   }
+  :hover .author-name-tooltip {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 `;
 
 const AuthorNameTooltip = styled.div`
@@ -148,11 +152,6 @@ const AuthorNameTooltip = styled.div`
   transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
   transform: translateY(6px);
   pointer-events: none;
-
-  /* .author-list-item:hover .author-name-tooltip {
-    opacity: 1.0;
-    transform: translateY(0px);
-} */
 
   @media (max-width: 650px) {
     display: none;
@@ -180,14 +179,14 @@ const AuthorProfileImage = styled.img`
 `;
 
 const ReadingTime = styled.span`
-    flex-shrink: 0;
-    margin-left: 20px;
-    color: ${colors.midgrey};
-    font-size: 1.2rem;
-    line-height: 33px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+  flex-shrink: 0;
+  margin-left: 20px;
+  color: ${colors.midgrey};
+  font-size: 1.2rem;
+  line-height: 33px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 `;
 
 export interface PostCardProps {
@@ -247,7 +246,7 @@ const PostCard: React.SFC<PostCardProps> = props => (
       <PostCardMeta className="post-card-meta">
         <AuthorList>
           <AuthorListItem>
-            <AuthorNameTooltip>{props.post.frontmatter.author.id}</AuthorNameTooltip>
+            <AuthorNameTooltip className="author-name-tooltip">{props.post.frontmatter.author.id}</AuthorNameTooltip>
             <Link className={`${StaticAvatar}`} to={`/author/${_.kebabCase(props.post.frontmatter.author.id)}/`}>
               <AuthorProfileImage src={props.post.frontmatter.author.avatar.children[0].fixed.src} alt={props.post.frontmatter.author.id} />
             </Link>

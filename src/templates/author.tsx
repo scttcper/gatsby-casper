@@ -11,7 +11,8 @@ import Wrapper from '../components/Wrapper';
 import SiteNav from '../components/header/SiteNav';
 import Footer from '../components/Footer';
 import PostCard from '../components/PostCard';
-import { inner, outer, PostFeed, PostFeedRaise } from '../styles/shared';
+import { inner, outer, PostFeed, PostFeedRaise, SiteHeader, SiteHeaderContent, AuthorProfileImage } from '../styles/shared';
+import { SiteTitle } from '../pages';
 
 const HiddenMobile = css`
   @media (max-width: 500px) {
@@ -25,14 +26,41 @@ const AuthorLocationSvg = css`
 `;
 
 const AuthorMeta = styled.div`
-    z-index: 10;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0 10px 0;
-    font-family: Georgia, serif;
-    font-style: italic;
+  z-index: 10;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 10px 0;
+  font-family: Georgia, serif;
+  font-style: italic;
+`;
+
+const AuthorBio = styled.h2`
+  z-index: 10;
+  flex-shrink: 0;
+  margin: 5px 0 10px 0;
+  max-width: 600px;
+  font-size: 2rem;
+  line-height: 1.3em;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+`;
+
+const Bull = styled.span`
+  display: inline-block;
+  margin: 0 12px;
+  opacity: 0.5;
+`;
+
+const AuthorProfileBioImage = css`
+  z-index: 10;
+  flex-shrink: 0;
+  margin: 0 0 20px 0;
+  width: 100px;
+  height: 100px;
+  box-shadow: rgba(255, 255, 255, 0.1) 0 0 0 6px;
 `;
 
 interface AuthorTemplateProps {
@@ -109,25 +137,25 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
     <IndexLayout className="tag-template tag-fiction">
       <Wrapper>
         <header
-          className="site-header outer no-cover"
+          className={`${SiteHeader} ${outer} no-cover`}
           style={{ backgroundImage: author.profile_image ? `url(${author.profile_image.childImageSharp.sizes.src})` : '' }}
         >
           <div className={`${inner}`}>
             <SiteNav isHome={false} />
-            <div className="site-header-content">
-              <Img className="author-profile-image" sizes={props.data.authorYaml.avatar.childImageSharp.sizes} alt="Ghost" />
-              <h1 className="site-title">{author.id}</h1>
-              {author.bio && <h2 className="author-bio">{author.bio}</h2>}
+            <SiteHeaderContent>
+              <Img className={`${AuthorProfileBioImage} ${AuthorProfileImage}`} sizes={props.data.authorYaml.avatar.childImageSharp.sizes} alt="Ghost" />
+              <SiteTitle>{author.id}</SiteTitle>
+              {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
               <AuthorMeta>
                 {author.location && (
                   <div className={`${AuthorLocationSvg} ${HiddenMobile}`}>
-                    {author.location} <span className="bull">&bull;</span>
+                    {author.location} <Bull>&bull;</Bull>
                   </div>
                 )}
                 <div className={`${HiddenMobile}`}>
                   {totalCount > 1 && `${totalCount} posts`}
                   {totalCount === 1 && `1 post`}
-                  {totalCount === 0 && `No posts`} <span className="bull">•</span>
+                  {totalCount === 0 && `No posts`} <Bull>•</Bull>
                 </div>
                 {author.website && (
                   <a className="social-link social-link-wb" href={author.website} target="_blank" rel="noopener">
@@ -174,7 +202,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                   </svg>
                 </a> */}
               </AuthorMeta>
-            </div>
+            </SiteHeaderContent>
           </div>
         </header>
         <main id="site-main" className={`${outer}`}>
