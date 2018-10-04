@@ -19,9 +19,9 @@ declare module 'rehype-react' {
     createElement: any;
     components: any;
   }
-  class rehypeReact {
-    constructor(options: RehypeOptions);
+  class RehypeReact {
     Compiler: any
+    constructor(options: RehypeOptions);
   }
-  export default rehypeReact;
+  export default RehypeReact;
 }

@@ -171,6 +171,7 @@ const ReadNextCard: React.SFC<ReadNextProps> = props => {
           }
         }
       `}
+      // tslint:disable-next-line:react-this-binding-issue
       render={({ site }: ReadNextQuery) => (
         <ReadNextCardStyles coverImage={site.siteMetadata.coverImage}>
           <ReadNextCardHeader>

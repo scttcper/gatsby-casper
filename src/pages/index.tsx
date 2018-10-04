@@ -1,32 +1,23 @@
-import { graphql, Link } from 'gatsby';
-import Img from 'gatsby-image';
+import { graphql } from 'gatsby';
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
+import { css } from 'react-emotion';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
+import PostCard from '../components/PostCard';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
-import PostCard from '../components/PostCard';
-import { SiteHeader, outer, SiteHeaderContent, inner, PostFeed, PostFeedRaise, SiteMain } from '../styles/shared';
-
-export const SiteTitle = styled.h1`
-  z-index: 10;
-  margin: 0;
-  padding: 0;
-  font-size: 3.8rem;
-  font-weight: 700;
-`;
-
-const SiteDescription = styled.h2`
-  z-index: 10;
-  margin: 0;
-  padding: 5px 0;
-  font-size: 2.2rem;
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  opacity: 0.8;
-`;
+import {
+  inner,
+  outer,
+  PostFeed,
+  PostFeedRaise,
+  SiteDescription,
+  SiteHeader,
+  SiteHeaderContent,
+  SiteMain,
+  SiteTitle,
+} from '../styles/shared';
 
 const HomePosts = css`
   @media (min-width: 795px) {

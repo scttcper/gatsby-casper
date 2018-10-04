@@ -9,17 +9,16 @@ import { Helmet } from 'react-helmet';
 import AuthorCard from '../components/AuthorCard';
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import InfinityIcon from '../components/icons/infinity';
 import PostCard from '../components/PostCard';
 import PostContent from '../components/PostContent';
 import PostFullFooter from '../components/PostFullFooter';
 import PostFullFooterRight from '../components/PostFullFooterRight';
+import ReadNextCard from '../components/ReadNextCard';
 import SubscribeForm from '../components/SubscribeForm';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
-import { outer, SiteHeader, SiteMain, inner } from '../styles/shared';
-import ReadNextCard from '../components/ReadNextCard';
+import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
 
 const PostFull = css`
   position: relative;

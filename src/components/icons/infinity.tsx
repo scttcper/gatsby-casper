@@ -1,3 +1,4 @@
+// tslint:disable:no-http-string
 import * as React from 'react';
 
 const InfinityIcon: React.SFC = () => (

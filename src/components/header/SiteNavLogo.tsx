@@ -1,6 +1,5 @@
+import { graphql, Link, StaticQuery } from 'gatsby';
 import * as React from 'react';
-import { Link, StaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
 import { css } from 'react-emotion';
 
 const SiteNavLogoStyles = css`
@@ -54,6 +53,7 @@ const SiteNavLogo = () => (
         }
       }
     `}
+    // tslint:disable-next-line:react-this-binding-issue
     render={(data: SiteNavLogoProps) =>
       data.logo ? (
         <Link className={`${SiteNavLogoStyles}`} to="/">

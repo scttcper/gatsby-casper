@@ -1,11 +1,3 @@
-import * as React from 'react'
-import { Link } from 'gatsby'
+const About = () => 'About';
 
-import Page from '../components/Page'
-import Container from '../components/Container'
-
-const About = () => (
-  "About"
-)
-
-export default About
+export default About;

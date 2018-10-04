@@ -1,15 +1,12 @@
+import { graphql } from 'gatsby';
 import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 
-// Components
-import { Link, graphql } from 'gatsby';
-import IndexLayout from '../layouts';
-import Wrapper from '../components/Wrapper';
-import SiteNav from '../components/header/SiteNav';
 import Footer from '../components/Footer';
+import SiteNav from '../components/header/SiteNav';
 import PostCard from '../components/PostCard';
-import { inner } from '../styles/shared';
+import Wrapper from '../components/Wrapper';
+import IndexLayout from '../layouts';
+import { inner, outer, PostFeed, PostFeedRaise, SiteDescription, SiteHeader, SiteHeaderContent, SiteTitle, SiteMain } from '../styles/shared';
 
 interface TagTemplateProps {
   pageContext: {
@@ -19,20 +16,6 @@ interface TagTemplateProps {
     logo: {
       childImageSharp: {
         fixed: any;
-      };
-    };
-    site: {
-      siteMetadata: {
-        title: string;
-        description: string;
-        siteUrl: string;
-        coverImage: string;
-        facebook: string;
-        twitter: string;
-        author: {
-          name: string;
-          url: string;
-        };
       };
     };
     allMarkdownRemark: {
@@ -74,38 +57,36 @@ export interface PageContext {
 }
 
 const Tags: React.SFC<TagTemplateProps> = props => {
-  const siteMetadata = props.data.site.siteMetadata;
   const tag = props.pageContext.tag;
   const { edges, totalCount } = props.data.allMarkdownRemark;
-  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`;
 
   return (
-    <IndexLayout className="tag-template tag-fiction">
+    <IndexLayout className={``}>
       <Wrapper>
-        <header className="site-header outer no-cover">
-          <div className="inner">
+        <header className={`${SiteHeader} ${outer} no-cover`}>
+          <div className={`${inner}`}>
             <SiteNav isHome={false} />
-            <div className="site-header-content">
-              <h1 className="site-title">{tag}</h1>
+            <SiteHeaderContent>
+              <SiteTitle>{tag}</SiteTitle>
               {/* TODO: tag description */}
-              <h2 className="site-description">
+              <SiteDescription>
                 A collection of {totalCount > 1 && `${totalCount} posts`}
                 {totalCount === 1 && `1 post`}
                 {totalCount === 0 && `No posts`}
-              </h2>
-            </div>
+              </SiteDescription>
+            </SiteHeaderContent>
           </div>
         </header>
-        <main id="site-main" className="site-main outer">
+        <main id="site-main" className={`${SiteMain} ${outer}`}>
           <div className={`${inner}`}>
-            <div className="post-feed">
+            <div className={`${PostFeed} ${PostFeedRaise}`}>
               {edges.map(({ node }) => (
                 <PostCard key={node.fields.slug} post={node} />
               ))}
             </div>
           </div>
         </main>
-        <Footer siteMetadata={siteMetadata} />
+        <Footer />
       </Wrapper>
     </IndexLayout>
   );
@@ -121,20 +102,6 @@ export const pageQuery = graphql`
         # Makes it trivial to update as your page's design changes.
         fixed {
           ...GatsbyImageSharpFixed
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        title
-        description
-        siteUrl
-        coverImage
-        facebook
-        twitter
-        author {
-          name
-          url
         }
       }
     }

@@ -91,6 +91,7 @@ const Footer: React.SFC = () => {
           }
         }
       `}
+      // tslint:disable-next-line:react-this-binding-issue
       render={({ site }: FooterProps) => (
         <footer className={`${outer} ${SiteFooter}`}>
           <div className={`${inner} ${SiteFooterContent}`}>
@@ -100,17 +101,17 @@ const Footer: React.SFC = () => {
             <SiteFooterNav>
               <Link to={site.siteMetadata.siteUrl}>Latest Posts</Link>
               {site.siteMetadata.facebook && (
-                <a href={site.siteMetadata.facebook} target="_blank" rel="noopener">
+                <a href={site.siteMetadata.facebook} target="_blank" rel="noopener noreferrer">
                   Facebook
                 </a>
               )}
               {site.siteMetadata.twitter && (
-                <a href={site.siteMetadata.twitter} target="_blank" rel="noopener">
+                <a href={site.siteMetadata.twitter} target="_blank" rel="noopener noreferrer">
                   Twitter
                 </a>
               )}
 
-              <a href="https://ghost.org" target="_blank" rel="noopener">
+              <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
                 Ghost
               </a>
             </SiteFooterNav>

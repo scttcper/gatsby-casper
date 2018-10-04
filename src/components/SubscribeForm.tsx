@@ -1,8 +1,8 @@
+import { darken, desaturate, lighten, mix } from 'polished';
 import * as React from 'react';
 import { css, default as styled } from 'react-emotion';
 
 import { colors } from '../styles/colors';
-import { lighten, darken, saturate, setLightness, mix, desaturate } from 'polished';
 
 const SubscribeFormSection = styled.section`
   margin: 1.5em 0;

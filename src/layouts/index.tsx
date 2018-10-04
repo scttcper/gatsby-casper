@@ -1,6 +1,7 @@
-import * as React from 'react';
 import { injectGlobal } from 'emotion';
-import { darken, setLightness, lighten } from 'polished';
+import { darken, lighten } from 'polished';
+import * as React from 'react';
+
 import { colors } from '../styles/colors';
 
 // tslint:disable-next-line:no-unused-expression
