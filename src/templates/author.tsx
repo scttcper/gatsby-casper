@@ -77,7 +77,7 @@ interface AuthorTemplateProps {
   data: {
     logo: {
       childImageSharp: {
-        fixed: any;
+        fluid: any;
       };
     };
     allMarkdownRemark: {
@@ -94,7 +94,7 @@ interface AuthorTemplateProps {
       location?: string;
       profile_image?: {
         childImageSharp: {
-          sizes: any;
+          fluid: any;
         };
       };
       bio?: string;
@@ -116,7 +116,7 @@ export interface PageContext {
   frontmatter: {
     image?: {
       childImageSharp: {
-        sizes: any;
+        fluid: any;
       };
     };
     title: string;
@@ -145,7 +145,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
       <Wrapper>
         <header
           className={`${SiteHeader} ${outer} no-cover`}
-          style={{ backgroundImage: author.profile_image ? `url(${author.profile_image.childImageSharp.sizes.src})` : '' }}
+          style={{ backgroundImage: author.profile_image ? `url(${author.profile_image.childImageSharp.fluid.src})` : '' }}
         >
           <div className={`${inner}`}>
             <SiteNav isHome={false} />
@@ -252,8 +252,8 @@ export const pageQuery = graphql`
       location
       profile_image {
         childImageSharp {
-          sizes {
-            ...GatsbyImageSharpSizes
+          fluid(maxWidth: 3720) {
+            ...GatsbyImageSharpFluid
           }
         }
       }
@@ -277,8 +277,8 @@ export const pageQuery = graphql`
             date
             image {
               childImageSharp {
-                sizes(maxWidth: 1240) {
-                  ...GatsbyImageSharpSizes
+                fluid(maxWidth: 3720) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }

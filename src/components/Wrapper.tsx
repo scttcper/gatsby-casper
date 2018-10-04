@@ -11,6 +11,8 @@ interface WrapperProps {
   className?: string;
 }
 
-const Wrapper: React.SFC<WrapperProps> = ({ children, className }) => <StyledWrapper className={className}>{children}</StyledWrapper>;
+const Wrapper: React.SFC<WrapperProps> = ({ children, className }) => (
+  <StyledWrapper className={className}>{children}</StyledWrapper>
+);
 
 export default Wrapper;

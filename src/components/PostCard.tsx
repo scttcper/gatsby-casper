@@ -199,7 +199,7 @@ export interface PostCardProps {
     frontmatter: {
       image?: {
         childImageSharp: {
-          sizes: any;
+          fluid: any;
         };
       };
       title: string;
@@ -227,8 +227,8 @@ const PostCard: React.SFC<PostCardProps> = props => (
       <Link className={`${PostCardImageLink} post-card-image-link`} to={props.post.fields.slug}>
         <PostCardImage className="post-card-image">
           {props.post.frontmatter.image &&
-            props.post.frontmatter.image.childImageSharp.sizes && (
-              <Img style={{ height: '100%' }} sizes={props.post.frontmatter.image.childImageSharp.sizes} />
+            props.post.frontmatter.image.childImageSharp.fluid && (
+              <Img style={{ height: '100%' }} fluid={props.post.frontmatter.image.childImageSharp.fluid} />
             )}
         </PostCardImage>
       </Link>

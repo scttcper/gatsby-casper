@@ -1,10 +1,11 @@
-import { Link, StaticQuery, graphql } from 'gatsby';
+import { Link } from 'gatsby';
 import { setLightness } from 'polished';
 import * as React from 'react';
 import styled, { css } from 'react-emotion';
 
 import { colors } from '../styles/colors';
 import { outer, inner } from '../styles/shared';
+import config from '../website-config';
 
 const SiteFooter = css`
   position: relative;
@@ -63,62 +64,32 @@ const SiteFooterNav = styled.nav`
   }
 `;
 
-export interface FooterProps {
-  site: {
-    siteMetadata: {
-      title: string;
-      description: string;
-      siteUrl: string;
-      facebook: string;
-      twitter: string;
-      logo?: string;
-    };
-  };
-}
-
 const Footer: React.SFC = () => {
   return (
-    <StaticQuery
-      query={graphql`
-        query FooterQuery {
-          site {
-            siteMetadata {
-              title
-              siteUrl
-              facebook
-              twitter
-            }
-          }
-        }
-      `}
-      // tslint:disable-next-line:react-this-binding-issue
-      render={({ site }: FooterProps) => (
-        <footer className={`${outer} ${SiteFooter}`}>
-          <div className={`${inner} ${SiteFooterContent}`}>
-            <section className="copyright">
-              <Link to={site.siteMetadata.siteUrl}>{site.siteMetadata.title}</Link> &copy; swag
-            </section>
-            <SiteFooterNav>
-              <Link to={site.siteMetadata.siteUrl}>Latest Posts</Link>
-              {site.siteMetadata.facebook && (
-                <a href={site.siteMetadata.facebook} target="_blank" rel="noopener noreferrer">
-                  Facebook
-                </a>
-              )}
-              {site.siteMetadata.twitter && (
-                <a href={site.siteMetadata.twitter} target="_blank" rel="noopener noreferrer">
-                  Twitter
-                </a>
-              )}
+    <footer className={`${outer} ${SiteFooter}`}>
+      <div className={`${inner} ${SiteFooterContent}`}>
+        <section className="copyright">
+          <Link to={config.siteUrl}>{config.title}</Link> &copy; swag
+        </section>
+        <SiteFooterNav>
+          <Link to={config.siteUrl}>Latest Posts</Link>
+          {config.facebook && (
+            <a href={config.facebook} target="_blank" rel="noopener noreferrer">
+              Facebook
+            </a>
+          )}
+          {config.twitter && (
+            <a href={config.twitter} target="_blank" rel="noopener noreferrer">
+              Twitter
+            </a>
+          )}
 
-              <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
-                Ghost
-              </a>
-            </SiteFooterNav>
-          </div>
-        </footer>
-      )}
-    />
+          <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
+            Ghost
+          </a>
+        </SiteFooterNav>
+      </div>
+    </footer>
   );
 };
 

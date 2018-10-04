@@ -19,6 +19,7 @@ import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
+import config from '../website-config';
 
 const PostFull = css`
   position: relative;
@@ -104,21 +105,6 @@ interface PageTemplateProps {
         fixed: any;
       };
     };
-    site: {
-      siteMetadata: {
-        title: string;
-        description: string;
-        siteUrl: string;
-        coverImage: string;
-        facebook: string;
-        twitter: string;
-        logo: string;
-        author: {
-          name: string;
-          url: string;
-        };
-      };
-    };
     markdownRemark: {
       html: string;
       htmlAst: any;
@@ -130,7 +116,7 @@ interface PageTemplateProps {
         userDate: string;
         image: {
           childImageSharp: {
-            sizes: any;
+            fluid: any;
           };
         };
         tags: string[];
@@ -177,7 +163,7 @@ export interface PageContext {
   frontmatter: {
     image: {
       childImageSharp: {
-        sizes: any;
+        fluid: any;
       };
     };
     title: string;
@@ -199,7 +185,6 @@ export interface PageContext {
 
 const PageTemplate: React.SFC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
-  const siteMetadata = props.data.site.siteMetadata;
 
   return (
     <IndexLayout className="post-template">
@@ -232,13 +217,13 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
 
               {post.frontmatter.image.childImageSharp && (
                 <PostFullImage>
-                  <Img style={{ height: '100%' }} sizes={post.frontmatter.image.childImageSharp.sizes} />
+                  <Img style={{ height: '100%' }} fluid={post.frontmatter.image.childImageSharp.fluid} />
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.htmlAst} />
 
               {/* The big email subscribe modal content */}
-              <SubscribeForm title={siteMetadata.title} />
+              <SubscribeForm title={config.title} />
 
               <PostFullFooter>
                 <AuthorCard author={post.frontmatter.author} />
@@ -278,20 +263,6 @@ export const query = graphql`
         }
       }
     }
-    site {
-      siteMetadata {
-        title
-        description
-        siteUrl
-        coverImage
-        facebook
-        twitter
-        author {
-          name
-          url
-        }
-      }
-    }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       htmlAst
@@ -304,8 +275,8 @@ export const query = graphql`
         tags
         image {
           childImageSharp {
-            sizes(maxWidth: 1240) {
-              ...GatsbyImageSharpSizes
+            fluid(maxWidth: 3720) {
+              ...GatsbyImageSharpFluid
             }
           }
         }

@@ -1,10 +1,10 @@
 # gatsby-casper
 
-A port of [Casper](https://github.com/TryGhost/Casper) v2 for gatsby in TypeScript.
+This is a static blog generator and starter gatsby repo. A port of [Casper](https://github.com/TryGhost/Casper) v2 a theme from [Ghost](https://ghost.org/) for [GatsbyJS](https://www.gatsbyjs.org/) using TypeScript.
 
 
 ### TODO
-- [ ] emotion / component styles
+- [x] emotion / component styles
 - [x] home page
 - [x] tag page
 - [x] author page

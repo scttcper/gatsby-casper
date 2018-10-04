@@ -1,12 +1,14 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
 import { css } from 'react-emotion';
+import Helmet from 'react-helmet';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
 import PostCard from '../components/PostCard';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
+import config from '../website-config';
 import {
   inner,
   outer,
@@ -68,13 +70,9 @@ export interface IndexProps {
         fixed: any;
       };
     };
-    site: {
-      siteMetadata: {
-        title: string;
-        description: string;
-        coverImage: string;
-        facebook: string;
-        twitter: string;
+    header: {
+      childImageSharp: {
+        fluid: any;
       };
     };
     allMarkdownRemark: {
@@ -86,7 +84,7 @@ export interface IndexProps {
             date: string;
             image: {
               childImageSharp: {
-                sizes: any;
+                fluid: any;
               };
             };
             author: {
@@ -114,27 +112,32 @@ export interface IndexProps {
 }
 
 const IndexPage: React.SFC<IndexProps> = props => {
-  const siteMetadata = props.data.site.siteMetadata;
-  console.log(props);
   return (
     <IndexLayout className={`${HomePosts}`}>
+      <Helmet>
+        <title>{config.title}</title>
+      </Helmet>
       <Wrapper>
         <header
           className={`${SiteHeader} ${outer}`}
           style={{
-            backgroundImage: `url(${siteMetadata.coverImage})`,
+            backgroundImage: `url('${props.data.header.childImageSharp.fluid.src}')`,
           }}
         >
           <div className={`${inner}`}>
             <SiteHeaderContent>
               <SiteTitle>
                 {props.data.logo ? (
-                  <img style={{ maxHeight: '45px' }} src={props.data.logo.childImageSharp.fixed.src} alt={siteMetadata.title} />
+                  <img
+                    style={{ maxHeight: '45px' }}
+                    src={props.data.logo.childImageSharp.fixed.src}
+                    alt={config.title}
+                  />
                 ) : (
-                  siteMetadata.title
+                  config.title
                 )}
               </SiteTitle>
-              <SiteDescription>{siteMetadata.description}</SiteDescription>
+              <SiteDescription>{config.description}</SiteDescription>
             </SiteHeaderContent>
             <SiteNav isHome={true} />
           </div>
@@ -169,13 +172,13 @@ export const pageQuery = graphql`
         }
       }
     }
-    site {
-      siteMetadata {
-        title
-        description
-        coverImage
-        facebook
-        twitter
+    header: file(relativePath: { eq: "img/blog-cover.jpg" }) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fluid(maxWidth: 2000) {
+          ...GatsbyImageSharpFluid
+        }
       }
     }
     allMarkdownRemark(limit: 1000, sort: { fields: [frontmatter___date], order: DESC }) {
@@ -188,8 +191,8 @@ export const pageQuery = graphql`
             tags
             image {
               childImageSharp {
-                sizes(maxWidth: 1240) {
-                  ...GatsbyImageSharpSizes
+                fluid(maxWidth: 3720) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }

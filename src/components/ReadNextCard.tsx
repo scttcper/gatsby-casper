@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 
 import { colors } from '../styles/colors';
 import InfinityIcon from './icons/infinity';
+import config from '../website-config';
 
 export interface ReadNextCardStylesProps {
   coverImage: string;
@@ -150,10 +151,9 @@ export interface ReadNextProps {
 }
 
 export interface ReadNextQuery {
-  site: {
-    siteMetadata: {
-      title: string;
-      coverImage: string;
+  header: {
+    childImageSharp: {
+      fluid: any;
     };
   };
 }
@@ -163,19 +163,24 @@ const ReadNextCard: React.SFC<ReadNextProps> = props => {
     <StaticQuery
       query={graphql`
         query ReadNextQuery {
-          site {
-            siteMetadata {
-              coverImage
-              title
+          header: file(relativePath: { eq: "img/blog-cover.jpg" }) {
+            childImageSharp {
+              # Specify the image processing specifications right in the query.
+              # Makes it trivial to update as your page's design changes.
+              fluid(maxWidth: 2000) {
+                ...GatsbyImageSharpFluid
+              }
             }
           }
         }
       `}
       // tslint:disable-next-line:react-this-binding-issue
-      render={({ site }: ReadNextQuery) => (
-        <ReadNextCardStyles coverImage={site.siteMetadata.coverImage}>
+      render={({ header }: ReadNextQuery) => (
+        <ReadNextCardStyles coverImage={header.childImageSharp.fluid.src}>
           <ReadNextCardHeader>
-            <ReadNextCardHeaderSitetitle>&mdash; {site.siteMetadata.title} &mdash;</ReadNextCardHeaderSitetitle>
+            <ReadNextCardHeaderSitetitle>
+              &mdash; {config.title} &mdash;
+            </ReadNextCardHeaderSitetitle>
             <ReadNextCardHeaderTitle>
               <Link to={`/tags/${_.kebabCase(props.tags[0])}/`}>{props.tags[0]}</Link>
             </ReadNextCardHeaderTitle>
@@ -196,7 +201,8 @@ const ReadNextCard: React.SFC<ReadNextProps> = props => {
           </ReadNextCardContent>
           <ReadNextCardFooter>
             <Link to={`/tags/${_.kebabCase(props.tags[0])}/`}>
-              {props.relatedPosts.totalCount > 1 && `See all ${props.relatedPosts.totalCount} posts`}
+              {props.relatedPosts.totalCount > 1 &&
+                `See all ${props.relatedPosts.totalCount} posts`}
               {props.relatedPosts.totalCount === 1 && `1 post`}
               {props.relatedPosts.totalCount === 0 && `No posts`} →
             </Link>

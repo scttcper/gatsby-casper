@@ -6,11 +6,6 @@ module.exports = {
     description: 'The professional publishing platform',
     siteUrl: 'https://gatsby-casper.netlify.com',
     coverImage: 'https://demo.ghost.io/content/images/2017/07/blog-cover.jpg',
-    author: {
-      name: 'Resi Respati',
-      url: 'https://twitter.com/resir014',
-      email: 'resir014@gmail.com',
-    },
     facebook: 'https://www.facebook.com/ghost',
     twitter: 'https://twitter.com/tryghost',
   },
