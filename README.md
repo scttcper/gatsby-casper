@@ -13,7 +13,7 @@ This is a static blog generator and starter gatsby repo. A port of [Casper](http
   - [ ] multiple authors
   - [ ] subscribe form? - this doesn't really work without a backend. maybe mailchimp?
   - [ ] reading progress? - i don't even really like the reading progress bar
-- [ ] 404 page
+- [x] 404 page
 - [ ] subscribe modal
 - [ ] rss feed
 - [ ] amp?

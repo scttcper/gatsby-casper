@@ -54,17 +54,15 @@ const SiteNavLogo = () => (
       }
     `}
     // tslint:disable-next-line:react-this-binding-issue
-    render={(data: SiteNavLogoProps) =>
-      data.logo ? (
-        <Link className={`${SiteNavLogoStyles}`} to="/">
+    render={(data: SiteNavLogoProps) => (
+      <Link className={`${SiteNavLogoStyles} site-nav-logo`} to="/">
+        {data.logo ? (
           <img src={data.logo.childImageSharp.fixed.src} alt={data.title} />
-        </Link>
-      ) : (
-        <Link className={`${SiteNavLogoStyles}`} to="/">
-          {data.title}
-        </Link>
-      )
-    }
+        ) : (
+          data.title
+        )}
+      </Link>
+    )}
   />
 );
 
