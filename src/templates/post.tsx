@@ -21,6 +21,14 @@ import { colors } from '../styles/colors';
 import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
 import config from '../website-config';
 
+
+const PostTemplate = css`
+  .site-main {
+    background #fff;
+    padding-bottom: 4vw;
+  }
+`;
+
 const PostFull = css`
   position: relative;
   z-index: 50;
@@ -191,13 +199,13 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
       <Helmet>
         <title>{post.frontmatter.title}</title>
       </Helmet>
-      <Wrapper className="post-template">
+      <Wrapper className={`${PostTemplate}`}>
         <header className={`${SiteHeader} ${outer}`}>
           <div className="inner">
             <SiteNav isHome={false} />
           </div>
         </header>
-        <main id="site-main" className={`${SiteMain} ${outer}`}>
+        <main id="site-main" className={`site-main ${SiteMain} ${outer}`}>
           <div className={`${inner}`}>
             {/* TODO: no-image css tag? */}
             <article className={`${PostFull}`}>
