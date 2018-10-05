@@ -5,7 +5,7 @@ image: img/testimg-cover.jpg
 author: Ghost
 date: 2018-09-30T07:03:47.149Z
 tags:
-  - Snakes
+  - Tests
 ---
 
 Note: This style test is taken verbatum from the official Roon style test on
