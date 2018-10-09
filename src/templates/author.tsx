@@ -28,11 +28,6 @@ const HiddenMobile = css`
   }
 `;
 
-const AuthorLocationSvg = css`
-  height: 1.9rem;
-  stroke: #fff;
-`;
-
 const AuthorMeta = styled.div`
   z-index: 10;
   flex-shrink: 0;
@@ -71,6 +66,23 @@ const AuthorProfileBioImage = css`
   box-shadow: rgba(255, 255, 255, 0.1) 0 0 0 6px;
 `;
 
+const SocialLink = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 10px;
+  color: #fff;
+  opacity: 0.8;
+  svg {
+    height: 1.8rem;
+    fill: #fff;
+    path {
+      stroke: #fff;
+    }
+  }
+`;
+
 interface AuthorTemplateProps {
   pageContext: {
     author: string;
@@ -101,7 +113,7 @@ interface AuthorTemplateProps {
       bio?: string;
       avatar: {
         childImageSharp: {
-          sizes: any;
+          fluid: any;
         };
       };
     };
@@ -117,21 +129,25 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
       <Wrapper>
         <header
           className={`${SiteHeader} ${outer} no-cover`}
-          style={{ backgroundImage: author.profile_image ? `url(${author.profile_image.childImageSharp.fluid.src})` : '' }}
+          style={{
+            backgroundImage: author.profile_image
+              ? `url(${author.profile_image.childImageSharp.fluid.src})`
+              : '',
+          }}
         >
           <div className={`${inner}`}>
             <SiteNav isHome={false} />
             <SiteHeaderContent>
-              <Img
+              <img
                 className={`${AuthorProfileBioImage} ${AuthorProfileImage}`}
-                sizes={props.data.authorYaml.avatar.childImageSharp.sizes}
+                src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
                 alt="Ghost"
               />
               <SiteTitle>{author.id}</SiteTitle>
               {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
               <AuthorMeta>
                 {author.location && (
-                  <div className={`${AuthorLocationSvg} ${HiddenMobile}`}>
+                  <div className={`${HiddenMobile}`}>
                     {author.location} <Bull>&bull;</Bull>
                   </div>
                 )}
@@ -141,8 +157,17 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                   {totalCount === 0 && `No posts`} <Bull>•</Bull>
                 </div>
                 {author.website && (
-                  <a className="social-link social-link-wb" href={author.website} target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <a
+                    className={`${SocialLink} social-link-wb`}
+                    href={author.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      style={{ height: '1.6rem' }}
+                    >
                       <path
                         d="M23.5 11.957c0 6.375-5.163 11.544-11.532 11.544C5.599 23.5.5 18.125.5 11.75.5 5.542 5.37.758 11.505.511l.5-.011C18.374.5 23.5 5.582 23.5 11.957zM11.505.511c-6 6.5-6 14.98 0 22.98m1-22.98c6 6.5 6 14.977 0 22.977M2 17.479h20.063m-19.657-12h19.062m-20.968 6h22.938"
                         stroke="#000"
@@ -155,7 +180,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                 )}
                 {author.twitter && (
                   <a
-                    className="social-link social-link-tw"
+                    className={`${SocialLink} social-link-tw`}
                     href={`https://twitter.com/${author.twitter}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -167,24 +192,32 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                 )}
                 {author.facebook && (
                   <a
-                    className="social-link social-link-fb"
+                    className={`${SocialLink} social-link-fb`}
                     href={`https://www.facebook.com/${author.facebook}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 32 32"
+                      style={{ height: '1.5rem' }}
+                    >
                       <path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z" />
                     </svg>
                   </a>
                 )}
                 {/* TODO: RSS for author */}
                 {/* <a
-                  className="social-link social-link-rss"
+                  className={`${SocialLink} social-link-rss`}
                   href="https://feedly.com/i/subscription/feed/https://demo.ghost.io/author/ghost/rss/"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    style={{ height: '1.9rem' }}
+                  >
                     <circle cx="6.18" cy="17.82" r="2.18" />
                     <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z" />
                   </svg>
@@ -231,8 +264,8 @@ export const pageQuery = graphql`
       }
       avatar {
         childImageSharp {
-          sizes(maxWidth: 200) {
-            ...GatsbyImageSharpSizes
+          fluid(maxWidth: 200) {
+            ...GatsbyImageSharpFluid
           }
         }
       }

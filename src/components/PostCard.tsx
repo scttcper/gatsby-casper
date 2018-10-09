@@ -232,7 +232,8 @@ const PostCard: React.SFC<PostCardProps> = ({ post }) => {
                 className={`${StaticAvatar}`}
                 to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}
               >
-                <AuthorProfileImage
+                <img
+                  className={`${AuthorProfileImage}`}
                   src={post.frontmatter.author.avatar.children[0].fixed.src}
                   alt={post.frontmatter.author.id}
                 />
