@@ -1,10 +1,12 @@
-import * as React from 'react';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import * as _ from 'lodash';
+import { lighten } from 'polished';
+import * as React from 'react';
+
 import styled, { css } from 'react-emotion';
 import { colors } from '../styles/colors';
-import { lighten } from 'polished';
+import { PageContext } from '../templates/post';
 
 const PostCardStyles = css`
   flex: 1 1 300px;
@@ -145,7 +147,7 @@ const AuthorNameTooltip = styled.div`
   font-size: 1.2rem;
   letter-spacing: 0.2px;
   white-space: nowrap;
-  background: var(--darkgrey);
+  background: ${colors.darkgrey};
   border-radius: 3px;
   box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
   opacity: 0;
@@ -190,72 +192,58 @@ const ReadingTime = styled.span`
 `;
 
 export interface PostCardProps {
-  post: {
-    excerpt: string;
-    timeToRead: number;
-    fields: {
-      slug: string;
-    };
-    frontmatter: {
-      image?: {
-        childImageSharp: {
-          fluid: any;
-        };
-      };
-      title: string;
-      date: string;
-      tags?: string[];
-      author: {
-        id: string;
-        bio: string;
-        avatar: {
-          children: {
-            fixed: {
-              src: string;
-            };
-          }[];
-        };
-      };
-    };
-  };
+  post: PageContext;
 }
 
-const PostCard: React.SFC<PostCardProps> = props => (
-  // TODO: no-image class?
-  <article className={`post-card ${PostCardStyles}`}>
-    {props.post.frontmatter.image && (
-      <Link className={`${PostCardImageLink} post-card-image-link`} to={props.post.fields.slug}>
-        <PostCardImage className="post-card-image">
-          {props.post.frontmatter.image &&
-            props.post.frontmatter.image.childImageSharp.fluid && (
-              <Img style={{ height: '100%' }} fluid={props.post.frontmatter.image.childImageSharp.fluid} />
-            )}
-        </PostCardImage>
-      </Link>
-    )}
-    <PostCardContent className="post-card-content">
-      <Link className={`${PostCardContentLink} post-card-content-link`} to={props.post.fields.slug}>
-        <header className="post-card-header">
-          {props.post.frontmatter.tags && <PostCardTags>{props.post.frontmatter.tags[0]}</PostCardTags>}
-          <PostCardTitle>{props.post.frontmatter.title}</PostCardTitle>
-        </header>
-        <PostCardExcerpt>
-          <p>{props.post.excerpt}</p>
-        </PostCardExcerpt>
-      </Link>
-      <PostCardMeta className="post-card-meta">
-        <AuthorList>
-          <AuthorListItem>
-            <AuthorNameTooltip className="author-name-tooltip">{props.post.frontmatter.author.id}</AuthorNameTooltip>
-            <Link className={`${StaticAvatar}`} to={`/author/${_.kebabCase(props.post.frontmatter.author.id)}/`}>
-              <AuthorProfileImage src={props.post.frontmatter.author.avatar.children[0].fixed.src} alt={props.post.frontmatter.author.id} />
-            </Link>
-          </AuthorListItem>
-        </AuthorList>
-        <ReadingTime>{props.post.timeToRead} min read</ReadingTime>
-      </PostCardMeta>
-    </PostCardContent>
-  </article>
-);
+const PostCard: React.SFC<PostCardProps> = ({ post }) => {
+  return (
+    <article className={`post-card ${PostCardStyles} ${!post.frontmatter.image ? 'no-image' : ''}`}>
+      {post.frontmatter.image && (
+        <Link className={`${PostCardImageLink} post-card-image-link`} to={post.fields.slug}>
+          <PostCardImage className="post-card-image">
+            {post.frontmatter.image &&
+              post.frontmatter.image.childImageSharp.fluid && (
+                <Img
+                  alt={`${post.frontmatter.title} cover image`}
+                  style={{ height: '100%' }}
+                  fluid={post.frontmatter.image.childImageSharp.fluid}
+                />
+              )}
+          </PostCardImage>
+        </Link>
+      )}
+      <PostCardContent className="post-card-content">
+        <Link className={`${PostCardContentLink} post-card-content-link`} to={post.fields.slug}>
+          <header className="post-card-header">
+            {post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}
+            <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
+          </header>
+          <PostCardExcerpt>
+            <p>{post.excerpt}</p>
+          </PostCardExcerpt>
+        </Link>
+        <PostCardMeta className="post-card-meta">
+          <AuthorList>
+            <AuthorListItem>
+              <AuthorNameTooltip className="author-name-tooltip">
+                {post.frontmatter.author.id}
+              </AuthorNameTooltip>
+              <Link
+                className={`${StaticAvatar}`}
+                to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}
+              >
+                <AuthorProfileImage
+                  src={post.frontmatter.author.avatar.children[0].fixed.src}
+                  alt={post.frontmatter.author.id}
+                />
+              </Link>
+            </AuthorListItem>
+          </AuthorList>
+          <ReadingTime>{post.timeToRead} min read</ReadingTime>
+        </PostCardMeta>
+      </PostCardContent>
+    </article>
+  );
+};
 
 export default PostCard;

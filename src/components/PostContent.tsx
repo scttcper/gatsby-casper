@@ -50,15 +50,6 @@ const PostFullContent = styled.section`
     transform: rotate(5deg);
   }
 
-  .no-image .post-full-content {
-    padding-top: 0;
-  }
-
-  .no-image .post-full-content:before,
-  .no-image .post-full-content:after {
-    display: none;
-  }
-
   h1,
   h2,
   h3,
@@ -286,7 +277,6 @@ const PostFullContent = styled.section`
   @media (min-width: 1180px) {
     h5 {
       max-width: 1060px;
-      width: 100vw;
     }
   }
   @media (max-width: 500px) {
@@ -390,7 +380,7 @@ export interface PostContentProps {
 
 const PostContent: React.SFC<PostContentProps> = ({ htmlAst }) => {
   return (
-    <PostFullContent>
+    <PostFullContent className="post-full-content">
       {/* TODO: this will apply the class when rehype-react is published https://github.com/rhysd/rehype-react/pull/11 */}
       <Ast className="post-content" ast={htmlAst} />
     </PostFullContent>

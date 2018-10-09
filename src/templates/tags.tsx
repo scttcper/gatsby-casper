@@ -6,17 +6,36 @@ import SiteNav from '../components/header/SiteNav';
 import PostCard from '../components/PostCard';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
-import { inner, outer, PostFeed, PostFeedRaise, SiteDescription, SiteHeader, SiteHeaderContent, SiteTitle, SiteMain } from '../styles/shared';
+import {
+  inner,
+  outer,
+  PostFeed,
+  PostFeedRaise,
+  SiteDescription,
+  SiteHeader,
+  SiteHeaderContent,
+  SiteMain,
+  SiteTitle,
+} from '../styles/shared';
+import { PageContext } from './post';
 
 interface TagTemplateProps {
   pageContext: {
     tag: string;
   };
   data: {
-    logo: {
-      childImageSharp: {
-        fixed: any;
-      };
+    allTagYaml: {
+      edges: {
+        node: {
+          id: string;
+          description: string;
+          image?: {
+            childImageSharp: {
+              fluid: any;
+            };
+          };
+        };
+      }[];
     };
     allMarkdownRemark: {
       totalCount: number;
@@ -27,52 +46,39 @@ interface TagTemplateProps {
   };
 }
 
-export interface PageContext {
-  excerpt: string;
-  timeToRead: number;
-  fields: {
-    slug: string;
-  };
-  frontmatter: {
-    image?: {
-      childImageSharp: {
-        sizes: any;
-      };
-    };
-    title: string;
-    date: string;
-    tags: string[];
-    author: {
-      id: string;
-      bio: string;
-      avatar: {
-        children: {
-          fixed: {
-            src: string;
-          };
-        }[];
-      };
-    };
-  };
-}
-
 const Tags: React.SFC<TagTemplateProps> = props => {
   const tag = props.pageContext.tag;
   const { edges, totalCount } = props.data.allMarkdownRemark;
+  const tagData = props.data.allTagYaml.edges.find(
+    n => n.node.id.toLowerCase() === tag.toLowerCase(),
+  );
 
   return (
     <IndexLayout className={``}>
       <Wrapper>
-        <header className={`${SiteHeader} ${outer} no-cover`}>
+        <header
+          className={`${SiteHeader} ${outer} ${tagData && tagData.node.image ? '' : 'no-cover'}`}
+          style={{
+            backgroundImage:
+              tagData && tagData.node.image
+                ? `url('${tagData.node.image.childImageSharp.fluid.src}')`
+                : '',
+          }}
+        >
           <div className={`${inner}`}>
             <SiteNav isHome={false} />
             <SiteHeaderContent>
               <SiteTitle>{tag}</SiteTitle>
-              {/* TODO: tag description */}
               <SiteDescription>
-                A collection of {totalCount > 1 && `${totalCount} posts`}
-                {totalCount === 1 && `1 post`}
-                {totalCount === 0 && `No posts`}
+                {tagData && tagData.node.description ? (
+                  tagData.node.description
+                ) : (
+                  <>
+                    A collection of {totalCount > 1 && `${totalCount} posts`}
+                    {totalCount === 1 && `1 post`}
+                    {totalCount === 0 && `No posts`}
+                  </>
+                )}
               </SiteDescription>
             </SiteHeaderContent>
           </div>
@@ -96,16 +102,26 @@ export default Tags;
 
 export const pageQuery = graphql`
   query($tag: String) {
-    logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
-      childImageSharp {
-        # Specify the image processing specifications right in the query.
-        # Makes it trivial to update as your page's design changes.
-        fixed {
-          ...GatsbyImageSharpFixed
+    allTagYaml {
+      edges {
+        node {
+          id
+          description
+          image {
+            childImageSharp {
+              fluid(maxWidth: 3720) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
       }
     }
-    allMarkdownRemark(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { tags: { in: [$tag] } } }) {
+    allMarkdownRemark(
+      limit: 2000
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { tags: { in: [$tag] } } }
+    ) {
       totalCount
       edges {
         node {
@@ -117,8 +133,8 @@ export const pageQuery = graphql`
             date
             image {
               childImageSharp {
-                sizes(maxWidth: 1240) {
-                  ...GatsbyImageSharpSizes
+                fluid(maxWidth: 1240) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }

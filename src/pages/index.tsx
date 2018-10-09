@@ -20,6 +20,7 @@ import {
   SiteMain,
   SiteTitle,
 } from '../styles/shared';
+import { PageContext } from '../templates/post';
 
 const HomePosts = css`
   @media (min-width: 795px) {
@@ -77,35 +78,7 @@ export interface IndexProps {
     };
     allMarkdownRemark: {
       edges: {
-        node: {
-          timeToRead: number;
-          frontmatter: {
-            title: string;
-            date: string;
-            image: {
-              childImageSharp: {
-                fluid: any;
-              };
-            };
-            author: {
-              id: string;
-              bio: string;
-              avatar: {
-                children: {
-                  fixed: {
-                    src: string;
-                  };
-                }[];
-              };
-            };
-            tags?: string[];
-          };
-          excerpt: string;
-          fields: {
-            layout: string;
-            slug: string;
-          };
-        };
+        node: PageContext;
       }[];
     };
   };

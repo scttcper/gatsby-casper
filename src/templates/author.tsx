@@ -20,6 +20,7 @@ import {
   SiteTitle,
   SiteMain,
 } from '../styles/shared';
+import { PageContext } from './post';
 
 const HiddenMobile = css`
   @media (max-width: 500px) {
@@ -102,35 +103,6 @@ interface AuthorTemplateProps {
         childImageSharp: {
           sizes: any;
         };
-      };
-    };
-  };
-}
-
-export interface PageContext {
-  excerpt: string;
-  timeToRead: number;
-  fields: {
-    slug: string;
-  };
-  frontmatter: {
-    image?: {
-      childImageSharp: {
-        fluid: any;
-      };
-    };
-    title: string;
-    date: string;
-    tags: string[];
-    author: {
-      id: string;
-      bio: string;
-      avatar: {
-        children: {
-          fixed: {
-            src: string;
-          };
-        }[];
       };
     };
   };

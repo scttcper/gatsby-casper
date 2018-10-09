@@ -8,7 +8,7 @@ import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, PostFeed, SiteHeader } from '../styles/shared';
-import { PageContext } from '../templates/author';
+import { PageContext } from '../templates/post';
 
 const SiteNavCenter = styled.nav`
   display: flex;

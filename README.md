@@ -9,8 +9,8 @@ This is a static blog generator and starter gatsby repo. A port of [Casper](http
 - [x] tag page
 - [x] author page
 - [-] blog page
-  - [ ] full width images? - not sure if possible yet
-  - [ ] multiple authors
+  - [ ] full width images in markdown? - not sure if possible yet
+  - [ ] multiple post authors
   - [ ] subscribe form? - this doesn't really work without a backend. maybe mailchimp?
   - [ ] reading progress? - i don't even really like the reading progress bar
 - [x] 404 page

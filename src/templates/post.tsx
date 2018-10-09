@@ -34,6 +34,17 @@ const PostFull = css`
   z-index: 50;
 `;
 
+const NoImage = css`
+  .post-full-content {
+    padding-top: 0;
+  }
+
+  .post-full-content:before,
+  .post-full-content:after {
+    display: none;
+  }
+`;
+
 const PostFullHeader = styled.header`
   margin: 0 auto;
   padding: 6vw 3vw 3vw;
@@ -208,7 +219,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
         <main id="site-main" className={`site-main ${SiteMain} ${outer}`}>
           <div className={`${inner}`}>
             {/* TODO: no-image css tag? */}
-            <article className={`${PostFull}`}>
+            <article className={`${PostFull} ${!post.frontmatter.image ? NoImage : ''}`}>
               <PostFullHeader>
                 <PostFullMeta>
                   <PostFullMetaDate dateTime={post.frontmatter.date}>{post.frontmatter.userDate}</PostFullMetaDate>
@@ -223,7 +234,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
               </PostFullHeader>
 
-              {post.frontmatter.image.childImageSharp && (
+              {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
                 <PostFullImage>
                   <Img style={{ height: '100%' }} fluid={post.frontmatter.image.childImageSharp.fluid} />
                 </PostFullImage>

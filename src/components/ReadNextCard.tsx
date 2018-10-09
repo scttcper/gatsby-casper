@@ -21,11 +21,24 @@ const ReadNextCardStyles = styled.article<ReadNextCardStylesProps>(
   margin: 0 20px 40px;
   padding: 25px;
   color: #fff;
-  background: ${colors.lightgrey} center center;
+  background: ${colors.darkgrey} center center;
   background-size: cover;
   border-radius: 5px;
   box-shadow: rgba(39, 44, 49, 0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
   background-image: url("${props.coverImage}");
+
+  :before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background: linear-gradient(135deg, rgba(0,40,60,0.8) 0%,rgba(0,20,40,0.7) 100%);
+    border-radius: 5px;
+    backdrop-filter: blur(2px);
+  }
 `,
 );
 
