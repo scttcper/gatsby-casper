@@ -29,12 +29,12 @@ const PostTemplate = css`
   }
 `;
 
-const PostFull = css`
+export const PostFull = css`
   position: relative;
   z-index: 50;
 `;
 
-const NoImage = css`
+export const NoImage = css`
   .post-full-content {
     padding-top: 0;
   }
@@ -45,7 +45,7 @@ const NoImage = css`
   }
 `;
 
-const PostFullHeader = styled.header`
+export const PostFullHeader = styled.header`
   margin: 0 auto;
   padding: 6vw 3vw 3vw;
   max-width: 1040px;
@@ -75,7 +75,7 @@ const PostFullMetaDate = styled.time`
   color: ${colors.blue};
 `;
 
-const PostFullTitle = styled.h1`
+export const PostFullTitle = styled.h1`
   margin: 0;
   color: ${setLightness('0.05', colors.darkgrey)};
   @media (max-width: 500px) {
@@ -212,8 +212,8 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
       </Helmet>
       <Wrapper className={`${PostTemplate}`}>
         <header className={`${SiteHeader} ${outer}`}>
-          <div className="inner">
-            <SiteNav isHome={false} />
+          <div className={`${inner}`}>
+            <SiteNav />
           </div>
         </header>
         <main id="site-main" className={`site-main ${SiteMain} ${outer}`}>

@@ -5,7 +5,7 @@ import rehypeReact from 'rehype-react';
 
 import { colors } from '../styles/colors';
 
-const PostFullContent = styled.section`
+export const PostFullContent = styled.section`
   position: relative;
   margin: 0 auto;
   padding: 70px 100px 0;

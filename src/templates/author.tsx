@@ -1,6 +1,5 @@
 // tslint:disable:no-http-string
 import { graphql } from 'gatsby';
-import Img from 'gatsby-image';
 import React from 'react';
 import styled, { css } from 'react-emotion';
 
@@ -19,8 +18,10 @@ import {
   SiteHeaderContent,
   SiteTitle,
   SiteMain,
+  SocialLink,
 } from '../styles/shared';
 import { PageContext } from './post';
+import Facebook from '../components/icons/facebook';
 
 const HiddenMobile = css`
   @media (max-width: 500px) {
@@ -64,23 +65,6 @@ const AuthorProfileBioImage = css`
   width: 100px;
   height: 100px;
   box-shadow: rgba(255, 255, 255, 0.1) 0 0 0 6px;
-`;
-
-const SocialLink = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 10px;
-  color: #fff;
-  opacity: 0.8;
-  svg {
-    height: 1.8rem;
-    fill: #fff;
-    path {
-      stroke: #fff;
-    }
-  }
 `;
 
 interface AuthorTemplateProps {
@@ -157,26 +141,28 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                   {totalCount === 0 && `No posts`} <Bull>•</Bull>
                 </div>
                 {author.website && (
-                  <a
-                    className={`${SocialLink} social-link-wb`}
-                    href={author.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      style={{ height: '1.6rem' }}
+                  <div>
+                    <a
+                      className={`${SocialLink} social-link-wb`}
+                      href={author.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <path
-                        d="M23.5 11.957c0 6.375-5.163 11.544-11.532 11.544C5.599 23.5.5 18.125.5 11.75.5 5.542 5.37.758 11.505.511l.5-.011C18.374.5 23.5 5.582 23.5 11.957zM11.505.511c-6 6.5-6 14.98 0 22.98m1-22.98c6 6.5 6 14.977 0 22.977M2 17.479h20.063m-19.657-12h19.062m-20.968 6h22.938"
-                        stroke="#000"
-                        strokeLinejoin="round"
-                        strokeMiterlimit="10"
-                        fill="none"
-                      />
-                    </svg>
-                  </a>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        style={{ height: '1.6rem' }}
+                      >
+                        <path
+                          d="M23.5 11.957c0 6.375-5.163 11.544-11.532 11.544C5.599 23.5.5 18.125.5 11.75.5 5.542 5.37.758 11.505.511l.5-.011C18.374.5 23.5 5.582 23.5 11.957zM11.505.511c-6 6.5-6 14.98 0 22.98m1-22.98c6 6.5 6 14.977 0 22.977M2 17.479h20.063m-19.657-12h19.062m-20.968 6h22.938"
+                          stroke="#fff"
+                          strokeLinejoin="round"
+                          strokeMiterlimit="10"
+                          fill="none"
+                        />
+                      </svg>
+                    </a>
+                  </div>
                 )}
                 {author.twitter && (
                   <a
@@ -197,13 +183,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 32 32"
-                      style={{ height: '1.5rem' }}
-                    >
-                      <path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z" />
-                    </svg>
+                    <Facebook />
                   </a>
                 )}
                 {/* TODO: RSS for author */}
