@@ -348,10 +348,6 @@ export const query = graphql`
             fluid(maxWidth: 3720) {
               ...GatsbyImageSharpFluid
             }
-            fixed(width: 5000) {
-              height
-              width
-            }
           }
         }
         author {
