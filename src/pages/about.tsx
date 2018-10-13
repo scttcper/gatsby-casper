@@ -7,6 +7,7 @@ import { css } from 'react-emotion';
 import { PostFullHeader, PostFullTitle, NoImage, PostFull } from '../templates/post';
 import { PostFullContent } from '../components/PostContent';
 import Footer from '../components/Footer';
+import Helmet from 'react-helmet';
 
 const PageTemplate = css`
   .site-main {
@@ -18,6 +19,9 @@ const PageTemplate = css`
 
 const About: React.SFC = () => (
   <IndexLayout>
+    <Helmet>
+      <title>About</title>
+    </Helmet>
     <Wrapper className={`${PageTemplate}`}>
       <header className={`${SiteHeader} ${outer}`}>
         <div className={`${inner}`}>

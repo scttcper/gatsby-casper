@@ -3,20 +3,19 @@
 This is a static blog generator and starter gatsby repo. A port of [Casper](https://github.com/TryGhost/Casper) v2 a theme from [Ghost](https://ghost.org/) for [GatsbyJS](https://www.gatsbyjs.org/) using TypeScript.
 
 
-### TODO
+### Progress
 - [x] emotion / component styles
 - [x] home page
 - [x] tag page
 - [x] author page
 - [-] blog page
-  - [ ] full width images in markdown? - not sure if possible yet
+  - [x] subscribe form - using [mailchimp](https://mailchimp.com)
+  - [ ] full width images in markdown? - not sure if possible
   - [ ] multiple post authors
-  - [ ] subscribe form? - this doesn't really work without a backend. maybe mailchimp?
-  - [ ] reading progress? - i don't even really like the reading progress bar
+  - [ ] floating reading progress bar?
 - [x] 404 page
-- [ ] subscribe modal
-- [ ] rss feed
-- [ ] amp?
+- [x] subscribe modal
+- [x] rss feed
 - [ ] polish ✨
   - [ ] meta tags
-  - [ ] page titles
+  - [x] page titles

@@ -18,6 +18,8 @@ import {
   SiteTitle,
 } from '../styles/shared';
 import { PageContext } from './post';
+import Helmet from 'react-helmet';
+import config from '../website-config';
 
 interface TagTemplateProps {
   pageContext: {
@@ -54,7 +56,11 @@ const Tags: React.SFC<TagTemplateProps> = props => {
   );
 
   return (
-    <IndexLayout className={``}>
+    <IndexLayout>
+      <Helmet>
+        <title>{tag} - {config.title}</title>
+        
+      </Helmet>
       <Wrapper>
         <header
           className={`${SiteHeader} ${outer} ${tagData && tagData.node.image ? '' : 'no-cover'}`}

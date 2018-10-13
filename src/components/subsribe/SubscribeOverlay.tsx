@@ -146,31 +146,61 @@ const SubscribeOverlayDescription = styled.p`
   opacity: 0.8;
 `;
 
-interface SubscribeProps {
+interface SubscribeState {
   isOpen: boolean;
 }
 
-class SubscribeModal extends React.Component<SubscribeProps, any> {
+class SubscribeModal extends React.Component<any, SubscribeState> {
   el = document.querySelector('#___gatsby');
 
+  constructor(props: any) {
+    super(props);
+    this.state = { isOpen: false };
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeEsc();
+  }
+
+  escFunction = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.close();
+    }
+  };
+
+  subscribeEsc() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  unsubscribeEsc() {
+    document.removeEventListener('keydown', this.escFunction, false);
+  }
+
+  open() {
+    this.setState({ isOpen: true });
+    this.subscribeEsc();
+  }
+
+  close = () => {
+    this.setState({ isOpen: false });
+    this.unsubscribeEsc();
+  };
+
   render() {
-    console.log(this.el);
     return ReactDOM.createPortal(
       <>
-        {this.props.isOpen && (
-          <SubscribeOverlay className={`${Open}`}>
-            <SubscribeOverlayClose href="#" />
-            <SubscribeOverlayContent>
-              <SubscribeLogo />
-              <SubscribeOverlayTitle>Subscribe to {config.title}</SubscribeOverlayTitle>
-              <SubscribeOverlayDescription>
-                Stay up to date! Get all the latest &amp; greatest posts delivered straight to your
-                inbox
-              </SubscribeOverlayDescription>
-              <SubscribeForm />
-            </SubscribeOverlayContent>
-          </SubscribeOverlay>
-        )}
+        <SubscribeOverlay className={`${this.state.isOpen ? Open : ''}`}>
+          <SubscribeOverlayClose onClick={this.close} />
+          <SubscribeOverlayContent>
+            <SubscribeLogo />
+            <SubscribeOverlayTitle>Subscribe to {config.title}</SubscribeOverlayTitle>
+            <SubscribeOverlayDescription>
+              Stay up to date! Get all the latest &amp; greatest posts delivered straight to your
+              inbox
+            </SubscribeOverlayDescription>
+            <SubscribeForm />
+          </SubscribeOverlayContent>
+        </SubscribeOverlay>
       </>,
       this.el as Element,
     );

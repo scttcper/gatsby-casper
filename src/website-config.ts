@@ -3,8 +3,12 @@ export interface WebsiteConfig {
   description: string;
   coverImage: string;
   logo: string;
+  /**
+   * blog full path, no ending slash!
+   */
+  siteUrl: string;
   facebook?: string;
-  twitter?: string;
+  twitter: string;
   /**
    * hide or show all email subscribe boxes
    */
@@ -24,6 +28,7 @@ const config: WebsiteConfig = {
   description: 'The professional publishing platform',
   coverImage: 'img/blog-cover.jpg',
   logo: 'img/ghost-logo.png',
+  siteUrl: 'https://gatsby-casper.netlify.com',
   facebook: 'https://www.facebook.com/ghost',
   twitter: 'https://twitter.com/tryghost',
   showSubscribe: true,
