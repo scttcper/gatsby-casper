@@ -16,7 +16,7 @@ const AuthorCardName = styled.h4`
   font-size: 2rem;
 
   a {
-    color: var(--darkgrey);
+    color: ${colors.darkgrey};
     font-weight: 700;
   }
 

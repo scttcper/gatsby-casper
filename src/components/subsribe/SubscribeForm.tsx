@@ -2,55 +2,9 @@ import { darken, desaturate, lighten, mix } from 'polished';
 import * as React from 'react';
 import { css, default as styled } from 'react-emotion';
 
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
+import config from '../../website-config';
 
-const SubscribeFormSection = styled.section`
-  margin: 1.5em 0;
-  padding: 6.5vw 7vw 7vw;
-  /* border: color(var(--whitegrey) l(+2%)) 1px solid; */
-  border: ${lighten('0.02', colors.whitegrey)} 1px solid;
-  text-align: center;
-  /* background: color(var(--whitegrey) l(+4%)); */
-  background: ${lighten('0.04', colors.whitegrey)};
-  border-radius: 7px;
-
-  p {
-    margin-bottom: 1em;
-    color: var(--midgrey);
-    font-size: 2.2rem;
-    line-height: 1.55em;
-    letter-spacing: 0.2px;
-  }
-
-  form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 420px;
-  }
-
-  .form-group {
-    flex-grow: 1;
-  }
-  @media (max-width: 650px) {
-    p {
-      font-size: 1.6rem;
-    }
-  }
-`;
-
-const SubscribeFormTitle = css`
-  margin: 0 0 3px 0;
-  padding: 0;
-  color: ${colors.darkgrey};
-  font-size: 3.5rem;
-  line-height: 1;
-  font-weight: 700;
-  @media (max-width: 650px) {
-    font-size: 2.4rem;
-  }
-`;
 
 const SubscribeFormStyles = css`
   @media (max-width: 500px) {
@@ -65,7 +19,7 @@ const SubscribeEmail = styled.input`
   width: 100%;
   /* border: color(var(--lightgrey) l(+7%)) 1px solid; */
   border: ${lighten('0.07', colors.lightgrey)};
-  color: var(--midgrey);
+  color: ${colors.midgrey};
   font-size: 1.8rem;
   line-height: 1em;
   font-weight: normal;
@@ -128,27 +82,28 @@ const FormGroup = styled.div`
   }
 `;
 
-export interface SubscribeFormProps {
-  title: string;
-}
-
-const SubscribeForm: React.SFC<SubscribeFormProps> = props => {
+const SubscribeForm: React.SFC = () => {
   return (
-    <SubscribeFormSection>
-      <h3 className={`${SubscribeFormTitle}`}>Subscribe to {props.title}</h3>
-      <p>Get the latest posts delivered right to your inbox</p>
-
-      {/* TODO: setup form to submit somewhere */}
-      <form className={`${SubscribeFormStyles}`} method="post" action="/subscribe/">
+      <form
+        className={`${SubscribeFormStyles}`}
+        action={config.mailchimpAction}
+        method="post"
+        id="mc-embedded-subscribe-form"
+        name="mc-embedded-subscribe-form"
+        target="_blank"
+        noValidate
+      >
         {/* This is required for the form to work correctly  */}
-        <FormGroup>
-          <SubscribeEmail type="email" name="email" placeholder="youremail@example.com" />
+        <FormGroup className="form-group">
+          <SubscribeEmail className="subscribe-email" type="email" name="EMAIL" placeholder="youremail@example.com" />
         </FormGroup>
+        <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+          <input type="text" name={config.mailchimpName} tabIndex={-1} />
+        </div>
         <SubscribeFormButton type="submit">
           <span>Subscribe</span>
         </SubscribeFormButton>
       </form>
-    </SubscribeFormSection>
   );
 };
 

@@ -54,7 +54,7 @@ const PostCardContentLink = css`
   flex-grow: 1;
   display: block;
   padding: 25px 25px 0;
-  color: var(--darkgrey);
+  color: ${colors.darkgrey};
 
   :hover {
     text-decoration: none;
@@ -64,7 +64,7 @@ const PostCardContentLink = css`
 const PostCardTags = styled.span`
   display: block;
   margin-bottom: 4px;
-  color: var(--midgrey);
+  color: ${colors.midgrey};
   font-size: 1.2rem;
   line-height: 1.15em;
   font-weight: 500;

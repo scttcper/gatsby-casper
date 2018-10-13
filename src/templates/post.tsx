@@ -14,12 +14,13 @@ import PostContent from '../components/PostContent';
 import PostFullFooter from '../components/PostFullFooter';
 import PostFullFooterRight from '../components/PostFullFooterRight';
 import ReadNextCard from '../components/ReadNextCard';
-import SubscribeForm from '../components/SubscribeForm';
+import Subscribe from '../components/subsribe/Subscribe';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
 import config from '../website-config';
+
 
 
 const PostTemplate = css`
@@ -86,7 +87,7 @@ export const PostFullTitle = styled.h1`
 const PostFullImage = styled.figure`
   margin: 0 -10vw -165px;
   height: 800px;
-  background: var(--lightgrey) center center;
+  background: ${colors.lightgrey} center center;
   background-size: cover;
   border-radius: 5px;
 
@@ -242,7 +243,7 @@ const PageTemplate: React.SFC<PageTemplateProps> = props => {
               <PostContent htmlAst={post.htmlAst} />
 
               {/* The big email subscribe modal content */}
-              <SubscribeForm title={config.title} />
+              {config.showSubscribe && <Subscribe title={config.title} />}
 
               <PostFullFooter>
                 <AuthorCard author={post.frontmatter.author} />

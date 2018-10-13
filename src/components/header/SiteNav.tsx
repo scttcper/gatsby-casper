@@ -1,17 +1,14 @@
 // tslint:disable:no-http-string
 import { Link } from 'gatsby';
 import * as React from 'react';
-
-import SiteNavLogo from './SiteNavLogo';
 import styled, { css } from 'react-emotion';
+
 import { SocialLink } from '../../styles/shared';
+import config from '../../website-config';
 import Facebook from '../icons/facebook';
 import Twitter from '../icons/twitter';
-import config from '../../website-config';
-
-interface SiteNavProps {
-  isHome?: boolean;
-}
+import SubscribeModal from '../subsribe/SubscribeOverlay';
+import SiteNavLogo from './SiteNavLogo';
 
 const HomeNavRaise = css`
   @media (min-width: 900px) {
@@ -110,48 +107,73 @@ const SubscribeButton = styled.a`
   :hover {
     text-decoration: none;
     opacity: 1;
+    cursor: pointer;
   }
 `;
 
-const SiteNav: React.SFC<SiteNavProps> = ({ isHome = false }) => (
-  <nav className={`${isHome ? HomeNavRaise : ''} ${SiteNavStyles}`}>
-    <SiteNavLeft>
-      {!isHome && <SiteNavLogo />}
-      <ul className={`${NavStyles}`} role="menu">
-        {/* TODO: mark current nav item - add class nav-current */}
-        <li role="menuitem">
-          <Link to="/">Home</Link>
-        </li>
-        <li role="menuitem">
-          <Link to="/about">About</Link>
-        </li>
-        <li role="menuitem">
-          <Link to="/tags/getting-started/">Getting Started</Link>
-        </li>
-      </ul>
-    </SiteNavLeft>
-    <SiteNavRight>
-      <SocialLinks>
-        <a
-          className={`${SocialLink}`}
-          href={config.facebook}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Facebook />
-        </a>
-        <a
-          className={`${SocialLink}`}
-          href={config.twitter}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Twitter />
-        </a>
-      </SocialLinks>
-      <SubscribeButton href="#subscribe">Subscribe</SubscribeButton>
-    </SiteNavRight>
-  </nav>
-);
+interface SiteNavProps {
+  isHome?: boolean;
+}
+
+interface SiteNaveState {
+  isOpen: boolean;
+}
+
+class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
+  constructor(props: SiteNavProps) {
+    super(props);
+    this.state = { isOpen: false };
+  }
+  toggleModal() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+  render() {
+    const { isHome = false } = this.props;
+    console.log({ state: this.state });
+    return (
+      <nav className={`${isHome ? HomeNavRaise : ''} ${SiteNavStyles}`}>
+        <SiteNavLeft>
+          {!isHome && <SiteNavLogo />}
+          <ul className={`${NavStyles}`} role="menu">
+            {/* TODO: mark current nav item - add class nav-current */}
+            <li role="menuitem">
+              <Link to="/">Home</Link>
+            </li>
+            <li role="menuitem">
+              <Link to="/about">About</Link>
+            </li>
+            <li role="menuitem">
+              <Link to="/tags/getting-started/">Getting Started</Link>
+            </li>
+          </ul>
+        </SiteNavLeft>
+        <SiteNavRight>
+          <SocialLinks>
+            <a
+              className={`${SocialLink}`}
+              href={config.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Facebook />
+            </a>
+            <a
+              className={`${SocialLink}`}
+              href={config.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Twitter />
+            </a>
+          </SocialLinks>
+          {config.showSubscribe && (
+            <SubscribeButton onClick={() => this.toggleModal()}>Subscribe</SubscribeButton>
+          )}
+          {config.showSubscribe && <SubscribeModal isOpen={this.state.isOpen} />}
+        </SiteNavRight>
+      </nav>
+    );
+  }
+}
 
 export default SiteNav;
