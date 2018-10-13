@@ -1,10 +1,10 @@
 import * as React from 'react';
 import styled, { css } from 'react-emotion';
-import ReactDOM from 'react-dom';
-import SubscribeLogo from './SubscribeLogo';
-import SubscribeForm from './SubscribeForm';
-import config from '../../website-config';
+
 import { colors } from '../../styles/colors';
+import config from '../../website-config';
+import SubscribeForm from './SubscribeForm';
+import SubscribeLogo from './SubscribeLogo';
 
 const SubscribeOverlay = styled.div`
   position: fixed;
@@ -151,8 +151,6 @@ interface SubscribeState {
 }
 
 class SubscribeModal extends React.Component<any, SubscribeState> {
-  el = document.querySelector('#___gatsby');
-
   constructor(props: any) {
     super(props);
     this.state = { isOpen: false };
@@ -187,22 +185,19 @@ class SubscribeModal extends React.Component<any, SubscribeState> {
   };
 
   render() {
-    return ReactDOM.createPortal(
-      <>
-        <SubscribeOverlay className={`${this.state.isOpen ? Open : ''}`}>
-          <SubscribeOverlayClose onClick={this.close} />
-          <SubscribeOverlayContent>
-            <SubscribeLogo />
-            <SubscribeOverlayTitle>Subscribe to {config.title}</SubscribeOverlayTitle>
-            <SubscribeOverlayDescription>
-              Stay up to date! Get all the latest &amp; greatest posts delivered straight to your
-              inbox
-            </SubscribeOverlayDescription>
-            <SubscribeForm />
-          </SubscribeOverlayContent>
-        </SubscribeOverlay>
-      </>,
-      this.el as Element,
+    return (
+      <SubscribeOverlay className={`${this.state.isOpen ? Open : ''}`}>
+        <SubscribeOverlayClose onClick={this.close} />
+        <SubscribeOverlayContent>
+          <SubscribeLogo />
+          <SubscribeOverlayTitle>Subscribe to {config.title}</SubscribeOverlayTitle>
+          <SubscribeOverlayDescription>
+            Stay up to date! Get all the latest &amp; greatest posts delivered straight to your
+            inbox
+          </SubscribeOverlayDescription>
+          <SubscribeForm />
+        </SubscribeOverlayContent>
+      </SubscribeOverlay>
     );
   }
 }
