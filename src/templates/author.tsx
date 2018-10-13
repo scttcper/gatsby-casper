@@ -22,6 +22,8 @@ import {
 } from '../styles/shared';
 import { PageContext } from './post';
 import Facebook from '../components/icons/facebook';
+import Helmet from 'react-helmet';
+import config from '../website-config';
 
 const HiddenMobile = css`
   @media (max-width: 500px) {
@@ -68,6 +70,9 @@ const AuthorProfileBioImage = css`
 `;
 
 interface AuthorTemplateProps {
+  pathContext: {
+    slug: string;
+  };
   pageContext: {
     author: string;
   };
@@ -110,6 +115,25 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
 
   return (
     <IndexLayout>
+      <Helmet>
+        <title>
+          {author.id} - {config.title}
+        </title>
+        <meta property="og:site_name" content={config.title} />
+        <meta property="og:type" content="profile" />
+        <meta property="og:title" content={`${author.id} - ${config.title}`} />
+        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+        <meta property="article:author" content="https://www.facebook.com/ghost" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={`${author.id} - ${config.title}`} />
+        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[0]}`} />
+        <meta
+          name="twitter:creator"
+          content={`@${config.twitter.split('https://twitter.com/')[0]}`}
+        />
+      </Helmet>
       <Wrapper>
         <header
           className={`${SiteHeader} ${outer} no-cover`}
@@ -125,7 +149,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
               <img
                 className={`${AuthorProfileBioImage} ${AuthorProfileImage}`}
                 src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
-                alt="Ghost"
+                alt={author.id}
               />
               <SiteTitle>{author.id}</SiteTitle>
               {author.bio && <AuthorBio>{author.bio}</AuthorBio>}

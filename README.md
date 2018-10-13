@@ -17,5 +17,5 @@ This is a static blog generator and starter gatsby repo. A port of [Casper](http
 - [x] subscribe modal
 - [x] rss feed
 - [ ] polish ✨
-  - [ ] meta tags
+  - [x] meta tags
   - [x] page titles
