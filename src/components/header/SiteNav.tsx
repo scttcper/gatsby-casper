@@ -157,6 +157,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
               className={`${SocialLink}`}
               href={config.facebook}
               target="_blank"
+              title="Facebook"
               rel="noopener noreferrer"
             >
               <Facebook />
@@ -164,6 +165,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
             <a
               className={`${SocialLink}`}
               href={config.twitter}
+              title="Twitter"
               target="_blank"
               rel="noopener noreferrer"
             >
