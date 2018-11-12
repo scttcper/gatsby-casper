@@ -153,24 +153,28 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
         </SiteNavLeft>
         <SiteNavRight>
           <SocialLinks>
-            <a
-              className={`${SocialLink}`}
-              href={config.facebook}
-              target="_blank"
-              title="Facebook"
-              rel="noopener noreferrer"
-            >
-              <Facebook />
-            </a>
-            <a
-              className={`${SocialLink}`}
-              href={config.twitter}
-              title="Twitter"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Twitter />
-            </a>
+             {config.facebook && (
+              <a
+                className={`${SocialLink}`}
+                href={config.facebook}
+                target="_blank"
+                title="Facebook"
+                rel="noopener noreferrer"
+              >
+                <Facebook />
+              </a>
+            )}
+            {config.twitter && (
+              <a
+                className={`${SocialLink}`}
+                href={config.twitter}
+                title="Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter />
+              </a>
+            )}
           </SocialLinks>
           {config.showSubscribe && (
             <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
