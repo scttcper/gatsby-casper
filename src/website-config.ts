@@ -8,7 +8,7 @@ export interface WebsiteConfig {
    */
   siteUrl: string;
   facebook?: string;
-  twitter: string;
+  twitter?: string;
   /**
    * hide or show all email subscribe boxes
    */
