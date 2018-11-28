@@ -59,7 +59,7 @@ export interface SubscribeProps {
   title: string;
 }
 
-const Subscribe: React.SFC<SubscribeProps> = props => {
+const Subscribe: React.FunctionComponent<SubscribeProps> = props => {
   return (
     <SubscribeFormSection>
       <h3 className={`${SubscribeFormTitle}`}>Subscribe to {props.title}</h3>

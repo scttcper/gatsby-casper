@@ -18,7 +18,7 @@ const PageTemplate = css`
 `;
 
 
-const About: React.SFC = () => (
+const About: React.FunctionComponent = () => (
   <IndexLayout>
     <Helmet>
       <title>About</title>

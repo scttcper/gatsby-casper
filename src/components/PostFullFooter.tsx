@@ -10,6 +10,6 @@ const PostFullFoot = styled.footer`
   max-width: 840px;
 `;
 
-const PostFullFooter: React.SFC = props => <PostFullFoot>{props.children}</PostFullFoot>;
+const PostFullFooter: React.FunctionComponent = props => <PostFullFoot>{props.children}</PostFullFoot>;
 
 export default PostFullFooter;

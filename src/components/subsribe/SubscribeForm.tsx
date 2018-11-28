@@ -83,7 +83,7 @@ const FormGroup = styled.div`
   }
 `;
 
-const SubscribeForm: React.SFC = () => {
+const SubscribeForm: React.FunctionComponent = () => {
   return (
       <form
         className={`${SubscribeFormStyles}`}

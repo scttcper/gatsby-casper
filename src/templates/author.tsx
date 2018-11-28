@@ -111,7 +111,7 @@ interface AuthorTemplateProps {
   };
 }
 
-const Author: React.SFC<AuthorTemplateProps> = props => {
+const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
   const { edges, totalCount } = props.data.allMarkdownRemark;
 

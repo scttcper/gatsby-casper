@@ -35,7 +35,7 @@ export interface PostFullFooterRightProps {
   authorId: string;
 }
 
-const PostFullFooterRight: React.SFC<PostFullFooterRightProps> = props => (
+const PostFullFooterRight: React.FunctionComponent<PostFullFooterRightProps> = props => (
   <PostFullFooterRightDiv>
     <Link className={`${AuthorCardButton}`} to={`/author/${_.kebabCase(props.authorId)}/`}>
       Read More

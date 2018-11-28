@@ -37,7 +37,7 @@ export interface AuthorCardProps {
   author: any;
 }
 
-const AuthorCard: React.SFC<AuthorCardProps> = ({ author }) => {
+const AuthorCard: React.FunctionComponent<AuthorCardProps> = ({ author }) => {
   return (
     <AuthorCardSection>
       {/* TODO: default avatar */}

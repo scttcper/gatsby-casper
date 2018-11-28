@@ -196,7 +196,7 @@ export interface PostCardProps {
   post: PageContext;
 }
 
-const PostCard: React.SFC<PostCardProps> = ({ post }) => {
+const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
   return (
     <article className={`post-card ${PostCardStyles} ${!post.frontmatter.image ? 'no-image' : ''}`}>
       {post.frontmatter.image && (

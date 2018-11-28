@@ -65,7 +65,7 @@ const SiteFooterNav = styled.nav`
   }
 `;
 
-const Footer: React.SFC = () => {
+const Footer: React.FunctionComponent = () => {
   return (
     <footer className={`${outer} ${SiteFooter}`}>
       <div className={`${inner} ${SiteFooterContent}`}>
