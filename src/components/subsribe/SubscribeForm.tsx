@@ -1,6 +1,7 @@
 import { darken, desaturate, lighten, mix } from 'polished';
 import * as React from 'react';
-import { css, default as styled } from 'react-emotion';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 
 import { colors } from '../../styles/colors';
 import config from '../../website-config';

@@ -1,9 +1,11 @@
 import { Link } from 'gatsby';
 import * as _ from 'lodash';
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
-import { colors } from '../styles/colors';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 import { lighten } from 'polished';
+
+import { colors } from '../styles/colors';
 
 const PostFullFooterRightDiv = styled.div`
   flex-shrink: 0;

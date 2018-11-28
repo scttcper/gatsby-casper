@@ -1,6 +1,7 @@
 import { lighten } from 'polished';
 import * as React from 'react';
-import { css, default as styled } from 'react-emotion';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 
 import { colors } from '../../styles/colors';
 import SubscribeForm from './SubscribeForm';

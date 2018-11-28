@@ -1,6 +1,6 @@
 import { Link, StaticQuery, graphql } from 'gatsby';
 import * as React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled'
 import * as _ from 'lodash';
 
 import { colors } from '../styles/colors';

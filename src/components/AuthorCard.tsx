@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import * as _ from 'lodash';
 import * as React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled'
 
 import { colors } from '../styles/colors';
 import { AuthorProfileImage } from '../styles/shared';

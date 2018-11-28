@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
