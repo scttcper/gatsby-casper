@@ -15,6 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.4",
+    "@emotion/styled-base": "^10.0.4",
     "classnames": "2.2.6",
     "cssnano": "4.1.7",
     "emotion": "10.0.4",
@@ -54,13 +56,14 @@
     "rehype-react": "3.1.0"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "1.9.2",
     "@types/classnames": "2.2.6",
     "@types/lodash": "4.14.118",
     "@types/node": "10.12.12",
     "@types/react": "16.7.13",
     "@types/react-dom": "16.0.11",
     "@types/react-helmet": "5.0.7",
+    "babel-plugin-styled-components": "1.9.2",
+    "prettier": "^1.15.3",
     "rimraf": "2.6.2",
     "tslint": "5.11.0",
     "tslint-config-blvd": "1.2.1",
