@@ -3,8 +3,9 @@ import Img from 'gatsby-image';
 import * as _ from 'lodash';
 import { lighten } from 'polished';
 import * as React from 'react';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 
-import styled, { css } from 'react-emotion';
 import { colors } from '../styles/colors';
 import { PageContext } from '../templates/post';
 
@@ -195,7 +196,7 @@ export interface PostCardProps {
   post: PageContext;
 }
 
-const PostCard: React.SFC<PostCardProps> = ({ post }) => {
+const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
   return (
     <article className={`post-card ${PostCardStyles} ${!post.frontmatter.image ? 'no-image' : ''}`}>
       {post.frontmatter.image && (

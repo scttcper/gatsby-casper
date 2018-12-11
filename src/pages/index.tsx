@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
-import { css } from 'react-emotion';
+import { css } from 'emotion'
 import Helmet from 'react-helmet';
 
 import Footer from '../components/Footer';
@@ -84,7 +84,7 @@ export interface IndexProps {
   };
 }
 
-const IndexPage: React.SFC<IndexProps> = props => {
+const IndexPage: React.FunctionComponent<IndexProps> = props => {
   const width = props.data.header.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
   const height = String(Number(width) / props.data.header.childImageSharp.fluid.aspectRatio);
   return (

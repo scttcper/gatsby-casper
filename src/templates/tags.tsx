@@ -51,7 +51,7 @@ interface TagTemplateProps {
   };
 }
 
-const Tags: React.SFC<TagTemplateProps> = props => {
+const Tags: React.FunctionComponent<TagTemplateProps> = props => {
   const tag = props.pageContext.tag;
   const { edges, totalCount } = props.data.allMarkdownRemark;
   const tagData = props.data.allTagYaml.edges.find(

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled'
 
 const PostFullFoot = styled.footer`
   display: flex;
@@ -10,6 +10,6 @@ const PostFullFoot = styled.footer`
   max-width: 840px;
 `;
 
-const PostFullFooter: React.SFC = props => <PostFullFoot>{props.children}</PostFullFoot>;
+const PostFullFooter: React.FunctionComponent = props => <PostFullFoot>{props.children}</PostFullFoot>;
 
 export default PostFullFooter;

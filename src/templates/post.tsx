@@ -3,7 +3,8 @@ import Img from 'gatsby-image';
 import * as _ from 'lodash';
 import { setLightness } from 'polished';
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 import { Helmet } from 'react-helmet';
 
 import AuthorCard from '../components/AuthorCard';
@@ -204,7 +205,7 @@ export interface PageContext {
   };
 }
 
-const PageTemplate: React.SFC<PageTemplateProps> = props => {
+const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
   let width = '';
   let height = '';
