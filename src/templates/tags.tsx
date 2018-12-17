@@ -64,6 +64,7 @@ const Tags: React.FunctionComponent<TagTemplateProps> = props => {
         <title>
           {tag} - {config.title}
         </title>
+        <meta name="description" content={tagData && tagData.node ? tagData.node.description : ''} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`${tag} - ${config.title}`} />
