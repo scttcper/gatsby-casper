@@ -118,6 +118,7 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
   return (
     <IndexLayout>
       <Helmet>
+        <html lang={config.lang} />
         <title>
           {author.id} - {config.title}
         </title>

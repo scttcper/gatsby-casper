@@ -90,6 +90,7 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
   return (
     <IndexLayout className={`${HomePosts}`}>
       <Helmet>
+        <html lang={config.lang} />
         <title>{config.title}</title>
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="website" />

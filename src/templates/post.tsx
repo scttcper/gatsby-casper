@@ -217,6 +217,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
   return (
     <IndexLayout className="post-template">
       <Helmet>
+        <html lang={config.lang} />
         <title>{post.frontmatter.title}</title>
 
         <meta property="og:site_name" content={config.title} />
