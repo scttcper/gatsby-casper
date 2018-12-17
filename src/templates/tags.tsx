@@ -61,6 +61,7 @@ const Tags: React.FunctionComponent<TagTemplateProps> = props => {
   return (
     <IndexLayout>
       <Helmet>
+        <html lang={config.lang} />
         <title>
           {tag} - {config.title}
         </title>
