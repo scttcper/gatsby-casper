@@ -121,6 +121,7 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
         <title>
           {author.id} - {config.title}
         </title>
+        <meta name="description" content={author.bio} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="profile" />
         <meta property="og:title" content={`${author.id} - ${config.title}`} />

@@ -219,6 +219,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
       <Helmet>
         <title>{post.frontmatter.title}</title>
 
+        <meta name="description" content={post.excerpt} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.frontmatter.title} />
