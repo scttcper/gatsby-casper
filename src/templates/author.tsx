@@ -173,6 +173,7 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                     <a
                       className={`${SocialLink} social-link-wb`}
                       href={author.website}
+                      title="Website"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -184,6 +185,7 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                   <a
                     className={`${SocialLink} social-link-tw`}
                     href={`https://twitter.com/${author.twitter}`}
+                    title="Twitter"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -194,6 +196,7 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                   <a
                     className={`${SocialLink} social-link-fb`}
                     href={`https://www.facebook.com/${author.facebook}`}
+                    title="Facebook"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
