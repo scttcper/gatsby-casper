@@ -108,7 +108,7 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
           name="twitter:image"
           content={config.siteUrl + props.data.header.childImageSharp.fluid.src}
         />
-        <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[0]}`} />
+        {config.twitter && <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[1]}`} />}
         <meta property="og:image:width" content={width} />
         <meta property="og:image:height" content={height} />
       </Helmet>
