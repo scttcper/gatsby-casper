@@ -227,7 +227,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
         {post.frontmatter.image && (
-          <meta property="og:image" content={post.frontmatter.image.childImageSharp.fluid.src} />
+          <meta property="og:image" content={config.siteUrl + post.frontmatter.image.childImageSharp.fluid.src} />
         )}
         <meta property="article:published_time" content={post.frontmatter.date} />
         {/* not sure if modified time possible */}
@@ -243,7 +243,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
         <meta name="twitter:description" content={post.excerpt} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
         {post.frontmatter.image && (
-          <meta name="twitter:image" content={post.frontmatter.image.childImageSharp.fluid.src} />
+          <meta name="twitter:image" content={config.siteUrl + post.frontmatter.image.childImageSharp.fluid.src} />
         )}
         <meta name="twitter:label1" content="Written by" />
         <meta name="twitter:data1" content={post.frontmatter.author.id} />
