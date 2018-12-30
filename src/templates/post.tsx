@@ -236,8 +236,8 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
           <meta property="article:tag" content={post.frontmatter.tags[0]} />
         )}
 
-        <meta property="article:publisher" content={config.facebook} />
-        <meta property="article:author" content={config.facebook} />
+        {config.facebook && <meta property="article:publisher" content={config.facebook} />}
+        {config.facebook && <meta property="article:author" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.excerpt} />
