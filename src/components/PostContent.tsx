@@ -101,6 +101,10 @@ export const PostFullContent = styled.section`
     margin-top: 0;
   }
 
+  .gatsby-resp-image-link {
+    box-shadow: none;
+  }
+
   img,
   video {
     display: block;
@@ -108,6 +112,7 @@ export const PostFullContent = styled.section`
     max-width: 1040px;
     height: auto;
   }
+
   @media (max-width: 1040px) {
     img,
     video {
