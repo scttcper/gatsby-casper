@@ -1,6 +1,7 @@
 import { lighten } from 'polished';
 import * as React from 'react';
-import { css, default as styled } from 'react-emotion';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 
 import { colors } from '../../styles/colors';
 import SubscribeForm from './SubscribeForm';
@@ -58,7 +59,7 @@ export interface SubscribeProps {
   title: string;
 }
 
-const Subscribe: React.SFC<SubscribeProps> = props => {
+const Subscribe: React.FunctionComponent<SubscribeProps> = props => {
   return (
     <SubscribeFormSection>
       <h3 className={`${SubscribeFormTitle}`}>Subscribe to {props.title}</h3>

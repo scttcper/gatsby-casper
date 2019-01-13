@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled'
+import { css } from 'emotion'
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -110,16 +111,18 @@ interface AuthorTemplateProps {
   };
 }
 
-const Author: React.SFC<AuthorTemplateProps> = props => {
+const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
   const { edges, totalCount } = props.data.allMarkdownRemark;
 
   return (
     <IndexLayout>
       <Helmet>
+        <html lang={config.lang} />
         <title>
           {author.id} - {config.title}
         </title>
+        <meta name="description" content={author.bio} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="profile" />
         <meta property="og:title" content={`${author.id} - ${config.title}`} />
@@ -129,11 +132,12 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={`${author.id} - ${config.title}`} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[0]}`} />
+        {config.twitter && <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[1]}`} />}
+        {config.twitter &&
         <meta
           name="twitter:creator"
-          content={`@${config.twitter.split('https://twitter.com/')[0]}`}
-        />
+          content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+        />}
       </Helmet>
       <Wrapper>
         <header
@@ -170,6 +174,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                     <a
                       className={`${SocialLink} social-link-wb`}
                       href={author.website}
+                      title="Website"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -181,6 +186,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                   <a
                     className={`${SocialLink} social-link-tw`}
                     href={`https://twitter.com/${author.twitter}`}
+                    title="Twitter"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -191,6 +197,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                   <a
                     className={`${SocialLink} social-link-fb`}
                     href={`https://www.facebook.com/${author.facebook}`}
+                    title="Facebook"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -4,6 +4,11 @@ export interface WebsiteConfig {
   coverImage: string;
   logo: string;
   /**
+   * Specifying a valid BCP 47 language helps screen readers announce text properly.
+   * See: https://dequeuniversity.com/rules/axe/2.2/valid-lang
+   */
+  lang: string;
+  /**
    * blog full path, no ending slash!
    */
   siteUrl: string;
@@ -28,6 +33,7 @@ const config: WebsiteConfig = {
   description: 'The professional publishing platform',
   coverImage: 'img/blog-cover.jpg',
   logo: 'img/ghost-logo.png',
+  lang: 'en',
   siteUrl: 'https://gatsby-casper.netlify.com',
   facebook: 'https://www.facebook.com/ghost',
   twitter: 'https://twitter.com/tryghost',

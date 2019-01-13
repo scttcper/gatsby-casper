@@ -1,6 +1,6 @@
 import { lighten, setLightness, darken, setSaturation } from 'polished';
 import * as React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled'
 import rehypeReact from 'rehype-react';
 
 import { colors } from '../styles/colors';
@@ -101,6 +101,10 @@ export const PostFullContent = styled.section`
     margin-top: 0;
   }
 
+  .gatsby-resp-image-link {
+    box-shadow: none;
+  }
+
   img,
   video {
     display: block;
@@ -108,6 +112,7 @@ export const PostFullContent = styled.section`
     max-width: 1040px;
     height: auto;
   }
+
   @media (max-width: 1040px) {
     img,
     video {
@@ -393,7 +398,7 @@ export interface PostContentProps {
   htmlAst: any;
 }
 
-const PostContent: React.SFC<PostContentProps> = ({ htmlAst }) => {
+const PostContent: React.FunctionComponent<PostContentProps> = ({ htmlAst }) => {
   return (
     <PostFullContent className="post-full-content">
       {/* TODO: this will apply the class when rehype-react is published https://github.com/rhysd/rehype-react/pull/11 */}
