@@ -1,9 +1,11 @@
 import { injectGlobal } from 'emotion';
 import { darken, lighten } from 'polished';
 import * as React from 'react';
+import Helmet from 'react-helmet';
 
 import { colors } from '../styles/colors';
-
+// @ts-ignore
+import favicon from '../../src/favicon.ico';
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
 html,
@@ -482,7 +484,12 @@ interface IndexProps {
 }
 
 const IndexLayout: React.FunctionComponent<IndexProps> = props => {
-  return <div className={props.className}>{props.children}</div>;
+  return <div className={props.className}>
+    <Helmet>
+      <link rel="icon" href={favicon} type="image/x-icon" />
+    </Helmet>
+    {props.children}
+  </div>;
 };
 
 export default IndexLayout;
