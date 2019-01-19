@@ -1,8 +1,8 @@
 // tslint:disable:no-http-string
 import { Link } from 'gatsby';
 import * as React from 'react';
-import styled from '@emotion/styled'
-import { css } from 'emotion'
+import styled from '@emotion/styled';
+import { css } from 'emotion';
 
 import { SocialLink } from '../../styles/shared';
 import config from '../../website-config';
@@ -131,7 +131,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
     if (this.subscribe.current) {
       this.subscribe.current.open();
     }
-  }
+  };
 
   render() {
     const { isHome = false } = this.props;
@@ -154,7 +154,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
         </SiteNavLeft>
         <SiteNavRight>
           <SocialLinks>
-             {config.facebook && (
+            {config.facebook && (
               <a
                 className={`${SocialLink}`}
                 href={config.facebook}
@@ -180,9 +180,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
           {config.showSubscribe && (
             <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
           )}
-          {config.showSubscribe && (
-            <SubscribeModal ref={this.subscribe} />
-          )}
+          {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
         </SiteNavRight>
       </nav>
     );

@@ -18,9 +18,7 @@ const SubscribeOverlay = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(0, 25, 40, 0.97);
-  opacity: 0;
   transition: opacity 200ms ease-in;
-  pointer-events: none;
   backdrop-filter: blur(3px);
 
   form {
@@ -75,11 +73,6 @@ const SubscribeOverlay = styled.div`
 
     -webkit-font-smoothing: subpixel-antialiased;
   }
-`;
-
-const Open = css`
-  opacity: 1;
-  pointer-events: auto;
 `;
 
 const SubscribeOverlayClose = styled.a`
@@ -175,7 +168,7 @@ class SubscribeModal extends React.Component<any, SubscribeState> {
     document.removeEventListener('keydown', this.escFunction, false);
   }
 
-  open() {
+  open = () => {
     this.setState({ isOpen: true });
     this.subscribeEsc();
   }
@@ -187,7 +180,7 @@ class SubscribeModal extends React.Component<any, SubscribeState> {
 
   render() {
     return (
-      <SubscribeOverlay className={`${this.state.isOpen ? Open : ''}`}>
+      <SubscribeOverlay style={{ opacity: this.state.isOpen ? 1 : 0, pointerEvents: this.state.isOpen ? 'auto' : 'none' }}>
         <SubscribeOverlayClose onClick={this.close} />
         <SubscribeOverlayContent>
           <SubscribeLogo />
