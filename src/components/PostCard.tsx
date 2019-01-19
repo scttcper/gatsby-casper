@@ -102,34 +102,34 @@ const AuthorListItem = styled.li`
   margin: 0;
   padding: 0;
 
-  :nth-child(1) {
+  :nth-of-type(1) {
     z-index: 10;
   }
-  :nth-child(2) {
+  :nth-of-type(2) {
     z-index: 9;
   }
-  :nth-child(3) {
+  :nth-of-type(3) {
     z-index: 8;
   }
-  :nth-child(4) {
+  :nth-of-type(4) {
     z-index: 7;
   }
-  :nth-child(5) {
+  :nth-of-type(5) {
     z-index: 6;
   }
-  :nth-child(6) {
+  :nth-of-type(6) {
     z-index: 5;
   }
-  :nth-child(7) {
+  :nth-of-type(7) {
     z-index: 4;
   }
-  :nth-child(8) {
+  :nth-of-type(8) {
     z-index: 3;
   }
-  :nth-child(9) {
+  :nth-of-type(9) {
     z-index: 2;
   }
-  :nth-child(10) {
+  :nth-of-type(10) {
     z-index: 1;
   }
   :hover .author-name-tooltip {
