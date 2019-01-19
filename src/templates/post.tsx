@@ -190,6 +190,7 @@ export interface PageContext {
     };
     title: string;
     date: string;
+    draft?: boolean;
     tags: string[];
     author: {
       id: string;

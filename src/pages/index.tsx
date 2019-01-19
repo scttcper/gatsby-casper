@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
-import { css } from 'emotion'
+import { css } from 'emotion';
 import Helmet from 'react-helmet';
 
 import Footer from '../components/Footer';
@@ -98,7 +98,10 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
         <meta property="og:title" content={config.title} />
         <meta property="og:description" content={config.description} />
         <meta property="og:url" content={config.siteUrl} />
-        <meta property="og:image" content={config.siteUrl + props.data.header.childImageSharp.fluid.src} />
+        <meta
+          property="og:image"
+          content={config.siteUrl + props.data.header.childImageSharp.fluid.src}
+        />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={config.title} />
@@ -108,7 +111,12 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
           name="twitter:image"
           content={config.siteUrl + props.data.header.childImageSharp.fluid.src}
         />
-        {config.twitter && <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[1]}`} />}
+        {config.twitter && (
+          <meta
+            name="twitter:site"
+            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+          />
+        )}
         <meta property="og:image:width" content={width} />
         <meta property="og:image:height" content={height} />
       </Helmet>
@@ -141,7 +149,13 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
           <div className={`${inner}`}>
             <div className={`${PostFeed} ${PostFeedRaise}`}>
               {props.data.allMarkdownRemark.edges.map(post => {
-                return <PostCard key={post.node.fields.slug} post={post.node} />;
+                // filter out drafts in production
+                return (
+                  (post.node.frontmatter.draft !== true ||
+                    process.env.NODE_ENV !== 'production') && (
+                    <PostCard key={post.node.fields.slug} post={post.node} />
+                  )
+                );
               })}
             </div>
           </div>
@@ -176,10 +190,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    allMarkdownRemark(
-      limit: 1000
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { draft: { ne: true } } }) {
+    allMarkdownRemark(limit: 1000, sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           timeToRead
@@ -187,6 +198,7 @@ export const pageQuery = graphql`
             title
             date
             tags
+            draft
             image {
               childImageSharp {
                 fluid(maxWidth: 3720) {
