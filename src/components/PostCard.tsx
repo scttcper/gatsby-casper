@@ -3,8 +3,8 @@ import Img from 'gatsby-image';
 import * as _ from 'lodash';
 import { lighten } from 'polished';
 import * as React from 'react';
-import styled from '@emotion/styled'
-import { css } from 'emotion'
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
 import { colors } from '../styles/colors';
 import { PageContext } from '../templates/post';
@@ -198,9 +198,12 @@ export interface PostCardProps {
 
 const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
   return (
-    <article className={`post-card ${PostCardStyles} ${!post.frontmatter.image ? 'no-image' : ''}`}>
+    <article
+      className={`post-card ${!post.frontmatter.image ? 'no-image' : ''}`}
+      css={PostCardStyles}
+    >
       {post.frontmatter.image && (
-        <Link className={`${PostCardImageLink} post-card-image-link`} to={post.fields.slug}>
+        <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
           <PostCardImage className="post-card-image">
             {post.frontmatter.image &&
               post.frontmatter.image.childImageSharp.fluid && (
@@ -214,7 +217,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
         </Link>
       )}
       <PostCardContent className="post-card-content">
-        <Link className={`${PostCardContentLink} post-card-content-link`} to={post.fields.slug}>
+        <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
           <header className="post-card-header">
             {post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}
             <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
@@ -229,12 +232,8 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
               <AuthorNameTooltip className="author-name-tooltip">
                 {post.frontmatter.author.id}
               </AuthorNameTooltip>
-              <Link
-                className={`${StaticAvatar}`}
-                to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}
-              >
-                <img
-                  className={`${AuthorProfileImage}`}
+              <Link css={StaticAvatar} to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>
+                <AuthorProfileImage
                   src={post.frontmatter.author.avatar.children[0].fixed.src}
                   alt={post.frontmatter.author.id}
                 />

@@ -3,8 +3,8 @@ import Img from 'gatsby-image';
 import * as _ from 'lodash';
 import { setLightness } from 'polished';
 import * as React from 'react';
-import styled from '@emotion/styled'
-import { css } from 'emotion'
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import { Helmet } from 'react-helmet';
 
 import AuthorCard from '../components/AuthorCard';
@@ -24,7 +24,7 @@ import config from '../website-config';
 
 const PostTemplate = css`
   .site-main {
-    background #fff;
+    background: #fff;
     padding-bottom: 4vw;
   }
 `;
@@ -258,16 +258,16 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
         {width && <meta property="og:image:width" content={width} />}
         {height && <meta property="og:image:height" content={height} />}
       </Helmet>
-      <Wrapper className={`${PostTemplate}`}>
-        <header className={`${SiteHeader} ${outer}`}>
-          <div className={`${inner}`}>
+      <Wrapper css={PostTemplate}>
+        <header css={[outer, SiteHeader]}>
+          <div css={inner}>
             <SiteNav />
           </div>
         </header>
-        <main id="site-main" className={`site-main ${SiteMain} ${outer}`}>
-          <div className={`${inner}`}>
+        <main id="site-main" className="site-main" css={[SiteMain, outer]}>
+          <div css={inner}>
             {/* TODO: no-image css tag? */}
-            <article className={`${PostFull} ${!post.frontmatter.image ? NoImage : ''}`}>
+            <article css={[PostFull, !post.frontmatter.image && NoImage]}>
               <PostFullHeader>
                 <PostFullMeta>
                   <PostFullMetaDate dateTime={post.frontmatter.date}>
@@ -308,8 +308,8 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
         </main>
 
         {/* Links to Previous/Next posts */}
-        <aside className={`read-next ${outer}`}>
-          <div className={`${inner}`}>
+        <aside className="read-next" css={outer}>
+          <div css={inner}>
             <ReadNextFeed>
               {props.data.relatedPosts && (
                 <ReadNextCard tags={post.frontmatter.tags} relatedPosts={props.data.relatedPosts} />

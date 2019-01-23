@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby';
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -155,18 +155,19 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
       </Helmet>
       <Wrapper>
         <header
-          className={`${SiteHeader} ${outer} no-cover`}
+          className="no-cover"
+          css={[outer, SiteHeader]}
           style={{
             backgroundImage: author.profile_image
               ? `url(${author.profile_image.childImageSharp.fluid.src})`
               : '',
           }}
         >
-          <div className={`${inner}`}>
+          <div css={inner}>
             <SiteNav isHome={false} />
             <SiteHeaderContent>
               <img
-                className={`${AuthorProfileBioImage} ${AuthorProfileImage}`}
+                css={[AuthorProfileImage, AuthorProfileBioImage]}
                 src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
                 alt={author.id}
               />
@@ -174,11 +175,11 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
               {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
               <AuthorMeta>
                 {author.location && (
-                  <div className={`${HiddenMobile}`}>
+                  <div css={HiddenMobile}>
                     {author.location} <Bull>&bull;</Bull>
                   </div>
                 )}
-                <div className={`${HiddenMobile}`}>
+                <div css={HiddenMobile}>
                   {totalCount > 1 && `${totalCount} posts`}
                   {totalCount === 1 && `1 post`}
                   {totalCount === 0 && `No posts`} <Bull>•</Bull>
@@ -186,7 +187,8 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                 {author.website && (
                   <div>
                     <a
-                      className={`${SocialLink} social-link-wb`}
+                      className="social-link-wb"
+                      css={SocialLink}
                       href={author.website}
                       title="Website"
                       target="_blank"
@@ -198,7 +200,8 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                 )}
                 {author.twitter && (
                   <a
-                    className={`${SocialLink} social-link-tw`}
+                    className="social-link-tw"
+                    css={SocialLink}
                     href={`https://twitter.com/${author.twitter}`}
                     title="Twitter"
                     target="_blank"
@@ -209,7 +212,8 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                 )}
                 {author.facebook && (
                   <a
-                    className={`${SocialLink} social-link-fb`}
+                    className="social-link-fb"
+                    css={SocialLink}
                     href={`https://www.facebook.com/${author.facebook}`}
                     title="Facebook"
                     target="_blank"
@@ -220,7 +224,7 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                 )}
                 {/* TODO: RSS for author */}
                 {/* <a
-                  className={`${SocialLink} social-link-rss`}
+                  css={SocialLink} className="social-link-rss"
                   href="https://feedly.com/i/subscription/feed/https://demo.ghost.io/author/ghost/rss/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -238,9 +242,9 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
             </SiteHeaderContent>
           </div>
         </header>
-        <main id="site-main" className={`${SiteMain} ${outer}`}>
-          <div className={`${inner}`}>
-            <div className={`${PostFeed} ${PostFeedRaise}`}>
+        <main id="site-main" css={[SiteMain, outer]}>
+          <div css={inner}>
+            <div css={[PostFeed, PostFeedRaise]}>
               {edges.map(({ node }) => {
                 return <PostCard key={node.fields.slug} post={node} />;
               })}
