@@ -1,7 +1,7 @@
 import { lighten } from 'polished';
 import * as React from 'react';
-import styled from '@emotion/styled'
-import { css } from 'emotion'
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
 import { colors } from '../../styles/colors';
 import SubscribeForm from './SubscribeForm';
@@ -62,7 +62,7 @@ export interface SubscribeProps {
 const Subscribe: React.FunctionComponent<SubscribeProps> = props => {
   return (
     <SubscribeFormSection>
-      <h3 className={`${SubscribeFormTitle}`}>Subscribe to {props.title}</h3>
+      <h3 css={SubscribeFormTitle}>Subscribe to {props.title}</h3>
       <p>Get the latest posts delivered right to your inbox</p>
       <SubscribeForm />
     </SubscribeFormSection>

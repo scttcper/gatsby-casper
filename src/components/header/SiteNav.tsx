@@ -2,7 +2,7 @@
 import { Link } from 'gatsby';
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { css } from 'emotion';
+import { css } from '@emotion/core';
 
 import { SocialLink } from '../../styles/shared';
 import config from '../../website-config';
@@ -136,10 +136,10 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
   render() {
     const { isHome = false } = this.props;
     return (
-      <nav className={`${isHome ? HomeNavRaise : ''} ${SiteNavStyles}`}>
+      <nav css={[isHome && HomeNavRaise, SiteNavStyles]}>
         <SiteNavLeft>
           {!isHome && <SiteNavLogo />}
-          <ul className={`${NavStyles}`} role="menu">
+          <ul css={NavStyles} role="menu">
             {/* TODO: mark current nav item - add class nav-current */}
             <li role="menuitem">
               <Link to="/">Home</Link>
@@ -156,7 +156,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
           <SocialLinks>
             {config.facebook && (
               <a
-                className={`${SocialLink}`}
+                css={SocialLink}
                 href={config.facebook}
                 target="_blank"
                 title="Facebook"
@@ -167,7 +167,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
             )}
             {config.twitter && (
               <a
-                className={`${SocialLink}`}
+                css={SocialLink}
                 href={config.twitter}
                 title="Twitter"
                 target="_blank"
