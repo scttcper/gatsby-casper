@@ -64,7 +64,6 @@
     "@types/react": "16.7.20",
     "@types/react-dom": "16.0.11",
     "@types/react-helmet": "5.0.8",
-    "@types/typescript": "^2.0.0",
     "babel-plugin-styled-components": "1.10.0",
     "prettier": "^1.15.3",
     "rimraf": "2.6.3",
