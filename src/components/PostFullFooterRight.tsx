@@ -1,9 +1,11 @@
 import { Link } from 'gatsby';
 import * as _ from 'lodash';
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
-import { colors } from '../styles/colors';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 import { lighten } from 'polished';
+
+import { colors } from '../styles/colors';
 
 const PostFullFooterRightDiv = styled.div`
   flex-shrink: 0;
@@ -33,9 +35,9 @@ export interface PostFullFooterRightProps {
   authorId: string;
 }
 
-const PostFullFooterRight: React.SFC<PostFullFooterRightProps> = props => (
+const PostFullFooterRight: React.FunctionComponent<PostFullFooterRightProps> = props => (
   <PostFullFooterRightDiv>
-    <Link className={`${AuthorCardButton}`} to={`/author/${_.kebabCase(props.authorId)}/`}>
+    <Link css={AuthorCardButton} to={`/author/${_.kebabCase(props.authorId)}/`}>
       Read More
     </Link>
   </PostFullFooterRightDiv>

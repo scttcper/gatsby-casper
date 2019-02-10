@@ -1,7 +1,8 @@
 // tslint:disable:no-http-string
 import { Link } from 'gatsby';
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
 import { SocialLink } from '../../styles/shared';
 import config from '../../website-config';
@@ -130,15 +131,15 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
     if (this.subscribe.current) {
       this.subscribe.current.open();
     }
-  }
+  };
 
   render() {
     const { isHome = false } = this.props;
     return (
-      <nav className={`${isHome ? HomeNavRaise : ''} ${SiteNavStyles}`}>
+      <nav css={[isHome && HomeNavRaise, SiteNavStyles]}>
         <SiteNavLeft>
           {!isHome && <SiteNavLogo />}
-          <ul className={`${NavStyles}`} role="menu">
+          <ul css={NavStyles} role="menu">
             {/* TODO: mark current nav item - add class nav-current */}
             <li role="menuitem">
               <Link to="/">Home</Link>
@@ -153,9 +154,9 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
         </SiteNavLeft>
         <SiteNavRight>
           <SocialLinks>
-             {config.facebook && (
+            {config.facebook && (
               <a
-                className={`${SocialLink}`}
+                css={SocialLink}
                 href={config.facebook}
                 target="_blank"
                 title="Facebook"
@@ -166,7 +167,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
             )}
             {config.twitter && (
               <a
-                className={`${SocialLink}`}
+                css={SocialLink}
                 href={config.twitter}
                 title="Twitter"
                 target="_blank"
@@ -179,9 +180,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
           {config.showSubscribe && (
             <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
           )}
-          {config.showSubscribe && (
-            <SubscribeModal ref={this.subscribe} />
-          )}
+          {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
         </SiteNavRight>
       </nav>
     );

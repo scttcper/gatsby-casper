@@ -47,7 +47,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const result = await graphql(`
     {
-      allMarkdownRemark(limit: 2000) {
+      allMarkdownRemark(
+        limit: 2000
+        sort: { fields: [frontmatter___date], order: ASC }
+      ) {
         edges {
           node {
             excerpt
@@ -56,6 +59,7 @@ exports.createPages = async ({ graphql, actions }) => {
               title
               tags
               date
+              draft
               image {
                 childImageSharp {
                   fluid(maxWidth: 3720) {

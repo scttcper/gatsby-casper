@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import * as _ from 'lodash';
 import * as React from 'react';
-import styled from 'react-emotion';
+import styled from '@emotion/styled';
 
 import { colors } from '../styles/colors';
 import { AuthorProfileImage } from '../styles/shared';
@@ -37,12 +37,12 @@ export interface AuthorCardProps {
   author: any;
 }
 
-const AuthorCard: React.SFC<AuthorCardProps> = ({ author }) => {
+const AuthorCard: React.FunctionComponent<AuthorCardProps> = ({ author }) => {
   return (
     <AuthorCardSection>
       {/* TODO: default avatar */}
       {/* TODO: author page url */}
-      <img className={`${AuthorProfileImage}`} src={author.avatar.children[0].fixed.src} alt={author.id} />
+      <img css={AuthorProfileImage} src={author.avatar.children[0].fixed.src} alt={author.id} />
       <AuthorCardContent>
         <AuthorCardName>
           <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>

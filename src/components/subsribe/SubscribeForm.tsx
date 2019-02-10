@@ -1,6 +1,7 @@
 import { darken, desaturate, lighten, mix } from 'polished';
 import * as React from 'react';
-import { css, default as styled } from 'react-emotion';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
 import { colors } from '../../styles/colors';
 import config from '../../website-config';
@@ -82,10 +83,10 @@ const FormGroup = styled.div`
   }
 `;
 
-const SubscribeForm: React.SFC = () => {
+const SubscribeForm: React.FunctionComponent = () => {
   return (
       <form
-        className={`${SubscribeFormStyles}`}
+      css={SubscribeFormStyles}
         action={config.mailchimpAction}
         method="post"
         id="mc-embedded-subscribe-form"

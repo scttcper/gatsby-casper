@@ -1,6 +1,7 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -110,16 +111,26 @@ interface AuthorTemplateProps {
   };
 }
 
-const Author: React.SFC<AuthorTemplateProps> = props => {
+const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
-  const { edges, totalCount } = props.data.allMarkdownRemark;
+  
+  const edges = props.data.allMarkdownRemark.edges.filter(
+    (edge) => {
+      const isDraft = (edge.node.frontmatter.draft !== true ||
+        process.env.NODE_ENV === 'development')
+      return isDraft && edge.node.frontmatter.author && edge.node.frontmatter.author.id === author.id
+    }
+  );
+  const totalCount = edges.length;
 
   return (
     <IndexLayout>
       <Helmet>
+        <html lang={config.lang} />
         <title>
           {author.id} - {config.title}
         </title>
+        <meta name="description" content={author.bio} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="profile" />
         <meta property="og:title" content={`${author.id} - ${config.title}`} />
@@ -129,26 +140,34 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={`${author.id} - ${config.title}`} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[0]}`} />
-        <meta
-          name="twitter:creator"
-          content={`@${config.twitter.split('https://twitter.com/')[0]}`}
-        />
+        {config.twitter && (
+          <meta
+            name="twitter:site"
+            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+          />
+        )}
+        {config.twitter && (
+          <meta
+            name="twitter:creator"
+            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+          />
+        )}
       </Helmet>
       <Wrapper>
         <header
-          className={`${SiteHeader} ${outer} no-cover`}
+          className="no-cover"
+          css={[outer, SiteHeader]}
           style={{
             backgroundImage: author.profile_image
               ? `url(${author.profile_image.childImageSharp.fluid.src})`
               : '',
           }}
         >
-          <div className={`${inner}`}>
+          <div css={inner}>
             <SiteNav isHome={false} />
             <SiteHeaderContent>
               <img
-                className={`${AuthorProfileBioImage} ${AuthorProfileImage}`}
+                css={[AuthorProfileImage, AuthorProfileBioImage]}
                 src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
                 alt={author.id}
               />
@@ -156,11 +175,11 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
               {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
               <AuthorMeta>
                 {author.location && (
-                  <div className={`${HiddenMobile}`}>
+                  <div css={HiddenMobile}>
                     {author.location} <Bull>&bull;</Bull>
                   </div>
                 )}
-                <div className={`${HiddenMobile}`}>
+                <div css={HiddenMobile}>
                   {totalCount > 1 && `${totalCount} posts`}
                   {totalCount === 1 && `1 post`}
                   {totalCount === 0 && `No posts`} <Bull>•</Bull>
@@ -168,8 +187,10 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                 {author.website && (
                   <div>
                     <a
-                      className={`${SocialLink} social-link-wb`}
+                      className="social-link-wb"
+                      css={SocialLink}
                       href={author.website}
+                      title="Website"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -179,8 +200,10 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                 )}
                 {author.twitter && (
                   <a
-                    className={`${SocialLink} social-link-tw`}
+                    className="social-link-tw"
+                    css={SocialLink}
                     href={`https://twitter.com/${author.twitter}`}
+                    title="Twitter"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -189,8 +212,10 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                 )}
                 {author.facebook && (
                   <a
-                    className={`${SocialLink} social-link-fb`}
+                    className="social-link-fb"
+                    css={SocialLink}
                     href={`https://www.facebook.com/${author.facebook}`}
+                    title="Facebook"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -199,7 +224,7 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
                 )}
                 {/* TODO: RSS for author */}
                 {/* <a
-                  className={`${SocialLink} social-link-rss`}
+                  css={SocialLink} className="social-link-rss"
                   href="https://feedly.com/i/subscription/feed/https://demo.ghost.io/author/ghost/rss/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -217,14 +242,11 @@ const Author: React.SFC<AuthorTemplateProps> = props => {
             </SiteHeaderContent>
           </div>
         </header>
-        <main id="site-main" className={`${SiteMain} ${outer}`}>
-          <div className={`${inner}`}>
-            <div className={`${PostFeed} ${PostFeedRaise}`}>
+        <main id="site-main" css={[SiteMain, outer]}>
+          <div css={inner}>
+            <div css={[PostFeed, PostFeedRaise]}>
               {edges.map(({ node }) => {
-                if (node.frontmatter.author && node.frontmatter.author.id === author.id) {
-                  return <PostCard key={node.fields.slug} post={node} />;
-                }
-                return null;
+                return <PostCard key={node.fields.slug} post={node} />;
               })}
             </div>
           </div>
@@ -262,7 +284,6 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }) {
-      totalCount
       edges {
         node {
           excerpt
@@ -271,6 +292,7 @@ export const pageQuery = graphql`
             title
             tags
             date
+            draft
             image {
               childImageSharp {
                 fluid(maxWidth: 3720) {

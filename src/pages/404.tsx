@@ -1,6 +1,7 @@
 import { graphql, Link } from 'gatsby';
 import * as React from 'react';
-import styled, { css } from 'react-emotion';
+import styled from '@emotion/styled';
+import { css } from '@emotion/core';
 
 import SiteNavLogo from '../components/header/SiteNavLogo';
 import PostCard from '../components/PostCard';
@@ -57,33 +58,33 @@ interface NotFoundTemplateProps {
   };
 }
 
-const NotFoundPage: React.SFC<NotFoundTemplateProps> = props => {
+const NotFoundPage: React.FunctionComponent<NotFoundTemplateProps> = props => {
   const { edges } = props.data.allMarkdownRemark;
 
   return (
     <IndexLayout>
       <Wrapper>
-        <header className={`${SiteHeader} ${outer}`}>
+        <header css={[SiteHeader, outer]}>
           <div className="inner">
             <SiteNavCenter>
               <SiteNavLogo />
             </SiteNavCenter>
           </div>
         </header>
-        <main id="site-main" className={`${ErrorTemplate} ${outer}`}>
-          <div className={`${inner}`}>
+        <main id="site-main" css={[ErrorTemplate, outer]}>
+          <div css={inner}>
             <section style={{ textAlign: 'center' }}>
               <ErrorCode>404</ErrorCode>
               <ErrorDescription>Page not found</ErrorDescription>
-              <Link className={`${ErrorLink}`} to={''}>
+              <Link css={ErrorLink} to={''}>
                 Go to the front page →
               </Link>
             </section>
           </div>
         </main>
-        <aside className={`${outer}`}>
-          <div className={`${inner}`}>
-            <div className={`${PostFeed}`}>
+        <aside css={outer}>
+          <div css={inner}>
+            <div css={PostFeed}>
               {edges.map(({ node }) => (
                 <PostCard key={node.fields.slug} post={node} />
               ))}
