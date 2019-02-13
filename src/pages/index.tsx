@@ -100,7 +100,7 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
         <meta property="og:url" content={config.siteUrl} />
         <meta
           property="og:image"
-          content={config.siteUrl + props.data.header.childImageSharp.fluid.src}
+          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
         />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
@@ -109,7 +109,7 @@ const IndexPage: React.FunctionComponent<IndexProps> = props => {
         <meta name="twitter:url" content={config.siteUrl} />
         <meta
           name="twitter:image"
-          content={config.siteUrl + props.data.header.childImageSharp.fluid.src}
+          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
         />
         {config.twitter && (
           <meta

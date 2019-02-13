@@ -5,6 +5,8 @@
     "tslint-config-prettier"
   ],
   "rules": {
-    "file-name-casing": false
+    "file-name-casing": false,
+    "no-unsafe-any": false,
+    "no-void-expression": false
   }
 }
