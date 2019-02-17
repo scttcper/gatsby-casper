@@ -3,7 +3,7 @@ layout: post
 title: A Full and Comprehensive Style Test
 image: ../images/headers/patrick-fore-381200-unsplash.jpg
 author: masimplo
-date: 2018-09-30T07:03:47.149Z
+date: 1918-09-30T07:03:47.149Z
 draft: true
 tags:
   - Tests
