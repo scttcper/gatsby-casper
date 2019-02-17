@@ -58,7 +58,7 @@ const config: WebsiteConfig = {
   // facebook: 'https://www.facebook.com/masimplo',
   twitter: 'https://twitter.com/masimplo',
   showSubscribe: true,
-  mailchimpAction: 'ttps://gmail.us20.list-manage.com/subscribe/post?u=e751f209dff476297e609e4d2&amp;id=876a986ffe',
+  mailchimpAction: 'https://gmail.us20.list-manage.com/subscribe/post?u=e751f209dff476297e609e4d2&amp;id=876a986ffe',
   mailchimpName: 'b_e751f209dff476297e609e4d2_876a986ffe',
   mailchimpEmailFieldName: 'MERGE0',
   googleSiteVerification: 'GoogleCode',
