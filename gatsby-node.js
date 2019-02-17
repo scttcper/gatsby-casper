@@ -16,7 +16,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       let slug = permalink;
 
       if (!slug) {
-        slug = `/${relativePath.replace('.md', '')}/`;
+        slug = `/posts/${relativePath.replace('.md', '')}/`;
       }
 
       // Used to generate URL to view this content.

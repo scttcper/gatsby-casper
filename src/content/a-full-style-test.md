@@ -2,9 +2,9 @@
 layout: post
 title: A Full and Comprehensive Style Test
 image: img/testimg-cover.jpg
-author: Ghost
+author: masimplo
 date: 2018-09-30T07:03:47.149Z
-tags: 
+tags:
   - Tests
 ---
 

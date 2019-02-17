@@ -20,6 +20,20 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'posts',
+        path: path.join(__dirname, 'src', 'posts'),
+      },
+    },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'images',
+        path: path.join(__dirname, 'src', 'images'),
+      },
+    },
+    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
@@ -47,7 +61,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://gatsby-casper.netlify.com',
+        siteUrl: 'https://masimplo.com',
       },
     },
     'gatsby-plugin-emotion',
