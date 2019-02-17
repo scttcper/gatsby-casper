@@ -51,7 +51,7 @@ export interface WebsiteConfig {
 const config: WebsiteConfig = {
   title: 'masimplo.com',
   description: 'Pressing keys, generating bytes',
-  coverImage: 'img/blog-cover.jpg',
+  coverImage: 'blog-cover.jpg',
   logo: 'logo.png',
   lang: 'en',
   siteUrl: 'https://masimplo.com',

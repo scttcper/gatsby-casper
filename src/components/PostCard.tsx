@@ -199,7 +199,8 @@ export interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   return (
     <article
-      className={`post-card ${post.frontmatter.image ? '' : 'no-image'}`}
+      style={{...(post.frontmatter.draft && {border: '2px red solid'})}}
+      className={`post-card ${!post.frontmatter.image ? 'no-image' : ''}`}
       css={PostCardStyles}
     >
       {post.frontmatter.image && (
