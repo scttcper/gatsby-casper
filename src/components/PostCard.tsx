@@ -206,6 +206,7 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
         <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
           <PostCardImage className="post-card-image">
             {post.frontmatter.image &&
+              post.frontmatter.image.childImageSharp &&
               post.frontmatter.image.childImageSharp.fluid && (
                 <Img
                   alt={`${post.frontmatter.title} cover image`}
