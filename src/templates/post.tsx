@@ -210,7 +210,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
   let width = '';
   let height = '';
-  if (post.frontmatter.image) {
+  if (post.frontmatter.image && post.frontmatter.image.childImageSharp) {
     width = post.frontmatter.image.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
     height = String(Number(width) / post.frontmatter.image.childImageSharp.fluid.aspectRatio);
   }
@@ -227,7 +227,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
-        {post.frontmatter.image && (
+        {(post.frontmatter.image && post.frontmatter.image.childImageSharp) && (
           <meta property="og:image" content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`} />
         )}
         <meta property="article:published_time" content={post.frontmatter.date} />
@@ -243,7 +243,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.excerpt} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        {post.frontmatter.image && (
+        {(post.frontmatter.image && post.frontmatter.image.childImageSharp)&& (
           <meta name="twitter:image" content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`} />
         )}
         <meta name="twitter:label1" content="Written by" />
@@ -286,7 +286,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
               </PostFullHeader>
 
-              {post.frontmatter.image && (
+              {(post.frontmatter.image && post.frontmatter.image.childImageSharp) && (
                 <PostFullImage>
                   <Img
                     style={{ height: '100%' }}
