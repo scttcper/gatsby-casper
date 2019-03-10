@@ -360,7 +360,7 @@ export const query = graphql`
           avatar {
             children {
               ... on ImageSharp {
-                fixed(quality: 100) {
+                fixed(quality: 90) {
                   ...GatsbyImageSharpFixed
                 }
               }
