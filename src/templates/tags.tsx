@@ -52,7 +52,7 @@ interface TagTemplateProps {
 }
 
 const Tags: React.FunctionComponent<TagTemplateProps> = props => {
-  const tag = props.pageContext.tag;
+  const tag = (props.pageContext.tag) ? props.pageContext.tag : "";
   const { edges, totalCount } = props.data.allMarkdownRemark;
   const tagData = props.data.allTagYaml.edges.find(
     n => n.node.id.toLowerCase() === tag.toLowerCase(),
@@ -150,7 +150,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(
       limit: 2000
       sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: { frontmatter: { tags: { in: [$tag] }, draft: { ne: true } } }
     ) {
       totalCount
       edges {
@@ -174,7 +174,7 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fixed(quality: 100) {
+                    fixed(quality: 90) {
                       src
                     }
                   }
