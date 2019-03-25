@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 import { colors } from './colors';
 import { darken, lighten } from 'polished';
 

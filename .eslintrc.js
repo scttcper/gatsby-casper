@@ -4,7 +4,6 @@ module.exports = {
     node: true,
     jest: true,
   },
-  parser: '@typescript-eslint/parser',
   extends: ['xo-space/esnext', 'xo-react/space', 'xo-typescript', 'prettier/@typescript-eslint'],
   rules: {
     'object-curly-spacing': ['error', 'always'],
@@ -12,10 +11,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     'capitalized-comments': 0,
     'comma-dangle': ['error', 'always-multiline'],
-  },
-  settings: {
-    react: {
-      version: 'detect',
-    },
+    'react/jsx-tag-spacing': 0,
+    'react/prop-types': 0,
   },
 };

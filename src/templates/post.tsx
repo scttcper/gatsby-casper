@@ -243,7 +243,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.excerpt} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        {(post.frontmatter.image && post.frontmatter.image.childImageSharp)&& (
+        {(post.frontmatter.image && post.frontmatter.image.childImageSharp) && (
           <meta name="twitter:image" content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`} />
         )}
         <meta name="twitter:label1" content="Written by" />
@@ -281,7 +281,7 @@ const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
                           {post.frontmatter.tags[0]}
                         </Link>
                       </>
-                    )}
+                  )}
                 </PostFullMeta>
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
               </PostFullHeader>
