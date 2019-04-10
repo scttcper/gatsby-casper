@@ -13,5 +13,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'react/jsx-tag-spacing': 0,
     'react/prop-types': 0,
+    'no-warning-comments': 0,
+    'complexity': 0,
   },
 };
