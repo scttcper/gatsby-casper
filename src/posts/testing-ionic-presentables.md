@@ -2,7 +2,7 @@
 layout: post
 title: "Testing Ionic presentables"
 author: masimplo
-tags: [""]
+tags: ["Ionic"]
 image: ../images/headers/kelly-sikkema-411622-unsplash.jpg
 date: "2017-06-30"
 draft: false

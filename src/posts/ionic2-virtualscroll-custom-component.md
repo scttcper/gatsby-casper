@@ -2,7 +2,7 @@
 layout: post
 title: "Ionic2 VirtualScroll custom component workaround"
 author: masimplo
-tags: [""]
+tags: ["Ionic"]
 image: ../images/headers/ionicrc0.png
 date: "2016-10-18"
 draft: false
