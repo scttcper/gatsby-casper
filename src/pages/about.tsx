@@ -43,7 +43,7 @@ const About: React.FC = () => (
                 way possible.
               </p>
               <p>
-                During the day I make a lot of architecture and design decisions over [@Covve](https://covve.com) but I also get my hands *dirty* writing
+                During the day I make a lot of architecture and design decisions over <a href="https://covve.com">@Covve</a> but I also get my hands *dirty* writing
                 lots and lots of code. I feel at home when working inside a fully automated workflow, with lots of tests supporting
                 my refactoring frenzies and code reviews that make both me and my collegues better developers and better people.
               </p>
@@ -55,8 +55,8 @@ const About: React.FC = () => (
               </p>
               <p>
                 I love to cook, I love carpentry, I love teaching myself new things and I love spending time with my two little boys, teaching them as many things
-                about our universe as they can possibly handle. I sometimes tweet some interesting stuff over on Twitter [@masimplo](https://twitter.com/masimplo), write a short blog article at masimplo.dev and
-                enjoy taking pictures of things I cook on Instagram [@masimplo](https://www.instagram.com/masimplo/). I do not have a Facebook account and I am
+                about our universe as they can possibly handle. I sometimes tweet some interesting stuff over on Twitter <a href="https://twitter.com/masimplo">@masimplo</a>, write a short blog article at masimplo.dev and
+                enjoy taking pictures of things I cook on Instagram <a href="https://www.instagram.com/masimplo/">@masimplo</a>. I do not have a Facebook account and I am
                 not interested in getting one, so don't look me up there.
               </p>
             </div>
