@@ -37,38 +37,27 @@ const About: React.FC = () => (
           <PostFullContent className="post-full-content">
             <div className="post-content">
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo finibus leo,
-                non tempus magna vehicula ac. Maecenas mollis ante finibus pharetra imperdiet.
-                Maecenas in aliquam purus. Nam et massa a nulla fermentum dapibus sit amet in neque.
-                Ut ipsum ipsum, rhoncus a sodales pellentesque, interdum a elit. Nullam aliquam
-                tellus nibh, eget laoreet dui aliquet non. Vestibulum malesuada ante at diam tempus,
-                ac interdum risus scelerisque. Sed ipsum neque, vulputate porta diam eget, consequat
-                blandit nulla. Integer volutpat velit vitae purus lacinia aliquam. Integer bibendum
-                ipsum vitae magna pulvinar, nec vehicula dolor vulputate. Nulla eu massa id orci
-                placerat finibus vel sit amet eros. Vestibulum quis consequat massa. Sed sagittis
-                sollicitudin massa at commodo. Praesent diam nisi, imperdiet posuere eleifend nec,
-                blandit ac massa.
+                I am a professional Software Developer for the past 15 years or so. Since a very young age
+                I tinkered with computers and always remember myself enjoying building things. I always take
+                on new challenges and try to find solutions to everyday problems in the most creative and efficient
+                way possible.
               </p>
               <p>
-                Vestibulum semper pretium ipsum nec congue. Ut ac eros nisi. Donec leo sem, aliquam
-                mollis sapien ultrices, dapibus congue diam. Proin viverra dapibus blandit. Ut
-                mauris tellus, tristique id felis vel, venenatis vestibulum nunc. Nam molestie
-                pulvinar nibh, eget egestas augue. Maecenas tellus arcu, mattis ut ipsum non,
-                sollicitudin convallis nunc. Donec nec neque tristique, aliquet lacus id, laoreet
-                nunc. Cras dapibus nisi nulla, ullamcorper faucibus neque suscipit ac. Donec eget
-                orci venenatis justo lobortis volutpat. Proin vel placerat nisl. Integer arcu nunc,
-                sodales eu fringilla non, aliquam non diam. Cras placerat, massa et faucibus
-                pretium, ante elit tincidunt tellus, tristique ultricies velit quam et massa.
+                During the day I make a lot of architecture and design decisions over [@Covve](https://covve.com) but I also get my hands *dirty* writing
+                lots and lots of code. I feel at home when working inside a fully automated workflow, with lots of tests supporting
+                my refactoring frenzies and code reviews that make both me and my collegues better developers and better people.
               </p>
               <p>
-                In nunc lacus, dapibus vitae lacus sit amet, efficitur iaculis neque. Suspendisse ut
-                tellus quis leo vestibulum tincidunt. Aenean nec enim ac dolor lacinia semper. Ut
-                sed laoreet libero. Nunc elementum sollicitudin accumsan. Nunc eu augue neque. Proin
-                a tortor nibh. Cras eu nisl ornare sapien feugiat pellentesque. Mauris dignissim vel
-                quam eu pellentesque. Integer sit amet posuere quam, eu ullamcorper odio. Nullam a
-                lacus tempus sapien dignissim ullamcorper. In hac habitasse platea dictumst. Proin
-                quis massa aliquam, feugiat tortor sit amet, tincidunt urna. Donec posuere pulvinar
-                lectus, ac semper ipsum vulputate quis.
+                I have done a lot of freelancing in the past, which gave me the opportunity to work with different
+                technologies, but also people. I have done about 7+ years of C# development, mostly for Geographic Information
+                Systems, 3D and Data Intensive applications. Half the last decade I am more into javascript (or more accurately typescript)
+                development mostly for front end and mobile, but also some interesting nodejs backend microservices.
+              </p>
+              <p>
+                I love to cook, I love carpentry, I love teaching myself new things and I love spending time with my two little boys, teaching them as many things
+                about our universe as they can possibly handle. I sometimes tweet some interesting stuff over on Twitter [@masimplo](https://twitter.com/masimplo), write a short blog article at masimplo.dev and
+                enjoy taking pictures of things I cook on Instagram [@masimplo](https://www.instagram.com/masimplo/). I do not have a Facebook account and I am
+                not interested in getting one, so don't look me up there.
               </p>
             </div>
           </PostFullContent>
