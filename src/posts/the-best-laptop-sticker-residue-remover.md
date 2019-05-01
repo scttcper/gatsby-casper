@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "I just discovered the best laptop residue remover"
+title: "I just discovered the best laptop sticker residue remover"
 author: masimplo
 tags: ["lifehacks"]
 image: ../images/headers/paulo-mergulhao-1121662-unsplash.jpg
