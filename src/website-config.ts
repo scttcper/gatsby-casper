@@ -12,7 +12,13 @@ export interface WebsiteConfig {
    * blog full path, no ending slash!
    */
   siteUrl: string;
+  /**
+   * full url, no username
+   */
   facebook?: string;
+  /**
+   * full url, no username
+   */
   twitter?: string;
   /**
    * hide or show all email subscribe boxes
@@ -26,7 +32,9 @@ export interface WebsiteConfig {
    * this is the hidden input field name
    */
   mailchimpName?: string;
-
+  /** 
+   * Appears alongside the footer, after the credits
+   */
   footer?: string;
 }
 
