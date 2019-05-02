@@ -37,6 +37,7 @@ export interface WebsiteConfig {
    */
   mailchimpEmailFieldName?: string;
   /**
+  /**
    * Appears alongside the footer, after the credits
    */
   footer?: string;
