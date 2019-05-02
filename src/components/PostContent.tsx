@@ -1,7 +1,7 @@
 import { lighten, setLightness, darken, setSaturation } from 'polished';
 import * as React from 'react';
 import styled from '@emotion/styled';
-import rehypeReact from 'rehype-react';
+import RehypeReact from 'rehype-react';
 
 import { colors } from '../styles/colors';
 
@@ -545,7 +545,7 @@ export const PostFullContent = styled.section`
   /* End Syntax Highlighting */
 `;
 
-const renderAst = new rehypeReact({
+const renderAst = new RehypeReact({
   createElement: React.createElement,
   // components: { 'interactive-counter': Counter },
   components: {},

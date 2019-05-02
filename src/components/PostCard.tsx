@@ -176,7 +176,7 @@ const AuthorProfileImage = styled.img`
   width: 100%;
   height: 100%;
   /* background: color(var(--lightgrey) l(+10%)); */
-  background: ${lighten('0.1', colors.lightgrey)}
+  background: ${lighten('0.1', colors.lightgrey)};
   border-radius: 100%;
   object-fit: cover;
 `;
@@ -199,7 +199,7 @@ export interface PostCardProps {
 const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
   return (
     <article
-      className={`post-card ${!post.frontmatter.image ? 'no-image' : ''}`}
+      className={`post-card ${post.frontmatter.image ? '' : 'no-image'}`}
       css={PostCardStyles}
     >
       {post.frontmatter.image && (
@@ -208,12 +208,12 @@ const PostCard: React.FunctionComponent<PostCardProps> = ({ post }) => {
             {post.frontmatter.image &&
               post.frontmatter.image.childImageSharp &&
               post.frontmatter.image.childImageSharp.fluid && (
-                <Img
-                  alt={`${post.frontmatter.title} cover image`}
-                  style={{ height: '100%' }}
-                  fluid={post.frontmatter.image.childImageSharp.fluid}
-                />
-              )}
+              <Img
+                alt={`${post.frontmatter.title} cover image`}
+                style={{ height: '100%' }}
+                fluid={post.frontmatter.image.childImageSharp.fluid}
+              />
+            )}
           </PostCardImage>
         </Link>
       )}

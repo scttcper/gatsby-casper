@@ -96,6 +96,7 @@ interface AuthorTemplateProps {
       twitter?: string;
       facebook?: string;
       location?: string;
+      // eslint-disable-next-line @typescript-eslint/camelcase
       profile_image?: {
         childImageSharp: {
           fluid: any;
@@ -113,12 +114,12 @@ interface AuthorTemplateProps {
 
 const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
-  
+
   const edges = props.data.allMarkdownRemark.edges.filter(
-    (edge) => {
+    edge => {
       const isDraft = (edge.node.frontmatter.draft !== true ||
-        process.env.NODE_ENV === 'development')
-      return isDraft && edge.node.frontmatter.author && edge.node.frontmatter.author.id === author.id
+        process.env.NODE_ENV === 'development');
+      return isDraft && edge.node.frontmatter.author && edge.node.frontmatter.author.id === author.id;
     }
   );
   const totalCount = edges.length;
@@ -158,9 +159,10 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
           className="no-cover"
           css={[outer, SiteHeader]}
           style={{
-            backgroundImage: author.profile_image
-              ? `url(${author.profile_image.childImageSharp.fluid.src})`
-              : '',
+            // eslint-disable-next-line @typescript-eslint/camelcase
+            backgroundImage: author.profile_image ?
+              `url(${author.profile_image.childImageSharp.fluid.src})` :
+              '',
           }}
         >
           <div css={inner}>
@@ -181,8 +183,8 @@ const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
                 )}
                 <div css={HiddenMobile}>
                   {totalCount > 1 && `${totalCount} posts`}
-                  {totalCount === 1 && `1 post`}
-                  {totalCount === 0 && `No posts`} <Bull>•</Bull>
+                  {totalCount === 1 && '1 post'}
+                  {totalCount === 0 && 'No posts'} <Bull>•</Bull>
                 </div>
                 {author.website && (
                   <div>

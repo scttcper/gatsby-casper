@@ -17,7 +17,6 @@ const PageTemplate = css`
   }
 `;
 
-
 const About: React.FunctionComponent = () => (
   <IndexLayout>
     <Helmet>
@@ -38,26 +37,38 @@ const About: React.FunctionComponent = () => (
           <PostFullContent className="post-full-content">
             <div className="post-content">
               <p>
-                Ghost is professional publishing platform designed for modern journalism. This is a
-                demo site of a basic Ghost install to give you a general sense of what a new Ghost
-                site looks like when set up for the first time.
-              </p>
-              <blockquote>
-                <p>
-                  If you'd like to set up a site like this for yourself, head over to{' '}
-                  <a href="https://ghost.org">Ghost.org</a> and start a free 14 day trial to give
-                  Ghost a try!
-                </p>
-              </blockquote>
-              <p>
-                If you're a developer: Ghost is a completely open source (MIT) Node.js application
-                built on a JSON API with an Ember.js admin client. It works with MySQL and SQLite,
-                and is publicly available <a href="https://github.com/TryGhost/ghost">on Github</a>.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc commodo finibus leo,
+                non tempus magna vehicula ac. Maecenas mollis ante finibus pharetra imperdiet.
+                Maecenas in aliquam purus. Nam et massa a nulla fermentum dapibus sit amet in neque.
+                Ut ipsum ipsum, rhoncus a sodales pellentesque, interdum a elit. Nullam aliquam
+                tellus nibh, eget laoreet dui aliquet non. Vestibulum malesuada ante at diam tempus,
+                ac interdum risus scelerisque. Sed ipsum neque, vulputate porta diam eget, consequat
+                blandit nulla. Integer volutpat velit vitae purus lacinia aliquam. Integer bibendum
+                ipsum vitae magna pulvinar, nec vehicula dolor vulputate. Nulla eu massa id orci
+                placerat finibus vel sit amet eros. Vestibulum quis consequat massa. Sed sagittis
+                sollicitudin massa at commodo. Praesent diam nisi, imperdiet posuere eleifend nec,
+                blandit ac massa.
               </p>
               <p>
-                If you need help with using Ghost, you'll find a ton of useful articles on{' '}
-                <a href="https://help.ghost.org">our knowledgebase</a>, as well as extensive{' '}
-                <a href="https://docs.ghost.org">developer documentation</a>.
+                Vestibulum semper pretium ipsum nec congue. Ut ac eros nisi. Donec leo sem, aliquam
+                mollis sapien ultrices, dapibus congue diam. Proin viverra dapibus blandit. Ut
+                mauris tellus, tristique id felis vel, venenatis vestibulum nunc. Nam molestie
+                pulvinar nibh, eget egestas augue. Maecenas tellus arcu, mattis ut ipsum non,
+                sollicitudin convallis nunc. Donec nec neque tristique, aliquet lacus id, laoreet
+                nunc. Cras dapibus nisi nulla, ullamcorper faucibus neque suscipit ac. Donec eget
+                orci venenatis justo lobortis volutpat. Proin vel placerat nisl. Integer arcu nunc,
+                sodales eu fringilla non, aliquam non diam. Cras placerat, massa et faucibus
+                pretium, ante elit tincidunt tellus, tristique ultricies velit quam et massa.
+              </p>
+              <p>
+                In nunc lacus, dapibus vitae lacus sit amet, efficitur iaculis neque. Suspendisse ut
+                tellus quis leo vestibulum tincidunt. Aenean nec enim ac dolor lacinia semper. Ut
+                sed laoreet libero. Nunc elementum sollicitudin accumsan. Nunc eu augue neque. Proin
+                a tortor nibh. Cras eu nisl ornare sapien feugiat pellentesque. Mauris dignissim vel
+                quam eu pellentesque. Integer sit amet posuere quam, eu ullamcorper odio. Nullam a
+                lacus tempus sapien dignissim ullamcorper. In hac habitasse platea dictumst. Proin
+                quis massa aliquam, feugiat tortor sit amet, tincidunt urna. Donec posuere pulvinar
+                lectus, ac semper ipsum vulputate quis.
               </p>
             </div>
           </PostFullContent>
