@@ -6,7 +6,6 @@ import { css } from '@emotion/core';
 import { colors } from '../../styles/colors';
 import config from '../../website-config';
 
-
 const SubscribeFormStyles = css`
   @media (max-width: 500px) {
     -ms-flex-direction: column;
@@ -85,26 +84,32 @@ const FormGroup = styled.div`
 
 const SubscribeForm: React.FunctionComponent = () => {
   return (
-      <form
+    <form
       css={SubscribeFormStyles}
-        action={config.mailchimpAction}
-        method="post"
-        id="mc-embedded-subscribe-form"
-        name="mc-embedded-subscribe-form"
-        target="_blank"
-        noValidate
-      >
-        {/* This is required for the form to work correctly  */}
-        <FormGroup className="form-group">
-          <SubscribeEmail className="subscribe-email" type="email" name="EMAIL" placeholder="youremail@example.com" />
-        </FormGroup>
-        <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-          <input type="text" name={config.mailchimpName} tabIndex={-1} />
-        </div>
-        <SubscribeFormButton type="submit">
-          <span>Subscribe</span>
-        </SubscribeFormButton>
-      </form>
+      action={config.mailchimpAction}
+      method="post"
+      id="mc-embedded-subscribe-form"
+      name="mc-embedded-subscribe-form"
+      target="_blank"
+      noValidate
+    >
+      {/* This is required for the form to work correctly  */}
+      <FormGroup className="form-group">
+        <SubscribeEmail
+          className="subscribe-email"
+          type="email"
+          name={config.mailchimpEmailFieldName}
+          id={config.mailchimpEmailFieldName}
+          placeholder="youremail@example.com"
+        />
+      </FormGroup>
+      <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+        <input type="text" name={config.mailchimpName} tabIndex={-1} />
+      </div>
+      <SubscribeFormButton type="submit">
+        <span>Subscribe</span>
+      </SubscribeFormButton>
+    </form>
   );
 };
 
