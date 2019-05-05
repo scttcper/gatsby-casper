@@ -146,18 +146,18 @@ interface PageTemplateProps {
           id: string;
           bio: string;
           avatar: {
-            children: {
+            children: Array<{
               fixed: {
                 src: string;
               };
-            }[];
+            }>;
           };
         };
       };
     };
     relatedPosts: {
       totalCount: number;
-      edges: {
+      edges: Array<{
         node: {
           timeToRead: number;
           frontmatter: {
@@ -167,7 +167,7 @@ interface PageTemplateProps {
             slug: string;
           };
         };
-      }[];
+      }>;
     };
   };
   pageContext: {
@@ -196,11 +196,11 @@ export interface PageContext {
       id: string;
       bio: string;
       avatar: {
-        children: {
+        children: Array<{
           fixed: {
             src: string;
           };
-        }[];
+        }>;
       };
     };
   };

@@ -77,9 +77,9 @@ export interface IndexProps {
       };
     };
     allMarkdownRemark: {
-      edges: {
+      edges: Array<{
         node: PageContext;
-      }[];
+      }>;
     };
   };
 }

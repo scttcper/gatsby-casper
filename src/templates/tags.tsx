@@ -30,7 +30,7 @@ interface TagTemplateProps {
   };
   data: {
     allTagYaml: {
-      edges: {
+      edges: Array<{
         node: {
           id: string;
           description: string;
@@ -40,13 +40,13 @@ interface TagTemplateProps {
             };
           };
         };
-      }[];
+      }>;
     };
     allMarkdownRemark: {
       totalCount: number;
-      edges: {
+      edges: Array<{
         node: PageContext;
-      }[];
+      }>;
     };
   };
 }
