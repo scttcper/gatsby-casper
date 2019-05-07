@@ -51,9 +51,9 @@ interface NotFoundTemplateProps {
   data: {
     allMarkdownRemark: {
       totalCount: number;
-      edges: {
+      edges: Array<{
         node: PageContext;
-      }[];
+      }>;
     };
   };
 }

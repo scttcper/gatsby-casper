@@ -11,7 +11,7 @@ export interface ReadNextCardStylesProps {
   coverImage: string;
 }
 
-const ReadNextCardStyles = styled.article`
+const ReadNextCardStyles = styled.article<ReadNextCardStylesProps>`
   position: relative;
   flex: 1 1 300px;
   display: flex;
@@ -24,7 +24,7 @@ const ReadNextCardStyles = styled.article`
   background-size: cover;
   border-radius: 5px;
   box-shadow: rgba(39, 44, 49, 0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
-  background-image: url(${(props: ReadNextCardStylesProps) => props.coverImage});
+  background-image: url(${props => props.coverImage});
 
   :before {
     content: "";
@@ -147,7 +147,7 @@ export interface ReadNextProps {
   tags: string[];
   relatedPosts: {
     totalCount: number;
-    edges: {
+    edges: Array<{
       node: {
         timeToRead: number;
         frontmatter: {
@@ -157,7 +157,7 @@ export interface ReadNextProps {
           slug: string;
         };
       };
-    }[];
+    }>;
   };
 }
 

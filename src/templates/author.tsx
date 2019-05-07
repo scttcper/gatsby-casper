@@ -86,9 +86,9 @@ interface AuthorTemplateProps {
     };
     allMarkdownRemark: {
       totalCount: number;
-      edges: {
+      edges: Array<{
         node: PageContext;
-      }[];
+      }>;
     };
     authorYaml: {
       id: string;
