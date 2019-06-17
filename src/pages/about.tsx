@@ -17,7 +17,7 @@ const PageTemplate = css`
   }
 `;
 
-const About: React.FunctionComponent = () => (
+const About: React.FC = () => (
   <IndexLayout>
     <Helmet>
       <title>About</title>

@@ -479,7 +479,7 @@ const GlobalStyles = css`
   }
 `;
 
-const IndexLayout: React.FunctionComponent<IndexProps> = props => {
+const IndexLayout: React.FC<IndexProps> = props => {
   return (
     <div className={props.className}>
       <Helmet>

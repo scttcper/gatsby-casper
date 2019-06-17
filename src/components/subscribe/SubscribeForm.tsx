@@ -82,7 +82,7 @@ const FormGroup = styled.div`
   }
 `;
 
-const SubscribeForm: React.FunctionComponent = () => {
+const SubscribeForm: React.FC = () => {
   return (
     <form
       css={SubscribeFormStyles}

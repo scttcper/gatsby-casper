@@ -112,7 +112,7 @@ interface AuthorTemplateProps {
   };
 }
 
-const Author: React.FunctionComponent<AuthorTemplateProps> = props => {
+const Author: React.FC<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
 
   const edges = props.data.allMarkdownRemark.edges.filter(

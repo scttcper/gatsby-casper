@@ -169,7 +169,7 @@ export interface ReadNextQuery {
   };
 }
 
-const ReadNextCard: React.FunctionComponent<ReadNextProps> = props => {
+const ReadNextCard: React.FC<ReadNextProps> = props => {
   return (
     <StaticQuery
       query={graphql`

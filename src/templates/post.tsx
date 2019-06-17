@@ -206,7 +206,7 @@ export interface PageContext {
   };
 }
 
-const PageTemplate: React.FunctionComponent<PageTemplateProps> = props => {
+const PageTemplate: React.FC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
   let width = '';
   let height = '';

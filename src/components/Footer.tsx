@@ -65,7 +65,7 @@ const SiteFooterNav = styled.nav`
   }
 `;
 
-const Footer: React.FunctionComponent = () => {
+const Footer: React.FC = () => {
   return (
     <footer css={[outer, SiteFooter]}>
       <div css={[inner, SiteFooterContent]}>

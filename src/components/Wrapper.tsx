@@ -11,7 +11,7 @@ interface WrapperProps {
   className?: string;
 }
 
-const Wrapper: React.FunctionComponent<WrapperProps> = ({ children, className }) => (
+const Wrapper: React.FC<WrapperProps> = ({ children, className }) => (
   <StyledWrapper className={className}>{children}</StyledWrapper>
 );
 
