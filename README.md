@@ -39,7 +39,7 @@ Now push to whatever repo you want!
 - [x] polish ✨
   - [x] meta tags
   - [x] page titles
-
+  - [x] pagination
 
 ### Deploy to Netlify
 
@@ -71,7 +71,7 @@ Edit `gatsby-config.js` and add your tracking ID
   },
 ```
 
-## How to edit your site title and description 
+## How to edit your site title and description
 Edit `gatsby-config.js` section `siteMetadata`
 
 ```javascript
@@ -81,3 +81,7 @@ Edit `gatsby-config.js` section `siteMetadata`
     siteUrl: 'https://mysite.com', // full path to blog - no ending slash
   },
 ```
+
+## How to adjust pagination
+In `gatsby-node.js`, edit the `postsPerPage` constant. The default value is
+six posts per page.
