@@ -44,7 +44,7 @@
     "gatsby-transformer-remark": "2.4.0",
     "gatsby-transformer-sharp": "2.1.21",
     "gatsby-transformer-yaml": "2.1.12",
-    "lodash": "4.17.11",
+    "lodash": "4.17.13",
     "modern-normalize": "0.5.0",
     "normalize.css": "8.0.1",
     "polished": "3.4.1",
