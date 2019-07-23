@@ -3,8 +3,9 @@ module.exports = {
   env: {
     node: true,
     jest: true,
+    browser: true,
   },
-  extends: ['xo-space/esnext', 'xo-react/space', 'xo-typescript', 'prettier/@typescript-eslint'],
+  extends: ['xo-space/esnext', 'xo-react/space', 'xo-typescript'],
   rules: {
     'object-curly-spacing': ['error', 'always'],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],

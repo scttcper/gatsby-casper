@@ -116,17 +116,9 @@ interface SiteNavProps {
   isHome?: boolean;
 }
 
-interface SiteNaveState {
-  isOpen: boolean;
-}
-
-class SiteNav extends React.Component<SiteNavProps, SiteNaveState> {
+class SiteNav extends React.Component<SiteNavProps> {
   subscribe = React.createRef<SubscribeModal>();
 
-  constructor(props: SiteNavProps) {
-    super(props);
-    this.state = { isOpen: false };
-  }
   openModal = () => {
     if (this.subscribe.current) {
       this.subscribe.current.open();

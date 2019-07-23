@@ -85,13 +85,13 @@ const FormGroup = styled.div`
 const SubscribeForm: React.FC = () => {
   return (
     <form
+      noValidate
       css={SubscribeFormStyles}
       action={config.mailchimpAction}
       method="post"
       id="mc-embedded-subscribe-form"
       name="mc-embedded-subscribe-form"
       target="_blank"
-      noValidate
     >
       {/* This is required for the form to work correctly  */}
       <FormGroup className="form-group">

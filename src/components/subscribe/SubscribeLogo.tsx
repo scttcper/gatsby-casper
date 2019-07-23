@@ -1,6 +1,6 @@
 import { graphql, StaticQuery } from 'gatsby';
 import * as React from 'react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 import config from '../../website-config';
 
@@ -38,8 +38,7 @@ const SubscribeLogo = () => (
     render={(data: SiteNavLogoProps) =>
       data.logo && (
         <SubscribeOverlayLogo src={data.logo.childImageSharp.fixed.src} alt={config.title} />
-      )
-    }
+      )}
   />
 );
 

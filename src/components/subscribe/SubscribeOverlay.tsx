@@ -10,7 +10,7 @@ interface SubscribeOverlayProps {
   open?: boolean;
 }
 
-const SubscribeOverlay = styled.div`
+const SubscribeOverlay = styled.div<SubscribeOverlayProps>`
   position: fixed;
   top: 0;
   right: 0;
@@ -150,10 +150,7 @@ interface SubscribeState {
 }
 
 class SubscribeModal extends React.Component<any, SubscribeState> {
-  constructor(props: any) {
-    super(props);
-    this.state = { isOpen: false };
-  }
+  state = { isOpen: false };
 
   componentWillUnmount() {
     this.unsubscribeEsc();

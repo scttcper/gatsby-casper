@@ -9,8 +9,8 @@
     "build": "gatsby build",
     "clean": "rimraf public",
     "dev": "gatsby develop",
-    "lint": "eslint src/**/*.tsx src/**/*.ts",
-    "lint:fix": "eslint --fix src/**/*.tsx src/**/*.ts",
+    "lint": "eslint src/**/**/*.tsx",
+    "lint:fix": "eslint --fix src/**/*/*.tsx",
     "start": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -68,7 +68,6 @@
     "@typescript-eslint/parser": "1.13.0",
     "babel-plugin-styled-components": "1.10.6",
     "eslint": "6.1.0",
-    "eslint-config-prettier": "6.0.0",
     "eslint-config-xo-react": "0.20.0",
     "eslint-config-xo-space": "0.21.0",
     "eslint-config-xo-typescript": "0.15.0",

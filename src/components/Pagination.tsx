@@ -45,7 +45,7 @@ const navCss = css`
       text-decoration: none;
     }
   }
-`
+`;
 
 const Pagination: React.FunctionComponent<PaginationProps> = ({ currentPage, numPages }) => {
   const isFirst = currentPage === 1;
