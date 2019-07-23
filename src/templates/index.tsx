@@ -67,6 +67,10 @@ const HomePosts = css`
 `;
 
 export interface IndexProps {
+  pageContext: {
+    currentPage: number;
+    numPages: number;
+  };
   data: {
     logo: {
       childImageSharp: {
