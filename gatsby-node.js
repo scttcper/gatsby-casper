@@ -112,7 +112,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const posts = result.data.allMarkdownRemark.edges;
 
   // Create paginated index
-  const postsPerPage = 6;
+  const postsPerPage = 12;
   const numPages = Math.ceil(posts.length / postsPerPage);
 
   Array.from({ length: numPages }).forEach((_, i) => {
@@ -189,7 +189,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
 exports.onCreateWebpackConfig = ({ stage, actions }) => {
   // adds sourcemaps for tsx in dev mode
-  if (stage === `develop` || stage === `develop-html`) {
+  if (stage === 'develop' || stage === 'develop-html') {
     actions.setWebpackConfig({
       devtool: 'eval-source-map',
     });

@@ -50,7 +50,7 @@ export interface WebsiteConfig {
 
 const config: WebsiteConfig = {
   title: 'masimplo.com',
-  description: 'Pressing keys, generating bytes',
+  description: '"Love many things, for therein lies the true strength, and whosoever loves much performs much, and can accomplish much, and what is done in love is done well." - Van Gogh',
   coverImage: 'blog-cover.jpg',
   logo: 'logo.png',
   lang: 'en',
@@ -62,7 +62,7 @@ const config: WebsiteConfig = {
   mailchimpName: 'b_e751f209dff476297e609e4d2_876a986ffe',
   mailchimpEmailFieldName: 'MERGE0',
   googleSiteVerification: 'GoogleCode',
-  footer: 'is based on Gatsby Casper',
+  footer: 'is build with love and Gatsby',
 };
 
 export default config;
