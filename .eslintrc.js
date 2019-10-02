@@ -16,5 +16,7 @@ module.exports = {
     'react/prop-types': 0,
     'no-warning-comments': 0,
     'complexity': 0,
+    '@typescript-eslint/strict-boolean-expressions': 0,
+    '@typescript-eslint/no-unnecessary-condition': 0,
   },
 };
