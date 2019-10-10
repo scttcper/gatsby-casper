@@ -142,16 +142,20 @@ interface PageTemplateProps {
           };
         };
         tags: string[];
-        author: {
-          id: string;
-          bio: string;
-          avatar: {
-            children: Array<{
-              fixed: {
-                src: string;
+        author: { 
+          edges: Array<{
+            node: {
+              id: string;
+              bio: string;
+              avatar: {
+                children: Array<{
+                  fixed: {
+                    src: string;
+                  };
+                }>;
               };
-            }>;
-          };
+            };
+          }>;
         };
       };
     };
@@ -192,16 +196,20 @@ export interface PageContext {
     date: string;
     draft?: boolean;
     tags: string[];
-    author: {
-      id: string;
-      bio: string;
-      avatar: {
-        children: Array<{
-          fixed: {
-            src: string;
+    author: { 
+      edges: Array<{
+        node: {
+          id: string;
+          bio: string;
+          avatar: {
+            children: Array<{
+              fixed: {
+                src: string;
+              };
+            }>;
           };
-        }>;
-      };
+        }
+      }>
     };
   };
 }
@@ -299,10 +307,14 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
               {/* The big email subscribe modal content */}
               {config.showSubscribe && <Subscribe title={config.title} />}
 
-              <PostFullFooter>
-                <AuthorCard author={post.frontmatter.author} />
-                <PostFullFooterRight authorId={post.frontmatter.author.id} />
-              </PostFullFooter>
+              {post.frontmatter.author.map((element, index) => {
+                return (
+                  <PostFullFooter key={index}>
+                    <AuthorCard author={element} />
+                    <PostFullFooterRight authorId={element.id} />
+                  </PostFullFooter>
+                )
+              })}
             </article>
           </div>
         </main>

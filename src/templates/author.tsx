@@ -119,7 +119,19 @@ const Author: React.FC<AuthorTemplateProps> = props => {
     edge => {
       const isDraft = (edge.node.frontmatter.draft !== true ||
         process.env.NODE_ENV === 'development');
-      return isDraft && edge.node.frontmatter.author && edge.node.frontmatter.author.id === author.id;
+
+        let authorParticipated = false
+        if (edge.node.frontmatter.author){
+        edge.node.frontmatter.author.forEach(function(element) 
+        { 
+            if (element.id === author.id) {
+              authorParticipated = true
+            }
+        });
+      }
+
+
+      return isDraft && authorParticipated;
     }
   );
   const totalCount = edges.length;
