@@ -35,7 +35,7 @@ Now push to whatever repo you want!
   - [ ] floating reading progress bar
 - [x] 404 page
 - [x] subscribe modal/overlay
-- [x] rss feed
+- [x] rss feed (on production build)
 - [x] polish ✨
   - [x] meta tags
   - [x] page titles
