@@ -10,4 +10,6 @@ export const colors = {
   whitegrey: '#e5eff5',
   pink: '#fa3a57',
   brown: '#a3821a',
+  // darkmode: color(var(--darkgrey) l(+2%)),
+  darkmode: '#191b1f',
 };

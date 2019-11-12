@@ -97,7 +97,7 @@ export const PostFullContent = styled.section`
     line-height: 1.6em;
   }
 
-  li:first-child {
+  li:first-of-type {
     margin-top: 0;
   }
 
@@ -333,7 +333,7 @@ export const PostFullContent = styled.section`
     background-repeat: no-repeat;
   }
 
-  table td:first-child {
+  table td:first-of-type {
     background-image: linear-gradient(
       to right,
       rgba(255, 255, 255, 1) 50%,
