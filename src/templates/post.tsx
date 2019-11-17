@@ -271,7 +271,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <header className="site-header">
           <div css={[outer, SiteNavMain]}>
             <div css={inner}>
-              <SiteNav />
+              <SiteNav isPost post={post.frontmatter} />
             </div>
           </div>
         </header>

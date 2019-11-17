@@ -78,7 +78,7 @@ const NavStyles = css`
   margin: 0 0 0 -12px;
   padding: 0;
   list-style: none;
-  transition: all 1.0s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 
   li {
     display: block;
@@ -101,7 +101,7 @@ const NavStyles = css`
   }
 
   li a:before {
-    content: "";
+    content: '';
     position: absolute;
     right: 100%;
     bottom: 8px;
@@ -155,14 +155,56 @@ const SubscribeButton = styled.a`
   }
 `;
 
+const NavPostTitle = styled.span`
+  visibility: hidden;
+  position: absolute;
+  top: 9px;
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: 400;
+  text-transform: none;
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translateY(175%);
+
+  .dash {
+    left: -25px;
+  }
+
+  .dash:before {
+    content: '– ';
+    opacity: 0.5;
+  }
+`;
+
+const HideNav = css`
+  ul {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-175%);
+  }
+  .nav-post-title {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 interface SiteNavProps {
   isHome?: boolean;
   isPost?: boolean;
   post?: any;
 }
 
-class SiteNav extends React.Component<SiteNavProps> {
+interface SiteNavState {
+  showTitle: boolean;
+}
+
+class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
   subscribe = React.createRef<SubscribeModal>();
+  titleRef = React.createRef<HTMLSpanElement>();
+  lastScrollY = 0;
+  state = { showTitle: false };
 
   openModal = () => {
     if (this.subscribe.current) {
@@ -170,25 +212,62 @@ class SiteNav extends React.Component<SiteNavProps> {
     }
   };
 
+  componentDidMount() {
+    this.lastScrollY = window.scrollY;
+    if (this.props.isPost) {
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll() {
+    if (!this.titleRef.current) {
+      return;
+    }
+
+    this.lastScrollY = window.scrollY;
+
+    const trigger = this.titleRef.current.getBoundingClientRect().top;
+    const triggerOffset = this.titleRef.current.offsetHeight + 35;
+
+    // show/hide post title
+    if (this.lastScrollY >= trigger + triggerOffset) {
+      this.setState({ showTitle: true });
+    } else {
+      this.setState({ showTitle: false });
+    }
+  }
+
   render() {
     const { isHome = false, isPost = false, post = {} } = this.props;
     return (
       <nav css={[isHome && HomeNavRaise, SiteNavStyles]}>
         <SiteNavLeft>
           {!isHome && <SiteNavLogo />}
-          <SiteNavContent>
-          <ul css={NavStyles} role="menu">
-            {/* TODO: mark current nav item - add class nav-current */}
-            <li role="menuitem">
-              <Link to="/">Home</Link>
-            </li>
-            <li role="menuitem">
-              <Link to="/about">About</Link>
-            </li>
-            <li role="menuitem">
-              <Link to="/tags/getting-started/">Getting Started</Link>
-            </li>
-          </ul>
+          <SiteNavContent css={[this.state.showTitle ? HideNav : '']}>
+            <ul css={NavStyles} role="menu">
+              {/* TODO: mark current nav item - add class nav-current */}
+              <li role="menuitem">
+                <Link to="/">Home</Link>
+              </li>
+              <li role="menuitem">
+                <Link to="/about">About</Link>
+              </li>
+              <li role="menuitem">
+                <Link to="/tags/getting-started/">Getting Started</Link>
+              </li>
+            </ul>
+            {isPost && (
+              <NavPostTitle
+                ref={this.titleRef}
+                className="nav-post-title"
+              >
+                {post.title}
+              </NavPostTitle>
+            )}
           </SiteNavContent>
         </SiteNavLeft>
         <SiteNavRight>
