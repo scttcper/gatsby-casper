@@ -2,9 +2,9 @@
 layout: post
 title: A Full and Comprehensive Style Test
 image: img/testimg-cover.jpg
-author: Ghost
+author: [Ghost]
 date: 2018-09-30T07:03:47.149Z
-tags: 
+tags:
   - Tests
 ---
 
@@ -84,9 +84,9 @@ Definition
 
 | Table Header 1 | Table Header 2 | Table Header 3 |
 | :------------: | :------------: | :------------: |
-| Division 1     | Division 2     | Division 3     |
-| Division 1     | Division 2     | Division 3     |
-| Division 1     | Division 2     | Division 3     |
+|   Division 1   |   Division 2   |   Division 3   |
+|   Division 1   |   Division 2   |   Division 3   |
+|   Division 1   |   Division 2   |   Division 3   |
 
 ---
 
@@ -102,9 +102,9 @@ highlight a block of code. Because we have more specific typographic needs for c
 
 ```css
 #container {
-    float: left;
-    margin: 0 -240px 0 0;
-    width: 100%;
+  float: left;
+  margin: 0 -240px 0 0;
+  width: 100%;
 }
 ```
 
@@ -185,5 +185,5 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 
 Isn't it beautiful.
 
-*[HTML]: Hyper Text Markup Language
-*[CSS]: Cascading Style Sheets
+_[HTML]: Hyper Text Markup Language
+_[CSS]: Cascading Style Sheets

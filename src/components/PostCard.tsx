@@ -229,17 +229,21 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         </Link>
         <PostCardMeta className="post-card-meta">
           <AuthorList>
-            <AuthorListItem>
-              <AuthorNameTooltip className="author-name-tooltip">
-                {post.frontmatter.author.id}
-              </AuthorNameTooltip>
-              <Link css={StaticAvatar} to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>
-                <AuthorProfileImage
-                  src={post.frontmatter.author.avatar.children[0].fixed.src}
-                  alt={post.frontmatter.author.id}
-                />
-              </Link>
-            </AuthorListItem>
+          {post.frontmatter.author.map((element, index) => {
+            return (
+              <AuthorListItem key={index}>
+                <AuthorNameTooltip className="author-name-tooltip">
+                  {element.id}
+                </AuthorNameTooltip>
+                <Link css={StaticAvatar} to={`/author/${_.kebabCase(element.id)}/`}>
+                  <AuthorProfileImage
+                    src={element.avatar.children[0].fixed.src}
+                    alt={element.id}
+                  />
+                </Link>
+              </AuthorListItem>
+            )
+          })}
           </AuthorList>
           <ReadingTime>{post.timeToRead} min read</ReadingTime>
         </PostCardMeta>
