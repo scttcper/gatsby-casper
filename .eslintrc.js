@@ -5,6 +5,9 @@ module.exports = {
     jest: true,
     browser: true,
   },
+  parserOptions: {
+    project: 'tsconfig.eslint.json',
+  },
   extends: ['xo-space/esnext', 'xo-react/space', 'xo-typescript'],
   rules: {
     'object-curly-spacing': ['error', 'always'],

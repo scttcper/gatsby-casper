@@ -39,11 +39,9 @@ export const SiteDescription = styled.h2`
 `;
 
 export const PostFeed = css`
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -20px;
-  padding: 40px 0 0 0;
+    padding: 40px 0 5vw;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 `;
 
 export const PostFeedRaise = css`
@@ -73,13 +71,6 @@ export const SocialLink = css`
 `;
 
 export const SiteHeader = css`
-  position: relative;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  color: #fff;
-  /* background: color(var(--darkgrey) l(-5%)) no-repeat center center; */
-  background: ${darken('0.05', colors.darkgrey)} no-repeat center center;
-  background-size: cover;
 `;
 
 export const SiteHeaderContent = styled.div`
@@ -94,19 +85,15 @@ export const SiteHeaderContent = styled.div`
 `;
 
 export const SiteHeaderStyles = css`
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: auto;
-  left: 0;
-  z-index: 10;
-  display: block;
-  height: 80px;
-  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+  position: relative;
+  margin-top: 64px;
+  padding-bottom: 12px;
+  color: #fff;
+  background: color(var(--darkgrey) l(-5%)) no-repeat center center;
+  background-size: cover;
 
   :before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -114,11 +101,10 @@ export const SiteHeaderStyles = css`
     left: 0;
     z-index: 10;
     display: block;
-    background: rgba(0, 0, 0, 0.18);
+    background: rgba(0,0,0,0.18);
   }
-
   :after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -126,12 +112,8 @@ export const SiteHeaderStyles = css`
     left: 0;
     z-index: 10;
     display: block;
-    height: 80px;
-    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
-  }
-  @media (max-width: 700px) {
-    padding-right: 0;
-    padding-left: 0;
+    height: 140px;
+    background: linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0));
   }
 `;
 

@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 
 import AuthorCard from '../components/AuthorCard';
 import Footer from '../components/Footer';
-import SiteNav from '../components/header/SiteNav';
+import SiteNav, { SiteNavMain } from '../components/header/SiteNav';
 import PostCard from '../components/PostCard';
 import PostContent from '../components/PostContent';
 import PostFullFooter from '../components/PostFullFooter';
@@ -24,6 +24,7 @@ import config from '../website-config';
 
 const PostTemplate = css`
   .site-main {
+    margin-top: 64px;
     background: #fff;
     padding-bottom: 4vw;
   }
@@ -142,7 +143,7 @@ interface PageTemplateProps {
           };
         };
         tags: string[];
-        author: { 
+        author: {
           edges: Array<{
             node: {
               id: string;
@@ -196,7 +197,7 @@ export interface PageContext {
     date: string;
     draft?: boolean;
     tags: string[];
-    author: { 
+    author: {
       edges: Array<{
         node: {
           id: string;
@@ -208,8 +209,8 @@ export interface PageContext {
               };
             }>;
           };
-        }
-      }>
+        };
+      }>;
     };
   };
 }
@@ -267,9 +268,11 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         {height && <meta property="og:image:height" content={height} />}
       </Helmet>
       <Wrapper css={PostTemplate}>
-        <header css={[outer, SiteHeader]}>
-          <div css={inner}>
-            <SiteNav />
+        <header className="site-header">
+          <div css={[outer, SiteNavMain]}>
+            <div css={inner}>
+              <SiteNav />
+            </div>
           </div>
         </header>
         <main id="site-main" className="site-main" css={[SiteMain, outer]}>
@@ -283,12 +286,12 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                   </PostFullMetaDate>
                   {post.frontmatter.tags &&
                     post.frontmatter.tags.length > 0 && (
-                      <>
-                        <DateDivider>/</DateDivider>
-                        <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                          {post.frontmatter.tags[0]}
-                        </Link>
-                      </>
+                    <>
+                      <DateDivider>/</DateDivider>
+                      <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                        {post.frontmatter.tags[0]}
+                      </Link>
+                    </>
                   )}
                 </PostFullMeta>
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
@@ -313,7 +316,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                     <AuthorCard author={element} />
                     <PostFullFooterRight authorId={element.id} />
                   </PostFullFooter>
-                )
+                );
               })}
             </article>
           </div>

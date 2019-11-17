@@ -12,7 +12,6 @@ interface IndexProps {
   className?: string;
 }
 
-
 const IndexLayout: React.FC<IndexProps> = props => {
   return (
     <div className={props.className}>

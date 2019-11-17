@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
+import { darken } from 'polished';
 
 import { SocialLink } from '../../styles/shared';
 import config from '../../website-config';
@@ -10,6 +11,7 @@ import Facebook from '../icons/facebook';
 import Twitter from '../icons/twitter';
 import SubscribeModal from '../subscribe/SubscribeOverlay';
 import SiteNavLogo from './SiteNavLogo';
+import { colors } from '../../styles/colors';
 
 const HomeNavRaise = css`
   @media (min-width: 900px) {
@@ -18,60 +20,101 @@ const HomeNavRaise = css`
   }
 `;
 
+export const SiteNavMain = css`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  /* background: color(var(--darkgrey) l(-5%)) */
+  background: ${darken('0.05', colors.darkgrey)};
+
+  @media (max-width: 700px) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+`;
+
 const SiteNavStyles = css`
   position: relative;
-  z-index: 300;
-  display: flex;
+  z-index: 100;
   justify-content: space-between;
   align-items: flex-start;
-  overflow-y: hidden;
-  height: 40px;
-  font-size: 1.2rem;
+  height: 64px;
+  font-size: 1.3rem;
 `;
 
 const SiteNavLeft = styled.div`
+  flex: 1 0 auto;
   display: flex;
   align-items: center;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   margin-right: 10px;
-  padding-bottom: 80px;
-  letter-spacing: 0.4px;
+  padding: 10px 0 80px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
   white-space: nowrap;
 
   -ms-overflow-scrolling: touch;
 
   @media (max-width: 700px) {
     margin-right: 0;
-    padding-left: 4vw;
+    padding-left: 5vw;
   }
 `;
 
+const SiteNavContent = styled.div`
+  position: relative;
+  align-self: flex-start;
+`;
+
 const NavStyles = css`
+  position: absolute;
+  z-index: 1000;
   display: flex;
   margin: 0 0 0 -12px;
   padding: 0;
   list-style: none;
+  transition: all 1.0s cubic-bezier(0.19, 1, 0.22, 1);
 
   li {
     display: block;
     margin: 0;
     padding: 0;
-    text-transform: uppercase;
   }
 
   li a {
+    position: relative;
     display: block;
-    margin: 0;
-    padding: 10px 12px;
+    padding: 12px 12px;
     color: #fff;
     opacity: 0.8;
+    transition: opacity 0.35s ease-in-out;
   }
 
   li a:hover {
     text-decoration: none;
     opacity: 1;
+  }
+
+  li a:before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    bottom: 8px;
+    left: 12px;
+    height: 1px;
+    background: #fff;
+    opacity: 0.25;
+    transition: all 0.35s ease-in-out;
+  }
+
+  li a:hover:before {
+    right: 12px;
+    opacity: 0.5;
   }
 `;
 
@@ -114,6 +157,8 @@ const SubscribeButton = styled.a`
 
 interface SiteNavProps {
   isHome?: boolean;
+  isPost?: boolean;
+  post?: any;
 }
 
 class SiteNav extends React.Component<SiteNavProps> {
@@ -126,11 +171,12 @@ class SiteNav extends React.Component<SiteNavProps> {
   };
 
   render() {
-    const { isHome = false } = this.props;
+    const { isHome = false, isPost = false, post = {} } = this.props;
     return (
       <nav css={[isHome && HomeNavRaise, SiteNavStyles]}>
         <SiteNavLeft>
           {!isHome && <SiteNavLogo />}
+          <SiteNavContent>
           <ul css={NavStyles} role="menu">
             {/* TODO: mark current nav item - add class nav-current */}
             <li role="menuitem">
@@ -143,6 +189,7 @@ class SiteNav extends React.Component<SiteNavProps> {
               <Link to="/tags/getting-started/">Getting Started</Link>
             </li>
           </ul>
+          </SiteNavContent>
         </SiteNavLeft>
         <SiteNavRight>
           <SocialLinks>
