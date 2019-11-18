@@ -1,7 +1,7 @@
 import { graphql, Link } from 'gatsby';
 import Img from 'gatsby-image';
 import * as _ from 'lodash';
-import { setLightness } from 'polished';
+import { setLightness, darken, lighten } from 'polished';
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -28,6 +28,12 @@ const PostTemplate = css`
     background: #fff;
     padding-bottom: 4vw;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .site-main {
+      background: var(--darkmode);
+    }
+  }
 `;
 
 export const PostFull = css`
@@ -47,14 +53,56 @@ export const NoImage = css`
 `;
 
 export const PostFullHeader = styled.header`
+  position: relative;
   margin: 0 auto;
-  padding: 6vw 3vw 3vw;
-  max-width: 1040px;
-  text-align: center;
+  padding: 70px 170px 50px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+
+  @media (max-width: 1170px) {
+    padding: 60px 11vw 50px;
+  }
+
+  @media (max-width: 800px) {
+    padding-right: 5vw;
+    padding-left: 5vw;
+  }
 
   @media (max-width: 500px) {
-    padding: 14vw 3vw 10vw;
+    padding: 20px 0 35px;
   }
+`;
+
+const PostFullTags = styled.section`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--midgrey);
+  font-size: 1.3rem;
+  line-height: 1.4em;
+  font-weight: 600;
+  text-transform: uppercase;
+`;
+
+const PostFullCustomExcerpt = styled.p`
+    margin: 20px 0 0;
+    color: var(--midgrey);
+    font-family: Georgia, serif;
+    font-size: 2.3rem;
+    line-height: 1.4em;
+    font-weight: 300;
+
+    @media (max-width: 500px) {
+
+        font-size: 1.9rem;
+        line-height: 1.5em;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  /* color: color(var(--midgrey) l(+10%)); */
+  color: ${lighten('0.1', colors.midgrey)};
+}
 `;
 
 const PostFullMeta = styled.section`
@@ -77,10 +125,15 @@ const PostFullMetaDate = styled.time`
 `;
 
 export const PostFullTitle = styled.h1`
-  margin: 0;
+  margin: 0 0 0.2em;
   color: ${setLightness('0.05', colors.darkgrey)};
   @media (max-width: 500px) {
-    font-size: 2.9rem;
+    margin-top: 0.2em;
+    font-size: 3.3rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: rgba(255, 255, 255, 0.9);
   }
 `;
 
@@ -104,11 +157,6 @@ const PostFullImage = styled.figure`
     margin-bottom: 4vw;
     height: 350px;
   }
-`;
-
-const DateDivider = styled.span`
-  display: inline-block;
-  margin: 0 6px 1px;
 `;
 
 const ReadNextFeed = styled.div`
@@ -142,6 +190,7 @@ interface PageTemplateProps {
             fluid: any;
           };
         };
+        excerpt: string;
         tags: string[];
         author: {
           edges: Array<{
@@ -193,6 +242,7 @@ export interface PageContext {
         fluid: any;
       };
     };
+    excerpt: string;
     title: string;
     date: string;
     draft?: boolean;
@@ -236,8 +286,11 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
-        {(post.frontmatter.image && post.frontmatter.image.childImageSharp) && (
-          <meta property="og:image" content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`} />
+        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+          <meta
+            property="og:image"
+            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
+          />
         )}
         <meta property="article:published_time" content={post.frontmatter.date} />
         {/* not sure if modified time possible */}
@@ -252,18 +305,28 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.excerpt} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        {(post.frontmatter.image && post.frontmatter.image.childImageSharp) && (
-          <meta name="twitter:image" content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`} />
+        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+          <meta
+            name="twitter:image"
+            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
+          />
         )}
         <meta name="twitter:label1" content="Written by" />
         <meta name="twitter:data1" content={post.frontmatter.author.id} />
         <meta name="twitter:label2" content="Filed under" />
         {post.frontmatter.tags && <meta name="twitter:data2" content={post.frontmatter.tags[0]} />}
-        {config.twitter && <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[1]}`} />}
-        {config.twitter && <meta
-          name="twitter:creator"
-          content={`@${config.twitter.split('https://twitter.com/')[1]}`}
-        />}
+        {config.twitter && (
+          <meta
+            name="twitter:site"
+            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+          />
+        )}
+        {config.twitter && (
+          <meta
+            name="twitter:creator"
+            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+          />
+        )}
         {width && <meta property="og:image:width" content={width} />}
         {height && <meta property="og:image:height" content={height} />}
       </Helmet>
@@ -280,24 +343,25 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
             {/* TODO: no-image css tag? */}
             <article css={[PostFull, !post.frontmatter.image && NoImage]}>
               <PostFullHeader>
-                <PostFullMeta>
-                  <PostFullMetaDate dateTime={post.frontmatter.date}>
-                    {post.frontmatter.userDate}
-                  </PostFullMetaDate>
-                  {post.frontmatter.tags &&
-                    post.frontmatter.tags.length > 0 && (
+                <PostFullTags>
+                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
                     <>
-                      <DateDivider>/</DateDivider>
                       <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
                         {post.frontmatter.tags[0]}
                       </Link>
                     </>
                   )}
-                </PostFullMeta>
+                </PostFullTags>
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
+                <PostFullCustomExcerpt>{post.frontmatter.excerpt}</PostFullCustomExcerpt>
+                <PostFullMeta>
+                  <PostFullMetaDate dateTime={post.frontmatter.date}>
+                    {post.frontmatter.userDate}
+                  </PostFullMetaDate>
+                </PostFullMeta>
               </PostFullHeader>
 
-              {(post.frontmatter.image && post.frontmatter.image.childImageSharp) && (
+              {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
                 <PostFullImage>
                   <Img
                     style={{ height: '100%' }}
@@ -362,6 +426,7 @@ export const query = graphql`
         userDate: date(formatString: "D MMMM YYYY")
         date
         tags
+        excerpt
         image {
           childImageSharp {
             fluid(maxWidth: 3720) {
