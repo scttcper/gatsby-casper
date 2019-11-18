@@ -38,8 +38,10 @@ export const SiteNavMain = css`
 const SiteNavStyles = css`
   position: relative;
   z-index: 100;
+  display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  overflow-y: hidden;
   height: 64px;
   font-size: 1.3rem;
 `;
@@ -204,6 +206,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
   subscribe = React.createRef<SubscribeModal>();
   titleRef = React.createRef<HTMLSpanElement>();
   lastScrollY = 0;
+  ticking = false;
   state = { showTitle: false };
 
   openModal = () => {
@@ -223,8 +226,20 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
     window.removeEventListener('scroll', this.onScroll);
   }
 
-  onScroll() {
-    if (!this.titleRef.current) {
+  onScroll = () => {
+    if (!this.titleRef || !this.titleRef.current) {
+      return;
+    }
+
+    if (!this.ticking) {
+      requestAnimationFrame(this.update);
+    }
+
+    this.ticking = true;
+  };
+
+  update = () => {
+    if (!this.titleRef || !this.titleRef.current) {
       return;
     }
 
@@ -239,7 +254,9 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
     } else {
       this.setState({ showTitle: false });
     }
-  }
+
+    this.ticking = false;
+  };
 
   render() {
     const { isHome = false, isPost = false, post = {} } = this.props;
