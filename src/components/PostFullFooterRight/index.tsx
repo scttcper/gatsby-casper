@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { lighten } from 'polished';
 
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 
 const PostFullFooterRightDiv = styled.div`
   flex-shrink: 0;

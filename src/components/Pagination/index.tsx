@@ -3,7 +3,7 @@ import * as React from 'react';
 import { darken } from 'polished';
 import { css } from '@emotion/core';
 
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 
 export interface PaginationProps {
   currentPage: number;

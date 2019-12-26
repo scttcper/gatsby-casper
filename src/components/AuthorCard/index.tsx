@@ -3,8 +3,8 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import styled from '@emotion/styled';
 
-import { colors } from '../styles/colors';
-import { AuthorProfileImage } from '../styles/shared';
+import { colors } from '../../styles/colors';
+import { AuthorProfileImage } from '../../styles/shared';
 
 const AuthorCardSection = styled.section`
   display: flex;

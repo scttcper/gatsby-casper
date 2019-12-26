@@ -3,9 +3,9 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import * as _ from 'lodash';
 
-import { colors } from '../styles/colors';
-import InfinityIcon from './icons/infinity';
-import config from '../website-config';
+import { colors } from '../../styles/colors';
+import InfinityIcon from '../icons/infinity';
+import config from '../../website-config';
 
 export interface ReadNextCardStylesProps {
   coverImage: string;
@@ -120,7 +120,7 @@ const ReadNextCardContent = styled.div`
     border-bottom: rgba(255, 255, 255, 0.3) 1px solid;
     color: #fff;
     font-weight: 500;
-    vertical-align: top;
+    /* vertical-align: top; */
     transition: opacity 0.3s ease;
   }
 

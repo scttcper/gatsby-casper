@@ -6,8 +6,8 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
-import { colors } from '../styles/colors';
-import { PageContext } from '../templates/post';
+import { colors } from '../../styles/colors';
+import { PageContext } from '../../templates/post';
 
 const PostCardStyles = css`
   flex: 1 1 300px;

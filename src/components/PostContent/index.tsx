@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import RehypeReact from 'rehype-react';
 
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 
 export const PostFullContent = styled.section`
   position: relative;
