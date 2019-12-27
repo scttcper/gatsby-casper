@@ -4,12 +4,12 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
-import { SocialLink } from '../../styles/shared';
-import config from '../../website-config';
-import Facebook from '../icons/facebook';
-import Twitter from '../icons/twitter';
-import SubscribeModal from '../subscribe/SubscribeOverlay';
-import SiteNavLogo from './SiteNavLogo';
+import { SocialLink } from '../../../styles/shared';
+import config from '../../../website-config';
+import Facebook from '../../icons/facebook';
+import Twitter from '../../icons/twitter';
+import SubscribeModal from '../../subscribe/SubscribeOverlay';
+import SiteNavLogo from '../SiteNavLogo';
 
 const HomeNavRaise = css`
   @media (min-width: 900px) {
