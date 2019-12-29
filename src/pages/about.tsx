@@ -6,7 +6,7 @@ import * as React from 'react';
 import { css } from '@emotion/core';
 
 import { PostFullHeader, PostFullTitle, NoImage, PostFull } from '../templates/post';
-import { PostFullContent } from '../components/PostContent';
+import { PostFullContent } from '../components/PostContent/style';
 import Footer from '../components/Footer';
 import Helmet from 'react-helmet';
 
