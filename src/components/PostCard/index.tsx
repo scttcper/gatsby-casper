@@ -36,6 +36,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       <PostCardContent className="post-card-content">
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
           <header className="post-card-header">
+            {/** Tag[0]이 아니라, 카테고리로 바꿔줘야 함 */}
             {post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}
             <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
           </header>
@@ -44,6 +45,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </PostCardExcerpt>
         </Link>
         <PostCardMeta className="post-card-meta">
+          {/** 이 부분은 tag들, 날짜로 바꾸는 것이 좋을듯. */}
           <AuthorList>
             <AuthorListItem>
               <AuthorNameTooltip className="author-name-tooltip">

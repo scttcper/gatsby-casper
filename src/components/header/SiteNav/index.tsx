@@ -23,7 +23,11 @@ class SiteNav extends React.Component<SiteNavProps> {
       this.subscribe.current.open();
     }
   };
-
+/**
+ * 일단 정렬하는 CSS 부분을 만지거나 해야할 듯.
+ * 메뉴 아이템으로는 Tag Category About 그리고 아이콘으로 된 Search
+ * Subscribe, twitter, facebook 은 과감히 메뉴에서 지우고 about쪽에 넣어놓자..
+ */
   render() {
     const { isHome = false } = this.props;
     return (
