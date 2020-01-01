@@ -58,6 +58,7 @@ exports.createPages = async ({ graphql, actions }) => {
             timeToRead
             frontmatter {
               title
+              category
               tags
               date
               draft
@@ -170,6 +171,24 @@ exports.createPages = async ({ graphql, actions }) => {
       component: tagTemplate,
       context: {
         tag,
+      },
+    });
+  });
+  // Create category pages
+  const categoryTemplate = path.resolve('./src/templates/categories.tsx');
+  const categories = _.uniq(
+    _.flatten(
+      result.data.allMarkdownRemark.edges.map(edge => {
+        return _.castArray(_.get(edge, 'node.frontmatter.category', []));
+      }),
+    ),
+  );
+  categories.forEach(category => {
+    createPage({
+      path: `/categories/${_.kebabCase(category)}/`,
+      component: categoryTemplate,
+      context: {
+        category,
       },
     });
   });

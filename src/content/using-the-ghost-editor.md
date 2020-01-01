@@ -3,6 +3,7 @@ layout: post
 title: "Using The Ghost Editor"
 author: Ghost
 tags: ["Getting Started"]
+category: ["Cat1"]
 image: img/writing.jpg
 date: "2015-02-02T23:46:37.121Z"
 draft: false
