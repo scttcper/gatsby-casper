@@ -141,6 +141,7 @@ interface PageTemplateProps {
             fluid: any;
           };
         };
+        category: string[];
         tags: string[];
         author: {
           id: string;
@@ -191,6 +192,7 @@ export interface PageContext {
     title: string;
     date: string;
     draft?: boolean;
+    category: string[];
     tags: string[];
     author: {
       id: string;

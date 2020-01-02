@@ -224,6 +224,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             date
+            category
             tags
             draft
             image {

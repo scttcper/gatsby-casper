@@ -59,8 +59,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         >
           <header className="post-card-header">
             {/** Tag[0]이 아니라, 카테고리로 바꿔줘야 함 */}
-            {post.frontmatter.tags && (
-              <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>
+            {post.frontmatter.category && (
+              <PostCardTags>{post.frontmatter.category[0]}</PostCardTags>
             )}
             <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
           </header>
