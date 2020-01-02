@@ -1,6 +1,5 @@
-import styled from '@emotion/styled';
-import { colors } from '../../styles/colors';
-
+import styled from "@emotion/styled";
+import { colors } from "../../styles/colors";
 
 export const AuthorCardSection = styled.section`
   display: flex;

@@ -1,11 +1,11 @@
-import { Global, css } from '@emotion/core';
-import { darken, lighten } from 'polished';
-import * as React from 'react';
-import Helmet from 'react-helmet';
+import { Global, css } from "@emotion/core";
+import { darken, lighten } from "polished";
+import * as React from "react";
+import Helmet from "react-helmet";
 
-import { colors } from '../styles/colors';
+import { colors } from "../styles/colors";
 // @ts-ignore
-import favicon from '../../src/favicon.ico';
+import favicon from "../../src/favicon.ico";
 
 interface IndexProps {
   className?: string;
@@ -111,7 +111,7 @@ const GlobalStyles = css`
   blockquote:after,
   q:before,
   q:after {
-    content: '';
+    content: "";
     content: none;
   }
   table {
@@ -203,9 +203,9 @@ const GlobalStyles = css`
     text-transform: none;
   }
   button,
-  html input[type='button'],
-  input[type='reset'],
-  input[type='submit'] {
+  html input[type="button"],
+  input[type="reset"],
+  input[type="submit"] {
     cursor: pointer;
 
     -webkit-appearance: button;
@@ -225,22 +225,22 @@ const GlobalStyles = css`
   input:focus {
     outline: none;
   }
-  input[type='checkbox'],
-  input[type='radio'] {
+  input[type="checkbox"],
+  input[type="radio"] {
     box-sizing: border-box;
     padding: 0;
   }
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
     height: auto;
   }
-  input[type='search'] {
+  input[type="search"] {
     box-sizing: content-box;
 
     -webkit-appearance: textfield;
   }
-  input[type='search']::-webkit-search-cancel-button,
-  input[type='search']::-webkit-search-decoration {
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
   }
   legend {
@@ -268,9 +268,9 @@ const GlobalStyles = css`
   }
   body {
     overflow-x: hidden;
-    color: ${darken('0.25', colors.midgrey)};
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-      'Open Sans', 'Helvetica Neue', sans-serif;
+    color: ${darken("0.25", colors.midgrey)};
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.5rem;
     line-height: 1.6em;
     font-weight: 400;
@@ -281,12 +281,12 @@ const GlobalStyles = css`
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -moz-font-feature-settings: 'liga' on;
+    -moz-font-feature-settings: "liga" on;
   }
 
   ::selection {
     text-shadow: none;
-    background: ${lighten('0.3', colors.blue)};
+    background: ${lighten("0.3", colors.blue)};
   }
 
   hr {
@@ -297,7 +297,7 @@ const GlobalStyles = css`
     padding: 0;
     height: 1px;
     border: 0;
-    border-top: 1px solid ${lighten('0.1', colors.lightgrey)};
+    border-top: 1px solid ${lighten("0.1", colors.lightgrey)};
   }
 
   audio,
@@ -393,7 +393,7 @@ const GlobalStyles = css`
   }
 
   blockquote small:before {
-    content: '\\2014 \\00A0';
+    content: "\\2014 \\00A0";
   }
 
   blockquote cite {
@@ -404,7 +404,7 @@ const GlobalStyles = css`
   }
 
   a {
-    color: ${darken('0.05', colors.blue)};
+    color: ${darken("0.05", colors.blue)};
     text-decoration: none;
   }
 

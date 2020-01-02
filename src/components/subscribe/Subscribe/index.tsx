@@ -1,19 +1,19 @@
-import { lighten } from 'polished';
-import * as React from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { lighten } from "polished";
+import * as React from "react";
+import styled from "@emotion/styled";
+import { css } from "@emotion/core";
 
-import { colors } from '../../../styles/colors';
-import SubscribeForm from '../SubscribeForm';
+import { colors } from "../../../styles/colors";
+import SubscribeForm from "../SubscribeForm";
 
 const SubscribeFormSection = styled.section`
   margin: 1.5em 0;
   padding: 6.5vw 7vw 7vw;
   /* border: color(var(--whitegrey) l(+2%)) 1px solid; */
-  border: ${lighten('0.02', colors.whitegrey)} 1px solid;
+  border: ${lighten("0.02", colors.whitegrey)} 1px solid;
   text-align: center;
   /* background: color(var(--whitegrey) l(+4%)); */
-  background: ${lighten('0.04', colors.whitegrey)};
+  background: ${lighten("0.04", colors.whitegrey)};
   border-radius: 7px;
 
   p {

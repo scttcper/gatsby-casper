@@ -1,15 +1,22 @@
 // tslint:disable:no-http-string
-import { Link } from 'gatsby';
-import * as React from 'react';
+import { Link } from "gatsby";
+import * as React from "react";
 
-import config from '../../../website-config';
-import Facebook from '../../icons/facebook';
-import Twitter from '../../icons/twitter';
-import SubscribeModal from '../../subscribe/SubscribeOverlay';
-import SiteNavLogo from '../SiteNavLogo';
-import { SocialLink } from '../../../styles/shared';
-import {HomeNavRaise, SiteNavStyles, SiteNavLeft, SiteNavRight, NavStyles, SocialLinks, SubscribeButton} from './style';
-
+import config from "../../../website-config";
+import Facebook from "../../icons/facebook";
+import Twitter from "../../icons/twitter";
+import SubscribeModal from "../../subscribe/SubscribeOverlay";
+import SiteNavLogo from "../SiteNavLogo";
+import { SocialLink } from "../../../styles/shared";
+import {
+  HomeNavRaise,
+  SiteNavStyles,
+  SiteNavLeft,
+  SiteNavRight,
+  NavStyles,
+  SocialLinks,
+  SubscribeButton
+} from "./style";
 
 interface SiteNavProps {
   isHome?: boolean;
@@ -23,11 +30,11 @@ class SiteNav extends React.Component<SiteNavProps> {
       this.subscribe.current.open();
     }
   };
-/**
- * 일단 정렬하는 CSS 부분을 만지거나 해야할 듯.
- * 메뉴 아이템으로는 Tag Category About 그리고 아이콘으로 된 Search
- * Subscribe, twitter, facebook 은 과감히 메뉴에서 지우고 about쪽에 넣어놓자..
- */
+  /**
+   * 일단 정렬하는 CSS 부분을 만지거나 해야할 듯.
+   * 메뉴 아이템으로는 Tag Category About 그리고 아이콘으로 된 Search
+   * Subscribe, twitter, facebook 은 과감히 메뉴에서 지우고 about쪽에 넣어놓자..
+   */
   render() {
     const { isHome = false } = this.props;
     return (
@@ -73,7 +80,9 @@ class SiteNav extends React.Component<SiteNavProps> {
             )}
           </SocialLinks>
           {config.showSubscribe && (
-            <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
+            <SubscribeButton onClick={this.openModal}>
+              Subscribe
+            </SubscribeButton>
           )}
           {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
         </SiteNavRight>

@@ -1,7 +1,6 @@
-import { lighten, setLightness, darken, setSaturation } from 'polished';
-import styled from '@emotion/styled';
-import { colors } from '../../styles/colors';
-
+import { lighten, setLightness, darken, setSaturation } from "polished";
+import styled from "@emotion/styled";
+import { colors } from "../../styles/colors";
 
 export const PostFullContent = styled.section`
   position: relative;
@@ -21,7 +20,7 @@ export const PostFullContent = styled.section`
   }
 
   :before {
-    content: '';
+    content: "";
     position: absolute;
     top: 15px;
     left: -5px;
@@ -35,7 +34,7 @@ export const PostFullContent = styled.section`
   }
 
   :after {
-    content: '';
+    content: "";
     position: absolute;
     top: 15px;
     right: -5px;
@@ -87,7 +86,7 @@ export const PostFullContent = styled.section`
   strong,
   em {
     /* color: color(var(--darkgrey) l(-5%)); */
-    color: ${darken('0.05', colors.darkgrey)};
+    color: ${darken("0.05", colors.darkgrey)};
   }
 
   small {
@@ -118,7 +117,7 @@ export const PostFullContent = styled.section`
     }
   }
 
-  img[src$='#full'] {
+  img[src$="#full"] {
     max-width: none;
     width: 100vw;
   }
@@ -172,12 +171,12 @@ export const PostFullContent = styled.section`
     padding: 20px;
     max-width: 100%;
     /* border: color(var(--darkgrey) l(-10%)) 1px solid; */
-    border: ${darken('0.01', colors.darkgrey)} 1px solid;
+    border: ${darken("0.01", colors.darkgrey)} 1px solid;
     color: ${colors.whitegrey};
     font-size: 1.4rem;
     line-height: 1.5em;
     /* background: color(var(--darkgrey) l(-3%)); */
-    background: ${darken('0.03', colors.darkgrey)};
+    background: ${darken("0.03", colors.darkgrey)};
     border-radius: 5px;
   }
 
@@ -202,7 +201,7 @@ export const PostFullContent = styled.section`
   }
 
   hr:after {
-    content: '';
+    content: "";
     position: absolute;
     top: -15px;
     left: 50%;
@@ -211,7 +210,7 @@ export const PostFullContent = styled.section`
     width: 1px;
     height: 30px;
     /* background: color(var(--lightgrey) l(+10%)); */
-    background: ${lighten('0.1', colors.lightgrey)};
+    background: ${lighten("0.1", colors.lightgrey)};
     box-shadow: #fff 0 0 0 5px;
     transform: rotate(45deg);
   }
@@ -222,9 +221,9 @@ export const PostFullContent = styled.section`
   h4,
   h5,
   h6 {
-    color: ${setLightness('0.05', colors.darkgrey)};
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-      'Open Sans', 'Helvetica Neue', sans-serif;
+    color: ${setLightness("0.05", colors.darkgrey)};
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
   h1 {
@@ -314,8 +313,8 @@ export const PostFullContent = styled.section`
     width: auto;
     border-spacing: 0;
     border-collapse: collapse;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
-      'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.6rem;
     white-space: nowrap;
     vertical-align: top;
@@ -323,9 +322,18 @@ export const PostFullContent = styled.section`
 
   table {
     -webkit-overflow-scrolling: touch;
-    background: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 0
-        center,
-      radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 100% center;
+    background: radial-gradient(
+          ellipse at left,
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(0, 0, 0, 0) 75%
+        )
+        0 center,
+      radial-gradient(
+          ellipse at right,
+          rgba(0, 0, 0, 0.2) 0%,
+          rgba(0, 0, 0, 0) 75%
+        )
+        100% center;
     background-attachment: scroll, scroll;
     background-size: 10px 100%, 10px 100%;
     background-repeat: no-repeat;
@@ -360,14 +368,14 @@ export const PostFullContent = styled.section`
     text-align: left;
     text-transform: uppercase;
     /* background-color: color(var(--whitegrey) l(+4%)); */
-    background-color: ${lighten('0.04', colors.whitegrey)};
+    background-color: ${lighten("0.04", colors.whitegrey)};
   }
 
   table th,
   table td {
     padding: 6px 12px;
     /* border: color(var(--whitegrey) l(-1%) s(-5%)) 1px solid; */
-    border: ${setSaturation('0.05', darken('0.01', colors.whitegrey))} 1px solid;
+    border: ${setSaturation("0.05", darken("0.01", colors.whitegrey))} 1px solid;
   }
 
   @media (max-width: 500px) {
@@ -382,10 +390,11 @@ export const PostFullContent = styled.section`
 
   /* Start Syntax Highlighting */
   /* Taken from overreacted https://github.com/gaearon/overreacted.io/blob/942b41555f5e5ccbb5f93f6c26142cd90b314236/src/utils/global.css#L68 */
-  code[class*='language-'],
-  pre[class*='language-'] {
+  code[class*="language-"],
+  pre[class*="language-"] {
     background: none;
-    font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New, monospace;
+    font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New,
+      monospace;
     font-feature-settings: normal;
     text-align: left;
     white-space: pre;
@@ -406,36 +415,36 @@ export const PostFullContent = styled.section`
   }
 
   /* Code blocks */
-  pre[class*='language-'] {
+  pre[class*="language-"] {
     overflow: auto;
     padding: 1.3125rem;
   }
 
-  pre[class*='language-']::-moz-selection {
+  pre[class*="language-"]::-moz-selection {
     /* Firefox */
     background: hsl(207, 4%, 16%);
   }
 
-  pre[class*='language-']::selection {
+  pre[class*="language-"]::selection {
     /* Safari */
     background: hsl(207, 4%, 16%);
   }
 
   /* Text Selection colour */
-  pre[class*='language-']::-moz-selection,
-  pre[class*='language-'] ::-moz-selection {
+  pre[class*="language-"]::-moz-selection,
+  pre[class*="language-"] ::-moz-selection {
     text-shadow: none;
     background: hsla(0, 0%, 100%, 0.15);
   }
 
-  pre[class*='language-']::selection,
-  pre[class*='language-'] ::selection {
+  pre[class*="language-"]::selection,
+  pre[class*="language-"] ::selection {
     text-shadow: none;
     background: hsla(0, 0%, 100%, 0.15);
   }
 
   /* Inline code */
-  :not(pre) > code[class*='language-'] {
+  :not(pre) > code[class*="language-"] {
     border-radius: 0.3em;
     background: var(--inlineCode-bg);
     color: var(--inlineCode-text);
@@ -479,7 +488,7 @@ export const PostFullContent = styled.section`
   .token.selector,
   .token.doctype {
     color: rgb(199, 146, 234);
-    font-style: 'italic';
+    font-style: "italic";
   }
 
   .token.class-name {
@@ -535,7 +544,7 @@ export const PostFullContent = styled.section`
     }
   }
 
-  .gatsby-highlight pre[class*='language-'] {
+  .gatsby-highlight pre[class*="language-"] {
     float: left;
     min-width: 100%;
   }

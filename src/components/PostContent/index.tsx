@@ -1,14 +1,12 @@
-import * as React from 'react';
-import RehypeReact from 'rehype-react';
+import * as React from "react";
+import RehypeReact from "rehype-react";
 
-import {PostFullContent} from './style';
-
-
+import { PostFullContent } from "./style";
 
 const renderAst = new RehypeReact({
   createElement: React.createElement,
   // components: { 'interactive-counter': Counter },
-  components: {},
+  components: {}
 }).Compiler;
 
 const Ast = ({ ast, ...props }: any) => {

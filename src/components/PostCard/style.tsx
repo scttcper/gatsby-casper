@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
-import { lighten } from 'polished';
-import { colors } from '../../styles/colors';
+import styled from "@emotion/styled";
+import { css } from "@emotion/core";
+import { lighten } from "polished";
+import { colors } from "../../styles/colors";
 
 export const PostCardStyles = css`
   flex: 1 1 300px;
@@ -13,11 +13,13 @@ export const PostCardStyles = css`
   background: #fff center center;
   background-size: cover;
   border-radius: 5px;
-  box-shadow: rgba(39, 44, 49, 0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
+  box-shadow: rgba(39, 44, 49, 0.06) 8px 14px 38px,
+    rgba(39, 44, 49, 0.03) 1px 3px 8px;
   transition: all 0.5s ease;
 
   :hover {
-    box-shadow: rgba(39, 44, 49, 0.07) 8px 28px 50px, rgba(39, 44, 49, 0.04) 1px 6px 12px;
+    box-shadow: rgba(39, 44, 49, 0.07) 8px 28px 50px,
+      rgba(39, 44, 49, 0.04) 1px 6px 12px;
     transition: all 0.4s ease;
     transform: translate3D(0, -1px, 0) scale(1.02);
   }
@@ -144,7 +146,8 @@ export const AuthorNameTooltip = styled.div`
   white-space: nowrap;
   background: ${colors.darkgrey};
   border-radius: 3px;
-  box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
+  box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px,
+    rgba(39, 44, 49, 0.03) 1px 3px 8px;
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
   transform: translateY(6px);
@@ -170,7 +173,7 @@ export const AuthorProfileImage = styled.img`
   width: 100%;
   height: 100%;
   /* background: color(var(--lightgrey) l(+10%)); */
-  background: ${lighten('0.1', colors.lightgrey)};
+  background: ${lighten("0.1", colors.lightgrey)};
   border-radius: 100%;
   object-fit: cover;
 `;

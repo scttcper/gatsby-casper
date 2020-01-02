@@ -1,8 +1,8 @@
-import { graphql, StaticQuery } from 'gatsby';
-import * as React from 'react';
-import styled from '@emotion/styled';
+import { graphql, StaticQuery } from "gatsby";
+import * as React from "react";
+import styled from "@emotion/styled";
 
-import config from '../../../website-config';
+import config from "../../../website-config";
 
 const SubscribeOverlayLogo = styled.img`
   position: fixed;
@@ -37,8 +37,12 @@ const SubscribeLogo = () => (
     // tslint:disable-next-line:react-this-binding-issue
     render={(data: SiteNavLogoProps) =>
       data.logo && (
-        <SubscribeOverlayLogo src={data.logo.childImageSharp.fixed.src} alt={config.title} />
-      )}
+        <SubscribeOverlayLogo
+          src={data.logo.childImageSharp.fixed.src}
+          alt={config.title}
+        />
+      )
+    }
   />
 );
 

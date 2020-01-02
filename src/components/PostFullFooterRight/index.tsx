@@ -1,9 +1,8 @@
-import { Link } from 'gatsby';
-import * as _ from 'lodash';
-import * as React from 'react';
+import { Link } from "gatsby";
+import * as _ from "lodash";
+import * as React from "react";
 
-import {PostFullFooterRightDiv, AuthorCardButton} from './style';
-
+import { PostFullFooterRightDiv, AuthorCardButton } from "./style";
 
 export interface PostFullFooterRightProps {
   authorId: string;

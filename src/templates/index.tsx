@@ -1,15 +1,15 @@
-import { graphql } from 'gatsby';
-import * as React from 'react';
-import { css } from '@emotion/core';
-import Helmet from 'react-helmet';
+import { graphql } from "gatsby";
+import * as React from "react";
+import { css } from "@emotion/core";
+import Helmet from "react-helmet";
 
-import Footer from '../components/Footer';
-import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
-import IndexLayout from '../layouts';
-import config from '../website-config';
-import Pagination from '../components/Pagination';
+import Footer from "../components/Footer";
+import SiteNav from "../components/header/SiteNav";
+import PostCard from "../components/PostCard";
+import Wrapper from "../components/Wrapper";
+import IndexLayout from "../layouts";
+import config from "../website-config";
+import Pagination from "../components/Pagination";
 
 import {
   inner,
@@ -20,9 +20,9 @@ import {
   SiteHeader,
   SiteHeaderContent,
   SiteMain,
-  SiteTitle,
-} from '../styles/shared';
-import { PageContext } from './post';
+  SiteTitle
+} from "../styles/shared";
+import { PageContext } from "./post";
 
 const HomePosts = css`
   @media (min-width: 795px) {
@@ -91,8 +91,12 @@ export interface IndexProps {
 }
 
 const IndexPage: React.FC<IndexProps> = props => {
-  const width = props.data.header.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-  const height = String(Number(width) / props.data.header.childImageSharp.fluid.aspectRatio);
+  const width = props.data.header.childImageSharp.fluid.sizes
+    .split(", ")[1]
+    .split("px")[0];
+  const height = String(
+    Number(width) / props.data.header.childImageSharp.fluid.aspectRatio
+  );
 
   return (
     <IndexLayout css={HomePosts}>
@@ -109,8 +113,15 @@ const IndexPage: React.FC<IndexProps> = props => {
           property="og:image"
           content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
         />
-        {config.facebook && <meta property="article:publisher" content={config.facebook} />}
-        {config.googleSiteVerification && <meta name="google-site-verification" content={config.googleSiteVerification} />}
+        {config.facebook && (
+          <meta property="article:publisher" content={config.facebook} />
+        )}
+        {config.googleSiteVerification && (
+          <meta
+            name="google-site-verification"
+            content={config.googleSiteVerification}
+          />
+        )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={config.title} />
         <meta name="twitter:description" content={config.description} />
@@ -122,7 +133,7 @@ const IndexPage: React.FC<IndexProps> = props => {
         {config.twitter && (
           <meta
             name="twitter:site"
-            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+            content={`@${config.twitter.split("https://twitter.com/")[1]}`}
           />
         )}
         <meta property="og:image:width" content={width} />
@@ -132,7 +143,7 @@ const IndexPage: React.FC<IndexProps> = props => {
         <header
           css={[outer, SiteHeader]}
           style={{
-            backgroundImage: `url('${props.data.header.childImageSharp.fluid.src}')`,
+            backgroundImage: `url('${props.data.header.childImageSharp.fluid.src}')`
           }}
         >
           <div css={inner}>
@@ -140,7 +151,7 @@ const IndexPage: React.FC<IndexProps> = props => {
               <SiteTitle>
                 {props.data.logo ? (
                   <img
-                    style={{ maxHeight: '45px' }}
+                    style={{ maxHeight: "45px" }}
                     src={props.data.logo.childImageSharp.fixed.src}
                     alt={config.title}
                   />
@@ -160,7 +171,7 @@ const IndexPage: React.FC<IndexProps> = props => {
                 // filter out drafts in production
                 return (
                   (post.node.frontmatter.draft !== true ||
-                    process.env.NODE_ENV !== 'production') && (
+                    process.env.NODE_ENV !== "production") && (
                     <PostCard key={post.node.fields.slug} post={post.node} />
                   )
                 );
@@ -169,7 +180,10 @@ const IndexPage: React.FC<IndexProps> = props => {
           </div>
         </main>
         {props.children}
-        <Pagination currentPage={props.pageContext.currentPage} numPages={props.pageContext.numPages} />
+        <Pagination
+          currentPage={props.pageContext.currentPage}
+          numPages={props.pageContext.numPages}
+        />
         <Footer />
       </Wrapper>
     </IndexLayout>
@@ -199,9 +213,9 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC },
-      filter: { frontmatter: { draft: { ne: true } } },
-      limit: $limit,
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { draft: { ne: true } } }
+      limit: $limit
       skip: $skip
     ) {
       edges {

@@ -1,7 +1,5 @@
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
-
-
+import styled from "@emotion/styled";
+import { css } from "@emotion/core";
 
 export const HomeNavRaise = css`
   @media (min-width: 900px) {

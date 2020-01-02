@@ -1,13 +1,13 @@
-import { graphql } from 'gatsby';
-import React from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { graphql } from "gatsby";
+import React from "react";
+import styled from "@emotion/styled";
+import { css } from "@emotion/core";
 
-import Footer from '../components/Footer';
-import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
-import IndexLayout from '../layouts';
+import Footer from "../components/Footer";
+import SiteNav from "../components/header/SiteNav";
+import PostCard from "../components/PostCard";
+import Wrapper from "../components/Wrapper";
+import IndexLayout from "../layouts";
 import {
   AuthorProfileImage,
   inner,
@@ -18,14 +18,14 @@ import {
   SiteHeaderContent,
   SiteTitle,
   SiteMain,
-  SocialLink,
-} from '../styles/shared';
-import { PageContext } from './post';
-import Facebook from '../components/icons/facebook';
-import Helmet from 'react-helmet';
-import config from '../website-config';
-import Website from '../components/icons/website';
-import Twitter from '../components/icons/twitter';
+  SocialLink
+} from "../styles/shared";
+import { PageContext } from "./post";
+import Facebook from "../components/icons/facebook";
+import Helmet from "react-helmet";
+import config from "../website-config";
+import Website from "../components/icons/website";
+import Twitter from "../components/icons/twitter";
 
 const HiddenMobile = css`
   @media (max-width: 500px) {
@@ -115,13 +115,16 @@ interface AuthorTemplateProps {
 const Author: React.FC<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
 
-  const edges = props.data.allMarkdownRemark.edges.filter(
-    edge => {
-      const isDraft = (edge.node.frontmatter.draft !== true ||
-        process.env.NODE_ENV === 'development');
-      return isDraft && edge.node.frontmatter.author && edge.node.frontmatter.author.id === author.id;
-    }
-  );
+  const edges = props.data.allMarkdownRemark.edges.filter(edge => {
+    const isDraft =
+      edge.node.frontmatter.draft !== true ||
+      process.env.NODE_ENV === "development";
+    return (
+      isDraft &&
+      edge.node.frontmatter.author &&
+      edge.node.frontmatter.author.id === author.id
+    );
+  });
   const totalCount = edges.length;
 
   return (
@@ -135,22 +138,34 @@ const Author: React.FC<AuthorTemplateProps> = props => {
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="profile" />
         <meta property="og:title" content={`${author.id} - ${config.title}`} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
-        <meta property="article:publisher" content="https://www.facebook.com/ghost" />
-        <meta property="article:author" content="https://www.facebook.com/ghost" />
+        <meta
+          property="og:url"
+          content={config.siteUrl + props.pathContext.slug}
+        />
+        <meta
+          property="article:publisher"
+          content="https://www.facebook.com/ghost"
+        />
+        <meta
+          property="article:author"
+          content="https://www.facebook.com/ghost"
+        />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={`${author.id} - ${config.title}`} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta
+          name="twitter:url"
+          content={config.siteUrl + props.pathContext.slug}
+        />
         {config.twitter && (
           <meta
             name="twitter:site"
-            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+            content={`@${config.twitter.split("https://twitter.com/")[1]}`}
           />
         )}
         {config.twitter && (
           <meta
             name="twitter:creator"
-            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+            content={`@${config.twitter.split("https://twitter.com/")[1]}`}
           />
         )}
       </Helmet>
@@ -160,9 +175,9 @@ const Author: React.FC<AuthorTemplateProps> = props => {
           css={[outer, SiteHeader]}
           style={{
             // eslint-disable-next-line @typescript-eslint/camelcase
-            backgroundImage: author.profile_image ?
-              `url(${author.profile_image.childImageSharp.fluid.src})` :
-              '',
+            backgroundImage: author.profile_image
+              ? `url(${author.profile_image.childImageSharp.fluid.src})`
+              : ""
           }}
         >
           <div css={inner}>
@@ -183,8 +198,8 @@ const Author: React.FC<AuthorTemplateProps> = props => {
                 )}
                 <div css={HiddenMobile}>
                   {totalCount > 1 && `${totalCount} posts`}
-                  {totalCount === 1 && '1 post'}
-                  {totalCount === 0 && 'No posts'} <Bull>•</Bull>
+                  {totalCount === 1 && "1 post"}
+                  {totalCount === 0 && "No posts"} <Bull>•</Bull>
                 </div>
                 {author.website && (
                   <div>
@@ -286,9 +301,9 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      filter: { frontmatter: { draft: { ne: true } } },
-      sort: { fields: [frontmatter___date], order: DESC },
-      limit: 2000,
+      filter: { frontmatter: { draft: { ne: true } } }
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: 2000
     ) {
       edges {
         node {
