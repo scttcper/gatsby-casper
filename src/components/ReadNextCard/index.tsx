@@ -157,6 +157,7 @@ export interface ReadNextProps {
         timeToRead: number;
         frontmatter: {
           title: string;
+          description: string;
         };
         fields: {
           slug: string;
