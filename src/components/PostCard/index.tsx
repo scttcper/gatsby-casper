@@ -65,7 +65,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
           </header>
           <PostCardExcerpt>
-            <p>{post.excerpt}</p>
+            <p>{post.frontmatter.description}</p>
           </PostCardExcerpt>
         </Link>
         <PostCardMeta className="post-card-meta">
@@ -86,7 +86,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
               </Link>
             </AuthorListItem>
           </AuthorList>
-          <ReadingTime>{post.timeToRead} min read</ReadingTime>
+          {/** Need to re-format date */}
+          <ReadingTime>{post.frontmatter.date}</ReadingTime>
         </PostCardMeta>
       </PostCardContent>
     </article>
