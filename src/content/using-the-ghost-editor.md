@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Using The Ghost Editor"
+description: descript Ex
 author: Ghost
 tags: ["Getting Started"]
 category: ["Cat1"]

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Welcome to Ghost"
+description: descript Ex
 author: Ghost
 tags: ["Getting Started"]
 category: ["Cat1"]

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Purpose of Education"
+description: descript Ex
 author: Ghost
 tags: ["Speeches"]
 category: ["Cat1"]

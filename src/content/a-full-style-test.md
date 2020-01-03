@@ -1,6 +1,7 @@
 ---
 layout: post
 title: A Full and Comprehensive Style Test
+description: descript Ex
 image: img/testimg-cover.jpg
 author: Ghost
 date: 2018-09-30T07:03:47.149Z
