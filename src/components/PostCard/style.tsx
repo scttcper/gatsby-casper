@@ -3,6 +3,8 @@ import { css } from "@emotion/core";
 import { lighten } from "polished";
 import { colors } from "../../styles/colors";
 
+/**TODO: need to remove style about author */
+
 export const PostCardStyles = css`
   flex: 1 1 300px;
   display: flex;
@@ -69,6 +71,17 @@ export const PostCardTags = styled.span`
   text-transform: uppercase;
 `;
 
+export const PostCardCategory = styled.span`
+  display: block;
+  margin-bottom: 4px;
+  color: ${colors.midgrey};
+  font-size: 1.2rem;
+  line-height: 1.15em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+`;
+
 export const PostCardTitle = styled.h2`
   margin-top: 0;
 `;
@@ -90,6 +103,14 @@ export const AuthorList = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+`;
+
+export const TagList = styled.ul`
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: auto;
 `;
 
 export const AuthorListItem = styled.li`
@@ -134,6 +155,13 @@ export const AuthorListItem = styled.li`
   }
 `;
 
+export const TagListItem = styled.li`
+  position: relative;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+`;
+
 export const AuthorNameTooltip = styled.div`
   position: absolute;
   bottom: 105%;
@@ -168,6 +196,14 @@ export const StaticAvatar = css`
   border-radius: 100%;
 `;
 
+export const TagLink = css`
+  display: block;
+  overflow: hidden;
+  /** TODO: Need to configure margin */
+  margin: 0 5px;
+  border: #fff 2px solid;
+`;
+
 export const AuthorProfileImage = styled.img`
   display: block;
   width: 100%;
@@ -178,7 +214,18 @@ export const AuthorProfileImage = styled.img`
   object-fit: cover;
 `;
 
-export const ReadingTime = styled.span`
+export const TagText = styled.div`
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: ${colors.midgrey};
+  font-size: 1.2rem;
+  line-height: 33px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+`;
+
+export const PublishedDate = styled.span`
   flex-shrink: 0;
   margin-left: 20px;
   color: ${colors.midgrey};

@@ -12,13 +12,12 @@ import {
   PostCardTitle,
   PostCardExcerpt,
   PostCardMeta,
-  PostCardTags,
-  AuthorList,
-  AuthorListItem,
-  ReadingTime,
-  AuthorNameTooltip,
-  AuthorProfileImage,
-  StaticAvatar
+  TagList,
+  TagListItem,
+  TagText,
+  TagLink,
+  PublishedDate,
+  PostCardCategory,
 } from "./style";
 import { PageContext } from "../../templates/post";
 
@@ -58,9 +57,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           to={post.fields.slug}
         >
           <header className="post-card-header">
-            {/** Tag[0]이 아니라, 카테고리로 바꿔줘야 함 */}
             {post.frontmatter.category && (
-              <PostCardTags>{post.frontmatter.category[0]}</PostCardTags>
+              <Link to={`/categories/${_.kebabCase(post.frontmatter.category[post.frontmatter.category.length - 1])}/`}>
+                <PostCardCategory>{post.frontmatter.category[post.frontmatter.category.length - 1]}</PostCardCategory>
+              </Link>
             )}
             <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
           </header>
@@ -69,25 +69,17 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </PostCardExcerpt>
         </Link>
         <PostCardMeta className="post-card-meta">
-          {/** 이 부분은 tag들, 날짜로 바꾸는 것이 좋을듯. */}
-          <AuthorList>
-            <AuthorListItem>
-              <AuthorNameTooltip className="author-name-tooltip">
-                {post.frontmatter.author.id}
-              </AuthorNameTooltip>
-              <Link
-                css={StaticAvatar}
-                to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}
-              >
-                <AuthorProfileImage
-                  src={post.frontmatter.author.avatar.children[0].fixed.src}
-                  alt={post.frontmatter.author.id}
-                />
+          {/** TODO: Need to add All tags to TagList */}
+          <TagList>
+            <TagListItem>
+              <Link css={TagLink} to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                <TagText>
+                  {`# ${post.frontmatter.tags[0]}`}
+                </TagText>
               </Link>
-            </AuthorListItem>
-          </AuthorList>
-          {/** Need to re-format date */}
-          <ReadingTime>{post.frontmatter.cardDate}</ReadingTime>
+            </TagListItem>
+          </TagList>
+          <PublishedDate>{post.frontmatter.cardDate}</PublishedDate>
         </PostCardMeta>
       </PostCardContent>
     </article>
