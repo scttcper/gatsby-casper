@@ -111,6 +111,7 @@ export const pageQuery = graphql`
             title
             description
             date
+            cardDate: date(formatString: "YYYY. MM. DD.")
             tags
             image {
               childImageSharp {

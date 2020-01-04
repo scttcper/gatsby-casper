@@ -179,6 +179,7 @@ export const pageQuery = graphql`
             tags
             category
             date
+            cardDate: date(formatString: "YYYY. MM. DD.")
             image {
               childImageSharp {
                 fluid(maxWidth: 1240) {

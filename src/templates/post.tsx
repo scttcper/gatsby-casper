@@ -194,6 +194,7 @@ export interface PageContext {
     title: string;
     description: string;
     date: string;
+    cardDate: string;
     draft?: boolean;
     category: string[];
     tags: string[];

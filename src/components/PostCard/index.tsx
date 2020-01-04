@@ -87,7 +87,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             </AuthorListItem>
           </AuthorList>
           {/** Need to re-format date */}
-          <ReadingTime>{post.frontmatter.date}</ReadingTime>
+          <ReadingTime>{post.frontmatter.cardDate}</ReadingTime>
         </PostCardMeta>
       </PostCardContent>
     </article>
