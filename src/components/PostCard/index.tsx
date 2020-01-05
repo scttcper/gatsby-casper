@@ -69,15 +69,17 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </PostCardExcerpt>
         </Link>
         <PostCardMeta className="post-card-meta">
-          {/** TODO: Need to add All tags to TagList */}
+          {/** TODO: if overflow, add ...  */}
           <TagList>
-            <TagListItem>
-              <Link css={TagLink} to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                <TagText>
-                  {`# ${post.frontmatter.tags[0]}`}
-                </TagText>
-              </Link>
-            </TagListItem>
+            {post.frontmatter.tags.map(tag => (
+              <TagListItem>
+                <Link css={TagLink} to={`/tags/${_.kebabCase(tag)}/`}>
+                  <TagText>
+                    {`# ${tag}`}
+                  </TagText>
+                </Link>
+              </TagListItem>
+            ))}
           </TagList>
           <PublishedDate>{post.frontmatter.cardDate}</PublishedDate>
         </PostCardMeta>
