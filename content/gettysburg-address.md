@@ -2,7 +2,7 @@
 title: "Gettysburg Address"
 description: descript Ex
 author: Another Author
-tags: []
+tags: ["wtf"]
 category: ["Cat1"]
 image: img/demo1.jpg
 date: "1863-11-19T10:00:00.000Z"
