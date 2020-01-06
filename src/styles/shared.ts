@@ -52,12 +52,9 @@ export const PostFeedRaise = css`
 `;
 
 export const SocialLink = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
   margin: 0;
   padding: 10px;
-  color: #fff;
   opacity: 0.8;
 
   :hover {
@@ -69,6 +66,12 @@ export const SocialLink = css`
     fill: #fff;
   }
 `;
+
+export const SocialLinkFb = css`
+  svg {
+    height: 1.6rem;
+  }
+`
 
 export const SiteHeader = css`
 `;

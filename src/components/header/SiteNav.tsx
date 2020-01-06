@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { darken } from 'polished';
 
-import { SocialLink } from '../../styles/shared';
+import { SocialLink, SocialLinkFb } from '../../styles/shared';
 import config from '../../website-config';
 import Facebook from '../icons/facebook';
 import Twitter from '../icons/twitter';
@@ -121,10 +121,12 @@ const NavStyles = css`
 `;
 
 const SiteNavRight = styled.div`
-  flex-shrink: 0;
+  flex: 0 1 auto;
   display: flex;
   align-items: center;
-  height: 40px;
+  justify-content: flex-end;
+  padding: 10px 0;
+  height: 64px;
 
   @media (max-width: 700px) {
     display: none;
@@ -135,17 +137,14 @@ const SocialLinks = styled.div`
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  a:last-of-type {
-    padding-right: 20px;
-  }
 `;
 
 const SubscribeButton = styled.a`
   display: block;
   padding: 4px 10px;
+  margin: 0 0 0 10px;
   border: #fff 1px solid;
   color: #fff;
-  font-size: 1.2rem;
   line-height: 1em;
   border-radius: 10px;
   opacity: 0.8;
@@ -291,7 +290,8 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
           <SocialLinks>
             {config.facebook && (
               <a
-                css={SocialLink}
+                className="social-link-fb"
+                css={[SocialLink, SocialLinkFb]}
                 href={config.facebook}
                 target="_blank"
                 title="Facebook"
