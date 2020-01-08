@@ -2,13 +2,13 @@ import { graphql, Link } from "gatsby";
 import * as React from "react";
 
 
-import SiteNavLogo from "../../components/header/SiteNavLogo";
+import SiteNav from '../../components/header/SiteNav';
 import Wrapper from "../../components/Wrapper";
 import IndexLayout from "../../layouts";
-import { inner, outer, PostFeed, SiteHeader } from "../../styles/shared";
+import { inner, outer, PostFeed, SiteDescription, SiteHeader, SiteHeaderContent, SiteMain, SiteTitle } from "../../styles/shared";
 import { PageContext } from "../../templates/post";
+import Footer from "../../components/Footer";
 
-import {SiteNavCenter, ErrorTemplate, ErrorCode, ErrorDescription, ErrorLink} from './style';
 import _ from "lodash";
 
 interface TagPageProps {
@@ -34,24 +34,17 @@ const TagPage: React.FC<TagPageProps> = props => {
     <IndexLayout>
       <Wrapper>
         <header css={[SiteHeader, outer]}>
-          <div className="inner">
-            <SiteNavCenter>
-              <SiteNavLogo />
-            </SiteNavCenter>
+          <div css={inner}>
+            <SiteNav isHome={false} />
+            <SiteHeaderContent>
+              <SiteTitle>All Tags</SiteTitle>
+              <SiteDescription>
+                  We have {tags.length} tags here!
+              </SiteDescription>
+            </SiteHeaderContent>
           </div>
         </header>
-        <main id="site-main" css={[ErrorTemplate, outer]}>
-          <div css={inner}>
-            <section style={{ textAlign: "center" }}>
-              <ErrorCode>404</ErrorCode>
-              <ErrorDescription>Page not found</ErrorDescription>
-              <Link css={ErrorLink} to="">
-                Go to the front page →
-              </Link>
-            </section>
-          </div>
-        </main>
-        <aside css={outer}>
+        <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
             <div css={PostFeed}>
               {tags.map(tag => (
@@ -59,7 +52,8 @@ const TagPage: React.FC<TagPageProps> = props => {
               ))}
             </div>
           </div>
-        </aside>
+        </main>
+        <Footer />
       </Wrapper>
     </IndexLayout>
   );
