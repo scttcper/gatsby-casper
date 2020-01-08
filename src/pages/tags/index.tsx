@@ -5,9 +5,10 @@ import * as React from "react";
 import SiteNav from '../../components/header/SiteNav';
 import Wrapper from "../../components/Wrapper";
 import IndexLayout from "../../layouts";
-import { inner, outer, PostFeed, SiteDescription, SiteHeader, SiteHeaderContent, SiteMain, SiteTitle } from "../../styles/shared";
+import { inner, outer, SiteDescription, SiteHeader, SiteHeaderContent, SiteMain, SiteTitle } from "../../styles/shared";
 import { PageContext } from "../../templates/post";
 import Footer from "../../components/Footer";
+import {TagFeed, TagBlock} from './style';
 
 import _ from "lodash";
 
@@ -46,9 +47,11 @@ const TagPage: React.FC<TagPageProps> = props => {
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
-            <div css={PostFeed}>
+            <div css={TagFeed}>
               {tags.map(tag => (
-                <div>{tag}</div>
+                <Link css={TagBlock} to={`/tags/${_.kebabCase(tag)}/`}>
+                  {tag}
+                </Link>
               ))}
             </div>
           </div>
