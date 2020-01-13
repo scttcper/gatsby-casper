@@ -8,24 +8,27 @@ import IndexLayout from "../../layouts";
 import { inner, outer, SiteDescription, SiteHeader, SiteHeaderContent, SiteMain, SiteTitle } from "../../styles/shared";
 import { PageContext } from "../../templates/post";
 import Footer from "../../components/Footer";
-import {TagFeed, TagBlock} from './style';
+import {TagFeed, TagBlock, TagDiv} from './style';
 
 import _ from "lodash";
 
 interface TagPageProps {
   data: {
-    allMarkdownRemark: {
+    countData: {
+      totalCount: number;
+    };
+    tagsData: {
       edges: Array<{
         node: PageContext;
       }>;
-    };
+    }
   };
 }
 
 const TagPage: React.FC<TagPageProps> = props => {
   const tags = _.uniq(
     _.flatten(
-      props.data.allMarkdownRemark.edges.map(edge => {
+      props.data.tagsData.edges.map(edge => {
         return _.castArray(_.get(edge, 'node.frontmatter.tags', []));
       }),
     ),
@@ -47,13 +50,16 @@ const TagPage: React.FC<TagPageProps> = props => {
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
-            <div css={TagFeed}>
-              {tags.map(tag => (
-                <Link css={TagBlock} to={`/tags/${_.kebabCase(tag)}/`}>
-                  {tag}
-                </Link>
-              ))}
-            </div>
+            <TagDiv>
+              <div css={TagFeed}>
+                {tags.map(tag => (
+                  <Link css={TagBlock} to={`/tags/${_.kebabCase(tag)}/`}>
+                    # {tag}
+                  </Link>
+                ))}
+              </div>
+            </TagDiv>
+
           </div>
         </main>
         <Footer />
@@ -66,7 +72,7 @@ export default TagPage;
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark {
+    tagsData: allMarkdownRemark {
       edges {
         node {
           frontmatter {
