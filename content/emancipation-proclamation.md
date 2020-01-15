@@ -2,7 +2,7 @@
 title: "Great Gatsby"
 description: descript Ex
 author: Another Author
-tags: ["Speeches"]
+tags: ["speeches"]
 category: ["Cat1"]
 image: img/marvin-meyer-794521-unsplash.jpg
 date: "1922-12-12T10:00:00.000Z"
