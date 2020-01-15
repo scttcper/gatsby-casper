@@ -33,6 +33,9 @@ const TagPage: React.FC<TagPageProps> = props => {
       }),
     ),
   );
+  tags.sort(function (a, b) {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+  });
   var tagInfo = new Object();
   tags.forEach(function(tag) {
     var count = 0;
