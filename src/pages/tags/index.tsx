@@ -42,9 +42,7 @@ const TagPage: React.FC<TagPageProps> = props => {
     // Find posts whose tag include argument.
     props.data.tagsData.edges.forEach(function(edge) {
       const arr = _.castArray(_.get(edge, 'node.frontmatter.tags', []));
-      console.log(arr);
       if (arr.indexOf(tag) != -1) {
-        console.log(tag, ' Found');
         count++;
       }
     });
@@ -69,8 +67,8 @@ const TagPage: React.FC<TagPageProps> = props => {
           <div css={inner}>
             <TagDiv>
               <div css={TagFeed}>
-                {tags.map(tag => (
-                  <Link css={TagBlock} to={`/tags/${_.kebabCase(tag)}/`}>
+                {tags.map((tag, index) => (
+                  <Link css={TagBlock} to={`/tags/${_.kebabCase(tag)}/`} key={index}>
                     # {tag}({(tagInfo as any)[tag]})
                   </Link>
                 ))}
