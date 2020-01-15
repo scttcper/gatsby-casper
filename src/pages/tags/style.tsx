@@ -9,21 +9,22 @@ export const TagDiv = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 -20px;
-  padding: 40px 0 0 0;
+  padding: 40px 0 40px 0;
   border-radius: 5px;
-  min-height: 100px;
+  min-height: 160px;
 
 
   @media (min-width: 900px) {
     margin-top: -70px;
-    padding-top: 0;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 `;
 
 export const TagFeed = css`
   position: relative;
   display: flex;
-  margin-top: 20px;
+  margin-top: 0px;
   margin-left: 20px;
   margin-right: 20px;
   flex-wrap: wrap;
@@ -41,5 +42,5 @@ export const TagBlock = css`
   font-size: 1.5rem;
   margin: 5px;
   text-align: center;
-  color: #9e9e9e;
+  color: #636363;
 `;
