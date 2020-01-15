@@ -54,7 +54,7 @@ export const SiteFooterNav = styled.nav`
     display: none;
   }
   @media (max-width: 650px) {
-    a:first-child {
+    a:first-of-type {
       margin-left: 0;
     }
   }
