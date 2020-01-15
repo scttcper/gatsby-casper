@@ -26,13 +26,27 @@ interface TagPageProps {
 }
 
 const TagPage: React.FC<TagPageProps> = props => {
-  const tags = _.uniq(
+  const tags: string[] = _.uniq(
     _.flatten(
       props.data.tagsData.edges.map(edge => {
         return _.castArray(_.get(edge, 'node.frontmatter.tags', []));
       }),
     ),
   );
+  var tagInfo = new Object();
+  tags.forEach(function(tag) {
+    var count = 0;
+    // Find posts whose tag include argument.
+    props.data.tagsData.edges.forEach(function(edge) {
+      const arr = _.castArray(_.get(edge, 'node.frontmatter.tags', []));
+      console.log(arr);
+      if (arr.indexOf(tag) != -1) {
+        console.log(tag, ' Found');
+        count++;
+      }
+    });
+    (tagInfo as any)[tag] = count;
+  });
 
   return (
     <IndexLayout>
@@ -54,7 +68,7 @@ const TagPage: React.FC<TagPageProps> = props => {
               <div css={TagFeed}>
                 {tags.map(tag => (
                   <Link css={TagBlock} to={`/tags/${_.kebabCase(tag)}/`}>
-                    # {tag}
+                    # {tag}({(tagInfo as any)[tag]})
                   </Link>
                 ))}
               </div>
