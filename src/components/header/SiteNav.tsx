@@ -13,13 +13,6 @@ import SubscribeModal from '../subscribe/SubscribeOverlay';
 import SiteNavLogo from './SiteNavLogo';
 import { colors } from '../../styles/colors';
 
-const HomeNavRaise = css`
-  @media (min-width: 900px) {
-    position: relative;
-    top: -70px;
-  }
-`;
-
 export const SiteNavMain = css`
   position: fixed;
   top: 0;
@@ -214,14 +207,14 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
     }
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.lastScrollY = window.scrollY;
     if (this.props.isPost) {
       window.addEventListener('scroll', this.onScroll, { passive: true });
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener('scroll', this.onScroll);
   }
 
@@ -257,10 +250,10 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
     this.ticking = false;
   };
 
-  render() {
+  render(): JSX.Element {
     const { isHome = false, isPost = false, post = {} } = this.props;
     return (
-      <nav css={[isHome && HomeNavRaise, SiteNavStyles]}>
+      <nav css={SiteNavStyles}>
         <SiteNavLeft>
           {!isHome && <SiteNavLogo />}
           <SiteNavContent css={[this.state.showTitle ? HideNav : '']}>
@@ -277,10 +270,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
               </li>
             </ul>
             {isPost && (
-              <NavPostTitle
-                ref={this.titleRef}
-                className="nav-post-title"
-              >
+              <NavPostTitle ref={this.titleRef} className="nav-post-title">
                 {post.title}
               </NavPostTitle>
             )}

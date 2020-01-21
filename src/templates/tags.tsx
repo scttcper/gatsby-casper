@@ -10,7 +10,6 @@ import {
   inner,
   outer,
   PostFeed,
-  PostFeedRaise,
   SiteDescription,
   SiteHeader,
   SiteHeaderContent,
@@ -115,7 +114,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
-            <div css={[PostFeed, PostFeedRaise]}>
+            <div css={[PostFeed]}>
               {edges.map(({ node }) => (
                 <PostCard key={node.fields.slug} post={node} />
               ))}

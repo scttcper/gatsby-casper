@@ -18,36 +18,45 @@ export const inner = css`
 export const SiteMain = css`
   z-index: 100;
   flex-grow: 1;
+
+  @media (prefers-color-scheme: dark) {
+    background: ${colors.darkmode};
+  }
 `;
 
 export const SiteTitle = styled.h1`
   z-index: 10;
-  margin: 0;
+  margin: 0 0 0 -2px;
   padding: 0;
-  font-size: 3.8rem;
-  font-weight: 700;
+  font-size: 5.0rem;
+  line-height: 1em;
+  font-weight: 600;
 `;
 
 export const SiteDescription = styled.h2`
   z-index: 10;
   margin: 0;
   padding: 5px 0;
-  font-size: 2.2rem;
-  font-weight: 300;
-  letter-spacing: 0.5px;
+  font-size: 2.1rem;
+  line-height: 1.4em;
+  font-weight: 400;
   opacity: 0.8;
 `;
 
-export const PostFeed = css`
-    padding: 40px 0 5vw;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+export const Posts = css`
+  overflow-x: hidden;
 `;
 
-export const PostFeedRaise = css`
-  @media (min-width: 900px) {
-    margin-top: -70px;
-    padding-top: 0;
+export const PostFeed = css`
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -20px;
+  padding: 50px 0 0;
+  background: #fff;
+
+  @media (prefers-color-scheme: dark) {
+    background: ${colors.darkmode};
   }
 `;
 
@@ -74,17 +83,18 @@ export const SocialLinkFb = css`
 `
 
 export const SiteHeader = css`
+  color: #fff;
 `;
 
 export const SiteHeaderContent = styled.div`
+  z-index: 100;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10vw 4vw;
+  padding: 6vw 3vw;
   min-height: 200px;
-  max-height: 450px;
-  text-align: center;
+  max-height: 340px;
 `;
 
 export const SiteHeaderStyles = css`
@@ -121,12 +131,14 @@ export const SiteHeaderStyles = css`
 `;
 
 export const AuthorProfileImage = css`
-  display: block;
-  /* background: color(var(--lightgrey) l(+10%)); */
-  background: ${lighten('0.1', colors.lightgrey)};
-  border-radius: 100%;
-  object-fit: cover;
-  margin-right: 15px;
+  flex: 0 0 60px;
+  margin: 0;
   width: 60px;
   height: 60px;
+  border: none;
+
+  @media (prefers-color-scheme: dark) {
+    box-shadow: 0 0 0 6px hsla(0,0%,100%,0.04);
+    background: ${colors.darkmode};
+  }
 `;

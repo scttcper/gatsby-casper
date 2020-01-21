@@ -13,7 +13,6 @@ import {
   inner,
   outer,
   PostFeed,
-  PostFeedRaise,
   SiteHeader,
   SiteHeaderContent,
   SiteTitle,
@@ -122,8 +121,8 @@ const Author: React.FC<AuthorTemplateProps> = props => {
 
         let authorParticipated = false
         if (edge.node.frontmatter.author){
-        edge.node.frontmatter.author.forEach(function(element) 
-        { 
+        edge.node.frontmatter.author.forEach(function(element)
+        {
             if (element.id === author.id) {
               authorParticipated = true
             }
@@ -258,7 +257,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
-            <div css={[PostFeed, PostFeedRaise]}>
+            <div css={[PostFeed]}>
               {edges.map(({ node }) => {
                 return <PostCard key={node.fields.slug} post={node} />;
               })}
