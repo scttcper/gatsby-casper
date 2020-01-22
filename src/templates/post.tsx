@@ -354,17 +354,13 @@ export const query = graphql`
             }
           }
         }
-        author {
+        flotiqBlogAuthor {
           id
+          name
           bio
           avatar {
-            children {
-              ... on ImageSharp {
-                fixed(quality: 90) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
-            }
+            id
+            extension
           }
         }
       }

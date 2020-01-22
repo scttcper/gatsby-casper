@@ -72,17 +72,13 @@ exports.createPages = async ({ graphql, actions }) => {
                   }
                 }
               }
-              author {
+              flotiqBlogAuthor {
                 id
+                name
                 bio
                 avatar {
-                  children {
-                    ... on ImageSharp {
-                      fixed(quality: 90) {
-                        src
-                      }
-                    }
-                  }
+                  id
+                  extension
                 }
               }
             }

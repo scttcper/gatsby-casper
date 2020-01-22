@@ -18,14 +18,10 @@ import {
   SiteHeaderContent,
   SiteTitle,
   SiteMain,
-  SocialLink,
 } from '../styles/shared';
 import { PageContext } from './post';
-import Facebook from '../components/icons/facebook';
 import Helmet from 'react-helmet';
 import config from '../website-config';
-import Website from '../components/icons/website';
-import Twitter from '../components/icons/twitter';
 
 const HiddenMobile = css`
   @media (max-width: 500px) {
@@ -79,41 +75,26 @@ interface AuthorTemplateProps {
     author: string;
   };
   data: {
-    logo: {
-      childImageSharp: {
-        fluid: any;
-      };
-    };
     allMarkdownRemark: {
       totalCount: number;
       edges: Array<{
         node: PageContext;
       }>;
     };
-    authorYaml: {
+    flotiqBlogAuthor: {
       id: string;
-      website?: string;
-      twitter?: string;
-      facebook?: string;
-      location?: string;
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      profile_image?: {
-        childImageSharp: {
-          fluid: any;
-        };
-      };
+      name: string;
       bio?: string;
       avatar: {
-        childImageSharp: {
-          fluid: any;
-        };
+        id: string;
+        extension: string;
       };
     };
   };
 }
 
 const Author: React.FC<AuthorTemplateProps> = props => {
-  const author = props.data.authorYaml;
+  const author = props.data.flotiqBlogAuthor;
 
   const edges = props.data.allMarkdownRemark.edges.filter(
     edge => {
@@ -158,88 +139,23 @@ const Author: React.FC<AuthorTemplateProps> = props => {
         <header
           className="no-cover"
           css={[outer, SiteHeader]}
-          style={{
-            // eslint-disable-next-line @typescript-eslint/camelcase
-            backgroundImage: author.profile_image ?
-              `url(${author.profile_image.childImageSharp.fluid.src})` :
-              '',
-          }}
         >
           <div css={inner}>
             <SiteNav isHome={false} />
             <SiteHeaderContent>
               <img
                 css={[AuthorProfileImage, AuthorProfileBioImage]}
-                src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
-                alt={author.id}
+                src={props.data.flotiqBlogAuthor.avatar.id}
+                alt={author.name}
               />
-              <SiteTitle>{author.id}</SiteTitle>
+              <SiteTitle>{author.name}</SiteTitle>
               {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
               <AuthorMeta>
-                {author.location && (
-                  <div css={HiddenMobile}>
-                    {author.location} <Bull>&bull;</Bull>
-                  </div>
-                )}
                 <div css={HiddenMobile}>
                   {totalCount > 1 && `${totalCount} posts`}
                   {totalCount === 1 && '1 post'}
                   {totalCount === 0 && 'No posts'} <Bull>•</Bull>
                 </div>
-                {author.website && (
-                  <div>
-                    <a
-                      className="social-link-wb"
-                      css={SocialLink}
-                      href={author.website}
-                      title="Website"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Website />
-                    </a>
-                  </div>
-                )}
-                {author.twitter && (
-                  <a
-                    className="social-link-tw"
-                    css={SocialLink}
-                    href={`https://twitter.com/${author.twitter}`}
-                    title="Twitter"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Twitter />
-                  </a>
-                )}
-                {author.facebook && (
-                  <a
-                    className="social-link-fb"
-                    css={SocialLink}
-                    href={`https://www.facebook.com/${author.facebook}`}
-                    title="Facebook"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Facebook />
-                  </a>
-                )}
-                {/* TODO: RSS for author */}
-                {/* <a
-                  css={SocialLink} className="social-link-rss"
-                  href="https://feedly.com/i/subscription/feed/https://demo.ghost.io/author/ghost/rss/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    style={{ height: '1.9rem' }}
-                  >
-                    <circle cx="6.18" cy="17.82" r="2.18" />
-                    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z" />
-                  </svg>
-                </a> */}
               </AuthorMeta>
             </SiteHeaderContent>
           </div>
@@ -263,26 +179,13 @@ export default Author;
 
 export const pageQuery = graphql`
   query($author: String) {
-    authorYaml(id: { eq: $author }) {
+    flotiqBlogAuthor(id: { eq: $author }) {
       id
-      website
-      twitter
+      name
       bio
-      facebook
-      location
-      profile_image {
-        childImageSharp {
-          fluid(maxWidth: 3720) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
       avatar {
-        childImageSharp {
-          fluid(maxWidth: 200) {
-            ...GatsbyImageSharpFluid
-          }
-        }
+        id
+        extension
       }
     }
     allMarkdownRemark(
@@ -306,17 +209,12 @@ export const pageQuery = graphql`
                 }
               }
             }
-            author {
+            flotiqBlogAuthor {
               id
               bio
               avatar {
-                children {
-                  ... on ImageSharp {
-                    fixed(quality: 90) {
-                      src
-                    }
-                  }
-                }
+                id
+                extension
               }
             }
           }

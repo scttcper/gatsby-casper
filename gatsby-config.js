@@ -2,14 +2,18 @@ const path = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'Ghost',
-    description: 'The professional publishing platform',
-    siteUrl: 'https://gatsby-casper.netlify.com', // full path to blog - no ending slash
-  },
-  mapping: {
-    'MarkdownRemark.frontmatter.author': 'AuthorYaml',
+    title: 'Flotiq',
+    description: 'Effortless headless CMS',
+    siteUrl: 'https://flotiq.com/blog', // full path to blog - no ending slash
   },
   plugins: [
+    {
+      resolve: 'gatsby-source-flotiq',
+      options: {
+        baseUrl: process.env.GATSBY_FLOTIQ_BASE_URL,
+        authToken: process.env.FLOTIQ_API_KEY,
+      },
+    },
     'gatsby-plugin-sitemap',
     'gatsby-plugin-sharp',
     {
@@ -44,12 +48,6 @@ module.exports = {
       },
     },
     'gatsby-transformer-json',
-    {
-      resolve: 'gatsby-plugin-canonical-urls',
-      options: {
-        siteUrl: 'https://gatsby-casper.netlify.com',
-      },
-    },
     'gatsby-plugin-emotion',
     'gatsby-plugin-typescript',
     'gatsby-transformer-sharp',
