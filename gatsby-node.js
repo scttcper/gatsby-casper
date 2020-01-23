@@ -175,7 +175,6 @@ exports.createPages = async ({ graphql, actions }) => {
   // Create author pages
   const authorTemplate = path.resolve('./src/templates/author.tsx');
   result.data.allFlotiqBlogAuthor.edges.forEach(edge => {
-    console.log(edge.node);
     createPage({
       path: `/author/${_.kebabCase(edge.node.slug)}/`,
       component: authorTemplate,
