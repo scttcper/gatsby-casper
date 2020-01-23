@@ -80,6 +80,6 @@
     "typescript": "3.5.3"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": "12.x"
   }
 }
