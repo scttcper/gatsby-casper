@@ -9,8 +9,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   // through `createNodeField` so that the fields still exist and GraphQL won't
   // trip up. An empty string is still required in replacement to `null`.
   switch (node.internal.type) {
-    case 'MarkdownRemark': {
-      const { permalink, layout, primaryTag } = node.frontmatter;
+    case 'flotiqBlogPost': {
+      const { permalink, layout, primaryTag } = node;
       const { relativePath } = getNode(node.parent);
 
       let slug = permalink;
@@ -47,55 +47,57 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const result = await graphql(`
     {
-      allMarkdownRemark(
-        limit: 2000
-        sort: { fields: [frontmatter___date], order: ASC }
-        filter: { frontmatter: { draft: { ne: true } } }
-      ) {
-        edges {
-          node {
-            excerpt
-            timeToRead
-            frontmatter {
-              title
-              tags
-              date
-              draft
-              image {
-                childImageSharp {
-                  fluid(maxWidth: 3720) {
-                    aspectRatio
-                    base64
-                    sizes
-                    src
-                    srcSet
-                  }
-                }
-              }
-              flotiqBlogAuthor {
-                id
-                name
-                bio
-                avatar {
-                  id
-                  extension
-                }
-              }
-            }
-            fields {
-              layout
-              slug
-            }
+      allFlotiqBlogPost(sort: {fields: flotiqInternal___updatedAt, order: DESC}, limit: 2000) {
+    edges {
+      node {
+        content
+        id
+        slug
+        title
+        tags {
+          id
+          tag
+          description
+          image {
+            id
+            extension
           }
         }
-      }
-      allAuthorYaml {
-        edges {
-          node {
+        headerImage {
+          extension
+          id
+        }
+        author {
+          id
+          name
+          slug
+          avatar {
+            extension
             id
           }
+          bio
+        }
+        flotiqInternal {
+          createdAt
         }
       }
+    }
+    totalCount
+  }
+      allFlotiqBlogAuthor {
+    edges {
+      node {
+        id
+        avatar {
+          extension
+          id
+        }
+        bio
+        name
+        slug
+      }
+    }
+  }
     }
   `);
 
@@ -105,7 +107,7 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create post pages
-  const posts = result.data.allMarkdownRemark.edges;
+  const posts = result.data.allFlotiqBlogPost.edges;
 
   // Create paginated index
   const postsPerPage = 6;
@@ -125,7 +127,7 @@ exports.createPages = async ({ graphql, actions }) => {
   });
 
   posts.forEach(({ node }, index) => {
-    const { slug, layout } = node.fields;
+    const { slug, layout } = node;
     const prev = index === 0 ? null : posts[index - 1].node;
     const next = index === posts.length - 1 ? null : posts[index + 1].node;
 
@@ -146,7 +148,7 @@ exports.createPages = async ({ graphql, actions }) => {
         slug,
         prev,
         next,
-        primaryTag: node.frontmatter.tags ? node.frontmatter.tags[0] : '',
+        primaryTag: node.tags ? node.tags[0].tag : '',
       },
     });
   });
@@ -155,29 +157,30 @@ exports.createPages = async ({ graphql, actions }) => {
   const tagTemplate = path.resolve('./src/templates/tags.tsx');
   const tags = _.uniq(
     _.flatten(
-      result.data.allMarkdownRemark.edges.map(edge => {
-        return _.castArray(_.get(edge, 'node.frontmatter.tags', []));
+      result.data.allFlotiqBlogPost.edges.map(edge => {
+        return _.castArray(_.get(edge, 'node.tags', []));
       }),
     ),
   );
   tags.forEach(tag => {
     createPage({
-      path: `/tags/${_.kebabCase(tag)}/`,
+      path: `/tags/${_.kebabCase(tag.tag)}/`,
       component: tagTemplate,
       context: {
-        tag,
+        tag: tag.tag,
       },
     });
   });
 
   // Create author pages
   const authorTemplate = path.resolve('./src/templates/author.tsx');
-  result.data.allAuthorYaml.edges.forEach(edge => {
+  result.data.allFlotiqBlogAuthor.edges.forEach(edge => {
+    console.log(edge.node);
     createPage({
-      path: `/author/${_.kebabCase(edge.node.id)}/`,
+      path: `/author/${_.kebabCase(edge.node.slug)}/`,
       component: authorTemplate,
       context: {
-        author: edge.node.id,
+        author: edge.node.slug,
       },
     });
   });

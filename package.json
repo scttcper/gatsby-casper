@@ -1,6 +1,6 @@
 {
-  "name": "gatsby-casper",
-  "description": "Casper for gatsby",
+  "name": "flotiq-blog",
+  "description": "Blog for Flotiq",
   "version": "0.0.0",
   "private": true,
   "author": "Scott Cooper <scttcper@gmail.com>",
@@ -20,6 +20,7 @@
     "@emotion/styled-base": "10.0.14",
     "classnames": "2.2.6",
     "cssnano": "4.1.10",
+    "dotenv": "^8.2.0",
     "emotion": "10.0.14",
     "emotion-server": "10.0.14",
     "gatsby": "2.13.33",

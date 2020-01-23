@@ -49,7 +49,7 @@ const ErrorLink = css`
 
 interface NotFoundTemplateProps {
   data: {
-    allMarkdownRemark: {
+    allFlotiqBlogPost: {
       totalCount: number;
       edges: Array<{
         node: PageContext;
@@ -59,7 +59,7 @@ interface NotFoundTemplateProps {
 }
 
 const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
-  const { edges } = props.data.allMarkdownRemark;
+  const { edges } = props.data.allFlotiqBlogPost;
 
   return (
     <IndexLayout>
@@ -86,7 +86,7 @@ const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
           <div css={inner}>
             <div css={PostFeed}>
               {edges.map(({ node }) => (
-                <PostCard key={node.fields.slug} post={node} />
+                <PostCard key={node.slug} post={node} />
               ))}
             </div>
           </div>
@@ -100,38 +100,36 @@ export default NotFoundPage;
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark(limit: 3, sort: { fields: [frontmatter___date], order: DESC }) {
+    allFlotiqBlogPost(limit: 3, sort: { fields: [flotiqInternal___updatedAt], order: DESC }) {
       edges {
-        node {
-          timeToRead
-          frontmatter {
-            title
-            date
-            tags
-            image {
-              childImageSharp {
-                fluid(maxWidth: 3720) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            flotiqBlogAuthor {
-              id
-              name
-              bio
-              avatar {
-                id
-                extension
-              }
-            }
+      node {
+        content
+        id
+        slug
+        title
+        tags {
+          id
+          tag
+        }
+        headerImage {
+          extension
+          id
+        }
+        author {
+          id
+          name
+          avatar {
+            extension
+            id
           }
-          excerpt
-          fields {
-            layout
-            slug
-          }
+          bio
+        }
+        flotiqInternal {
+          createdAt
         }
       }
+    }
+    totalCount
     }
   }
 `;

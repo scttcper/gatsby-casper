@@ -1,5 +1,4 @@
 import { Link } from 'gatsby';
-import Img from 'gatsby-image';
 import * as _ from 'lodash';
 import { lighten } from 'polished';
 import * as React from 'react';
@@ -181,47 +180,49 @@ const AuthorProfileImage = styled.img`
   object-fit: cover;
 `;
 
-const ReadingTime = styled.span`
-  flex-shrink: 0;
-  margin-left: 20px;
-  color: ${colors.midgrey};
-  font-size: 1.2rem;
-  line-height: 33px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-`;
+// const ReadingTime = styled.span`
+//   flex-shrink: 0;
+//   margin-left: 20px;
+//   color: ${colors.midgrey};
+//   font-size: 1.2rem;
+//   line-height: 33px;
+//   font-weight: 500;
+//   letter-spacing: 0.5px;
+//   text-transform: uppercase;
+// `;
 
 export interface PostCardProps {
   post: PageContext;
+  isIndex?: boolean
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
+  let size = isIndex ? '685x300' : '1040x200';
   return (
     <article
-      className={`post-card ${post.frontmatter.image ? '' : 'no-image'}`}
+      className={`post-card ${post.headerImage ? '' : 'no-image'}`}
       css={PostCardStyles}
     >
-      {post.frontmatter.image && (
-        <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
+      {post.headerImage && (
+        <Link className="post-card-image-link" css={PostCardImageLink} to={post.slug}>
           <PostCardImage className="post-card-image">
-            {post.frontmatter.image &&
-              post.frontmatter.image.childImageSharp &&
-              post.frontmatter.image.childImageSharp.fluid && (
-              <Img
-                alt={`${post.frontmatter.title} cover image`}
+            {post.headerImage &&
+              post.headerImage[0].id &&
+              post.headerImage[0].extension && (
+              <img
+                  src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
+                alt={`${post.title} cover image`}
                 style={{ height: '100%' }}
-                fluid={post.frontmatter.image.childImageSharp.fluid}
               />
             )}
           </PostCardImage>
         </Link>
       )}
       <PostCardContent className="post-card-content">
-        <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
+        <Link className="post-card-content-link" css={PostCardContentLink} to={post.slug}>
           <header className="post-card-header">
-            {post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}
-            <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
+            {post.tags && <PostCardTags>{post.tags[0].tag}</PostCardTags>}
+            <PostCardTitle>{post.title}</PostCardTitle>
           </header>
           <PostCardExcerpt>
             <p>{post.excerpt}</p>
@@ -231,17 +232,16 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <AuthorList>
             <AuthorListItem>
               <AuthorNameTooltip className="author-name-tooltip">
-                {post.frontmatter.author.id}
+                {post.author[0].name}
               </AuthorNameTooltip>
-              <Link css={StaticAvatar} to={`/author/${_.kebabCase(post.frontmatter.author.id)}/`}>
+              <Link css={StaticAvatar} to={`/author/${_.kebabCase(post.author[0].slug)}/`}>
                 <AuthorProfileImage
-                  src={post.frontmatter.author.avatar.children[0].fixed.src}
-                  alt={post.frontmatter.author.id}
+                  src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/40x40/' + post.author[0].avatar[0].id + '.' + post.author[0].avatar[0].extension}
+                  alt={post.author[0].name}
                 />
               </Link>
             </AuthorListItem>
           </AuthorList>
-          <ReadingTime>{post.timeToRead} min read</ReadingTime>
         </PostCardMeta>
       </PostCardContent>
     </article>

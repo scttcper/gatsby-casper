@@ -38,20 +38,21 @@ export interface AuthorCardProps {
 }
 
 const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
+    author = author[0];
   return (
     <AuthorCardSection>
       {/* TODO: default avatar */}
       {/* TODO: author page url */}
-      <img css={AuthorProfileImage} src={author.avatar.children[0].fixed.src} alt={author.id} />
+      <img css={AuthorProfileImage} src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/100x100/' + author.avatar[0].id + '.' + author.avatar[0].extension} alt={author.name} />
       <AuthorCardContent>
         <AuthorCardName>
-          <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
+          <Link to={`/author/${_.kebabCase(author.slug)}/`}>{author.name}</Link>
         </AuthorCardName>
         {author.bio ? (
-          <p>{author.bio}</p>
+          <p dangerouslySetInnerHTML={{__html: author.bio}} />
         ) : (
           <p>
-            Read <Link to={`/author/${_.kebabCase(author.id)}/`}>more posts</Link> by this author.
+            Read <Link to={`/author/${_.kebabCase(author.slug)}/`}>more posts</Link> by this author.
           </p>
         )}
       </AuthorCardContent>

@@ -85,3 +85,7 @@ Edit `gatsby-config.js` section `siteMetadata`
 ## How to adjust pagination
 In `gatsby-node.js`, edit the `postsPerPage` constant. The default value is
 six posts per page.
+
+# Deploy
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/flotiq/flotiq-blog)

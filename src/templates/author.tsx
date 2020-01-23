@@ -1,7 +1,7 @@
-import { graphql } from 'gatsby';
+import {graphql} from 'gatsby';
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import {css} from '@emotion/core';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -9,17 +9,17 @@ import PostCard from '../components/PostCard';
 import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import {
-  AuthorProfileImage,
-  inner,
-  outer,
-  PostFeed,
-  PostFeedRaise,
-  SiteHeader,
-  SiteHeaderContent,
-  SiteTitle,
-  SiteMain,
+    AuthorProfileImage,
+    inner,
+    outer,
+    PostFeed,
+    PostFeedRaise,
+    SiteHeader,
+    SiteHeaderContent,
+    SiteTitle,
+    SiteMain,
 } from '../styles/shared';
-import { PageContext } from './post';
+import {PageContext} from './post';
 import Helmet from 'react-helmet';
 import config from '../website-config';
 
@@ -68,162 +68,155 @@ const AuthorProfileBioImage = css`
 `;
 
 interface AuthorTemplateProps {
-  pathContext: {
-    slug: string;
-  };
-  pageContext: {
-    author: string;
-  };
-  data: {
-    allMarkdownRemark: {
-      totalCount: number;
-      edges: Array<{
-        node: PageContext;
-      }>;
+    pathContext: {
+        slug: string;
     };
-    flotiqBlogAuthor: {
-      id: string;
-      name: string;
-      bio?: string;
-      avatar: {
-        id: string;
-        extension: string;
-      };
+    data: {
+        allFlotiqBlogPost: {
+            totalCount: number;
+            edges: Array<{
+                node: PageContext;
+            }>;
+        };
+        flotiqBlogAuthor: {
+            id: string;
+            name: string;
+            slug: string;
+            bio?: string;
+            avatar: [{
+                id: string;
+                extension?: string;
+            }];
+        };
     };
-  };
 }
 
 const Author: React.FC<AuthorTemplateProps> = props => {
-  const author = props.data.flotiqBlogAuthor;
+    const author = props.data.flotiqBlogAuthor;
 
-  const edges = props.data.allMarkdownRemark.edges.filter(
-    edge => {
-      const isDraft = (edge.node.frontmatter.draft !== true ||
-        process.env.NODE_ENV === 'development');
-      return isDraft && edge.node.frontmatter.author && edge.node.frontmatter.author.id === author.id;
-    }
-  );
-  const totalCount = edges.length;
+    const edges = props.data.allFlotiqBlogPost.edges.filter(
+        edge => {
+            return edge.node.author && edge.node.author[0].slug === author.slug;
+        }
+    );
+    const totalCount = edges.length;
 
-  return (
-    <IndexLayout>
-      <Helmet>
-        <html lang={config.lang} />
-        <title>
-          {author.id} - {config.title}
-        </title>
-        <meta name="description" content={author.bio} />
-        <meta property="og:site_name" content={config.title} />
-        <meta property="og:type" content="profile" />
-        <meta property="og:title" content={`${author.id} - ${config.title}`} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
-        <meta property="article:publisher" content="https://www.facebook.com/ghost" />
-        <meta property="article:author" content="https://www.facebook.com/ghost" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content={`${author.id} - ${config.title}`} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        {config.twitter && (
-          <meta
-            name="twitter:site"
-            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
-          />
-        )}
-        {config.twitter && (
-          <meta
-            name="twitter:creator"
-            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
-          />
-        )}
-      </Helmet>
-      <Wrapper>
-        <header
-          className="no-cover"
-          css={[outer, SiteHeader]}
-        >
-          <div css={inner}>
-            <SiteNav isHome={false} />
-            <SiteHeaderContent>
-              <img
-                css={[AuthorProfileImage, AuthorProfileBioImage]}
-                src={props.data.flotiqBlogAuthor.avatar.id}
-                alt={author.name}
-              />
-              <SiteTitle>{author.name}</SiteTitle>
-              {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
-              <AuthorMeta>
-                <div css={HiddenMobile}>
-                  {totalCount > 1 && `${totalCount} posts`}
-                  {totalCount === 1 && '1 post'}
-                  {totalCount === 0 && 'No posts'} <Bull>•</Bull>
-                </div>
-              </AuthorMeta>
-            </SiteHeaderContent>
-          </div>
-        </header>
-        <main id="site-main" css={[SiteMain, outer]}>
-          <div css={inner}>
-            <div css={[PostFeed, PostFeedRaise]}>
-              {edges.map(({ node }) => {
-                return <PostCard key={node.fields.slug} post={node} />;
-              })}
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </Wrapper>
-    </IndexLayout>
-  );
+    return (
+        <IndexLayout>
+            <Helmet>
+                <html lang={config.lang}/>
+                <title>
+                    {author.id} - {config.title}
+                </title>
+                <meta name="description" content={author.bio}/>
+                <meta property="og:site_name" content={config.title}/>
+                <meta property="og:type" content="profile"/>
+                <meta property="og:title" content={`${author.name} - ${config.title}`}/>
+                <meta property="og:url" content={config.siteUrl + props.pathContext.slug}/>
+                <meta property="article:publisher" content="https://www.facebook.com/ghost"/>
+                <meta property="article:author" content="https://www.facebook.com/ghost"/>
+                <meta name="twitter:card" content="summary"/>
+                <meta name="twitter:title" content={`${author.id} - ${config.title}`}/>
+                <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug}/>
+                {config.twitter && (
+                    <meta
+                        name="twitter:site"
+                        content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+                    />
+                )}
+                {config.twitter && (
+                    <meta
+                        name="twitter:creator"
+                        content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+                    />
+                )}
+            </Helmet>
+            <Wrapper>
+                <header
+                    className="no-cover"
+                    css={[outer, SiteHeader]}
+                >
+                    <div css={inner}>
+                        <SiteNav isHome={false}/>
+                        <SiteHeaderContent>
+                            <img
+                                css={[AuthorProfileImage, AuthorProfileBioImage]}
+                                src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/100x100/' + props.data.flotiqBlogAuthor.avatar[0].id + '.'  + props.data.flotiqBlogAuthor.avatar[0].extension}
+                                alt={author.name}
+                            />
+                            <SiteTitle>{author.name}</SiteTitle>
+                            {author.bio && <AuthorBio dangerouslySetInnerHTML={{__html: author.bio}} />}
+                            <AuthorMeta>
+                                <div css={HiddenMobile}>
+                                    {totalCount > 1 && `${totalCount} posts`}
+                                    {totalCount === 1 && '1 post'}
+                                    {totalCount === 0 && 'No posts'} <Bull>•</Bull>
+                                </div>
+                            </AuthorMeta>
+                        </SiteHeaderContent>
+                    </div>
+                </header>
+                <main id="site-main" css={[SiteMain, outer]}>
+                    <div css={inner}>
+                        <div css={[PostFeed, PostFeedRaise]}>
+                            {edges.map(({node}) => {
+                                return <PostCard key={node.slug} post={node}/>;
+                            })}
+                        </div>
+                    </div>
+                </main>
+                <Footer/>
+            </Wrapper>
+        </IndexLayout>
+    );
 };
 
 export default Author;
 
 export const pageQuery = graphql`
   query($author: String) {
-    flotiqBlogAuthor(id: { eq: $author }) {
+    flotiqBlogAuthor(slug: {eq: $author}) {
+      bio
       id
       name
-      bio
+      slug
       avatar {
-        id
         extension
+        id
       }
     }
-    allMarkdownRemark(
-      filter: { frontmatter: { draft: { ne: true } } },
-      sort: { fields: [frontmatter___date], order: DESC },
-      limit: 2000,
-    ) {
-      edges {
-        node {
-          excerpt
-          timeToRead
-          frontmatter {
-            title
-            tags
-            date
-            draft
-            image {
-              childImageSharp {
-                fluid(maxWidth: 3720) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            flotiqBlogAuthor {
-              id
-              bio
-              avatar {
-                id
-                extension
-              }
-            }
-          }
-          fields {
-            layout
+    allFlotiqBlogPost(sort: {fields: flotiqInternal___updatedAt, order: DESC}, limit: 2000) {
+          edges {
+          node {
+            content
+            excerpt
+            id
             slug
+            title
+            tags {
+              id
+              tag
+            }
+            headerImage {
+              extension
+              id
+            }
+            author {
+              id
+              name
+              slug
+              avatar {
+                extension
+                id
+              }
+              bio
+            }
+            flotiqInternal {
+              createdAt
+            }
           }
         }
-      }
+        totalCount
     }
   }
 `;

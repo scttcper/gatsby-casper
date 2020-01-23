@@ -144,18 +144,16 @@ const ReadNextCardFooter = styled.footer`
 `;
 
 export interface ReadNextProps {
-  tags: string[];
+  tags: [{
+      id: string;
+      tag: string;
+  }];
   relatedPosts: {
     totalCount: number;
     edges: Array<{
       node: {
-        timeToRead: number;
-        frontmatter: {
           title: string;
-        };
-        fields: {
           slug: string;
-        };
       };
     }>;
   };
@@ -193,7 +191,7 @@ const ReadNextCard: React.FC<ReadNextProps> = props => {
               &mdash; {config.title} &mdash;
             </ReadNextCardHeaderSitetitle>
             <ReadNextCardHeaderTitle>
-              <Link to={`/tags/${_.kebabCase(props.tags[0])}/`}>{props.tags[0]}</Link>
+              <Link to={`/tags/${_.kebabCase(props.tags[0].tag)}/`}>{props.tags[0].tag}</Link>
             </ReadNextCardHeaderTitle>
           </ReadNextCardHeader>
           <ReadNextDivider>
@@ -203,15 +201,15 @@ const ReadNextCard: React.FC<ReadNextProps> = props => {
             <ul>
               {props.relatedPosts.edges.map(n => {
                 return (
-                  <li key={n.node.frontmatter.title}>
-                    <Link to={n.node.fields.slug}>{n.node.frontmatter.title}</Link>
+                  <li key={n.node.title}>
+                    <Link to={n.node.slug}>{n.node.title}</Link>
                   </li>
                 );
               })}
             </ul>
           </ReadNextCardContent>
           <ReadNextCardFooter>
-            <Link to={`/tags/${_.kebabCase(props.tags[0])}/`}>
+            <Link to={`/tags/${_.kebabCase(props.tags[0].tag)}/`}>
               {props.relatedPosts.totalCount > 1 &&
                 `See all ${props.relatedPosts.totalCount} posts`}
               {props.relatedPosts.totalCount === 1 && '1 post'}

@@ -16,7 +16,17 @@ exports.sourceNodes = async ({ actions }, { baseUrl, authToken }) => {
   });
   if (response.ok) {
     const json = await response.json();
-    return await Promise.all(json.data.map(async datum => {
+    await Promise.all(json.data.map(async datum => {
+      if(datum.author && datum.author.length && datum.author[0].avatar && datum.author[0].avatar.length){
+        const response2  = await fetch(apiUrl + datum.author[0].avatar[0].dataUrl, {headers: headers});
+
+        if(response2.ok) {
+          datum.author[0].avatar[0] = await response2.json();
+
+        }
+      } else {
+        datum.author[0].avatar = [{"id":"", "extension":""}];
+      }
       return createNode({
         // custom
         slug: datum.slug,
@@ -25,6 +35,8 @@ exports.sourceNodes = async ({ actions }, { baseUrl, authToken }) => {
         headerImage: datum.headerImage,
         tags: datum.tags,
         author: datum.author,
+        excerpt: datum.excerpt,
+        relatedPosts: datum.relatedPosts,
         flotiqInternal: datum.internal,
         // required
         id: datum.id,
@@ -46,11 +58,11 @@ exports.sourceNodes = async ({ actions }, { baseUrl, authToken }) => {
   });
   if (response.ok) {
     const json = await response.json();
-    return await Promise.all(json.data.map(async datum => {
+    await Promise.all(json.data.map(async datum => {
       return createNode({
         // custom
         tag: datum.tag,
-        desription: datum.desription,
+        description: datum.description,
         image: datum.image,
         flotiqInternal: datum.internal,
         // required
@@ -73,12 +85,13 @@ exports.sourceNodes = async ({ actions }, { baseUrl, authToken }) => {
   });
   if (response.ok) {
     const json = await response.json();
-    return await Promise.all(json.data.map(async datum => {
+    await Promise.all(json.data.map(async datum => {
       return createNode({
         // custom
         name: datum.name,
         bio: datum.bio,
         avatar: datum.avatar,
+        slug: datum.slug,
         flotiqInternal: datum.internal,
         // required
         id: datum.id,
@@ -108,7 +121,9 @@ exports.createSchemaCustomization = ({ actions }) => {
       headerImage: [FlotiqGallery]!
       flotiqInternal: FlotiqInternal!
       tags: [FlotiqBlogTag]!
-      author: FlotiqBlogAuthor!
+      author: [FlotiqBlogAuthor]!
+      excerpt: String!
+      relatedPosts: [FlotiqBlogPost]!
     }
     type FlotiqBlogTag implements Node {
       tag: String!
@@ -120,11 +135,12 @@ exports.createSchemaCustomization = ({ actions }) => {
       name: String!
       bio: String!
       avatar: [FlotiqGallery]!
+      slug: String!
       flotiqInternal: FlotiqInternal!
     }
     type FlotiqGallery {
-      id: String!
-      extension: String!
+      id: String
+      extension: String
     }
     type FlotiqInternal {
       createdAt: String!

@@ -82,7 +82,7 @@ export interface IndexProps {
         fluid: any;
       };
     };
-    allMarkdownRemark: {
+    allFlotiqBlogPost: {
       edges: Array<{
         node: PageContext;
       }>;
@@ -156,13 +156,9 @@ const IndexPage: React.FC<IndexProps> = props => {
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
             <div css={[PostFeed, PostFeedRaise]}>
-              {props.data.allMarkdownRemark.edges.map(post => {
-                // filter out drafts in production
+              {props.data.allFlotiqBlogPost.edges.map(post => {
                 return (
-                  (post.node.frontmatter.draft !== true ||
-                    process.env.NODE_ENV !== 'production') && (
-                    <PostCard key={post.node.fields.slug} post={post.node} />
-                  )
+                    <PostCard key={post.node.slug} post={post.node} isIndex={true} />
                 );
               })}
             </div>
@@ -198,44 +194,41 @@ export const pageQuery = graphql`
         }
       }
     }
-    allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC },
-      filter: { frontmatter: { draft: { ne: true } } },
+    allFlotiqBlogPost(
+      sort: { fields: [flotiqInternal___updatedAt], order: DESC },
       limit: $limit,
       skip: $skip
     ) {
       edges {
-        node {
-          timeToRead
-          frontmatter {
-            title
-            date
-            tags
-            draft
-            image {
-              childImageSharp {
-                fluid(maxWidth: 3720) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            flotiqBlogAuthor {
-              id
-              name
-              bio
-              avatar {
-                id,
-                extension
-              }
-            }
+      node {
+        content
+        id
+        slug
+        title
+        excerpt
+        tags {
+          id
+          tag
+        }
+        headerImage {
+          extension
+          id
+        }
+        author {
+          id
+          name
+          slug
+          avatar {
+            extension
+            id
           }
-          excerpt
-          fields {
-            layout
-            slug
-          }
+          bio
+        }
+        flotiqInternal {
+          createdAt
         }
       }
+    }
     }
   }
 `;
