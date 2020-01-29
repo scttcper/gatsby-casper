@@ -10,4 +10,5 @@ export const colors = {
   whitegrey: '#e5eff5',
   pink: '#fa3a57',
   brown: '#a3821a',
+  flotiqGreen: '#319685',
 };
