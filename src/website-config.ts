@@ -50,9 +50,9 @@ export interface WebsiteConfig {
 
 const config: WebsiteConfig = {
   title: 'Flotiq blog',
-  description: 'Your content, your way',
+  description: 'Effortless, headless CMS',
   coverImage: 'img/blog-cover.jpg',
-  logo: 'img/flotiq-logo-vertical-wt.png',
+  logo: 'img/flotiq-logo-wt.png',
   lang: 'en',
   siteUrl: 'https://flotiq.com/blog',
   facebook: 'https://www.facebook.com/Flotiq-104200727751200/',

@@ -136,6 +136,7 @@ const IndexPage: React.FC<IndexProps> = props => {
           }}
         >
           <div css={inner}>
+            <SiteNav isHome />
             <SiteHeaderContent>
               <SiteTitle>
                 {props.data.logo ? (
@@ -150,7 +151,6 @@ const IndexPage: React.FC<IndexProps> = props => {
               </SiteTitle>
               <SiteDescription>{config.description}</SiteDescription>
             </SiteHeaderContent>
-            <SiteNav isHome />
           </div>
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
@@ -176,7 +176,7 @@ export default IndexPage;
 
 export const pageQuery = graphql`
   query blogPageQuery($skip: Int!, $limit: Int!) {
-    logo: file(relativePath: { eq: "img/flotiq-logo-vertical-wt.png" }) {
+    logo: file(relativePath: { eq: "img/flotiq-logo-wt.png" }) {
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
@@ -232,3 +232,4 @@ export const pageQuery = graphql`
     }
   }
 `;
+

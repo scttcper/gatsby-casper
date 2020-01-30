@@ -14,7 +14,6 @@ import SiteNavLogo from './SiteNavLogo';
 const HomeNavRaise = css`
   @media (min-width: 900px) {
     position: relative;
-    top: -70px;
   }
 `;
 
