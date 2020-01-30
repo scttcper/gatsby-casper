@@ -1,6 +1,5 @@
 import { Link } from 'gatsby';
 import * as React from 'react';
-import { darken } from 'polished';
 import { css } from '@emotion/core';
 
 import { colors } from '../styles/colors';
@@ -18,23 +17,26 @@ const navCss = css`
 
   a {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell;
-    background: #fff;
-    color: black;
+    background-color: #fff;
+    color: white;
     float: left;
-    padding: 8px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px;
     text-decoration: none;
     transition: background-color .3s;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     margin: 0 4px;
-    box-shadow: rgba(39, 44, 49, 0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
-    border-radius: 6px;
-    margin-bottom: 5px;
-    min-width: 50px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &.active {
-      -webkit-box-shadow:inset 3px 0px 0px 0px ${darken(0.05, colors.darkgrey)};
-      -moz-box-shadow:inset 3px 0px 0px 0px ${darken(0.05, colors.darkgrey)};
-      box-shadow:inset 3px 0px 0px 0px ${darken(0.05, colors.darkgrey)};
+      background-color: ${colors.flotiqGreen};
     }
 
     &:hover:not(.active) {
