@@ -6,7 +6,7 @@
   "author": "Scott Cooper <scttcper@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby build --prefix-paths",
     "clean": "rimraf public",
     "dev": "gatsby develop",
     "lint": "eslint src/**/**/*.tsx",
