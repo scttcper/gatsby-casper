@@ -313,8 +313,8 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                 <ReadNextCard tags={post.tags} relatedPosts={props.data.relatedPosts} />
               )}
 
-              {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
-              {props.pageContext.next && <PostCard post={props.pageContext.next} />}
+              {props.pageContext.prev && <PostCard post={props.pageContext.prev} isIndex={true} />}
+              {props.pageContext.next && <PostCard post={props.pageContext.next} isIndex={true} />}
             </ReadNextFeed>
           </div>
         </aside>

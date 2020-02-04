@@ -3,6 +3,7 @@ require('dotenv').config();
 const path = require('path');
 
 module.exports = {
+  pathPrefix: '/blog',
   siteMetadata: {
     title: 'Flotiq',
     description: 'Effortless headless CMS',

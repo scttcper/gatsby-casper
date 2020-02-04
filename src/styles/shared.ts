@@ -30,7 +30,7 @@ export const SiteTitle = styled.h1`
 
 export const SiteDescription = styled.h2`
   z-index: 10;
-  margin: 0;
+  margin: 20px 0 0 0;
   padding: 5px 0;
   font-size: 2.2rem;
   font-weight: 300;
@@ -78,7 +78,7 @@ export const SiteHeader = css`
   padding-bottom: 12px;
   color: #fff;
   /* background: color(var(--darkgrey) l(-5%)) no-repeat center center; */
-  background: ${darken('0.05', colors.darkgrey)} no-repeat center center;
+  background: ${colors.flotiqGreen};
   background-size: cover;
 `;
 

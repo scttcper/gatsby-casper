@@ -17,7 +17,6 @@ import SiteNavLogo from './SiteNavLogo';
 const HomeNavRaise = css`
   @media (min-width: 900px) {
     position: relative;
-    top: -70px;
   }
 `;
 
@@ -138,9 +137,6 @@ class SiteNav extends React.Component<SiteNavProps> {
             {/* TODO: mark current nav item - add class nav-current */}
             <li role="menuitem">
               <Link to="/">Home</Link>
-            </li>
-            <li role="menuitem">
-              <Link to="/about">About</Link>
             </li>
           </ul>
         </SiteNavLeft>

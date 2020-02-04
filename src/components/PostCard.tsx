@@ -197,7 +197,7 @@ export interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
-  let size = isIndex ? '685x300' : '1040x200';
+  let size = isIndex ? '800x300' : '320x200';
   return (
     <article
       className={`post-card ${post.headerImage ? '' : 'no-image'}`}
