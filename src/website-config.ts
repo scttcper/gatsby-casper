@@ -19,7 +19,15 @@ export interface WebsiteConfig {
   /**
    * full url, no username
    */
+  youtube?: string;
+  /**
+   * full url, no username
+   */
   twitter?: string;
+  /**
+   * full url, no username
+   */
+  github?: string;
   /**
    * hide or show all email subscribe boxes
    */
@@ -54,8 +62,9 @@ const config: WebsiteConfig = {
   coverImage: 'img/blog-cover.jpg',
   logo: 'img/flotiq-logo-wt.png',
   lang: 'en',
-  siteUrl: 'https://flotiq.com/blog',
-  facebook: 'https://www.facebook.com/Flotiq-104200727751200/',
+  siteUrl: 'https://flotiq.com',
+  github: 'https://github.com/flotiq',
+  youtube: 'https://www.youtube.com/channel/UC4wpV-D9mIt1JjN_g_iyXXw',
   twitter: 'https://twitter.com/flotiq',
   showSubscribe: false,
   mailchimpAction: 'https://twitter.us19.list-manage.com/subscribe/post?u=a89b6987ac248c81b0b7f3a0f&amp;id=7d777b7d75',

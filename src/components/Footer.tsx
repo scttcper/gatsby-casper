@@ -83,17 +83,27 @@ const Footer: React.FC = () => {
               Facebook
             </a>
           )}
+          {config.youtube && (
+              <a href={config.youtube} target="_blank" rel="noopener noreferrer">
+                YouTube
+              </a>
+          )}
           {config.twitter && (
             <a href={config.twitter} target="_blank" rel="noopener noreferrer">
               Twitter
             </a>
           )}
-
-          <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
-            Ghost
+          {config.github && (
+              <a href={config.github} target="_blank" rel="noopener noreferrer">
+                GitHub
+              </a>
+          )}
+          <a href="https://flotiq.com" target="_blank">
+            Flotiq.com
           </a>
-
-          <a href="/rss.xml">RSS</a>
+          <a href="https://flotiq.com/docs" target="_blank">
+            Documentation
+          </a>
         </SiteFooterNav>
       </div>
     </footer>

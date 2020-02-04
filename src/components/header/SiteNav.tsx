@@ -8,6 +8,9 @@ import { SocialLink } from '../../styles/shared';
 import config from '../../website-config';
 import Facebook from '../icons/facebook';
 import Twitter from '../icons/twitter';
+import YouTube from '../icons/youtube';
+import GitHub from '../icons/github';
+import Flotiq from '../icons/flotiq';
 import SubscribeModal from '../subscribe/SubscribeOverlay';
 import SiteNavLogo from './SiteNavLogo';
 
@@ -135,9 +138,6 @@ class SiteNav extends React.Component<SiteNavProps> {
             <li role="menuitem">
               <Link to="/">Home</Link>
             </li>
-            <li role="menuitem">
-              <Link to="/about">About</Link>
-            </li>
           </ul>
         </SiteNavLeft>
         <SiteNavRight>
@@ -153,6 +153,17 @@ class SiteNav extends React.Component<SiteNavProps> {
                 <Facebook />
               </a>
             )}
+            {config.youtube && (
+                <a
+                    css={SocialLink}
+                    href={config.youtube}
+                    title="YouTube"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                  <YouTube />
+                </a>
+            )}
             {config.twitter && (
               <a
                 css={SocialLink}
@@ -164,6 +175,26 @@ class SiteNav extends React.Component<SiteNavProps> {
                 <Twitter />
               </a>
             )}
+            {config.github && (
+                <a
+                    css={SocialLink}
+                    href={config.github}
+                    title="GitHub"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                  <GitHub />
+                </a>
+            )}
+                <a
+                    css={SocialLink}
+                    href="https://flotiq.com"
+                    title="Flotiq"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                  <Flotiq />
+                </a>
           </SocialLinks>
           {config.showSubscribe && (
             <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
