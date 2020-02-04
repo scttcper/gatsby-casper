@@ -19,7 +19,15 @@ export interface WebsiteConfig {
   /**
    * full url, no username
    */
+  youtube?: string;
+  /**
+   * full url, no username
+   */
   twitter?: string;
+  /**
+   * full url, no username
+   */
+  github?: string;
   /**
    * hide or show all email subscribe boxes
    */
@@ -50,19 +58,20 @@ export interface WebsiteConfig {
 
 const config: WebsiteConfig = {
   title: 'Flotiq blog',
-  description: 'Effortless headless CMS',
+  description: 'Effortless, headless CMS',
   coverImage: 'img/blog-cover.jpg',
-  logo: 'img/ghost-logo.png',
+  logo: 'img/flotiq-logo-wt.png',
   lang: 'en',
-  siteUrl: 'https://flotiq.com/blog',
-  facebook: 'https://www.facebook.com/ghost',
+  siteUrl: 'https://flotiq.com',
+  github: 'https://github.com/flotiq',
+  youtube: 'https://www.youtube.com/channel/UC4wpV-D9mIt1JjN_g_iyXXw',
   twitter: 'https://twitter.com/flotiq',
   showSubscribe: false,
   mailchimpAction: 'https://twitter.us19.list-manage.com/subscribe/post?u=a89b6987ac248c81b0b7f3a0f&amp;id=7d777b7d75',
   mailchimpName: 'b_a89b6987ac248c81b0b7f3a0f_7d777b7d75',
   mailchimpEmailFieldName: 'MERGE0',
   googleSiteVerification: 'GoogleCode',
-  footer: 'is based on Gatsby Casper',
+  footer: 'is based on Flotiq CMS',
 };
 
 export default config;

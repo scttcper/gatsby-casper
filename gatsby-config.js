@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: 'Flotiq',
     description: 'Effortless headless CMS',
-    siteUrl: 'https://flotiq.com/blog', // full path to blog - no ending slash
+    siteUrl: 'https://flotiq.com', // full path to blog - no ending slash
   },
   plugins: [
     {
