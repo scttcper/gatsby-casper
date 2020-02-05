@@ -11,7 +11,7 @@ exports.sourceNodes = async ({ actions }, { baseUrl, authToken }) => {
   apiUrl = baseUrl;
   headers['X-AUTH-TOKEN'] = authToken;
 
-  let response = await fetch(apiUrl + '/api/v1/content/flotiqBlogPost?hydrate=1', {
+  let response = await fetch(apiUrl + '/api/v1/content/flotiqBlogPost?hydrate=1&status=public', {
     headers: headers,
   });
   if (response.ok) {
