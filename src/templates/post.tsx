@@ -26,6 +26,19 @@ const PostTemplate = css`
     background: #fff;
     padding-bottom: 4vw;
   }
+
+  .tag-pill {
+    background-color: ${colors.lightgrey};
+    padding: 0 5px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 `;
 
 export const PostFull = css`
@@ -274,7 +287,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                     post.tags.length > 0 && (
                       <>
                         <DateDivider>/</DateDivider>
-                        <Link to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
+                        <Link className="tag-pill" to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
                           {post.tags[0].tag}
                         </Link>
                       </>

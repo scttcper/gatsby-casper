@@ -134,48 +134,59 @@ const AuthorListItem = styled.li`
     opacity: 1;
     transform: translateY(0px);
   }
-`;
 
-const AuthorNameTooltip = styled.div`
-  position: absolute;
-  bottom: 105%;
-  z-index: 999;
-  display: block;
-  padding: 2px 8px;
-  color: white;
-  font-size: 1.2rem;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  background: ${colors.darkgrey};
-  border-radius: 3px;
-  box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
-  transform: translateY(6px);
-  pointer-events: none;
+  p {
+    display: inline-block;
+    margin: 0;
+    color: ${colors.flotiqBlue};
+    font-size: 12px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
 
-  @media (max-width: 650px) {
-    display: none;
+    &:hover {
+      text-decoration: none;
+    }
   }
 `;
 
+// const AuthorNameTooltip = styled.div`
+//   position: absolute;
+//   bottom: 105%;
+//   z-index: 999;
+//   display: block;
+//   padding: 2px 8px;
+//   color: white;
+//   font-size: 1.2rem;
+//   letter-spacing: 0.2px;
+//   white-space: nowrap;
+//   background: ${colors.darkgrey};
+//   border-radius: 3px;
+//   box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
+//   opacity: 0;
+//   transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+//   transform: translateY(6px);
+//   pointer-events: none;
+//
+//   @media (max-width: 650px) {
+//     display: none;
+//   }
+// `;
+
 const StaticAvatar = css`
-  display: block;
+  display: flex;
+  align-items: center;
   overflow: hidden;
   margin: 0 -5px;
-  width: 34px;
-  height: 34px;
-  border: #fff 2px solid;
-  border-radius: 100%;
 `;
 
 const AuthorProfileImage = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-  /* background: color(var(--lightgrey) l(+10%)); */
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-right: 7px;
   background: ${lighten('0.1', colors.lightgrey)};
-  border-radius: 100%;
+  border-radius: 50%;
   object-fit: cover;
 `;
 
@@ -230,14 +241,12 @@ const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
         <PostCardMeta className="post-card-meta">
           <AuthorList>
             <AuthorListItem>
-              <AuthorNameTooltip className="author-name-tooltip">
-                {post.author[0].name}
-              </AuthorNameTooltip>
               <Link css={StaticAvatar} to={`/author/${_.kebabCase(post.author[0].slug)}/`}>
                 <AuthorProfileImage
                   src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/40x40/' + post.author[0].avatar[0].id + '.' + post.author[0].avatar[0].extension}
                   alt={post.author[0].name}
                 />
+                <p>{post.author[0].name}</p>
               </Link>
             </AuthorListItem>
           </AuthorList>
