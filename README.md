@@ -8,6 +8,10 @@ See it live on [Flotiq/Blog](https://flotiq.com/blog/)
 
 If you're new to Flotiq, head over to [Flotiq Docs](https://flotiq.com/docs) to learn all about it and [Register your free Flotiq account](https://editor.flotiq.com/register.html).
 
+See how to build a blog with Flotiq:
+
+[![Build a blog with Flotiq, GatsbyJS and Heroku](https://img.youtube.com/vi/hz3RK5qqhrQ/0.jpg)](https://www.youtube.com/watch?v=hz3RK5qqhrQ)
+
 
 # Deploy
 
