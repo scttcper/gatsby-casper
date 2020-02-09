@@ -4,6 +4,10 @@
 
 See it live on [Flotiq/Blog](https://flotiq.com/blog/)
 
+## 🎓 Learning Flotiq
+
+If you're new to Flotiq, head over to [Flotiq Docs](https://flotiq.com/docs) to learn all about it and [Register your free Flotiq account](https://editor.flotiq.com/register.html).
+
 
 # Deploy
 
