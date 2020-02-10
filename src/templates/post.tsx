@@ -1,6 +1,6 @@
 import { graphql, Link } from 'gatsby';
 import * as _ from 'lodash';
-import { setLightness } from 'polished';
+import { setLightness, lighten } from 'polished';
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -28,15 +28,17 @@ const PostTemplate = css`
   }
 
   .tag-pill {
-    background-color: ${colors.lightgrey};
+    background-color: ${lighten('.35', colors.flotiqBlue)};
     padding: 0 5px;
     border-radius: 4px;
     color: white;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
+    transition: background-color .2s ease;
 
     &:hover {
       text-decoration: none;
+      background-color: ${lighten('.4', colors.flotiqBlue)};
     }
   }
 `;
@@ -84,7 +86,7 @@ const PostFullMeta = styled.section`
 `;
 
 const PostFullMetaDate = styled.time`
-  color: ${colors.blue};
+  color: ${colors.midgrey};
 `;
 
 export const PostFullTitle = styled.h1`
