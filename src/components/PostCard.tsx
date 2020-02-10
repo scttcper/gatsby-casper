@@ -59,6 +59,13 @@ const PostCardImage = styled.div`
   transition: all 2s ease;
 `;
 
+const PostCardImageBackground = css`
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+`;
+
 const PostCardContent = styled.div`
   flex-grow: 1;
   display: flex;
@@ -233,15 +240,11 @@ const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
     >
       {post.headerImage && (
         <Link className="post-card-image-link" css={PostCardImageLink} to={post.slug}>
-          <PostCardImage className="post-card-image">
+          <PostCardImage className="post-card-image" >
             {post.headerImage &&
               post.headerImage[0].id &&
               post.headerImage[0].extension && (
-              <img
-                  src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
-                alt={`${post.title} cover image`}
-                style={{ height: '100%' }}
-              />
+              <div css={PostCardImageBackground} style={{ backgroundImage: `url(${process.env.GATSBY_FLOTIQ_BASE_URL + '/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension})` }} />
             )}
           </PostCardImage>
         </Link>
