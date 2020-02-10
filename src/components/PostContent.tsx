@@ -540,6 +540,12 @@ export const PostFullContent = styled.section`
     float: left;
     min-width: 100%;
   }
+
+  .post-content {
+    @media(max-width: 500px) {
+      margin-top: 30px;
+    }
+  }
   /* End Syntax Highlighting */
 `;
 

@@ -24,6 +24,24 @@ const PostCardStyles = css`
     transition: all 2s ease;
     transform: translate3D(0, -1px, 0) scale(1.1);
   }
+
+  .postcard-tag-pill {
+    background-color: ${lighten('.35', colors.flotiqBlue)};
+    padding: 0 4px;
+    border-radius: 4px;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    transition: background-color .2s ease;
+    min-height: 18px;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      text-decoration: none;
+      background-color: ${lighten('.4', colors.flotiqBlue)};
+    }
+  }
 `;
 
 const PostCardImageLink = css`
@@ -61,7 +79,6 @@ const PostCardContentLink = css`
 `;
 
 const PostCardTags = styled.span`
-  display: block;
   margin-bottom: 4px;
   color: ${colors.midgrey};
   font-size: 1.2rem;
@@ -69,6 +86,7 @@ const PostCardTags = styled.span`
   font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  }
 `;
 
 const PostCardTitle = styled.h2`
@@ -139,7 +157,7 @@ const AuthorListItem = styled.li`
     display: inline-block;
     margin: 0;
     color: ${colors.flotiqBlue};
-    font-size: 12px !important;
+    font-size: 11px !important;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 500;
@@ -182,8 +200,8 @@ const StaticAvatar = css`
 
 const AuthorProfileImage = styled.img`
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   margin-right: 7px;
   background: ${lighten('0.1', colors.lightgrey)};
   border-radius: 50%;
@@ -231,7 +249,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
       <PostCardContent className="post-card-content">
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.slug}>
           <header className="post-card-header">
-            {post.tags && <PostCardTags>{post.tags[0].tag}</PostCardTags>}
+            {post.tags && <PostCardTags className="postcard-tag-pill">{post.tags[0].tag}</PostCardTags>}
             <PostCardTitle>{post.title}</PostCardTitle>
           </header>
           <PostCardExcerpt>

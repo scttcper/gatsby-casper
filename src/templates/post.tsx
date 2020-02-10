@@ -27,7 +27,7 @@ const PostTemplate = css`
     padding-bottom: 4vw;
   }
 
-  .tag-pill {
+  .post-tag-pill {
     background-color: ${lighten('.35', colors.flotiqBlue)};
     padding: 0 5px;
     border-radius: 4px;
@@ -35,6 +35,9 @@ const PostTemplate = css`
     font-size: 12px;
     font-weight: 600;
     transition: background-color .2s ease;
+    min-height: 18px;
+    display: inline-flex;
+    align-items: center;
 
     &:hover {
       text-decoration: none;
@@ -290,7 +293,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                     post.tags.length > 0 && (
                       <>
                         <DateDivider>/</DateDivider>
-                        <Link className="tag-pill" to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
+                        <Link className="post-tag-pill" to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
                           {post.tags[0].tag}
                         </Link>
                       </>
@@ -301,11 +304,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
 
               {(post.headerImage && post.headerImage[0].id) && (
                 <PostFullImage>
-                  <img
-                      src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
-                    style={{ height: '100%' }}
-                      alt={post.title}
-                  />
+                  <img src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension} style={{ height: '100%' }} alt={post.title} />
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.content} />
