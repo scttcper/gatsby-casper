@@ -36,6 +36,7 @@ exports.sourceNodes = async ({ actions }, { baseUrl, authToken }) => {
         tags: datum.tags,
         author: datum.author,
         excerpt: datum.excerpt,
+        metaDescription: datum.metaDescription,
         relatedPosts: datum.relatedPosts,
         flotiqInternal: datum.internal,
         // required
@@ -123,6 +124,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       tags: [FlotiqBlogTag]!
       author: [FlotiqBlogAuthor]!
       excerpt: String!
+      metaDescription: String!
       relatedPosts: [FlotiqBlogPost]!
     }
     type FlotiqBlogTag implements Node {

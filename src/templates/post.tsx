@@ -145,6 +145,7 @@ interface PageTemplateProps {
       excerpt: string;
       title: string;
       content: string;
+      metaDescription: string;
       flotiqInternal: {
         createdAt: string;
       };
@@ -231,13 +232,13 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
     <IndexLayout className="post-template">
       <Helmet>
         <html lang={config.lang} />
-        <title>{post.title}</title>
+        <title>{post.title} - {config.title}</title>
 
-        <meta name="description" content={post.excerpt} />
+        <meta name="description" content={post.metaDescription} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:description" content={post.metaDescription} />
         <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
         {(post.headerImage) && (
           <meta property="og:image" content={`${config.siteUrl}${post.headerImage[0].id}`} />
@@ -253,7 +254,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         {config.facebook && <meta property="article:author" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:description" content={post.metaDescription} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
         {(post.headerImage) && (
           <meta name="twitter:image" content={`${config.siteUrl}${post.headerImage[0].id}`} />
@@ -354,6 +355,7 @@ export const query = graphql`
       excerpt
       title
       content
+      metaDescription
       flotiqInternal {
         createdAt
       }
