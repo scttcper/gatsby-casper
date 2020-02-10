@@ -16,6 +16,7 @@ import PostFullFooterRight from '../components/PostFullFooterRight';
 import ReadNextCard from '../components/ReadNextCard';
 import Subscribe from '../components/subscribe/Subscribe';
 import Wrapper from '../components/Wrapper';
+import SchemaOrg from '../components/SEO/SchemaOrg';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
@@ -133,6 +134,7 @@ interface PageTemplateProps {
       metaDescription: string;
       flotiqInternal: {
         createdAt: string;
+        updatedAt: string;
       };
       headerImage: [{
         id: string;
@@ -179,6 +181,7 @@ export interface PageContext {
   title: string;
   flotiqInternal: {
     createdAt: string;
+    updatedAt: string;
   };
   content: string;
   slug: string;
@@ -305,7 +308,19 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
             </article>
           </div>
         </main>
-
+        <SchemaOrg
+          isBlogPost={true}
+          url={config.siteUrl + props.pathContext.slug}
+          title={post.title}
+          image={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
+          description={post.metaDescription}
+          datePublished={post.flotiqInternal.createdAt}
+          dateModified={post.flotiqInternal.updatedAt}
+          canonicalUrl={config.siteUrl}
+          author={{name: post.author[0].slug}}
+          organization={{url: config.siteUrl, logo: config.companyLogo, name:config.companyName}}
+          defaultTitle={post.title}
+        />
         {/* Links to Previous/Next posts */}
         <aside className="read-next" css={outer}>
           <div css={inner}>
@@ -343,6 +358,7 @@ export const query = graphql`
       metaDescription
       flotiqInternal {
         createdAt
+        updatedAt
       }
       tags {
         id
