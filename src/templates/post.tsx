@@ -1,6 +1,6 @@
 import { graphql, Link } from 'gatsby';
 import * as _ from 'lodash';
-import { setLightness } from 'polished';
+import { setLightness, lighten } from 'polished';
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
@@ -25,6 +25,24 @@ const PostTemplate = css`
   .site-main {
     background: #fff;
     padding-bottom: 4vw;
+  }
+
+  .post-tag-pill {
+    background-color: ${lighten('.35', colors.flotiqBlue)};
+    padding: 0 5px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background-color .2s ease;
+    min-height: 18px;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      text-decoration: none;
+      background-color: ${lighten('.4', colors.flotiqBlue)};
+    }
   }
 `;
 
@@ -71,7 +89,7 @@ const PostFullMeta = styled.section`
 `;
 
 const PostFullMetaDate = styled.time`
-  color: ${colors.blue};
+  color: ${colors.midgrey};
 `;
 
 export const PostFullTitle = styled.h1`
@@ -275,7 +293,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                     post.tags.length > 0 && (
                       <>
                         <DateDivider>/</DateDivider>
-                        <Link to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
+                        <Link className="post-tag-pill" to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
                           {post.tags[0].tag}
                         </Link>
                       </>
@@ -286,11 +304,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
 
               {(post.headerImage && post.headerImage[0].id) && (
                 <PostFullImage>
-                  <img
-                      src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
-                    style={{ height: '100%' }}
-                      alt={post.title}
-                  />
+                  <img src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension} style={{ height: '100%' }} alt={post.title} />
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.content} />

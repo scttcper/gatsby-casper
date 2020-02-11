@@ -19,12 +19,28 @@ const PostCardStyles = css`
   background-size: cover;
   border-radius: 5px;
   box-shadow: rgba(39, 44, 49, 0.06) 8px 14px 38px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
-  transition: all 0.5s ease;
 
-  :hover {
-    box-shadow: rgba(39, 44, 49, 0.07) 8px 28px 50px, rgba(39, 44, 49, 0.04) 1px 6px 12px;
-    transition: all 0.4s ease;
-    transform: translate3D(0, -1px, 0) scale(1.02);
+  :hover .post-card-image {
+    transition: all 2s ease;
+    transform: translate3D(0, -1px, 0) scale(1.1);
+  }
+
+  .postcard-tag-pill {
+    background-color: ${lighten('.35', colors.flotiqBlue)};
+    padding: 0 4px;
+    border-radius: 4px;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    transition: background-color .2s ease;
+    min-height: 18px;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      text-decoration: none;
+      background-color: ${lighten('.4', colors.flotiqBlue)};
+    }
   }
 `;
 
@@ -40,6 +56,14 @@ const PostCardImage = styled.div`
   height: 200px;
   background: ${colors.lightgrey} no-repeat center center;
   background-size: cover;
+  transition: all 2s ease;
+`;
+
+const PostCardImageBackground = css`
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
 `;
 
 const PostCardContent = styled.div`
@@ -62,7 +86,6 @@ const PostCardContentLink = css`
 `;
 
 const PostCardTags = styled.span`
-  display: block;
   margin-bottom: 4px;
   color: ${colors.midgrey};
   font-size: 1.2rem;
@@ -70,6 +93,7 @@ const PostCardTags = styled.span`
   font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  }
 `;
 
 const PostCardTitle = styled.h2`
@@ -135,48 +159,59 @@ const AuthorListItem = styled.li`
     opacity: 1;
     transform: translateY(0px);
   }
-`;
 
-const AuthorNameTooltip = styled.div`
-  position: absolute;
-  bottom: 105%;
-  z-index: 999;
-  display: block;
-  padding: 2px 8px;
-  color: white;
-  font-size: 1.2rem;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  background: ${colors.darkgrey};
-  border-radius: 3px;
-  box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
-  transform: translateY(6px);
-  pointer-events: none;
+  p {
+    display: inline-block;
+    margin: 0;
+    color: ${colors.flotiqBlue};
+    font-size: 11px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
 
-  @media (max-width: 650px) {
-    display: none;
+    &:hover {
+      text-decoration: none;
+    }
   }
 `;
 
+// const AuthorNameTooltip = styled.div`
+//   position: absolute;
+//   bottom: 105%;
+//   z-index: 999;
+//   display: block;
+//   padding: 2px 8px;
+//   color: white;
+//   font-size: 1.2rem;
+//   letter-spacing: 0.2px;
+//   white-space: nowrap;
+//   background: ${colors.darkgrey};
+//   border-radius: 3px;
+//   box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
+//   opacity: 0;
+//   transition: all 0.3s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+//   transform: translateY(6px);
+//   pointer-events: none;
+//
+//   @media (max-width: 650px) {
+//     display: none;
+//   }
+// `;
+
 const StaticAvatar = css`
-  display: block;
+  display: flex;
+  align-items: center;
   overflow: hidden;
   margin: 0 -5px;
-  width: 34px;
-  height: 34px;
-  border: #fff 2px solid;
-  border-radius: 100%;
 `;
 
 const AuthorProfileImage = styled.img`
-  display: block;
-  width: 100%;
-  height: 100%;
-  /* background: color(var(--lightgrey) l(+10%)); */
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 7px;
   background: ${lighten('0.1', colors.lightgrey)};
-  border-radius: 100%;
+  border-radius: 50%;
   object-fit: cover;
 `;
 
@@ -205,15 +240,11 @@ const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
     >
       {post.headerImage && (
         <Link className="post-card-image-link" css={PostCardImageLink} to={post.slug}>
-          <PostCardImage className="post-card-image">
+          <PostCardImage className="post-card-image" >
             {post.headerImage &&
               post.headerImage[0].id &&
               post.headerImage[0].extension && (
-              <img
-                  src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
-                alt={`${post.title} cover image`}
-                style={{ height: '100%' }}
-              />
+              <div css={PostCardImageBackground} style={{ backgroundImage: `url(${process.env.GATSBY_FLOTIQ_BASE_URL + '/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension})` }} />
             )}
           </PostCardImage>
         </Link>
@@ -221,7 +252,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
       <PostCardContent className="post-card-content">
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.slug}>
           <header className="post-card-header">
-            {post.tags && <PostCardTags>{post.tags[0].tag}</PostCardTags>}
+            {post.tags && <PostCardTags className="postcard-tag-pill">{post.tags[0].tag}</PostCardTags>}
             <PostCardTitle>{post.title}</PostCardTitle>
           </header>
           <PostCardExcerpt>
@@ -231,14 +262,12 @@ const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
         <PostCardMeta className="post-card-meta">
           <AuthorList>
             <AuthorListItem>
-              <AuthorNameTooltip className="author-name-tooltip">
-                {post.author[0].name}
-              </AuthorNameTooltip>
               <Link css={StaticAvatar} to={`/author/${_.kebabCase(post.author[0].slug)}/`}>
                 <AuthorProfileImage
                   src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/40x40/' + post.author[0].avatar[0].id + '.' + post.author[0].avatar[0].extension}
                   alt={post.author[0].name}
                 />
+                <p>{post.author[0].name}</p>
               </Link>
             </AuthorListItem>
           </AuthorList>
