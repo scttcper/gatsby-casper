@@ -54,6 +54,16 @@ export interface WebsiteConfig {
    * Appears alongside the footer, after the credits
    */
   footer?: string;
+
+  /**
+   * Company logo - used for json+ld rich snippets
+   */
+  companyLogo?: string;
+
+  /**
+   * Company name - used for json+ld rich snippets
+   */
+  companyName?: string;
 }
 
 const config: WebsiteConfig = {
@@ -72,6 +82,8 @@ const config: WebsiteConfig = {
   mailchimpEmailFieldName: 'MERGE0',
   googleSiteVerification: 'GoogleCode',
   footer: 'is based on Flotiq CMS',
+  companyLogo: 'https://editor.flotiq.com/fonts/fq-logo.svg',
+  companyName: 'Flotiq'
 };
 
 export default config;
