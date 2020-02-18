@@ -197,7 +197,8 @@ export const pageQuery = graphql`
     allFlotiqBlogPost(
       sort: { fields: [flotiqInternal___updatedAt], order: DESC },
       limit: $limit,
-      skip: $skip
+      skip: $skip,
+      filter: {status: {eq: "public"}}
     ) {
       edges {
       node {

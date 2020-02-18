@@ -42,6 +42,7 @@
     "gatsby-remark-responsive-iframe": "2.2.4",
     "gatsby-remark-smartypants": "2.1.2",
     "gatsby-source-filesystem": "2.1.6",
+    "gatsby-source-flotiq": "git+https://github.com/flotiq/gatsby-source-flotiq.git",
     "gatsby-transformer-json": "2.2.2",
     "gatsby-transformer-remark": "2.6.9",
     "gatsby-transformer-sharp": "2.2.4",

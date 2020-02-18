@@ -365,7 +365,7 @@ export const query = graphql`
         }
       }
     }
-    flotiqBlogPost( slug: { eq: $slug } ) {
+    flotiqBlogPost( slug: { eq: $slug }, status: {eq: "public"} ) {
       excerpt
       title
       content
@@ -394,7 +394,7 @@ export const query = graphql`
       }
     }
     relatedPosts: allFlotiqBlogPost(
-      filter:{tags: {elemMatch: {tag: {eq:  $primaryTag } } } }
+      filter:{tags: {elemMatch: {tag: {eq:  $primaryTag } } }, status: {eq: "public"} }
       limit: 3
     ) {
       totalCount

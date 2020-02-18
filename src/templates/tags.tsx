@@ -145,12 +145,14 @@ export const pageQuery = graphql`
       }
     }
   }
-    allFlotiqBlogPost(
-      limit: 2000
-      sort: { fields: [flotiqInternal___updatedAt], order: DESC }
-      filter: {tags: {elemMatch: {tag: {eq: $tag}}}}
+  allFlotiqBlogPost(
+      limit: 2000, 
+      sort: {fields: [flotiqInternal___updatedAt], order: DESC}, 
+      filter: {
+        tags: {elemMatch: {tag: {eq: $tag}}}, 
+        status: {eq: "public"}}
     ) {
-      edges {
+    edges {
       node {
         content
         id

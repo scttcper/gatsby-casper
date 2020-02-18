@@ -185,7 +185,11 @@ export const pageQuery = graphql`
         id
       }
     }
-    allFlotiqBlogPost(sort: {fields: flotiqInternal___updatedAt, order: DESC}, limit: 2000) {
+    allFlotiqBlogPost(
+        sort: {fields: flotiqInternal___updatedAt, order: DESC}, 
+        limit: 2000, 
+        filter: {status: {eq: "public"}}
+    ) {
           edges {
           node {
             content
