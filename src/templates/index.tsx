@@ -158,7 +158,7 @@ const IndexPage: React.FC<IndexProps> = props => {
             <div css={[PostFeed, PostFeedRaise]}>
               {props.data.allFlotiqBlogPost.edges.map(post => {
                 return (
-                    <PostCard key={post.node.slug} post={post.node} isIndex={true} />
+                    <PostCard key={post.node.slug} post={post.node} />
                 );
               })}
             </div>
