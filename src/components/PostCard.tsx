@@ -231,8 +231,8 @@ export interface PostCardProps {
   isIndex?: boolean
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
-  let size = isIndex ? '800x300' : '320x200';
+const PostCard: React.FC<PostCardProps> = ({ post }) => {
+  let size = '960x600';
   return (
     <article
       className={`post-card ${post.headerImage ? '' : 'no-image'}`}
@@ -252,7 +252,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, isIndex }) => {
       <PostCardContent className="post-card-content">
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.slug}>
           <header className="post-card-header">
-            {post.tags && <PostCardTags className="postcard-tag-pill">{post.tags[0].tag}</PostCardTags>}
+            {post.tags && post.tags[0] && post.tags[0].tag && <PostCardTags className="postcard-tag-pill">{post.tags[0].tag}</PostCardTags>}
             <PostCardTitle>{post.title}</PostCardTitle>
           </header>
           <PostCardExcerpt>

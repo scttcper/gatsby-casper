@@ -158,7 +158,7 @@ const IndexPage: React.FC<IndexProps> = props => {
             <div css={[PostFeed, PostFeedRaise]}>
               {props.data.allFlotiqBlogPost.edges.map(post => {
                 return (
-                    <PostCard key={post.node.slug} post={post.node} isIndex={true} />
+                    <PostCard key={post.node.slug} post={post.node} />
                 );
               })}
             </div>
@@ -197,7 +197,8 @@ export const pageQuery = graphql`
     allFlotiqBlogPost(
       sort: { fields: [flotiqInternal___updatedAt], order: DESC },
       limit: $limit,
-      skip: $skip
+      skip: $skip,
+      filter: {status: {eq: "public"}}
     ) {
       edges {
       node {

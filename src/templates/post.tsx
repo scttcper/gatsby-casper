@@ -150,6 +150,7 @@ interface PageTemplateProps {
       title: string;
       content: string;
       metaDescription: string;
+      status: string;
       flotiqInternal: {
         createdAt: string;
         updatedAt: string;
@@ -171,13 +172,44 @@ interface PageTemplateProps {
         id: string;
         bio: string;
         slug: string;
-        avatar: {
+        avatar: [{
           id: string;
           extension: string;
+        }];
+      }];
+      relatedPosts: [{
+        excerpt: string;
+        id: string;
+        slug: string;
+        title: string;
+        content: string;
+        status: string;
+        flotiqInternal: {
+          createdAt: string;
+          updatedAt: string;
         };
+        headerImage: [{
+          id: string;
+          extension: string;
+        }];
+        tags: [{
+          id: string;
+          tag: string;
+          description: string;
+        }]
+        author: [{
+          id: string;
+          bio: string;
+          slug: string;
+          name: string;
+          avatar: [{
+            id: string;
+            extension: string;
+          }];
+        }];
       }];
     };
-    relatedPosts: {
+    relatedPostsFromTags: {
       totalCount: number;
       edges: Array<{
         node: {
@@ -229,12 +261,8 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
   const post = props.data.flotiqBlogPost;
   let width = '';
   let height = '';
-  // if (post.headerImage && post.headerImage.childImageSharp) {
-  //   width = post.headerImage.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-  //   height = String(Number(width) / post.headerImage.childImageSharp.fluid.aspectRatio);
-  // }
 
-  return (
+  return post && (
     <IndexLayout className="post-template">
       <Helmet>
         <html lang={config.lang} />
@@ -326,7 +354,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
           isBlogPost={true}
           url={config.siteUrl + props.pathContext.slug}
           title={post.title}
-          image={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
+          image={(post.headerImage && post.headerImage[0].id) && process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
           description={post.metaDescription}
           datePublished={post.flotiqInternal.createdAt}
           dateModified={post.flotiqInternal.updatedAt}
@@ -339,12 +367,13 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <aside className="read-next" css={outer}>
           <div css={inner}>
             <ReadNextFeed>
-              {props.data.relatedPosts && (
-                <ReadNextCard tags={post.tags} relatedPosts={props.data.relatedPosts} />
+              {props.data.relatedPostsFromTags && (
+                <ReadNextCard tags={post.tags} relatedPosts={props.data.relatedPostsFromTags} />
               )}
-
-              {props.pageContext.prev && <PostCard post={props.pageContext.prev} isIndex={true} />}
-              {props.pageContext.next && <PostCard post={props.pageContext.next} isIndex={true} />}
+              {post.relatedPosts && post.relatedPosts.map(postCardPost => {
+                  return (postCardPost.status === 'public') && (<PostCard post={postCardPost}/>)
+                })
+              }
             </ReadNextFeed>
           </div>
         </aside>
@@ -365,7 +394,7 @@ export const query = graphql`
         }
       }
     }
-    flotiqBlogPost( slug: { eq: $slug } ) {
+    flotiqBlogPost( slug: { eq: $slug }, status: {eq: "public"} ) {
       excerpt
       title
       content
@@ -392,10 +421,37 @@ export const query = graphql`
           extension
         }
       }
+      relatedPosts {
+        slug
+        id
+        headerImage {
+          extension
+          id
+        }
+        status
+        title
+        tags {
+          id
+          tag
+          description
+        }
+        excerpt
+        author {
+          id
+          name
+          bio
+          slug
+          avatar {
+            id
+            extension
+          }
+        }
+        content
+      }
     }
-    relatedPosts: allFlotiqBlogPost(
-      filter:{tags: {elemMatch: {tag: {eq:  $primaryTag } } } }
-      limit: 3
+    relatedPostsFromTags: allFlotiqBlogPost(
+      filter:{tags: {elemMatch: {tag: {eq:  $primaryTag } } }, status: {eq: "public"} }
+      limit: 5
     ) {
       totalCount
       edges {
