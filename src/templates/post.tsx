@@ -335,7 +335,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
 
               {(post.headerImage && post.headerImage[0].id) && (
                 <PostFullImage>
-                  <img src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension} style={{ height: '100%' }} alt={post.title} />
+                  <img alt={post.title} src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension} style={{ height: '100%' }} alt={post.title} />
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.content} />
