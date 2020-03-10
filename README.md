@@ -2,6 +2,8 @@
 
 > Forked from scttcper/gatsby-casper
 
+![Flotiq Blog Image](https://github.com/flotiq/flotiq-blog/raw/master/flotiq-blog-home.png)
+
 See it live on [Flotiq/Blog](https://flotiq.com/blog/)
 
 ## 🎓 Learning Flotiq
