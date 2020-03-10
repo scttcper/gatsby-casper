@@ -273,9 +273,9 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.metaDescription} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta property="og:url" content={config.siteUrl + '/' + props.pathContext.slug} />
         {(post.headerImage) && (
-          <meta property="og:image" content={`${config.siteUrl}${post.headerImage[0].id}`} />
+          <meta property="og:image" content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`} />
         )}
         <meta property="article:published_time" content={post.flotiqInternal.createdAt} />
         {/* not sure if modified time possible */}
@@ -289,9 +289,9 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.metaDescription} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta name="twitter:url" content={config.siteUrl + '/' + props.pathContext.slug} />
         {(post.headerImage) && (
-          <meta name="twitter:image" content={`${config.siteUrl}${post.headerImage[0].id}`} />
+          <meta name="twitter:image" content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`} />
         )}
         <meta name="twitter:label1" content="Written by" />
         <meta name="twitter:data1" content={post.author[0].id} />
@@ -352,7 +352,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         </main>
         <SchemaOrg
           isBlogPost={true}
-          url={config.siteUrl + props.pathContext.slug}
+          url={config.siteUrl + '/' + props.pathContext.slug}
           title={post.title}
           image={(post.headerImage && post.headerImage[0].id) && process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
           description={post.metaDescription}
