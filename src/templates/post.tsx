@@ -276,7 +276,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.metaDescription} />
-        <meta property="og:url" content={config.siteUrl + '/' + props.pathContext.slug} />
+        <meta property="og:url" content={config.siteUrl + '/blog/' + props.pathContext.slug} />
         {(post.headerImage) && (
           <meta property="og:image" content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`} />
         )}
@@ -292,7 +292,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.metaDescription} />
-        <meta name="twitter:url" content={config.siteUrl + '/' + props.pathContext.slug} />
+        <meta name="twitter:url" content={config.siteUrl + '/blog/' + props.pathContext.slug} />
         {(post.headerImage) && (
           <meta name="twitter:image" content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`} />
         )}
@@ -316,9 +316,9 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         </header>
         <main id="site-main" className="site-main" css={[SiteMain, outer]}>
           <div css={SocialSharing}>
-          <Twitter small link={config.siteUrl + '/' + props.pathContext.slug} />
-	  <Facebook small link={config.siteUrl + '/' + props.pathContext.slug}/>
-          <Linkedin small link={config.siteUrl + '/' + props.pathContext.slug}/> 
+          <Twitter small link={config.siteUrl + '/blog/' + props.pathContext.slug} />
+	  <Facebook small link={config.siteUrl + '/blog/' + props.pathContext.slug}/>
+          <Linkedin small link={config.siteUrl + '/blog/' + props.pathContext.slug}/> 
           </div>
           <div css={inner}>
             {/* TODO: no-image css tag? */}
@@ -360,7 +360,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         </main>
         <SchemaOrg
           isBlogPost={true}
-          url={config.siteUrl + '/' + props.pathContext.slug}
+          url={config.siteUrl + '/blog/' + props.pathContext.slug}
           title={post.title}
           image={(post.headerImage && post.headerImage[0].id) && process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
           description={post.metaDescription}
