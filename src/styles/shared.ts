@@ -144,4 +144,11 @@ export const AuthorProfileImage = css`
   margin-right: 15px;
   width: 60px;
   height: 60px;
-`;
+  `;
+
+export const SocialSharing = css`
+  position: fixed;
+  left: 50px;
+  bottom: 100px;
+  width: 35px;
+  `;

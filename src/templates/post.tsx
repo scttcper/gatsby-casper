@@ -5,6 +5,9 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Helmet } from 'react-helmet';
+import { Twitter } from 'react-social-sharing';
+import { Facebook } from 'react-social-sharing';
+import { Linkedin } from 'react-social-sharing';
 
 import AuthorCard from '../components/AuthorCard';
 import Footer from '../components/Footer';
@@ -19,7 +22,7 @@ import Wrapper from '../components/Wrapper';
 import SchemaOrg from '../components/SEO/SchemaOrg';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
-import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
+import { inner, outer, SiteHeader, SiteMain, SocialSharing } from '../styles/shared';
 import config from '../website-config';
 
 const PostTemplate = css`
@@ -312,6 +315,11 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
           </div>
         </header>
         <main id="site-main" className="site-main" css={[SiteMain, outer]}>
+          <div css={SocialSharing}>
+          <Twitter small link={config.siteUrl + '/' + props.pathContext.slug} />
+	  <Facebook small link={config.siteUrl + '/' + props.pathContext.slug}/>
+          <Linkedin small link={config.siteUrl + '/' + props.pathContext.slug}/> 
+          </div>
           <div css={inner}>
             {/* TODO: no-image css tag? */}
             <article css={[PostFull, !post.headerImage && NoImage]}>
