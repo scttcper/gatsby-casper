@@ -4,14 +4,13 @@
   --purple: #ad26b4;
   --yellow: #fecd35;
   --red: #f05230;
-  --darkgrey: #15171A;
+  --darkgrey: #15171a;
   --midgrey: #738a94;
   --lightgrey: #c5d2d9;
   --whitegrey: #e5eff5;
   --pink: #fa3a57;
   --brown: #a3821a;
-  /* darkgrey */
-  --darkmode: color(#15171A l(+2%));
+  --darkmode: color(var(--darkgrey) l(+2%));
 }
 
 html,
@@ -113,7 +112,7 @@ blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: "";
+  content: '';
   content: none;
 }
 table {
@@ -205,9 +204,9 @@ select {
   text-transform: none;
 }
 button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+html input[type='button'],
+input[type='reset'],
+input[type='submit'] {
   cursor: pointer;
 
   -webkit-appearance: button;
@@ -227,22 +226,22 @@ input {
 input:focus {
   outline: none;
 }
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
   box-sizing: border-box;
   padding: 0;
 }
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   height: auto;
 }
-input[type="search"] {
+input[type='search'] {
   box-sizing: content-box;
 
   -webkit-appearance: textfield;
 }
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 legend {
@@ -271,7 +270,8 @@ html {
 body {
   overflow-x: hidden;
   color: color(var(--midgrey) l(-30%));
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1.6rem;
   line-height: 1.6em;
   font-weight: 400;
@@ -282,7 +282,7 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -moz-font-feature-settings: "liga" on;
+  -moz-font-feature-settings: 'liga' on;
 }
 
 ::selection {
@@ -392,8 +392,9 @@ blockquote small {
   font-size: 0.9em;
   opacity: 0.8;
 }
+
 blockquote small:before {
-  content: "\2014 \00A0";
+  content: '\2014 \00A0';
 }
 
 blockquote cite {
@@ -472,14 +473,4 @@ h6 {
   margin: 1.5em 0 0.5em 0;
   font-size: 1.4rem;
   font-weight: 500;
-}
-
-body {
-  background: #fff;
-}
-@media (prefers-color-scheme: dark) {
-  body {
-    color: rgba(255, 255, 255, 0.75);
-    background: var(--darkmode);
-  }
 }

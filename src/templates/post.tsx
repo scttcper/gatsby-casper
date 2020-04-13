@@ -31,7 +31,8 @@ const PostTemplate = css`
 
   @media (prefers-color-scheme: dark) {
     .site-main {
-      background: var(--darkmode);
+      /* background: var(--darkmode); */
+      background: ${colors.darkmode};
     }
   }
 `;
@@ -77,7 +78,8 @@ const PostFullTags = styled.section`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: var(--midgrey);
+  /* color: var(--midgrey); */
+  color: ${colors.midgrey};
   font-size: 1.3rem;
   line-height: 1.4em;
   font-weight: 600;
@@ -103,18 +105,69 @@ const PostFullCustomExcerpt = styled.p`
   }
 `;
 
-const PostFullMeta = styled.section`
+const PostFullByline = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: ${colors.midgrey};
-  font-size: 1.4rem;
-  font-weight: 600;
-  text-transform: uppercase;
+  justify-content: space-between;
+  margin: 35px 0 0;
+  padding-top: 15px;
+  /* border-top: 1px solid color(var(--lightgrey) l(+10%)); */
+  border-top: 1px solid ${lighten('0.1', colors.lightgrey)};
 
-  @media (max-width: 500px) {
+  .post-full-byline-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .post-full-byline-content .author-list {
+    justify-content: flex-start;
+    padding: 0 12px 0 0;
+  }
+
+  .post-full-byline-meta {
+    margin: 2px 0 0;
+    /* color: color(var(--midgrey) l(+10%)); */
+    color: ${lighten('0.1', colors.midgrey)};
     font-size: 1.2rem;
-    line-height: 1.3em;
+    line-height: 1.2em;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  .post-full-byline-meta h4 {
+    margin: 0 0 3px;
+    font-size: 1.3rem;
+    line-height: 1.4em;
+    font-weight: 500;
+  }
+
+  .post-full-byline-meta h4 a {
+    /* color: color(var(--darkgrey) l(+10%)); */
+    color: ${lighten('0.1', colors.darkgrey)};
+  }
+
+  .post-full-byline-meta h4 a:hover {
+    /* color: var(--darkgrey); */
+    color: ${colors.darkgrey};
+  }
+
+  .post-full-byline-meta .bull {
+    display: inline-block;
+    margin: 0 4px;
+    opacity: 0.6;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    /* border-top-color: color(var(--darkmode) l(+15%)); */
+    border-top-color: ${lighten('0.15', colors.darkmode)};
+
+    .post-full-byline-meta h4 a {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .post-full-byline-meta h4 a:hover {
+      color: #fff;
+    }
   }
 `;
 
@@ -342,11 +395,19 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                 </PostFullTags>
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
                 <PostFullCustomExcerpt>{post.frontmatter.excerpt}</PostFullCustomExcerpt>
-                <PostFullMeta>
-                  <PostFullMetaDate dateTime={post.frontmatter.date}>
-                    {post.frontmatter.userDate}
-                  </PostFullMetaDate>
-                </PostFullMeta>
+                <PostFullByline className="post-full-byline">
+                  <section className="post-full-byline-meta">
+                    {/* <h4 className="author-name">{{authors}}</h4> */}
+                    <div className="byline-meta-content">
+                      <time className="byline-meta-date" dateTime="">
+                        Today
+                      </time>
+                      <span className="byline-reading-time">
+                        <span className="bull">&bull;</span> 20 min
+                      </span>
+                    </div>
+                  </section>
+                </PostFullByline>
               </PostFullHeader>
 
               {post.frontmatter.image && post.frontmatter.image.childImageSharp && (

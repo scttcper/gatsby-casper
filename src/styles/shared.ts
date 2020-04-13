@@ -28,7 +28,7 @@ export const SiteTitle = styled.h1`
   z-index: 10;
   margin: 0 0 0 -2px;
   padding: 0;
-  font-size: 5.0rem;
+  font-size: 5rem;
   line-height: 1em;
   font-weight: 600;
 `;
@@ -85,7 +85,7 @@ export const SocialLinkFb = css`
   svg {
     height: 1.6rem;
   }
-`
+`;
 
 export const SiteHeader = css`
   color: #fff;
@@ -113,7 +113,7 @@ export const SiteHeaderStyles = css`
   background-size: cover;
 
   :before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
@@ -121,10 +121,10 @@ export const SiteHeaderStyles = css`
     left: 0;
     z-index: 10;
     display: block;
-    background: rgba(0,0,0,0.18);
+    background: rgba(0, 0, 0, 0.18);
   }
   :after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
@@ -133,7 +133,7 @@ export const SiteHeaderStyles = css`
     z-index: 10;
     display: block;
     height: 140px;
-    background: linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0));
+    background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
   }
 `;
 
@@ -145,7 +145,7 @@ export const AuthorProfileImage = css`
   border: none;
 
   @media (prefers-color-scheme: dark) {
-    box-shadow: 0 0 0 6px hsla(0,0%,100%,0.04);
+    box-shadow: 0 0 0 6px hsla(0, 0%, 100%, 0.04);
     background: ${colors.darkmode};
   }
 `;
