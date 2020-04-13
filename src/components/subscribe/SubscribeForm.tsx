@@ -78,12 +78,13 @@ const SubscribeFormButton = styled.button`
     color(var(--blue) lightness(-7%) saturation(-10%)) 90%,
     color(var(--blue) lightness(-4%) saturation(-10%))
   ); */
-  background: linear-gradient(
+  /* background: linear-gradient(
     ${lighten('0.07', colors.blue)},
     ${saturate('-0.1', lighten('-0.07', colors.blue))} 60%,
     ${saturate('-0.1', lighten('-0.07', colors.blue))} 90%,
     ${saturate('-0.1', lighten('-0.04', colors.blue))}
-  );
+  ); */
+  background: linear-gradient(#4fb7f0, #29a0e0 60%, #29a0e0 90%, #36a6e2);
   border-radius: 5px;
 
   -webkit-font-smoothing: subpixel-antialiased;
