@@ -33,6 +33,10 @@ const SubscribeFormSection = styled.section`
     }
   }
 
+  .form-group {
+    flex-grow: 1;
+  }
+
   @media (prefers-color-scheme: dark) {
     border: none;
     /* background: linear-gradient(color(var(--darkmode) l(-6%)), color(var(--darkmode) l(-3%))); */
