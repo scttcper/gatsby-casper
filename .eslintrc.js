@@ -25,5 +25,6 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 0,
     '@typescript-eslint/restrict-template-expressions': 0,
     '@typescript-eslint/prefer-readonly-parameter-types': 0,
+    '@typescript-eslint/no-unsafe-return': 0,
   },
 };

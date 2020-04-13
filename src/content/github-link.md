@@ -9,6 +9,7 @@ tags:
 excerpt: Where to find this project on GitHub.
 ---
 
+## __A few things you should know__
 You'll find the source of this blog on GitHub.  
 GitHub - https://github.com/scttcper/gatsby-casper
 

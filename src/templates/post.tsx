@@ -189,16 +189,18 @@ export const PostFullTitle = styled.h1`
 `;
 
 const PostFullImage = styled.figure`
-  margin: 0 -10vw -165px;
+  margin: 25px 0 50px;
   height: 800px;
   background: ${colors.lightgrey} center center;
   background-size: cover;
   border-radius: 5px;
 
   @media (max-width: 1170px) {
-    margin: 0 -4vw -100px;
-    height: 600px;
+    margin: 25px -6vw 50px;
     border-radius: 0;
+    img {
+        max-width: 1170px;
+    }
   }
 
   @media (max-width: 800px) {

@@ -1,15 +1,25 @@
-import { darken, desaturate, lighten, mix } from 'polished';
+import { darken, desaturate, lighten, mix, saturate } from 'polished';
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 
 import { colors } from '../../styles/colors';
 import config from '../../website-config';
 
-const SubscribeFormStyles = css`
+const SubscribeForm = styled.form`
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 460px;
+
   @media (max-width: 500px) {
-    -ms-flex-direction: column;
     flex-direction: column;
+
+    .form-group {
+      flex-direction: column;
+      width: 100%;
+    }
   }
 `;
 
@@ -18,7 +28,8 @@ const SubscribeEmail = styled.input`
   padding: 10px;
   width: 100%;
   /* border: color(var(--lightgrey) l(+7%)) 1px solid; */
-  border: ${lighten('0.07', colors.lightgrey)};
+  border: ${lighten('0.07', colors.lightgrey)} 1px solid;
+  /* color: var(--midgrey); */
   color: ${colors.midgrey};
   font-size: 1.8rem;
   line-height: 1em;
@@ -28,25 +39,39 @@ const SubscribeEmail = styled.input`
   transition: border-color 0.15s linear;
 
   -webkit-appearance: none;
+
   :focus {
     outline: 0;
     /* border-color: color(var(--lightgrey) l(-2%)); */
-    border-color: ${darken('0.02', colors.lightgrey)};
+    border-color: ${lighten('-0.02', colors.lightgrey)};
+  }
+
+  @media (prefers-color-scheme: dark) {
+    /* border-color: color(var(--darkmode) l(+6%)); */
+    border-color: ${lighten('0.06', colors.darkmode)};
+    color: rgba(255, 255, 255, 0.9);
+    /* background: color(var(--darkmode) l(+3%)); */
+    background: ${lighten('0.03', colors.darkmode)};
+
+    :focus {
+      /* border-color: color(var(--darkmode) l(+25%)); */
+      border-color: ${lighten('0.25', colors.darkmode)};
+    }
   }
 `;
 
 const SubscribeFormButton = styled.button`
+  position: relative;
   display: inline-block;
   margin: 0 0 0 10px;
   padding: 0 20px;
-  height: 41px;
+  height: 43px;
   outline: none;
   color: #fff;
   font-size: 1.5rem;
-  line-height: 37px;
+  line-height: 39px;
   font-weight: 400;
   text-align: center;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
   /* background: linear-gradient(
     color(var(--blue) whiteness(+7%)),
     color(var(--blue) lightness(-7%) saturation(-10%)) 60%,
@@ -54,39 +79,40 @@ const SubscribeFormButton = styled.button`
     color(var(--blue) lightness(-4%) saturation(-10%))
   ); */
   background: linear-gradient(
-    ${mix('0.1', '#fff', colors.blue)},
-    ${desaturate('0.1', darken('0.07', colors.blue))} 60%,
-    ${desaturate('0.1', darken('0.07', colors.blue))} 90%,
-    ${desaturate('0.1', darken('0.04', colors.blue))}
+    ${lighten('0.07', colors.blue)},
+    ${saturate('-0.1', lighten('-0.07', colors.blue))} 60%,
+    ${saturate('-0.1', lighten('-0.07', colors.blue))} 90%,
+    ${saturate('-0.1', lighten('-0.04', colors.blue))}
   );
   border-radius: 5px;
-  box-shadow: 0 0 0 1px inset rgba(0, 0, 0, 0.14);
 
   -webkit-font-smoothing: subpixel-antialiased;
 
   :active,
   :focus {
     /* background: color(var(--blue) lightness(-9%) saturation(-10%)); */
-    background: ${desaturate('0.1', darken('0.09', colors.blue))};
+    background: ${saturate('-0.1', lighten('-0.09', colors.blue))};
   }
   @media (max-width: 500px) {
-    margin: 10px 0 0;
+    margin: 10px 0 0 0;
     width: 100%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    opacity: 0.9;
   }
 `;
 
 const FormGroup = styled.div`
-  flex-grow: 1;
   @media (max-width: 500px) {
     width: 100%;
   }
 `;
 
-const SubscribeForm: React.FC = () => {
+const SubscribeFormFc: React.FC = () => {
   return (
-    <form
+    <SubscribeForm
       noValidate
-      css={SubscribeFormStyles}
       action={config.mailchimpAction}
       method="post"
       id="mc-embedded-subscribe-form"
@@ -109,8 +135,8 @@ const SubscribeForm: React.FC = () => {
       <SubscribeFormButton type="submit">
         <span>Subscribe</span>
       </SubscribeFormButton>
-    </form>
+    </SubscribeForm>
   );
 };
 
-export default SubscribeForm;
+export default SubscribeFormFc;
