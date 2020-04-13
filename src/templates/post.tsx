@@ -85,24 +85,22 @@ const PostFullTags = styled.section`
 `;
 
 const PostFullCustomExcerpt = styled.p`
-    margin: 20px 0 0;
-    color: var(--midgrey);
-    font-family: Georgia, serif;
-    font-size: 2.3rem;
-    line-height: 1.4em;
-    font-weight: 300;
+  margin: 20px 0 0;
+  color: var(--midgrey);
+  font-family: Georgia, serif;
+  font-size: 2.3rem;
+  line-height: 1.4em;
+  font-weight: 300;
 
-    @media (max-width: 500px) {
+  @media (max-width: 500px) {
+    font-size: 1.9rem;
+    line-height: 1.5em;
+  }
 
-        font-size: 1.9rem;
-        line-height: 1.5em;
-
-}
-
-@media (prefers-color-scheme: dark) {
-  /* color: color(var(--midgrey) l(+10%)); */
-  color: ${lighten('0.1', colors.midgrey)};
-}
+  @media (prefers-color-scheme: dark) {
+    /* color: color(var(--midgrey) l(+10%)); */
+    color: ${lighten('0.1', colors.midgrey)};
+  }
 `;
 
 const PostFullMeta = styled.section`
@@ -192,21 +190,17 @@ interface PageTemplateProps {
         };
         excerpt: string;
         tags: string[];
-        author: {
-          edges: Array<{
-            node: {
-              id: string;
-              bio: string;
-              avatar: {
-                children: Array<{
-                  fixed: {
-                    src: string;
-                  };
-                }>;
+        author: Array<{
+          id: string;
+          bio: string;
+          avatar: {
+            children: Array<{
+              fixed: {
+                src: string;
               };
-            };
-          }>;
-        };
+            }>;
+          };
+        }>;
       };
     };
     relatedPosts: {
@@ -247,21 +241,17 @@ export interface PageContext {
     date: string;
     draft?: boolean;
     tags: string[];
-    author: {
-      edges: Array<{
-        node: {
-          id: string;
-          bio: string;
-          avatar: {
-            children: Array<{
-              fixed: {
-                src: string;
-              };
-            }>;
+    author: Array<{
+      id: string;
+      bio: string;
+      avatar: {
+        children: Array<{
+          fixed: {
+            src: string;
           };
-        };
-      }>;
-    };
+        }>;
+      };
+    }>;
   };
 }
 
@@ -345,11 +335,9 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
               <PostFullHeader>
                 <PostFullTags>
                   {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                    <>
-                      <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                        {post.frontmatter.tags[0]}
-                      </Link>
-                    </>
+                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                      {post.frontmatter.tags[0]}
+                    </Link>
                   )}
                 </PostFullTags>
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
@@ -374,11 +362,11 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
               {/* The big email subscribe modal content */}
               {config.showSubscribe && <Subscribe title={config.title} />}
 
-              {post.frontmatter.author.map((element, index) => {
+              {post.frontmatter.author.map(author => {
                 return (
-                  <PostFullFooter key={index}>
-                    <AuthorCard author={element} />
-                    <PostFullFooterRight authorId={element.id} />
+                  <PostFullFooter key={author.id}>
+                    <AuthorCard author={author} />
+                    <PostFullFooterRight authorId={author.id} />
                   </PostFullFooter>
                 );
               })}

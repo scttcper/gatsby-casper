@@ -17,7 +17,7 @@ import {
   SiteTitle,
 } from '../styles/shared';
 import { PageContext } from './post';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
 interface TagTemplateProps {

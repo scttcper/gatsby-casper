@@ -1,7 +1,7 @@
 import { Global, css } from '@emotion/core';
 import { darken, lighten } from 'polished';
 import * as React from 'react';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import './global.css';
 import { colors } from '../styles/colors';

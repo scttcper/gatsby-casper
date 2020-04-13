@@ -5,6 +5,7 @@ import { lighten } from 'polished';
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
+import { format } from 'date-fns';
 
 import { colors } from '../styles/colors';
 import { PageContext } from '../templates/post';
@@ -18,8 +19,14 @@ const PostCardStyles = css`
   margin: 0 0 40px;
   padding: 0 20px 40px;
   min-height: 220px;
-  border-bottom: 1px solid color(var(--lightgrey) l(+12%));
+  /* border-bottom: 1px solid color(var(--lightgrey) l(+12%)); */
+  border-bottom: 1px solid ${lighten('0.12', colors.lightgrey)};
   background-size: cover;
+
+  @media (prefers-color-scheme: dark) {
+    /* border-bottom-color: color(var(--darkmode) l(+8%)); */
+    border-bottom-color: ${lighten('0.08', colors.darkmode)};
+  }
 `;
 
 const PostCardLarge = css`
@@ -29,10 +36,6 @@ const PostCardLarge = css`
     padding-bottom: 40px;
     min-height: 280px;
     border-top: 0;
-
-    :hover {
-      border-bottom-color: color(var(--lightgrey) l(+10%));
-    }
 
     :not(.no-image) .post-card-header {
       margin-top: 0;
@@ -119,8 +122,19 @@ const PostCardTags = styled.span`
   text-transform: uppercase;
 `;
 
+const PostCardPrimaryTag = styled.div`
+  margin: 0 0 0.2em;
+  color: ${colors.blue};
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+`;
+
 const PostCardTitle = styled.h2`
-  margin-top: 0;
+  margin: 0 0 0.4em;
+  line-height: 1.15em;
+  transition: color 0.2s ease-in-out;
 
   @media (prefers-color-scheme: dark) {
     color: rgba(255, 255, 255, 0.85);
@@ -147,7 +161,8 @@ const PostCardBylineContent = styled.div`
   display: flex;
   flex-direction: column;
   margin: 2px 0 0 6px;
-  color: color(var(--midgrey) l(+10%));
+  /* color: color(var(--midgrey) l(+10%)); */
+  color: ${lighten('0.1', colors.midgrey)};
   font-size: 1.2rem;
   line-height: 1.4em;
   font-weight: 400;
@@ -159,8 +174,15 @@ const PostCardBylineContent = styled.div`
   }
 
   a {
-    color: color(var(--darkgrey) l(+20%));
+    /* color: color(var(--darkgrey) l(+20%)); */
+    color: ${lighten('0.2', colors.darkgrey)};
     font-weight: 600;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    a {
+      color: rgba(255, 255, 255, 0.75);
+    }
   }
 `;
 
@@ -197,6 +219,10 @@ const AuthorListItem = styled.li`
     transform: scale(1) translateY(0px);
     pointer-events: auto;
   }
+`;
+
+const PostCardHeader = styled.header`
+  margin: 15px 0 0;
 `;
 
 const AuthorNameTooltip = styled.div`
@@ -269,6 +295,12 @@ export interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
+  const date = new Date(post.frontmatter.date);
+  // 2018-08-20
+  const datetime = format(date, 'yyyy-MM-dd');
+  // 20 AUG 2018
+  const displayDatetime = format(date, 'dd LLL yyyy');
+
   return (
     <article
       className={`post-card ${post.frontmatter.image ? '' : 'no-image'} ${
@@ -293,36 +325,45 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
       )}
       <PostCardContent className="post-card-content">
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
-          <header className="post-card-header">
-            {post.frontmatter.tags && <PostCardTags>{post.frontmatter.tags[0]}</PostCardTags>}
-            <PostCardTitle>{post.frontmatter.title}</PostCardTitle>
-          </header>
+          <PostCardHeader className="post-card-header">
+            {post.frontmatter.tags && (
+              <PostCardPrimaryTag>{post.frontmatter.tags[0]}</PostCardPrimaryTag>
+            )}
+            <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>
+          </PostCardHeader>
           <PostCardExcerpt className="post-card-excerpt">
             <p>{post.frontmatter.excerpt || post.excerpt}</p>
           </PostCardExcerpt>
         </Link>
         <PostCardMeta className="post-card-meta">
           <AuthorList>
-            {post.frontmatter.author.map((element, index) => {
+            {post.frontmatter.author.map(author => {
               return (
-                <AuthorListItem key={index}>
-                  <AuthorNameTooltip className="author-name-tooltip">
-                    {element.id}
-                  </AuthorNameTooltip>
-                  <Link css={StaticAvatar} to={`/author/${_.kebabCase(element.id)}/`}>
-                    <AuthorProfileImage
-                      src={element.avatar.children[0].fixed.src}
-                      alt={element.id}
-                    />
+                <AuthorListItem key={author.id}>
+                  <AuthorNameTooltip className="author-name-tooltip">{author.id}</AuthorNameTooltip>
+                  <Link css={StaticAvatar} to={`/author/${_.kebabCase(author.id)}/`}>
+                    <AuthorProfileImage src={author.avatar.children[0].fixed.src} alt={author.id} />
                   </Link>
                 </AuthorListItem>
               );
             })}
           </AuthorList>
           <PostCardBylineContent className="post-card-byline-content">
-            <span />
+            <span>
+              {post.frontmatter.author.map((author, index) => {
+                return (
+                  <React.Fragment key={author.id}>
+                    <Link to={`/author/${_.kebabCase(author.id)}/`}>
+                      {author.id}
+                    </Link>
+                    {post.frontmatter.author.length - 1 > index && ', '}
+                  </React.Fragment>
+                );
+              })}
+            </span>
             <span className="post-card-byline-date">
-              <time dateime="" /> <span className="bull">&bull;</span> {post.timeToRead} min read
+              <time dateTime={datetime}>{displayDatetime}</time>{' '}
+              <span className="bull">&bull;</span> {post.timeToRead} min read
             </span>
           </PostCardBylineContent>
         </PostCardMeta>

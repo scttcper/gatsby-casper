@@ -1,7 +1,8 @@
 import { graphql } from 'gatsby';
 import * as React from 'react';
 import { css } from '@emotion/core';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
+import { lighten } from 'polished';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -10,7 +11,6 @@ import Wrapper from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import config from '../website-config';
 import Pagination from '../components/Pagination';
-
 import {
   inner,
   outer,
@@ -23,6 +23,7 @@ import {
   SiteHeaderStyles,
   Posts,
 } from '../styles/shared';
+import { colors } from '../styles/colors';
 import { PageContext } from './post';
 
 const HomePosts = css`
@@ -35,8 +36,9 @@ const HomePosts = css`
       border-top: 0;
     }
 
-    .post-card-large:hover {
-      border-bottom-color: color(var(--lightgrey) l(+10%));
+    .post-card-large .post-card-title {
+      margin-top: 0;
+      font-size: 3.2rem;
     }
 
     .post-card-large:not(.no-image) .post-card-header {
@@ -106,7 +108,7 @@ export interface IndexProps {
   };
 }
 
-const IndexPage: React.FC<IndexProps> = props => {
+const IndexPage: React.FC<IndexProps> = (props) => {
   const width = props.data.header.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
   const height = String(Number(width) / props.data.header.childImageSharp.fluid.aspectRatio);
 
@@ -187,10 +189,10 @@ const IndexPage: React.FC<IndexProps> = props => {
           </div>
         </main>
         {props.children}
-        <Pagination
+        {props.pageContext.numPages > 1 && <Pagination
           currentPage={props.pageContext.currentPage}
           numPages={props.pageContext.numPages}
-        />
+        />}
         <Footer />
       </Wrapper>
     </IndexLayout>
@@ -210,7 +212,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    header: file(relativePath: { eq: "img/blog-cover.jpg" }) {
+    header: file(relativePath: { eq: "img/blog-cover.png" }) {
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.

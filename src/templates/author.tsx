@@ -21,7 +21,7 @@ import {
 } from '../styles/shared';
 import { PageContext } from './post';
 import Facebook from '../components/icons/facebook';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import config from '../website-config';
 import Website from '../components/icons/website';
 import Twitter from '../components/icons/twitter';

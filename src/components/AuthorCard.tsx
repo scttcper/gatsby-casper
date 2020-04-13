@@ -34,7 +34,17 @@ const AuthorCardContent = styled.section`
 `;
 
 export interface AuthorCardProps {
-  author: any;
+  author: {
+    id: string;
+    bio: string;
+    avatar: {
+      children: Array<{
+        fixed: {
+          src: string;
+        };
+      }>;
+    };
+  };
 }
 
 const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {

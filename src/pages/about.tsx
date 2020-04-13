@@ -8,7 +8,7 @@ import { css } from '@emotion/core';
 import { PostFullHeader, PostFullTitle, NoImage, PostFull } from '../templates/post';
 import { PostFullContent } from '../components/PostContent';
 import Footer from '../components/Footer';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 const PageTemplate = css`
   .site-main {

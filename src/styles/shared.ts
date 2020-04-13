@@ -55,6 +55,11 @@ export const PostFeed = css`
   padding: 50px 0 0;
   background: #fff;
 
+  /* Special Template Styles */
+  padding: 40px 0 5vw;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+
   @media (prefers-color-scheme: dark) {
     background: ${colors.darkmode};
   }
@@ -84,6 +89,8 @@ export const SocialLinkFb = css`
 
 export const SiteHeader = css`
   color: #fff;
+  background: #090a0b no-repeat 50%;
+  background-size: cover;
 `;
 
 export const SiteHeaderContent = styled.div`
