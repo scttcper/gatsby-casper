@@ -201,26 +201,6 @@ export const AuthorListItem = styled.li`
   margin: 0;
   padding: 0;
 
-  .author-card:before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    display: block;
-    margin-left: -8px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid #fff;
-    border-right: 8px solid transparent;
-    border-left: 8px solid transparent;
-  }
-
-  .author-card.hovered {
-    opacity: 1;
-    transform: scale(1) translateY(0px);
-    pointer-events: auto;
-  }
-
   :hover .author-name-tooltip {
     opacity: 1;
     transform: translateY(0px);

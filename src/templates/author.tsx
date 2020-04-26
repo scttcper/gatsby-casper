@@ -2,6 +2,7 @@ import { graphql } from 'gatsby';
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
+import { FluidObject } from 'gatsby-image';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -104,7 +105,7 @@ interface AuthorTemplateProps {
       bio?: string;
       avatar: {
         childImageSharp: {
-          fluid: any;
+          fluid: FluidObject;
         };
       };
     };
@@ -290,7 +291,7 @@ export const pageQuery = graphql`
       }
       avatar {
         childImageSharp {
-          fluid(maxWidth: 200) {
+          fluid(quality: 100 srcSetBreakpoints: [40, 80, 120]) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -323,8 +324,8 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fixed(quality: 100) {
-                      src
+                    fluid(quality: 100 srcSetBreakpoints: [40, 80, 120]) {
+                      ...GatsbyImageSharpFluid
                     }
                   }
                 }

@@ -174,7 +174,7 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fluid(quality: 100) {
+                    fluid(quality: 100 srcSetBreakpoints: [40, 80, 120]) {
                       ...GatsbyImageSharpFluid
                     }
                   }

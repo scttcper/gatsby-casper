@@ -16,6 +16,7 @@ interface ReadNextProps {
       node: {
         timeToRead: number;
         frontmatter: {
+          date: string;
           title: string;
         };
         fields: {
@@ -30,18 +31,21 @@ interface ReadNextProps {
   };
 }
 
-const ReadNext: React.FC<ReadNextProps> = props => (
+const ReadNext: React.FC<ReadNextProps> = props => {
+  const showRelatedPosts = props.relatedPosts.totalCount > 1;
+
+  return (
   <ReadNextAside className="read-next" css={outer}>
     <div css={inner}>
       <ReadNextFeed className="read-next-feed">
-        {props.relatedPosts && <ReadNextCard tags={props.tags} relatedPosts={props.relatedPosts} />}
+        {showRelatedPosts && <ReadNextCard tags={props.tags} relatedPosts={props.relatedPosts} />}
 
         {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
         {props.pageContext.next && <PostCard post={props.pageContext.next} />}
       </ReadNextFeed>
     </div>
   </ReadNextAside>
-);
+)}
 
 export default ReadNext;
 
