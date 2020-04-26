@@ -264,7 +264,7 @@ const StaticAvatar = css`
   }
 `;
 
-const AuthorProfileImage = styled.img`
+const AuthorProfileImage = css`
   display: block;
   width: 100%;
   height: 100%;
@@ -300,6 +300,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
   const datetime = format(date, 'yyyy-MM-dd');
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
+  console.log(post.frontmatter.author);
 
   return (
     <article
@@ -342,7 +343,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
                 <AuthorListItem key={author.id}>
                   <AuthorNameTooltip className="author-name-tooltip">{author.id}</AuthorNameTooltip>
                   <Link css={StaticAvatar} to={`/author/${_.kebabCase(author.id)}/`}>
-                    <AuthorProfileImage src={author.avatar.children[0].fixed.src} alt={author.id} />
+                    <Img css={AuthorProfileImage} fluid={author.avatar.children[0].fluid} alt={author.id} />
                   </Link>
                 </AuthorListItem>
               );

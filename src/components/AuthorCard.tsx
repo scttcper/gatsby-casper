@@ -2,9 +2,11 @@ import { Link } from 'gatsby';
 import * as _ from 'lodash';
 import * as React from 'react';
 import styled from '@emotion/styled';
+import Img, { FluidObject } from 'gatsby-image';
 
 import { colors } from '../styles/colors';
 import { AuthorProfileImage } from '../styles/shared';
+import { PageContext } from '../templates/post';
 
 const AuthorCardSection = styled.section`
   display: flex;
@@ -34,17 +36,7 @@ const AuthorCardContent = styled.section`
 `;
 
 export interface AuthorCardProps {
-  author: {
-    id: string;
-    bio: string;
-    avatar: {
-      children: Array<{
-        fixed: {
-          src: string;
-        };
-      }>;
-    };
-  };
+  author: PageContext['frontmatter']['author'][0];
 }
 
 const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
@@ -52,7 +44,7 @@ const AuthorCard: React.FC<AuthorCardProps> = ({ author }) => {
     <AuthorCardSection>
       {/* TODO: default avatar */}
       {/* TODO: author page url */}
-      <img css={AuthorProfileImage} src={author.avatar.children[0].fixed.src} alt={author.id} />
+      {/* <Img css={AuthorProfileImage} fluid={author.avatar.children[0].fluid} alt={author.id} /> */}
       <AuthorCardContent>
         <AuthorCardName>
           <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>

@@ -1,5 +1,5 @@
 import { graphql, Link } from 'gatsby';
-import Img from 'gatsby-image';
+import Img, { FluidObject } from 'gatsby-image';
 import * as _ from 'lodash';
 import { setLightness, darken, lighten } from 'polished';
 import * as React from 'react';
@@ -250,9 +250,7 @@ interface PageTemplateProps {
           bio: string;
           avatar: {
             children: Array<{
-              fixed: {
-                src: string;
-              };
+              fluid: FluidObject;
             }>;
           };
         }>;
@@ -301,9 +299,7 @@ export interface PageContext {
       bio: string;
       avatar: {
         children: Array<{
-          fixed: {
-            src: string;
-          };
+          fluid: FluidObject;
         }>;
       };
     }>;
@@ -491,8 +487,8 @@ export const query = graphql`
           avatar {
             children {
               ... on ImageSharp {
-                fixed(quality: 100) {
-                  ...GatsbyImageSharpFixed
+                fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }

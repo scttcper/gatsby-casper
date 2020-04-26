@@ -3,6 +3,7 @@ import * as React from 'react';
 import { css } from '@emotion/core';
 import { Helmet } from 'react-helmet';
 import { lighten } from 'polished';
+import Img, { FixedObject } from "gatsby-image"
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -92,12 +93,12 @@ export interface IndexProps {
   data: {
     logo: {
       childImageSharp: {
-        fixed: any;
+        fixed: FixedObject;
       };
     };
     header: {
       childImageSharp: {
-        fluid: any;
+        fixed: FixedObject;
       };
     };
     allMarkdownRemark: {
@@ -109,8 +110,7 @@ export interface IndexProps {
 }
 
 const IndexPage: React.FC<IndexProps> = (props) => {
-  const width = props.data.header.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-  const height = String(Number(width) / props.data.header.childImageSharp.fluid.aspectRatio);
+  const { width, height } = props.data.header.childImageSharp.fixed;
 
   return (
     <IndexLayout css={HomePosts}>
@@ -125,7 +125,7 @@ const IndexPage: React.FC<IndexProps> = (props) => {
         <meta property="og:url" content={config.siteUrl} />
         <meta
           property="og:image"
-          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
+          content={`${config.siteUrl}${props.data.header.childImageSharp.fixed.src}`}
         />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
         {config.googleSiteVerification && (
@@ -137,7 +137,7 @@ const IndexPage: React.FC<IndexProps> = (props) => {
         <meta name="twitter:url" content={config.siteUrl} />
         <meta
           name="twitter:image"
-          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
+          content={`${config.siteUrl}${props.data.header.childImageSharp.fixed.src}`}
         />
         {config.twitter && (
           <meta
@@ -145,14 +145,14 @@ const IndexPage: React.FC<IndexProps> = (props) => {
             content={`@${config.twitter.split('https://twitter.com/')[1]}`}
           />
         )}
-        <meta property="og:image:width" content={width} />
-        <meta property="og:image:height" content={height} />
+        <meta property="og:image:width" content={width.toString()} />
+        <meta property="og:image:height" content={height.toString()} />
       </Helmet>
       <Wrapper>
         <header
           css={[outer, SiteHeader]}
           style={{
-            backgroundImage: `url('${props.data.header.childImageSharp.fluid.src}')`,
+            backgroundImage: `url('${props.data.header.childImageSharp.fixed.src}')`,
           }}
         >
           <div css={inner}>
@@ -216,8 +216,8 @@ export const pageQuery = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 2000) {
-          ...GatsbyImageSharpFluid
+        fixed(width: 2000 quality: 100) {
+          ...GatsbyImageSharpFixed
         }
       }
     }
@@ -249,8 +249,8 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fixed(quality: 100) {
-                      src
+                    fluid(quality: 100) {
+                      ...GatsbyImageSharpFluid
                     }
                   }
                 }

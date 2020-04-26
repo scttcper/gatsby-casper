@@ -80,8 +80,12 @@ exports.createPages = async ({ graphql, actions }) => {
                 avatar {
                   children {
                     ... on ImageSharp {
-                      fixed(quality: 100) {
+                      fluid(quality: 100) {
+                        aspectRatio
+                        base64
+                        sizes
                         src
+                        srcSet
                       }
                     }
                   }
