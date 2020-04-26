@@ -6,6 +6,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Helmet } from 'react-helmet';
+import { format } from 'date-fns';
 
 import AuthorCard from '../components/AuthorCard';
 import Footer from '../components/Footer';
@@ -14,11 +15,17 @@ import PostCard from '../components/PostCard';
 import PostContent from '../components/PostContent';
 import PostFullFooter from '../components/PostFullFooter';
 import PostFullFooterRight from '../components/PostFullFooterRight';
-import ReadNextCard from '../components/ReadNextCard';
 import Subscribe from '../components/subscribe/Subscribe';
 import Wrapper from '../components/Wrapper';
+import ReadNext from '../components/ReadNext';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
+import {
+  AuthorList,
+  AuthorListItem,
+  AuthorProfileImage,
+  StaticAvatar,
+} from '../components/PostCard';
 import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
 import config from '../website-config';
 
@@ -171,6 +178,27 @@ const PostFullByline = styled.div`
   }
 `;
 
+export const AuthorAvatar = css`
+  display: block;
+  overflow: hidden;
+  margin: 0 -4px;
+  width: 40px;
+  height: 40px;
+  border: #fff 2px solid;
+  border-radius: 100%;
+  transition: all 0.5s cubic-bezier(0.4, 0.01, 0.165, 0.99) 700ms;
+
+  @media (max-width: 500px) {
+    width: 36px;
+    height: 36px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    /* border-color: color(var(--darkgrey) l(+2%)); */
+    border-color: ${lighten('0.02', colors.darkgrey)};
+  }
+`;
+
 const PostFullMetaDate = styled.time`
   color: ${colors.blue};
 `;
@@ -199,7 +227,7 @@ const PostFullImage = styled.figure`
     margin: 25px -6vw 50px;
     border-radius: 0;
     img {
-        max-width: 1170px;
+      max-width: 1170px;
     }
   }
 
@@ -210,13 +238,6 @@ const PostFullImage = styled.figure`
     margin-bottom: 4vw;
     height: 350px;
   }
-`;
-
-const ReadNextFeed = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -20px;
-  padding: 40px 0 0 0;
 `;
 
 interface PageTemplateProps {
@@ -263,6 +284,7 @@ interface PageTemplateProps {
           timeToRead: number;
           frontmatter: {
             title: string;
+            date: string;
           };
           fields: {
             slug: string;
@@ -314,6 +336,11 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
     width = post.frontmatter.image.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
     height = String(Number(width) / post.frontmatter.image.childImageSharp.fluid.aspectRatio);
   }
+  const date = new Date(post.frontmatter.date);
+  // 2018-08-20
+  const datetime = format(date, 'yyyy-MM-dd');
+  // 20 AUG 2018
+  const displayDatetime = format(date, 'dd LLL yyyy');
 
   return (
     <IndexLayout className="post-template">
@@ -394,16 +421,44 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                 <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
                 <PostFullCustomExcerpt>{post.frontmatter.excerpt}</PostFullCustomExcerpt>
                 <PostFullByline className="post-full-byline">
-                  <section className="post-full-byline-meta">
-                    {/* <h4 className="author-name">{{authors}}</h4> */}
-                    <div className="byline-meta-content">
-                      <time className="byline-meta-date" dateTime="">
-                        Today
-                      </time>
-                      <span className="byline-reading-time">
-                        <span className="bull">&bull;</span> 20 min
-                      </span>
-                    </div>
+                  <section className="post-full-byline-content">
+                    <AuthorList className="author-list">
+                      {post.frontmatter.author.map(author => (
+                        <AuthorListItem key={author.id} className="author-list-item">
+                          {/* <div className="author-card">
+                            {author.avatar.children.length && (
+                              <Img
+                                css={AuthorProfileImage}
+                                className="author-profile-image"
+                                fluid={author.avatar.children[0].fluid}
+                              />
+                            )}
+                          </div> */}
+                          <Link css={AuthorAvatar} to={`/author/${_.kebabCase(author.id)}/`}>
+                            <Img
+                              css={AuthorProfileImage}
+                              className="author-profile-image"
+                              fluid={author.avatar.children[0].fluid}
+                              alt={author.id}
+                              fadeIn={false}
+                            />
+                          </Link>
+                        </AuthorListItem>
+                      ))}
+                    </AuthorList>
+                    <section className="post-full-byline-meta">
+                      <h4 className="author-name">
+                        {post.frontmatter.author.map(author => (
+                          <Link key={author.id} to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
+                        ))}
+                      </h4>
+                      <div className="byline-meta-content">
+                        <time className="byline-meta-date" dateTime={datetime}>{displayDatetime}</time>
+                        <span className="byline-reading-time">
+                          <span className="bull">&bull;</span> 20 min
+                        </span>
+                      </div>
+                    </section>
                   </section>
                 </PostFullByline>
               </PostFullHeader>
@@ -413,6 +468,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                   <Img
                     style={{ height: '100%' }}
                     fluid={post.frontmatter.image.childImageSharp.fluid}
+                    alt={post.frontmatter.title}
                   />
                 </PostFullImage>
               )}
@@ -420,32 +476,16 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
 
               {/* The big email subscribe modal content */}
               {config.showSubscribe && <Subscribe title={config.title} />}
-
-              {post.frontmatter.author.map(author => {
-                return (
-                  <PostFullFooter key={author.id}>
-                    <AuthorCard author={author} />
-                    <PostFullFooterRight authorId={author.id} />
-                  </PostFullFooter>
-                );
-              })}
             </article>
           </div>
         </main>
 
-        {/* Links to Previous/Next posts */}
-        <aside className="read-next" css={outer}>
-          <div css={inner}>
-            <ReadNextFeed>
-              {props.data.relatedPosts && (
-                <ReadNextCard tags={post.frontmatter.tags} relatedPosts={props.data.relatedPosts} />
-              )}
+        <ReadNext
+          tags={post.frontmatter.tags}
+          relatedPosts={props.data.relatedPosts}
+          pageContext={props.pageContext}
+        />
 
-              {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
-              {props.pageContext.next && <PostCard post={props.pageContext.next} />}
-            </ReadNextFeed>
-          </div>
-        </aside>
         <Footer />
       </Wrapper>
     </IndexLayout>
@@ -508,6 +548,7 @@ export const query = graphql`
           excerpt
           frontmatter {
             title
+            date
           }
           fields {
             slug

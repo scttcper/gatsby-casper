@@ -1,5 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
+import { FluidObject } from 'gatsby-image';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -35,7 +36,7 @@ interface TagTemplateProps {
           description: string;
           image?: {
             childImageSharp: {
-              fluid: any;
+              fluid: FluidObject;
             };
           };
         };
@@ -173,8 +174,8 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fixed(quality: 100) {
-                      src
+                    fluid(quality: 100) {
+                      ...GatsbyImageSharpFluid
                     }
                   }
                 }

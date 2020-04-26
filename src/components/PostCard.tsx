@@ -124,6 +124,7 @@ const PostCardTags = styled.span`
 
 const PostCardPrimaryTag = styled.div`
   margin: 0 0 0.2em;
+  /* color: var(--blue); */
   color: ${colors.blue};
   font-size: 1.2rem;
   font-weight: 500;
@@ -186,7 +187,7 @@ const PostCardBylineContent = styled.div`
   }
 `;
 
-const AuthorList = styled.ul`
+export const AuthorList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 0 4px;
@@ -194,7 +195,7 @@ const AuthorList = styled.ul`
   list-style: none;
 `;
 
-const AuthorListItem = styled.li`
+export const AuthorListItem = styled.li`
   position: relative;
   flex-shrink: 0;
   margin: 0;
@@ -218,6 +219,11 @@ const AuthorListItem = styled.li`
     opacity: 1;
     transform: scale(1) translateY(0px);
     pointer-events: auto;
+  }
+
+  :hover .author-name-tooltip {
+    opacity: 1;
+    transform: translateY(0px);
   }
 `;
 
@@ -249,7 +255,7 @@ const AuthorNameTooltip = styled.div`
   }
 `;
 
-const StaticAvatar = css`
+export const StaticAvatar = css`
   display: block;
   overflow: hidden;
   margin: 0 0 0 -6px;
@@ -264,7 +270,7 @@ const StaticAvatar = css`
   }
 `;
 
-const AuthorProfileImage = css`
+export const AuthorProfileImage = css`
   display: block;
   width: 100%;
   height: 100%;
@@ -300,7 +306,6 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
   const datetime = format(date, 'yyyy-MM-dd');
   // 20 AUG 2018
   const displayDatetime = format(date, 'dd LLL yyyy');
-  console.log(post.frontmatter.author);
 
   return (
     <article
@@ -315,12 +320,12 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
             {post.frontmatter.image &&
               post.frontmatter.image.childImageSharp &&
               post.frontmatter.image.childImageSharp.fluid && (
-              <Img
-                alt={`${post.frontmatter.title} cover image`}
-                style={{ height: '100%' }}
-                fluid={post.frontmatter.image.childImageSharp.fluid}
-              />
-            )}
+                <Img
+                  alt={`${post.frontmatter.title} cover image`}
+                  style={{ height: '100%' }}
+                  fluid={post.frontmatter.image.childImageSharp.fluid}
+                />
+              )}
           </PostCardImage>
         </Link>
       )}
@@ -328,7 +333,9 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
           <PostCardHeader className="post-card-header">
             {post.frontmatter.tags && (
-              <PostCardPrimaryTag>{post.frontmatter.tags[0]}</PostCardPrimaryTag>
+              <PostCardPrimaryTag className="post-card-primary-tag">
+                {post.frontmatter.tags[0]}
+              </PostCardPrimaryTag>
             )}
             <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>
           </PostCardHeader>
@@ -337,13 +344,17 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
           </PostCardExcerpt>
         </Link>
         <PostCardMeta className="post-card-meta">
-          <AuthorList>
+          <AuthorList className="author-list">
             {post.frontmatter.author.map(author => {
               return (
-                <AuthorListItem key={author.id}>
+                <AuthorListItem key={author.id} className="author-list-item">
                   <AuthorNameTooltip className="author-name-tooltip">{author.id}</AuthorNameTooltip>
                   <Link css={StaticAvatar} to={`/author/${_.kebabCase(author.id)}/`}>
-                    <Img css={AuthorProfileImage} fluid={author.avatar.children[0].fluid} alt={author.id} />
+                    <Img
+                      css={AuthorProfileImage}
+                      fluid={author.avatar.children[0].fluid}
+                      alt={author.id}
+                    />
                   </Link>
                 </AuthorListItem>
               );
@@ -354,9 +365,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
               {post.frontmatter.author.map((author, index) => {
                 return (
                   <React.Fragment key={author.id}>
-                    <Link to={`/author/${_.kebabCase(author.id)}/`}>
-                      {author.id}
-                    </Link>
+                    <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
                     {post.frontmatter.author.length - 1 > index && ', '}
                   </React.Fragment>
                 );
