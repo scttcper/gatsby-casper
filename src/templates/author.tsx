@@ -19,6 +19,9 @@ import {
   SiteTitle,
   SiteMain,
   SocialLink,
+  SiteArchiveHeader,
+  NoImage,
+  SiteNavMain,
 } from '../styles/shared';
 import { PageContext } from './post';
 import Facebook from '../components/icons/facebook';
@@ -33,26 +36,42 @@ const HiddenMobile = css`
   }
 `;
 
+const AuthorHeader = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10vw 0 10px;
+  align-items: center;
+  @media (max-width: 500px) {
+    padding: 10px 0 0;
+
+    /* no image */
+    padding-bottom: 10px;
+  }
+`;
+
 const AuthorMeta = styled.div`
   z-index: 10;
   flex-shrink: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 0 0 10px 0;
-  font-family: Georgia, serif;
-  font-style: italic;
+  margin: 0 0 0 1px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  white-space: nowrap;
 `;
 
 const AuthorBio = styled.h2`
   z-index: 10;
   flex-shrink: 0;
-  margin: 5px 0 10px 0;
-  max-width: 600px;
+  margin: 6px 0 0;
+  max-width: 46em;
   font-size: 2rem;
   line-height: 1.3em;
-  font-weight: 300;
-  letter-spacing: 0.5px;
+  font-weight: 400;
   opacity: 0.8;
 `;
 
@@ -62,13 +81,26 @@ const Bull = styled.span`
   opacity: 0.5;
 `;
 
+const AuthHeaderContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px 0 0 30px;
+  @media (max-width: 500px) {
+    align-items: center;
+    margin: 16px 0 0 0;
+  }
+`;
+
+// .site-header-content .author-profile-image
 const AuthorProfileBioImage = css`
   z-index: 10;
   flex-shrink: 0;
-  margin: 0 0 20px 0;
-  width: 100px;
-  height: 100px;
+  margin: -4px 0 0;
+  width: 110px;
+  height: 110px;
   box-shadow: rgba(255, 255, 255, 0.1) 0 0 0 6px;
+  border-radius: 100%;
 `;
 
 interface AuthorTemplateProps {
@@ -115,25 +147,20 @@ interface AuthorTemplateProps {
 const Author: React.FC<AuthorTemplateProps> = props => {
   const author = props.data.authorYaml;
 
-  const edges = props.data.allMarkdownRemark.edges.filter(
-    edge => {
-      const isDraft = (edge.node.frontmatter.draft !== true ||
-        process.env.NODE_ENV === 'development');
+  const edges = props.data.allMarkdownRemark.edges.filter(edge => {
+    const isDraft = edge.node.frontmatter.draft !== true || process.env.NODE_ENV === 'development';
 
-        let authorParticipated = false
-        if (edge.node.frontmatter.author){
-        edge.node.frontmatter.author.forEach(function(element)
-        {
-            if (element.id === author.id) {
-              authorParticipated = true
-            }
-        });
-      }
-
-
-      return isDraft && authorParticipated;
+    let authorParticipated = false;
+    if (edge.node.frontmatter.author) {
+      edge.node.frontmatter.author.forEach(function (element) {
+        if (element.id === author.id) {
+          authorParticipated = true;
+        }
+      });
     }
-  );
+
+    return isDraft && authorParticipated;
+  });
   const totalCount = edges.length;
 
   return (
@@ -166,79 +193,76 @@ const Author: React.FC<AuthorTemplateProps> = props => {
           />
         )}
       </Helmet>
-      <Wrapper>
-        <header
-          className="no-cover"
-          css={[outer, SiteHeader]}
-          style={{
-            // eslint-disable-next-line @typescript-eslint/camelcase
-            backgroundImage: author.profile_image ?
-              `url(${author.profile_image.childImageSharp.fluid.src})` :
-              '',
-          }}
-        >
-          <div css={inner}>
-            <SiteNav isHome={false} />
-            <SiteHeaderContent>
-              <Img
-                css={[AuthorProfileImage, AuthorProfileBioImage]}
-                fluid={props.data.authorYaml.avatar.childImageSharp.fluid}
-                alt={author.id}
-                fadeIn={false}
-              />
-              <SiteTitle>{author.id}</SiteTitle>
-              {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
-              <AuthorMeta>
-                {author.location && (
-                  <div css={HiddenMobile}>
-                    {author.location} <Bull>&bull;</Bull>
-                  </div>
-                )}
-                <div css={HiddenMobile}>
-                  {totalCount > 1 && `${totalCount} posts`}
-                  {totalCount === 1 && '1 post'}
-                  {totalCount === 0 && 'No posts'} <Bull>•</Bull>
-                </div>
-                {author.website && (
-                  <div>
-                    <a
-                      className="social-link-wb"
-                      css={SocialLink}
-                      href={author.website}
-                      title="Website"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Website />
-                    </a>
-                  </div>
-                )}
-                {author.twitter && (
-                  <a
-                    className="social-link-tw"
-                    css={SocialLink}
-                    href={`https://twitter.com/${author.twitter}`}
-                    title="Twitter"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Twitter />
-                  </a>
-                )}
-                {author.facebook && (
-                  <a
-                    className="social-link-fb"
-                    css={SocialLink}
-                    href={`https://www.facebook.com/${author.facebook}`}
-                    title="Facebook"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Facebook />
-                  </a>
-                )}
-                {/* TODO: RSS for author */}
-                {/* <a
+      <Wrapper css={NoImage}>
+        <header className={`site-archive-header no-image`} css={[SiteHeader, SiteArchiveHeader]}>
+          <div css={[outer, SiteNavMain]}>
+            <div css={inner}>
+              <SiteNav isHome={false} />
+            </div>
+          </div>
+
+          <div css={[outer]} className={`site-header-background no-image`}>
+            <div css={inner}>
+              <SiteHeaderContent css={AuthorHeader} className="site-header-content">
+                <img
+                  css={[AuthorProfileImage, AuthorProfileBioImage]}
+                  src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
+                  alt={author.id}
+                />
+                <AuthHeaderContent className="author-header-content">
+                  <SiteTitle className="site-title">{author.id}</SiteTitle>
+                  {author.bio && <AuthorBio className="author-bio">{author.bio}</AuthorBio>}
+                  <AuthorMeta>
+                    {author.location && (
+                      <div css={HiddenMobile}>
+                        {author.location} <Bull>&bull;</Bull>
+                      </div>
+                    )}
+                    <div css={HiddenMobile}>
+                      {totalCount > 1 && `${totalCount} posts`}
+                      {totalCount === 1 && '1 post'}
+                      {totalCount === 0 && 'No posts'} <Bull>•</Bull>
+                    </div>
+                    {author.website && (
+                      <div>
+                        <a
+                          className="social-link-wb"
+                          css={SocialLink}
+                          href={author.website}
+                          title="Website"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Website />
+                        </a>
+                      </div>
+                    )}
+                    {author.twitter && (
+                      <a
+                        className="social-link-tw"
+                        css={SocialLink}
+                        href={`https://twitter.com/${author.twitter}`}
+                        title="Twitter"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Twitter />
+                      </a>
+                    )}
+                    {author.facebook && (
+                      <a
+                        className="social-link-fb"
+                        css={SocialLink}
+                        href={`https://www.facebook.com/${author.facebook}`}
+                        title="Facebook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Facebook />
+                      </a>
+                    )}
+                    {/* TODO: RSS for author */}
+                    {/* <a
                   css={SocialLink} className="social-link-rss"
                   href="https://feedly.com/i/subscription/feed/https://demo.ghost.io/author/ghost/rss/"
                   target="_blank"
@@ -253,8 +277,10 @@ const Author: React.FC<AuthorTemplateProps> = props => {
                     <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z" />
                   </svg>
                 </a> */}
-              </AuthorMeta>
-            </SiteHeaderContent>
+                  </AuthorMeta>
+                </AuthHeaderContent>
+              </SiteHeaderContent>
+            </div>
           </div>
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
@@ -292,16 +318,16 @@ export const pageQuery = graphql`
       }
       avatar {
         childImageSharp {
-          fluid(quality: 100 srcSetBreakpoints: [40, 80, 120]) {
+          fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
             ...GatsbyImageSharpFluid
           }
         }
       }
     }
     allMarkdownRemark(
-      filter: { frontmatter: { draft: { ne: true } } },
-      sort: { fields: [frontmatter___date], order: DESC },
-      limit: 2000,
+      filter: { frontmatter: { draft: { ne: true } } }
+      sort: { fields: [frontmatter___date], order: DESC }
+      limit: 2000
     ) {
       edges {
         node {
