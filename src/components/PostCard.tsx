@@ -312,6 +312,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
                       css={AuthorProfileImage}
                       fluid={author.avatar.children[0].fluid}
                       alt={author.id}
+                      fadeIn={false}
                     />
                   </Link>
                 </AuthorListItem>

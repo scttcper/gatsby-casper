@@ -15,6 +15,16 @@ export const inner = css`
   width: 100%;
 `;
 
+export const SiteNavMain = css`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  /* background: color(var(--darkgrey) l(-5%)); */
+  background: ${lighten('-0.05', colors.darkgrey)};
+`;
+
 export const SiteMain = css`
   z-index: 100;
   flex-grow: 1;
@@ -87,11 +97,7 @@ export const SocialLinkFb = css`
   }
 `;
 
-export const SiteHeader = css`
-  color: #fff;
-  background: #090a0b no-repeat 50%;
-  background-size: cover;
-`;
+export const SiteHeader = css``;
 
 export const SiteHeaderContent = styled.div`
   z-index: 100;

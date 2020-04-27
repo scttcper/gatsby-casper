@@ -2,10 +2,8 @@ import { Link } from 'gatsby';
 import * as _ from 'lodash';
 import React from 'react';
 import styled from '@emotion/styled';
-import Img, { FluidObject } from 'gatsby-image';
 
 import { colors } from '../styles/colors';
-import { AuthorProfileImage } from '../styles/shared';
 import { PageContext } from '../templates/post';
 
 const AuthorCardSection = styled.section`

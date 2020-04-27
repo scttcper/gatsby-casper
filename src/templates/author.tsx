@@ -2,7 +2,7 @@ import { graphql } from 'gatsby';
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import { FluidObject } from 'gatsby-image';
+import Img, { FluidObject } from 'gatsby-image';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -180,10 +180,11 @@ const Author: React.FC<AuthorTemplateProps> = props => {
           <div css={inner}>
             <SiteNav isHome={false} />
             <SiteHeaderContent>
-              <img
+              <Img
                 css={[AuthorProfileImage, AuthorProfileBioImage]}
-                src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
+                fluid={props.data.authorYaml.avatar.childImageSharp.fluid}
                 alt={author.id}
+                fadeIn={false}
               />
               <SiteTitle>{author.id}</SiteTitle>
               {author.bio && <AuthorBio>{author.bio}</AuthorBio>}
@@ -324,7 +325,7 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fluid(quality: 100 srcSetBreakpoints: [40, 80, 120]) {
+                    fluid(quality: 100) {
                       ...GatsbyImageSharpFluid
                     }
                   }
