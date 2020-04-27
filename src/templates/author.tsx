@@ -2,7 +2,7 @@ import { graphql } from 'gatsby';
 import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Img, { FluidObject } from 'gatsby-image';
+import { FluidObject } from 'gatsby-image';
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -18,17 +18,13 @@ import {
   SiteHeaderContent,
   SiteTitle,
   SiteMain,
-  SocialLink,
   SiteArchiveHeader,
   NoImage,
   SiteNavMain,
 } from '../styles/shared';
 import { PageContext } from './post';
-import Facebook from '../components/icons/facebook';
 import { Helmet } from 'react-helmet';
 import config from '../website-config';
-import Website from '../components/icons/website';
-import Twitter from '../components/icons/twitter';
 
 const HiddenMobile = css`
   @media (max-width: 500px) {
@@ -51,7 +47,7 @@ const AuthorHeader = css`
   }
 `;
 
-const AuthorMeta = styled.div`
+const AuthorMeta = css`
   z-index: 10;
   flex-shrink: 0;
   display: flex;
@@ -62,6 +58,38 @@ const AuthorMeta = styled.div`
   letter-spacing: 0.2px;
   text-transform: uppercase;
   white-space: nowrap;
+
+  .author-location + .author-stats:before,
+  .author-stats + .author-social-link:before,
+  .author-social-link + .author-social-link:before {
+    content: '•';
+    display: inline-block;
+    margin: 0 12px;
+    color: #fff;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 500px) {
+    margin-top: 8px;
+  }
+
+  @media (max-width: 700px) {
+    .author-location,
+    .author-stats,
+    .author-stats + .author-social-link:first-of-type:before {
+      display: none;
+    }
+  }
+`;
+
+const AuthorLocation = css`
+  margin: 0 6px;
+`;
+
+const AuthorSocialLink = styled.span`
+  display: inline-block;
+  margin: 0;
+  padding: 6px 0;
 `;
 
 const AuthorBio = styled.h2`
@@ -73,12 +101,6 @@ const AuthorBio = styled.h2`
   line-height: 1.3em;
   font-weight: 400;
   opacity: 0.8;
-`;
-
-const Bull = styled.span`
-  display: inline-block;
-  margin: 0 12px;
-  opacity: 0.5;
 `;
 
 const AuthHeaderContent = styled.div`
@@ -101,6 +123,15 @@ const AuthorProfileBioImage = css`
   height: 110px;
   box-shadow: rgba(255, 255, 255, 0.1) 0 0 0 6px;
   border-radius: 100%;
+`;
+
+const AuthorSocialLinkAnchor = styled.a`
+  color: #fff;
+  font-weight: 600;
+
+  :hover {
+    opacity: 1;
+  }
 `;
 
 interface AuthorTemplateProps {
@@ -205,6 +236,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
             <div css={inner}>
               <SiteHeaderContent css={AuthorHeader} className="site-header-content">
                 <img
+                  style={{ marginTop: '8px' }}
                   css={[AuthorProfileImage, AuthorProfileBioImage]}
                   src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
                   alt={author.id}
@@ -212,72 +244,51 @@ const Author: React.FC<AuthorTemplateProps> = props => {
                 <AuthHeaderContent className="author-header-content">
                   <SiteTitle className="site-title">{author.id}</SiteTitle>
                   {author.bio && <AuthorBio className="author-bio">{author.bio}</AuthorBio>}
-                  <AuthorMeta>
+                  <div css={AuthorMeta} className="author-meta">
                     {author.location && (
-                      <div css={HiddenMobile}>
-                        {author.location} <Bull>&bull;</Bull>
+                      <div className="author-location" css={[HiddenMobile]}>
+                        {author.location}
                       </div>
                     )}
-                    <div css={HiddenMobile}>
+                    <div className="author-stats" css={[HiddenMobile]}>
                       {totalCount > 1 && `${totalCount} posts`}
                       {totalCount === 1 && '1 post'}
-                      {totalCount === 0 && 'No posts'} <Bull>•</Bull>
+                      {totalCount === 0 && 'No posts'}
                     </div>
                     {author.website && (
-                      <div>
-                        <a
-                          className="social-link-wb"
-                          css={SocialLink}
+                      <AuthorSocialLink className="author-social-link">
+                        <AuthorSocialLinkAnchor
                           href={author.website}
-                          title="Website"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Website />
-                        </a>
-                      </div>
+                          Website
+                        </AuthorSocialLinkAnchor>
+                      </AuthorSocialLink>
                     )}
                     {author.twitter && (
-                      <a
-                        className="social-link-tw"
-                        css={SocialLink}
-                        href={`https://twitter.com/${author.twitter}`}
-                        title="Twitter"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Twitter />
-                      </a>
+                      <AuthorSocialLink className="author-social-link">
+                        <AuthorSocialLinkAnchor
+                          href={`https://twitter.com/${author.twitter}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Twitter
+                        </AuthorSocialLinkAnchor>
+                      </AuthorSocialLink>
                     )}
                     {author.facebook && (
-                      <a
-                        className="social-link-fb"
-                        css={SocialLink}
-                        href={`https://www.facebook.com/${author.facebook}`}
-                        title="Facebook"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Facebook />
-                      </a>
+                      <AuthorSocialLink className="author-social-link">
+                        <AuthorSocialLinkAnchor
+                          href={`https://www.facebook.com/${author.facebook}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Facebook
+                        </AuthorSocialLinkAnchor>
+                      </AuthorSocialLink>
                     )}
-                    {/* TODO: RSS for author */}
-                    {/* <a
-                  css={SocialLink} className="social-link-rss"
-                  href="https://feedly.com/i/subscription/feed/https://demo.ghost.io/author/ghost/rss/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    style={{ height: '1.9rem' }}
-                  >
-                    <circle cx="6.18" cy="17.82" r="2.18" />
-                    <path d="M4 4.44v2.83c7.03 0 12.73 5.7 12.73 12.73h2.83c0-8.59-6.97-15.56-15.56-15.56zm0 5.66v2.83c3.9 0 7.07 3.17 7.07 7.07h2.83c0-5.47-4.43-9.9-9.9-9.9z" />
-                  </svg>
-                </a> */}
-                  </AuthorMeta>
+                  </div>
                 </AuthHeaderContent>
               </SiteHeaderContent>
             </div>
