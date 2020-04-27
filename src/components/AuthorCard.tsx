@@ -1,6 +1,6 @@
 import { Link } from 'gatsby';
 import * as _ from 'lodash';
-import * as React from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import Img, { FluidObject } from 'gatsby-image';
 

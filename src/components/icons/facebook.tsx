@@ -1,5 +1,5 @@
 // tslint:disable:no-http-string
-import * as React from 'react';
+import React from 'react';
 
 const Facebook: React.FC = () => (
   <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">

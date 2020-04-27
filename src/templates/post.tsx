@@ -1,33 +1,23 @@
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+import { format } from 'date-fns';
 import { graphql, Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 import * as _ from 'lodash';
-import { setLightness, darken, lighten } from 'polished';
-import React, { useState, useEffect, useRef } from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import { lighten, setLightness } from 'polished';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { format } from 'date-fns';
-import { useHover } from 'react-use';
 
-import AuthorCard from '../components/AuthorCard';
 import Footer from '../components/Footer';
 import SiteNav, { SiteNavMain } from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
+import { AuthorList, AuthorListItem, AuthorProfileImage } from '../components/PostCard';
 import PostContent from '../components/PostContent';
-import PostFullFooter from '../components/PostFullFooter';
-import PostFullFooterRight from '../components/PostFullFooterRight';
+import ReadNext from '../components/ReadNext';
 import Subscribe from '../components/subscribe/Subscribe';
 import Wrapper from '../components/Wrapper';
-import ReadNext from '../components/ReadNext';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
-import {
-  AuthorList,
-  AuthorListItem,
-  AuthorProfileImage,
-  StaticAvatar,
-} from '../components/PostCard';
-import { inner, outer, SiteHeader, SiteMain } from '../styles/shared';
+import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 
 const PostTemplate = css`
@@ -507,22 +497,39 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
           <div css={inner}>
             {/* TODO: no-image css tag? */}
             <article css={[PostFull, !post.frontmatter.image && NoImage]}>
-              <PostFullHeader>
-                <PostFullTags>
+              <PostFullHeader className="post-full-header">
+                <PostFullTags className="post-full-tags">
                   {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
                     <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
                       {post.frontmatter.tags[0]}
                     </Link>
                   )}
                 </PostFullTags>
-                <PostFullTitle>{post.frontmatter.title}</PostFullTitle>
-                <PostFullCustomExcerpt>{post.frontmatter.excerpt}</PostFullCustomExcerpt>
+                <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
+                <PostFullCustomExcerpt className="post-full-custom-excerpt">
+                  {post.frontmatter.excerpt}
+                </PostFullCustomExcerpt>
                 <PostFullByline className="post-full-byline">
                   <section className="post-full-byline-content">
                     <AuthorList className="author-list">
-                      {post.frontmatter.author.map(author =>
-                        useHover(hovered => (
-                          <AuthorListItem key={author.id} className="author-list-item">
+                      {post.frontmatter.author.map(author => {
+                        const [hovered, setHover] = useState(false);
+                        let timeout: NodeJS.Timeout;
+                        function handleMouseEnter() {
+                          clearTimeout(timeout);
+                          setHover(true);
+                        }
+                        function handleMouseLeave() {
+                          clearTimeout(timeout);
+                          timeout = setTimeout(() => setHover(false), 600);
+                        }
+                        return (
+                          <AuthorListItem
+                            key={author.id}
+                            className="author-list-item"
+                            onMouseEnter={() => handleMouseEnter()}
+                            onMouseLeave={() => handleMouseLeave()}
+                          >
                             <div
                               css={css`
                                 ${AuthorCardStyle} ${hovered && Hovered}
@@ -542,7 +549,10 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                                   <h2>{author.id}</h2>
                                   <p>{author.bio}</p>
                                   <p>
-                                    <a href="{{url}}">More posts</a> by {author.id}.
+                                    <Link to={`/author/${_.kebabCase(author.id)}/`}>
+                                      More posts
+                                    </Link>{' '}
+                                    by {author.id}.
                                   </p>
                                 </div>
                               </div>
@@ -561,8 +571,8 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                               />
                             </Link>
                           </AuthorListItem>
-                        )),
-                      )}
+                        );
+                      })}
                     </AuthorList>
                     <section className="post-full-byline-meta">
                       <h4 className="author-name">

@@ -1,8 +1,8 @@
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { lighten } from 'polished';
-import * as React from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { format } from 'date-fns';
@@ -109,17 +109,6 @@ const PostCardContentLink = css`
   :hover {
     text-decoration: none;
   }
-`;
-
-const PostCardTags = styled.span`
-  display: block;
-  margin-bottom: 4px;
-  color: ${colors.midgrey};
-  font-size: 1.2rem;
-  line-height: 1.15em;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
 `;
 
 const PostCardPrimaryTag = styled.div`
@@ -262,17 +251,6 @@ export const AuthorProfileImage = css`
   @media (prefers-color-scheme: dark) {
     background: ${colors.darkmode};
   }
-`;
-
-const ReadingTime = styled.span`
-  flex-shrink: 0;
-  margin-left: 20px;
-  color: ${colors.midgrey};
-  font-size: 1.2rem;
-  line-height: 33px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
 `;
 
 export interface PostCardProps {

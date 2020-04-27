@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import * as React from 'react';
+import React from 'react';
 import { lighten } from 'polished';
 import styled from '@emotion/styled';
 import * as _ from 'lodash';

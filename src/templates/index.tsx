@@ -1,9 +1,8 @@
 import { graphql } from 'gatsby';
-import * as React from 'react';
+import React from 'react';
 import { css } from '@emotion/core';
 import { Helmet } from 'react-helmet';
-import { lighten } from 'polished';
-import Img, { FixedObject } from "gatsby-image"
+import { FixedObject } from "gatsby-image"
 
 import Footer from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -21,10 +20,8 @@ import {
   SiteHeaderContent,
   SiteMain,
   SiteTitle,
-  SiteHeaderStyles,
   Posts,
 } from '../styles/shared';
-import { colors } from '../styles/colors';
 import { PageContext } from './post';
 
 const HomePosts = css`
