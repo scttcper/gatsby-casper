@@ -4,7 +4,21 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
 import { colors } from '../../styles/colors';
-import SubscribeForm from './SubscribeForm';
+import { SubscribeForm } from './SubscribeForm';
+
+export interface SubscribeProps {
+  title: string;
+}
+
+export const Subscribe: React.FC<SubscribeProps> = props => {
+  return (
+    <SubscribeFormSection>
+      <h3 css={SubscribeFormTitle}>Subscribe to {props.title}</h3>
+      <p>Get the latest posts delivered right to your inbox</p>
+      <SubscribeForm />
+    </SubscribeFormSection>
+  );
+};
 
 const SubscribeFormSection = styled.section`
   margin: 1.5em 0;
@@ -68,19 +82,3 @@ const SubscribeFormTitle = css`
     color: rgba(255, 255, 255, 0.9);
   }
 `;
-
-export interface SubscribeProps {
-  title: string;
-}
-
-const Subscribe: React.FC<SubscribeProps> = props => {
-  return (
-    <SubscribeFormSection>
-      <h3 css={SubscribeFormTitle}>Subscribe to {props.title}</h3>
-      <p>Get the latest posts delivered right to your inbox</p>
-      <SubscribeForm />
-    </SubscribeFormSection>
-  );
-};
-
-export default Subscribe;

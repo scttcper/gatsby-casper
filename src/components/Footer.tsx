@@ -8,6 +8,42 @@ import { colors } from '../styles/colors';
 import { outer, inner } from '../styles/shared';
 import config from '../website-config';
 
+export const Footer: React.FC = () => {
+  return (
+    <footer css={[outer, SiteFooter]}>
+      <div css={[inner, SiteFooterContent]}>
+        <section className="copyright">
+          <Link to="/">{config.title}</Link> &copy; {new Date().getFullYear()}{' '}
+          {config.footer && (
+            <Link to="/">
+              | {config.title} {config.footer}
+            </Link>
+          )}
+        </section>
+        <SiteFooterNav>
+          <Link to="/">Latest Posts</Link>
+          {config.facebook && (
+            <a href={config.facebook} target="_blank" rel="noopener noreferrer">
+              Facebook
+            </a>
+          )}
+          {config.twitter && (
+            <a href={config.twitter} target="_blank" rel="noopener noreferrer">
+              Twitter
+            </a>
+          )}
+
+          <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
+            Ghost
+          </a>
+
+          <a href="/rss.xml">RSS</a>
+        </SiteFooterNav>
+      </div>
+    </footer>
+  );
+};
+
 const SiteFooter = css`
   position: relative;
   padding-top: 20px;
@@ -65,40 +101,3 @@ const SiteFooterNav = styled.nav`
   }
 `;
 
-const Footer: React.FC = () => {
-  return (
-    <footer css={[outer, SiteFooter]}>
-      <div css={[inner, SiteFooterContent]}>
-        <section className="copyright">
-          <Link to="/">{config.title}</Link> &copy; {new Date().getFullYear()}{' '}
-          {config.footer && (
-            <Link to="/">
-              | {config.title} {config.footer}
-            </Link>
-          )}
-        </section>
-        <SiteFooterNav>
-          <Link to="/">Latest Posts</Link>
-          {config.facebook && (
-            <a href={config.facebook} target="_blank" rel="noopener noreferrer">
-              Facebook
-            </a>
-          )}
-          {config.twitter && (
-            <a href={config.twitter} target="_blank" rel="noopener noreferrer">
-              Twitter
-            </a>
-          )}
-
-          <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
-            Ghost
-          </a>
-
-          <a href="/rss.xml">RSS</a>
-        </SiteFooterNav>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;

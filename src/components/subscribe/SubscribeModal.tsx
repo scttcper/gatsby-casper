@@ -3,8 +3,61 @@ import styled from '@emotion/styled';
 
 import { colors } from '../../styles/colors';
 import config from '../../website-config';
-import SubscribeForm from './SubscribeForm';
+import { SubscribeForm } from './SubscribeForm';
 import SubscribeLogo from './SubscribeLogo';
+
+interface SubscribeState {
+  isOpen: boolean;
+}
+
+export class SubscribeModal extends React.Component<any, SubscribeState> {
+  state = { isOpen: false };
+
+  componentWillUnmount() {
+    this.unsubscribeEsc();
+  }
+
+  escFunction = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.close();
+    }
+  };
+
+  subscribeEsc() {
+    document.addEventListener('keydown', this.escFunction, false);
+  }
+
+  unsubscribeEsc() {
+    document.removeEventListener('keydown', this.escFunction, false);
+  }
+
+  open = () => {
+    this.setState({ isOpen: true });
+    this.subscribeEsc();
+  };
+
+  close = () => {
+    this.setState({ isOpen: false });
+    this.unsubscribeEsc();
+  };
+
+  render() {
+    return (
+      <SubscribeOverlay open={this.state.isOpen}>
+        <SubscribeOverlayClose onClick={this.close} />
+        <SubscribeOverlayContent>
+          <SubscribeLogo />
+          <SubscribeOverlayTitle>Subscribe to {config.title}</SubscribeOverlayTitle>
+          <SubscribeOverlayDescription>
+            Stay up to date! Get all the latest &amp; greatest posts delivered straight to your
+            inbox
+          </SubscribeOverlayDescription>
+          <SubscribeForm />
+        </SubscribeOverlayContent>
+      </SubscribeOverlay>
+    );
+  }
+}
 
 interface SubscribeOverlayProps {
   open?: boolean;
@@ -156,58 +209,3 @@ const SubscribeOverlayDescription = styled.p`
   font-weight: 300;
   opacity: 0.8;
 `;
-
-interface SubscribeState {
-  isOpen: boolean;
-}
-
-class SubscribeModal extends React.Component<any, SubscribeState> {
-  state = { isOpen: false };
-
-  componentWillUnmount() {
-    this.unsubscribeEsc();
-  }
-
-  escFunction = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      this.close();
-    }
-  };
-
-  subscribeEsc() {
-    document.addEventListener('keydown', this.escFunction, false);
-  }
-
-  unsubscribeEsc() {
-    document.removeEventListener('keydown', this.escFunction, false);
-  }
-
-  open = () => {
-    this.setState({ isOpen: true });
-    this.subscribeEsc();
-  };
-
-  close = () => {
-    this.setState({ isOpen: false });
-    this.unsubscribeEsc();
-  };
-
-  render() {
-    return (
-      <SubscribeOverlay open={this.state.isOpen}>
-        <SubscribeOverlayClose onClick={this.close} />
-        <SubscribeOverlayContent>
-          <SubscribeLogo />
-          <SubscribeOverlayTitle>Subscribe to {config.title}</SubscribeOverlayTitle>
-          <SubscribeOverlayDescription>
-            Stay up to date! Get all the latest &amp; greatest posts delivered straight to your
-            inbox
-          </SubscribeOverlayDescription>
-          <SubscribeForm />
-        </SubscribeOverlayContent>
-      </SubscribeOverlay>
-    );
-  }
-}
-
-export default SubscribeModal;

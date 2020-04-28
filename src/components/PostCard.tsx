@@ -1,14 +1,101 @@
+import { format } from 'date-fns';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import _ from 'lodash';
 import { lighten } from 'polished';
 import React from 'react';
-import styled from '@emotion/styled';
+
 import { css } from '@emotion/core';
-import { format } from 'date-fns';
+import styled from '@emotion/styled';
 
 import { colors } from '../styles/colors';
 import { PageContext } from '../templates/post';
+
+export interface PostCardProps {
+  post: PageContext;
+  large?: boolean;
+}
+
+export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
+  const date = new Date(post.frontmatter.date);
+  // 2018-08-20
+  const datetime = format(date, 'yyyy-MM-dd');
+  // 20 AUG 2018
+  const displayDatetime = format(date, 'dd LLL yyyy');
+
+  return (
+    <article
+      className={`post-card ${post.frontmatter.image ? '' : 'no-image'} ${
+        large ? 'post-card-large' : ''
+      }`}
+      css={[PostCardStyles, large && PostCardLarge]}
+    >
+      {post.frontmatter.image && (
+        <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
+          <PostCardImage className="post-card-image">
+            {post.frontmatter?.image?.childImageSharp?.fluid && (
+              <Img
+                alt={`${post.frontmatter.title} cover image`}
+                style={{ height: '100%' }}
+                fluid={post.frontmatter.image.childImageSharp.fluid}
+              />
+            )}
+          </PostCardImage>
+        </Link>
+      )}
+      <PostCardContent className="post-card-content">
+        <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
+          <PostCardHeader className="post-card-header">
+            {post.frontmatter.tags && (
+              <PostCardPrimaryTag className="post-card-primary-tag">
+                {post.frontmatter.tags[0]}
+              </PostCardPrimaryTag>
+            )}
+            <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>
+          </PostCardHeader>
+          <PostCardExcerpt className="post-card-excerpt">
+            <p>{post.frontmatter.excerpt || post.excerpt}</p>
+          </PostCardExcerpt>
+        </Link>
+        <PostCardMeta className="post-card-meta">
+          <AuthorList className="author-list">
+            {post.frontmatter.author.map(author => {
+              return (
+                <AuthorListItem key={author.id} className="author-list-item">
+                  <AuthorNameTooltip className="author-name-tooltip">{author.id}</AuthorNameTooltip>
+                  <Link css={StaticAvatar} to={`/author/${_.kebabCase(author.id)}/`}>
+                    <Img
+                      css={AuthorProfileImage}
+                      fluid={author.avatar.children[0].fluid}
+                      alt={author.id}
+                      fadeIn={false}
+                    />
+                  </Link>
+                </AuthorListItem>
+              );
+            })}
+          </AuthorList>
+          <PostCardBylineContent className="post-card-byline-content">
+            <span>
+              {post.frontmatter.author.map((author, index) => {
+                return (
+                  <React.Fragment key={author.id}>
+                    <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
+                    {post.frontmatter.author.length - 1 > index && ', '}
+                  </React.Fragment>
+                );
+              })}
+            </span>
+            <span className="post-card-byline-date">
+              <time dateTime={datetime}>{displayDatetime}</time>{' '}
+              <span className="bull">&bull;</span> {post.timeToRead} min read
+            </span>
+          </PostCardBylineContent>
+        </PostCardMeta>
+      </PostCardContent>
+    </article>
+  );
+};
 
 const PostCardStyles = css`
   position: relative;
@@ -252,93 +339,3 @@ export const AuthorProfileImage = css`
     background: ${colors.darkmode};
   }
 `;
-
-export interface PostCardProps {
-  post: PageContext;
-  large?: boolean;
-}
-
-const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
-  const date = new Date(post.frontmatter.date);
-  // 2018-08-20
-  const datetime = format(date, 'yyyy-MM-dd');
-  // 20 AUG 2018
-  const displayDatetime = format(date, 'dd LLL yyyy');
-
-  return (
-    <article
-      className={`post-card ${post.frontmatter.image ? '' : 'no-image'} ${
-        large ? 'post-card-large' : ''
-      }`}
-      css={[PostCardStyles, large && PostCardLarge]}
-    >
-      {post.frontmatter.image && (
-        <Link className="post-card-image-link" css={PostCardImageLink} to={post.fields.slug}>
-          <PostCardImage className="post-card-image">
-            {post.frontmatter.image &&
-              post.frontmatter.image.childImageSharp &&
-              post.frontmatter.image.childImageSharp.fluid && (
-                <Img
-                  alt={`${post.frontmatter.title} cover image`}
-                  style={{ height: '100%' }}
-                  fluid={post.frontmatter.image.childImageSharp.fluid}
-                />
-              )}
-          </PostCardImage>
-        </Link>
-      )}
-      <PostCardContent className="post-card-content">
-        <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
-          <PostCardHeader className="post-card-header">
-            {post.frontmatter.tags && (
-              <PostCardPrimaryTag className="post-card-primary-tag">
-                {post.frontmatter.tags[0]}
-              </PostCardPrimaryTag>
-            )}
-            <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>
-          </PostCardHeader>
-          <PostCardExcerpt className="post-card-excerpt">
-            <p>{post.frontmatter.excerpt || post.excerpt}</p>
-          </PostCardExcerpt>
-        </Link>
-        <PostCardMeta className="post-card-meta">
-          <AuthorList className="author-list">
-            {post.frontmatter.author.map(author => {
-              return (
-                <AuthorListItem key={author.id} className="author-list-item">
-                  <AuthorNameTooltip className="author-name-tooltip">{author.id}</AuthorNameTooltip>
-                  <Link css={StaticAvatar} to={`/author/${_.kebabCase(author.id)}/`}>
-                    <Img
-                      css={AuthorProfileImage}
-                      fluid={author.avatar.children[0].fluid}
-                      alt={author.id}
-                      fadeIn={false}
-                    />
-                  </Link>
-                </AuthorListItem>
-              );
-            })}
-          </AuthorList>
-          <PostCardBylineContent className="post-card-byline-content">
-            <span>
-              {post.frontmatter.author.map((author, index) => {
-                return (
-                  <React.Fragment key={author.id}>
-                    <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
-                    {post.frontmatter.author.length - 1 > index && ', '}
-                  </React.Fragment>
-                );
-              })}
-            </span>
-            <span className="post-card-byline-date">
-              <time dateTime={datetime}>{displayDatetime}</time>{' '}
-              <span className="bull">&bull;</span> {post.timeToRead} min read
-            </span>
-          </PostCardBylineContent>
-        </PostCardMeta>
-      </PostCardContent>
-    </article>
-  );
-};
-
-export default PostCard;

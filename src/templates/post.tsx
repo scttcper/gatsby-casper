@@ -1,5 +1,3 @@
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
 import { format } from 'date-fns';
 import { graphql, Link } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
@@ -8,17 +6,320 @@ import { lighten, setLightness } from 'polished';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 
-import Footer from '../components/Footer';
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+
+import { Footer } from '../components/Footer';
 import SiteNav, { SiteNavMain } from '../components/header/SiteNav';
 import { AuthorList, AuthorListItem, AuthorProfileImage } from '../components/PostCard';
 import PostContent from '../components/PostContent';
-import ReadNext from '../components/ReadNext';
-import Subscribe from '../components/subscribe/Subscribe';
-import Wrapper from '../components/Wrapper';
+import { ReadNext } from '../components/ReadNext';
+import { Subscribe } from '../components/subscribe/Subscribe';
+import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
+
+interface PageTemplateProps {
+  pathContext: {
+    slug: string;
+  };
+  data: {
+    logo: {
+      childImageSharp: {
+        fixed: any;
+      };
+    };
+    markdownRemark: {
+      html: string;
+      htmlAst: any;
+      excerpt: string;
+      timeToRead: string;
+      frontmatter: {
+        title: string;
+        date: string;
+        userDate: string;
+        image: {
+          childImageSharp: {
+            fluid: any;
+          };
+        };
+        excerpt: string;
+        tags: string[];
+        author: Array<{
+          id: string;
+          bio: string;
+          avatar: {
+            children: Array<{
+              fluid: FluidObject;
+            }>;
+          };
+        }>;
+      };
+    };
+    relatedPosts: {
+      totalCount: number;
+      edges: Array<{
+        node: {
+          timeToRead: number;
+          frontmatter: {
+            title: string;
+            date: string;
+          };
+          fields: {
+            slug: string;
+          };
+        };
+      }>;
+    };
+  };
+  pageContext: {
+    prev: PageContext;
+    next: PageContext;
+  };
+}
+
+export interface PageContext {
+  excerpt: string;
+  timeToRead: number;
+  fields: {
+    slug: string;
+  };
+  frontmatter: {
+    image: {
+      childImageSharp: {
+        fluid: any;
+      };
+    };
+    excerpt: string;
+    title: string;
+    date: string;
+    draft?: boolean;
+    tags: string[];
+    author: Array<{
+      id: string;
+      bio: string;
+      avatar: {
+        children: Array<{
+          fluid: FluidObject;
+        }>;
+      };
+    }>;
+  };
+}
+
+const PageTemplate: React.FC<PageTemplateProps> = props => {
+  const post = props.data.markdownRemark;
+  let width = '';
+  let height = '';
+  if (post.frontmatter.image && post.frontmatter.image.childImageSharp) {
+    width = post.frontmatter.image.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
+    height = String(Number(width) / post.frontmatter.image.childImageSharp.fluid.aspectRatio);
+  }
+
+  const date = new Date(post.frontmatter.date);
+  // 2018-08-20
+  const datetime = format(date, 'yyyy-MM-dd');
+  // 20 AUG 2018
+  const displayDatetime = format(date, 'dd LLL yyyy');
+
+  return (
+    <IndexLayout className="post-template">
+      <Helmet>
+        <html lang={config.lang} />
+        <title>{post.frontmatter.title}</title>
+
+        <meta name="description" content={post.excerpt} />
+        <meta property="og:site_name" content={config.title} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.frontmatter.title} />
+        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
+        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+          <meta
+            property="og:image"
+            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
+          />
+        )}
+        <meta property="article:published_time" content={post.frontmatter.date} />
+        {/* not sure if modified time possible */}
+        {/* <meta property="article:modified_time" content="2018-08-20T15:12:00.000Z" /> */}
+        {post.frontmatter.tags && (
+          <meta property="article:tag" content={post.frontmatter.tags[0]} />
+        )}
+
+        {config.facebook && <meta property="article:publisher" content={config.facebook} />}
+        {config.facebook && <meta property="article:author" content={config.facebook} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.frontmatter.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+          <meta
+            name="twitter:image"
+            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
+          />
+        )}
+        <meta name="twitter:label1" content="Written by" />
+        <meta name="twitter:data1" content={post.frontmatter.author.id} />
+        <meta name="twitter:label2" content="Filed under" />
+        {post.frontmatter.tags && <meta name="twitter:data2" content={post.frontmatter.tags[0]} />}
+        {config.twitter && (
+          <meta
+            name="twitter:site"
+            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+          />
+        )}
+        {config.twitter && (
+          <meta
+            name="twitter:creator"
+            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
+          />
+        )}
+        {width && <meta property="og:image:width" content={width} />}
+        {height && <meta property="og:image:height" content={height} />}
+      </Helmet>
+      <Wrapper css={PostTemplate}>
+        <header className="site-header">
+          <div css={[outer, SiteNavMain]}>
+            <div css={inner}>
+              <SiteNav isPost post={post.frontmatter} />
+            </div>
+          </div>
+        </header>
+        <main id="site-main" className="site-main" css={[SiteMain, outer]}>
+          <div css={inner}>
+            {/* TODO: no-image css tag? */}
+            <article css={[PostFull, !post.frontmatter.image && NoImage]}>
+              <PostFullHeader className="post-full-header">
+                <PostFullTags className="post-full-tags">
+                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                      {post.frontmatter.tags[0]}
+                    </Link>
+                  )}
+                </PostFullTags>
+                <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
+                <PostFullCustomExcerpt className="post-full-custom-excerpt">
+                  {post.frontmatter.excerpt}
+                </PostFullCustomExcerpt>
+                <PostFullByline className="post-full-byline">
+                  <section className="post-full-byline-content">
+                    <AuthorList className="author-list">
+                      {post.frontmatter.author.map(author => {
+                        const [hovered, setHover] = useState(false);
+                        let timeout: NodeJS.Timeout;
+                        function handleMouseEnter() {
+                          clearTimeout(timeout);
+                          setHover(true);
+                        }
+
+                        function handleMouseLeave() {
+                          clearTimeout(timeout);
+                          timeout = setTimeout(() => setHover(false), 600);
+                        }
+
+                        return (
+                          <AuthorListItem
+                            key={author.id}
+                            className="author-list-item"
+                            onMouseEnter={() => handleMouseEnter()}
+                            onMouseLeave={() => handleMouseLeave()}
+                          >
+                            <div
+                              css={css`
+                                ${AuthorCardStyle} ${hovered && Hovered}
+                              `}
+                              className="author-card"
+                            >
+                              {author.avatar.children.length && (
+                                <Img
+                                  css={AuthorProfileImage}
+                                  className="author-profile-image"
+                                  fluid={author.avatar.children[0].fluid}
+                                  fadeIn={false}
+                                />
+                              )}
+                              <div className="author-info">
+                                <div className="bio">
+                                  <h2>{author.id}</h2>
+                                  <p>{author.bio}</p>
+                                  <p>
+                                    <Link to={`/author/${_.kebabCase(author.id)}/`}>
+                                      More posts
+                                    </Link>{' '}
+                                    by {author.id}.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <Link
+                              css={AuthorAvatar}
+                              className="author-avatar"
+                              to={`/author/${_.kebabCase(author.id)}/`}
+                            >
+                              <Img
+                                css={AuthorProfileImage}
+                                className="author-profile-image"
+                                fluid={author.avatar.children[0].fluid}
+                                alt={author.id}
+                                fadeIn={false}
+                              />
+                            </Link>
+                          </AuthorListItem>
+                        );
+                      })}
+                    </AuthorList>
+                    <section className="post-full-byline-meta">
+                      <h4 className="author-name">
+                        {post.frontmatter.author.map(author => (
+                          <Link key={author.id} to={`/author/${_.kebabCase(author.id)}/`}>
+                            {author.id}
+                          </Link>
+                        ))}
+                      </h4>
+                      <div className="byline-meta-content">
+                        <time className="byline-meta-date" dateTime={datetime}>
+                          {displayDatetime}
+                        </time>
+                        <span className="byline-reading-time">
+                          <span className="bull">&bull;</span> 20 min
+                        </span>
+                      </div>
+                    </section>
+                  </section>
+                </PostFullByline>
+              </PostFullHeader>
+
+              {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+                <PostFullImage>
+                  <Img
+                    style={{ height: '100%' }}
+                    fluid={post.frontmatter.image.childImageSharp.fluid}
+                    alt={post.frontmatter.title}
+                  />
+                </PostFullImage>
+              )}
+              <PostContent htmlAst={post.htmlAst} />
+
+              {/* The big email subscribe modal content */}
+              {config.showSubscribe && <Subscribe title={config.title} />}
+            </article>
+          </div>
+        </main>
+
+        <ReadNext
+          tags={post.frontmatter.tags}
+          relatedPosts={props.data.relatedPosts}
+          pageContext={props.pageContext}
+        />
+
+        <Footer />
+      </Wrapper>
+    </IndexLayout>
+  );
+};
 
 const PostTemplate = css`
   .site-main {
@@ -327,305 +628,6 @@ const PostFullImage = styled.figure`
   }
 `;
 
-interface PageTemplateProps {
-  pathContext: {
-    slug: string;
-  };
-  data: {
-    logo: {
-      childImageSharp: {
-        fixed: any;
-      };
-    };
-    markdownRemark: {
-      html: string;
-      htmlAst: any;
-      excerpt: string;
-      timeToRead: string;
-      frontmatter: {
-        title: string;
-        date: string;
-        userDate: string;
-        image: {
-          childImageSharp: {
-            fluid: any;
-          };
-        };
-        excerpt: string;
-        tags: string[];
-        author: Array<{
-          id: string;
-          bio: string;
-          avatar: {
-            children: Array<{
-              fluid: FluidObject;
-            }>;
-          };
-        }>;
-      };
-    };
-    relatedPosts: {
-      totalCount: number;
-      edges: Array<{
-        node: {
-          timeToRead: number;
-          frontmatter: {
-            title: string;
-            date: string;
-          };
-          fields: {
-            slug: string;
-          };
-        };
-      }>;
-    };
-  };
-  pageContext: {
-    prev: PageContext;
-    next: PageContext;
-  };
-}
-
-export interface PageContext {
-  excerpt: string;
-  timeToRead: number;
-  fields: {
-    slug: string;
-  };
-  frontmatter: {
-    image: {
-      childImageSharp: {
-        fluid: any;
-      };
-    };
-    excerpt: string;
-    title: string;
-    date: string;
-    draft?: boolean;
-    tags: string[];
-    author: Array<{
-      id: string;
-      bio: string;
-      avatar: {
-        children: Array<{
-          fluid: FluidObject;
-        }>;
-      };
-    }>;
-  };
-}
-
-const PageTemplate: React.FC<PageTemplateProps> = props => {
-  const post = props.data.markdownRemark;
-  let width = '';
-  let height = '';
-  if (post.frontmatter.image && post.frontmatter.image.childImageSharp) {
-    width = post.frontmatter.image.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-    height = String(Number(width) / post.frontmatter.image.childImageSharp.fluid.aspectRatio);
-  }
-  const date = new Date(post.frontmatter.date);
-  // 2018-08-20
-  const datetime = format(date, 'yyyy-MM-dd');
-  // 20 AUG 2018
-  const displayDatetime = format(date, 'dd LLL yyyy');
-
-  return (
-    <IndexLayout className="post-template">
-      <Helmet>
-        <html lang={config.lang} />
-        <title>{post.frontmatter.title}</title>
-
-        <meta name="description" content={post.excerpt} />
-        <meta property="og:site_name" content={config.title} />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={post.frontmatter.title} />
-        <meta property="og:description" content={post.excerpt} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
-        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
-          <meta
-            property="og:image"
-            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
-          />
-        )}
-        <meta property="article:published_time" content={post.frontmatter.date} />
-        {/* not sure if modified time possible */}
-        {/* <meta property="article:modified_time" content="2018-08-20T15:12:00.000Z" /> */}
-        {post.frontmatter.tags && (
-          <meta property="article:tag" content={post.frontmatter.tags[0]} />
-        )}
-
-        {config.facebook && <meta property="article:publisher" content={config.facebook} />}
-        {config.facebook && <meta property="article:author" content={config.facebook} />}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post.frontmatter.title} />
-        <meta name="twitter:description" content={post.excerpt} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
-          <meta
-            name="twitter:image"
-            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
-          />
-        )}
-        <meta name="twitter:label1" content="Written by" />
-        <meta name="twitter:data1" content={post.frontmatter.author.id} />
-        <meta name="twitter:label2" content="Filed under" />
-        {post.frontmatter.tags && <meta name="twitter:data2" content={post.frontmatter.tags[0]} />}
-        {config.twitter && (
-          <meta
-            name="twitter:site"
-            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
-          />
-        )}
-        {config.twitter && (
-          <meta
-            name="twitter:creator"
-            content={`@${config.twitter.split('https://twitter.com/')[1]}`}
-          />
-        )}
-        {width && <meta property="og:image:width" content={width} />}
-        {height && <meta property="og:image:height" content={height} />}
-      </Helmet>
-      <Wrapper css={PostTemplate}>
-        <header className="site-header">
-          <div css={[outer, SiteNavMain]}>
-            <div css={inner}>
-              <SiteNav isPost post={post.frontmatter} />
-            </div>
-          </div>
-        </header>
-        <main id="site-main" className="site-main" css={[SiteMain, outer]}>
-          <div css={inner}>
-            {/* TODO: no-image css tag? */}
-            <article css={[PostFull, !post.frontmatter.image && NoImage]}>
-              <PostFullHeader className="post-full-header">
-                <PostFullTags className="post-full-tags">
-                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                      {post.frontmatter.tags[0]}
-                    </Link>
-                  )}
-                </PostFullTags>
-                <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
-                <PostFullCustomExcerpt className="post-full-custom-excerpt">
-                  {post.frontmatter.excerpt}
-                </PostFullCustomExcerpt>
-                <PostFullByline className="post-full-byline">
-                  <section className="post-full-byline-content">
-                    <AuthorList className="author-list">
-                      {post.frontmatter.author.map(author => {
-                        const [hovered, setHover] = useState(false);
-                        let timeout: NodeJS.Timeout;
-                        function handleMouseEnter() {
-                          clearTimeout(timeout);
-                          setHover(true);
-                        }
-                        function handleMouseLeave() {
-                          clearTimeout(timeout);
-                          timeout = setTimeout(() => setHover(false), 600);
-                        }
-                        return (
-                          <AuthorListItem
-                            key={author.id}
-                            className="author-list-item"
-                            onMouseEnter={() => handleMouseEnter()}
-                            onMouseLeave={() => handleMouseLeave()}
-                          >
-                            <div
-                              css={css`
-                                ${AuthorCardStyle} ${hovered && Hovered}
-                              `}
-                              className={`author-card`}
-                            >
-                              {author.avatar.children.length && (
-                                <Img
-                                  css={AuthorProfileImage}
-                                  className="author-profile-image"
-                                  fluid={author.avatar.children[0].fluid}
-                                  fadeIn={false}
-                                />
-                              )}
-                              <div className="author-info">
-                                <div className="bio">
-                                  <h2>{author.id}</h2>
-                                  <p>{author.bio}</p>
-                                  <p>
-                                    <Link to={`/author/${_.kebabCase(author.id)}/`}>
-                                      More posts
-                                    </Link>{' '}
-                                    by {author.id}.
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <Link
-                              css={AuthorAvatar}
-                              className="author-avatar"
-                              to={`/author/${_.kebabCase(author.id)}/`}
-                            >
-                              <Img
-                                css={AuthorProfileImage}
-                                className="author-profile-image"
-                                fluid={author.avatar.children[0].fluid}
-                                alt={author.id}
-                                fadeIn={false}
-                              />
-                            </Link>
-                          </AuthorListItem>
-                        );
-                      })}
-                    </AuthorList>
-                    <section className="post-full-byline-meta">
-                      <h4 className="author-name">
-                        {post.frontmatter.author.map(author => (
-                          <Link key={author.id} to={`/author/${_.kebabCase(author.id)}/`}>
-                            {author.id}
-                          </Link>
-                        ))}
-                      </h4>
-                      <div className="byline-meta-content">
-                        <time className="byline-meta-date" dateTime={datetime}>
-                          {displayDatetime}
-                        </time>
-                        <span className="byline-reading-time">
-                          <span className="bull">&bull;</span> 20 min
-                        </span>
-                      </div>
-                    </section>
-                  </section>
-                </PostFullByline>
-              </PostFullHeader>
-
-              {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
-                <PostFullImage>
-                  <Img
-                    style={{ height: '100%' }}
-                    fluid={post.frontmatter.image.childImageSharp.fluid}
-                    alt={post.frontmatter.title}
-                  />
-                </PostFullImage>
-              )}
-              <PostContent htmlAst={post.htmlAst} />
-
-              {/* The big email subscribe modal content */}
-              {config.showSubscribe && <Subscribe title={config.title} />}
-            </article>
-          </div>
-        </main>
-
-        <ReadNext
-          tags={post.frontmatter.tags}
-          relatedPosts={props.data.relatedPosts}
-          pageContext={props.pageContext}
-        />
-
-        <Footer />
-      </Wrapper>
-    </IndexLayout>
-  );
-};
-
-export default PageTemplate;
-
 export const query = graphql`
   query($slug: String, $primaryTag: String) {
     logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
@@ -690,3 +692,5 @@ export const query = graphql`
     }
   }
 `;
+
+export default PageTemplate;

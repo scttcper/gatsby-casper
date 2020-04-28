@@ -2,10 +2,10 @@ import { graphql } from 'gatsby';
 import React from 'react';
 import { FluidObject } from 'gatsby-image';
 
-import Footer from '../components/Footer';
+import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
+import { PostCard } from '../components/PostCard';
+import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import {
   inner,
@@ -23,8 +23,6 @@ import {
 import { PageContext } from './post';
 import { Helmet } from 'react-helmet';
 import config from '../website-config';
-
-
 
 interface TagTemplateProps {
   pathContext: {
@@ -72,7 +70,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
         </title>
         <meta
           name="description"
-          content={tagData && tagData.node ? tagData.node.description : ''}
+          content={tagData?.node ? tagData.node.description : ''}
         />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="website" />
@@ -103,7 +101,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
             <SiteHeaderContent css={inner} className="site-header-content">
               <SiteTitle className="site-title">{tag}</SiteTitle>
               <SiteDescription className="site-description">
-                {tagData && tagData.node.description ? (
+                {tagData?.node.description ? (
                   tagData.node.description
                 ) : (
                   <>

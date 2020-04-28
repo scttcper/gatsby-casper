@@ -1,86 +1,29 @@
 import { graphql } from 'gatsby';
+import { FixedObject } from 'gatsby-image';
 import React from 'react';
-import { css } from '@emotion/core';
 import { Helmet } from 'react-helmet';
-import { FixedObject } from "gatsby-image"
 
-import Footer from '../components/Footer';
+import { css } from '@emotion/core';
+
+import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
-import IndexLayout from '../layouts';
-import config from '../website-config';
 import Pagination from '../components/Pagination';
+import { PostCard } from '../components/PostCard';
+import { Wrapper } from '../components/Wrapper';
+import IndexLayout from '../layouts';
 import {
   inner,
   outer,
   PostFeed,
+  Posts,
   SiteDescription,
   SiteHeader,
   SiteHeaderContent,
   SiteMain,
   SiteTitle,
-  Posts,
 } from '../styles/shared';
+import config from '../website-config';
 import { PageContext } from './post';
-
-const HomePosts = css`
-  @media (min-width: 795px) {
-    .post-card-large {
-      flex: 1 1 100%;
-      flex-direction: row;
-      padding-bottom: 40px;
-      min-height: 280px;
-      border-top: 0;
-    }
-
-    .post-card-large .post-card-title {
-      margin-top: 0;
-      font-size: 3.2rem;
-    }
-
-    .post-card-large:not(.no-image) .post-card-header {
-      margin-top: 0;
-    }
-
-    .post-card-large .post-card-image-link {
-      position: relative;
-      flex: 1 1 auto;
-      margin-bottom: 0;
-      min-height: 380px;
-    }
-
-    .post-card-large .post-card-image {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-
-    .post-card-large .post-card-content {
-      flex: 0 1 361px;
-      justify-content: center;
-    }
-
-    .post-card-large .post-card-title {
-      margin-top: 0;
-      font-size: 3.2rem;
-    }
-
-    .post-card-large .post-card-content-link {
-      padding: 0 0 0 40px;
-    }
-
-    .post-card-large .post-card-meta {
-      padding: 0 0 0 40px;
-    }
-
-    .post-card-large .post-card-excerpt p {
-      margin-bottom: 1.5em;
-      font-size: 1.8rem;
-      line-height: 1.5em;
-    }
-  }
-`;
 
 export interface IndexProps {
   pageContext: {
@@ -106,7 +49,7 @@ export interface IndexProps {
   };
 }
 
-const IndexPage: React.FC<IndexProps> = (props) => {
+const IndexPage: React.FC<IndexProps> = props => {
   const { width, height } = props.data.header.childImageSharp.fixed;
 
   return (
@@ -186,17 +129,17 @@ const IndexPage: React.FC<IndexProps> = (props) => {
           </div>
         </main>
         {props.children}
-        {props.pageContext.numPages > 1 && <Pagination
-          currentPage={props.pageContext.currentPage}
-          numPages={props.pageContext.numPages}
-        />}
+        {props.pageContext.numPages > 1 && (
+          <Pagination
+            currentPage={props.pageContext.currentPage}
+            numPages={props.pageContext.numPages}
+          />
+        )}
         <Footer />
       </Wrapper>
     </IndexLayout>
   );
 };
-
-export default IndexPage;
 
 export const pageQuery = graphql`
   query blogPageQuery($skip: Int!, $limit: Int!) {
@@ -213,7 +156,7 @@ export const pageQuery = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fixed(width: 2000 quality: 100) {
+        fixed(width: 2000, quality: 100) {
           ...GatsbyImageSharpFixed
         }
       }
@@ -246,7 +189,7 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fluid(quality: 100 srcSetBreakpoints: [40, 80, 120]) {
+                    fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
                       ...GatsbyImageSharpFluid
                     }
                   }
@@ -264,3 +207,63 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+const HomePosts = css`
+  @media (min-width: 795px) {
+    .post-card-large {
+      flex: 1 1 100%;
+      flex-direction: row;
+      padding-bottom: 40px;
+      min-height: 280px;
+      border-top: 0;
+    }
+
+    .post-card-large .post-card-title {
+      margin-top: 0;
+      font-size: 3.2rem;
+    }
+
+    .post-card-large:not(.no-image) .post-card-header {
+      margin-top: 0;
+    }
+
+    .post-card-large .post-card-image-link {
+      position: relative;
+      flex: 1 1 auto;
+      margin-bottom: 0;
+      min-height: 380px;
+    }
+
+    .post-card-large .post-card-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .post-card-large .post-card-content {
+      flex: 0 1 361px;
+      justify-content: center;
+    }
+
+    .post-card-large .post-card-title {
+      margin-top: 0;
+      font-size: 3.2rem;
+    }
+
+    .post-card-large .post-card-content-link {
+      padding: 0 0 0 40px;
+    }
+
+    .post-card-large .post-card-meta {
+      padding: 0 0 0 40px;
+    }
+
+    .post-card-large .post-card-excerpt p {
+      margin-bottom: 1.5em;
+      font-size: 1.8rem;
+      line-height: 1.5em;
+    }
+  }
+`;
+
+export default IndexPage;

@@ -11,10 +11,6 @@ interface IndexProps {
   className?: string;
 }
 
-/* deleted content blockquote small:before {
-  content: '\2014 \00A0';
-} */
-
 const IndexLayout: React.FC<IndexProps> = props => {
   return (
     <div className={props.className}>

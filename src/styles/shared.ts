@@ -1,7 +1,9 @@
+import { lighten } from 'polished';
+
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
+
 import { colors } from './colors';
-import { darken, lighten } from 'polished';
 
 export const outer = css`
   position: relative;

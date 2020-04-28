@@ -4,10 +4,10 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { FluidObject } from 'gatsby-image';
 
-import Footer from '../components/Footer';
+import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
+import { PostCard } from '../components/PostCard';
+import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import {
   AuthorProfileImage,
@@ -80,10 +80,6 @@ const AuthorMeta = css`
       display: none;
     }
   }
-`;
-
-const AuthorLocation = css`
-  margin: 0 6px;
 `;
 
 const AuthorSocialLink = styled.span`

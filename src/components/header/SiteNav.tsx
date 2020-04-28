@@ -1,17 +1,145 @@
-// tslint:disable:no-http-string
 import { Link } from 'gatsby';
-import React from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import { darken } from 'polished';
+import React from 'react';
 
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+
+import { colors } from '../../styles/colors';
 import { SocialLink, SocialLinkFb } from '../../styles/shared';
 import config from '../../website-config';
-import Facebook from '../icons/facebook';
-import Twitter from '../icons/twitter';
-import SubscribeModal from '../subscribe/SubscribeOverlay';
-import SiteNavLogo from './SiteNavLogo';
-import { colors } from '../../styles/colors';
+import { Facebook } from '../icons/facebook';
+import { Twitter } from '../icons/twitter';
+import { SubscribeModal } from '../subscribe/SubscribeModal';
+import { SiteNavLogo } from './SiteNavLogo';
+
+interface SiteNavProps {
+  isHome?: boolean;
+  isPost?: boolean;
+  post?: any;
+}
+
+interface SiteNavState {
+  showTitle: boolean;
+}
+
+class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
+  subscribe = React.createRef<SubscribeModal>();
+  titleRef = React.createRef<HTMLSpanElement>();
+  lastScrollY = 0;
+  ticking = false;
+  state = { showTitle: false };
+
+  openModal = () => {
+    if (this.subscribe.current) {
+      this.subscribe.current.open();
+    }
+  };
+
+  componentDidMount(): void {
+    this.lastScrollY = window.scrollY;
+    if (this.props.isPost) {
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+    }
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  onScroll = () => {
+    if (!this.titleRef || !this.titleRef.current) {
+      return;
+    }
+
+    if (!this.ticking) {
+      requestAnimationFrame(this.update);
+    }
+
+    this.ticking = true;
+  };
+
+  update = () => {
+    if (!this.titleRef || !this.titleRef.current) {
+      return;
+    }
+
+    this.lastScrollY = window.scrollY;
+
+    const trigger = this.titleRef.current.getBoundingClientRect().top;
+    const triggerOffset = this.titleRef.current.offsetHeight + 35;
+
+    // show/hide post title
+    if (this.lastScrollY >= trigger + triggerOffset) {
+      this.setState({ showTitle: true });
+    } else {
+      this.setState({ showTitle: false });
+    }
+
+    this.ticking = false;
+  };
+
+  render(): JSX.Element {
+    const { isHome = false, isPost = false, post = {} } = this.props;
+    return (
+      <nav css={SiteNavStyles}>
+        <SiteNavLeft>
+          {!isHome && <SiteNavLogo />}
+          <SiteNavContent css={[this.state.showTitle ? HideNav : '']}>
+            <ul css={NavStyles} role="menu">
+              {/* TODO: mark current nav item - add class nav-current */}
+              <li role="menuitem">
+                <Link to="/">Home</Link>
+              </li>
+              <li role="menuitem">
+                <Link to="/about">About</Link>
+              </li>
+              <li role="menuitem">
+                <Link to="/tags/getting-started/">Getting Started</Link>
+              </li>
+            </ul>
+            {isPost && (
+              <NavPostTitle ref={this.titleRef} className="nav-post-title">
+                {post.title}
+              </NavPostTitle>
+            )}
+          </SiteNavContent>
+        </SiteNavLeft>
+        <SiteNavRight>
+          <SocialLinks>
+            {config.facebook && (
+              <a
+                className="social-link-fb"
+                css={[SocialLink, SocialLinkFb]}
+                href={config.facebook}
+                target="_blank"
+                title="Facebook"
+                rel="noopener noreferrer"
+              >
+                <Facebook />
+              </a>
+            )}
+            {config.twitter && (
+              <a
+                css={SocialLink}
+                href={config.twitter}
+                title="Twitter"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter />
+              </a>
+            )}
+          </SocialLinks>
+          {config.showSubscribe && (
+            <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
+          )}
+          {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
+        </SiteNavRight>
+      </nav>
+    );
+  }
+}
 
 export const SiteNavMain = css`
   position: fixed;
@@ -183,133 +311,5 @@ const HideNav = css`
     transform: translateY(0);
   }
 `;
-
-interface SiteNavProps {
-  isHome?: boolean;
-  isPost?: boolean;
-  post?: any;
-}
-
-interface SiteNavState {
-  showTitle: boolean;
-}
-
-class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
-  subscribe = React.createRef<SubscribeModal>();
-  titleRef = React.createRef<HTMLSpanElement>();
-  lastScrollY = 0;
-  ticking = false;
-  state = { showTitle: false };
-
-  openModal = () => {
-    if (this.subscribe.current) {
-      this.subscribe.current.open();
-    }
-  };
-
-  componentDidMount(): void {
-    this.lastScrollY = window.scrollY;
-    if (this.props.isPost) {
-      window.addEventListener('scroll', this.onScroll, { passive: true });
-    }
-  }
-
-  componentWillUnmount(): void {
-    window.removeEventListener('scroll', this.onScroll);
-  }
-
-  onScroll = () => {
-    if (!this.titleRef || !this.titleRef.current) {
-      return;
-    }
-
-    if (!this.ticking) {
-      requestAnimationFrame(this.update);
-    }
-
-    this.ticking = true;
-  };
-
-  update = () => {
-    if (!this.titleRef || !this.titleRef.current) {
-      return;
-    }
-
-    this.lastScrollY = window.scrollY;
-
-    const trigger = this.titleRef.current.getBoundingClientRect().top;
-    const triggerOffset = this.titleRef.current.offsetHeight + 35;
-
-    // show/hide post title
-    if (this.lastScrollY >= trigger + triggerOffset) {
-      this.setState({ showTitle: true });
-    } else {
-      this.setState({ showTitle: false });
-    }
-
-    this.ticking = false;
-  };
-
-  render(): JSX.Element {
-    const { isHome = false, isPost = false, post = {} } = this.props;
-    return (
-      <nav css={SiteNavStyles}>
-        <SiteNavLeft>
-          {!isHome && <SiteNavLogo />}
-          <SiteNavContent css={[this.state.showTitle ? HideNav : '']}>
-            <ul css={NavStyles} role="menu">
-              {/* TODO: mark current nav item - add class nav-current */}
-              <li role="menuitem">
-                <Link to="/">Home</Link>
-              </li>
-              <li role="menuitem">
-                <Link to="/about">About</Link>
-              </li>
-              <li role="menuitem">
-                <Link to="/tags/getting-started/">Getting Started</Link>
-              </li>
-            </ul>
-            {isPost && (
-              <NavPostTitle ref={this.titleRef} className="nav-post-title">
-                {post.title}
-              </NavPostTitle>
-            )}
-          </SiteNavContent>
-        </SiteNavLeft>
-        <SiteNavRight>
-          <SocialLinks>
-            {config.facebook && (
-              <a
-                className="social-link-fb"
-                css={[SocialLink, SocialLinkFb]}
-                href={config.facebook}
-                target="_blank"
-                title="Facebook"
-                rel="noopener noreferrer"
-              >
-                <Facebook />
-              </a>
-            )}
-            {config.twitter && (
-              <a
-                css={SocialLink}
-                href={config.twitter}
-                title="Twitter"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Twitter />
-              </a>
-            )}
-          </SocialLinks>
-          {config.showSubscribe && (
-            <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
-          )}
-          {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
-        </SiteNavRight>
-      </nav>
-    );
-  }
-}
 
 export default SiteNav;

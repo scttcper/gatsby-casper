@@ -5,6 +5,40 @@ import { FixedObject } from 'gatsby-image';
 
 import config from '../../website-config';
 
+interface SiteNavLogoProps {
+  logo?: {
+    childImageSharp: {
+      fixed: FixedObject;
+    };
+  };
+}
+
+export const SiteNavLogo = () => (
+  <StaticQuery
+    query={graphql`
+      query HeadingQuery {
+        logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
+          childImageSharp {
+            fixed(quality: 100 width: 500) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+      }
+    `}
+    // tslint:disable-next-line:react-this-binding-issue
+    render={(data: SiteNavLogoProps) => (
+      <Link className="site-nav-logo" css={SiteNavLogoStyles} to="/">
+        {data.logo ? (
+          <img src={data.logo.childImageSharp.fixed.src} alt={config.title} />
+        ) : (
+          config.title
+        )}
+      </Link>
+    )}
+  />
+);
+
 const SiteNavLogoStyles = css`
   position: relative;
   z-index: 100;
@@ -30,38 +64,3 @@ const SiteNavLogoStyles = css`
   }
 `;
 
-interface SiteNavLogoProps {
-  logo?: {
-    childImageSharp: {
-      fixed: FixedObject;
-    };
-  };
-}
-
-const SiteNavLogo = () => (
-  <StaticQuery
-    query={graphql`
-      query HeadingQuery {
-        logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
-          childImageSharp {
-            fixed(quality: 100 width: 464) {
-              src
-            }
-          }
-        }
-      }
-    `}
-    // tslint:disable-next-line:react-this-binding-issue
-    render={(data: SiteNavLogoProps) => (
-      <Link className="site-nav-logo" css={SiteNavLogoStyles} to="/">
-        {data.logo ? (
-          <img src={data.logo.childImageSharp.fixed.src} alt={config.title} />
-        ) : (
-          config.title
-        )}
-      </Link>
-    )}
-  />
-);
-
-export default SiteNavLogo;
