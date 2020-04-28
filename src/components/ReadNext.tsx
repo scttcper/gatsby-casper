@@ -85,6 +85,12 @@ const ReadNextAside = styled.aside`
   .post-card-byline-content a {
     color: rgba(255, 255, 255, 0.8);
   }
+  .author-avatar {
+    border-color: ${lighten('-0.05', colors.darkgrey)};
+  }
+  .author-profile-image {
+    background: ${lighten('-0.05', colors.darkgrey)};
+  }
 
   @media (max-width: 650px) {
     .post-card {
