@@ -95,21 +95,26 @@ export const PostFullContent = styled.section`
   }
 
   a {
-    color: var(--darkgrey);
+    /* color: var(--darkgrey); */
+    color: ${colors.darkgrey};
     word-break: break-word;
-    box-shadow: var(--darkgrey) 0 -1px 0 inset;
+    /* box-shadow: var(--darkgrey) 0 -1px 0 inset; */
+    box-shadow: ${colors.darkgrey} 0 -1px 0 inset;
     transition: all 0.2s ease-in-out;
   }
 
   a:hover {
-    color: var(--blue);
+    /* color: var(--blue); */
+    color: ${colors.blue};
     text-decoration: none;
-    box-shadow: var(--blue) 0 -1px 0 inset;
+    /* box-shadow: var(--blue) 0 -1px 0 inset; */
+    box-shadow: ${colors.blue} 0 -1px 0 inset;
   }
 
   strong,
   em {
-    color: color(var(--darkgrey) l(-5%));
+    /* color: color(var(--darkgrey) l(-5%)); */
+    color: ${lighten('-0.05', colors.darkgrey)};
   }
 
   small {
@@ -175,7 +180,8 @@ export const PostFullContent = styled.section`
     font-size: 0.8em;
     line-height: 1em;
     font-weight: 400 !important;
-    background: var(--whitegrey);
+    /* background: var(--whitegrey); */
+    background: ${colors.whitegrey};
     border-radius: 3px;
   }
 
@@ -188,7 +194,8 @@ export const PostFullContent = styled.section`
     /* margin: 1.5em 0 3em; */
     padding: 20px;
     max-width: 100%;
-    border: color(var(--darkgrey) l(-10%)) 1px solid;
+    /* border: color(var(--darkgrey) l(-10%)) 1px solid; */
+    border: ${lighten('-0.1', colors.darkgrey)} 1px solid;
     /* color: var(--whitegrey); */
     color: ${colors.whitegrey};
     font-size: 1.4rem;
@@ -247,7 +254,8 @@ export const PostFullContent = styled.section`
   h4,
   h5,
   h6 {
-    color: color(var(--darkgrey) l(-5%));
+    /* color: color(var(--darkgrey) l(-5%)); */
+    color: ${lighten('-0.05', colors.darkgrey)};
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
       'Open Sans', 'Helvetica Neue', sans-serif;
   }
@@ -326,7 +334,8 @@ export const PostFullContent = styled.section`
     margin: 0.5em 0;
     padding: 0.4em 1em 0.9em;
     border: 0;
-    color: var(--blue);
+    /* color: var(--blue); */
+    color: ${colors.blue};
     font-family: Georgia, serif;
     font-size: 3.2rem;
     line-height: 1.35em;
@@ -407,23 +416,27 @@ export const PostFullContent = styled.section`
   }
 
   table th {
-    color: var(--darkgrey);
+    /* color: var(--darkgrey); */
+    color: ${colors.darkgrey};
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.2px;
     text-align: left;
     text-transform: uppercase;
-    background-color: color(var(--whitegrey) l(+4%));
+    /* background-color: color(var(--whitegrey) l(+4%)); */
+    background-color: ${lighten('0.04', colors.whitegrey)};
   }
 
   table th,
   table td {
     padding: 6px 12px;
-    border: color(var(--whitegrey) l(-1%) s(-5%)) 1px solid;
+    /* border: color(var(--whitegrey) l(-1%) s(-5%)) 1px solid; */
+    border: ${lighten('-0.01', colors.whitegrey)} 1px solid;
   }
 
   @media (prefers-color-scheme: dark) {
-    background: var(--darkmode);
+    /* background: var(--darkmode); */
+    background: ${colors.darkmode};
 
     h1,
     h2,
@@ -470,11 +483,12 @@ export const PostFullContent = styled.section`
     }
 
     table td:last-child {
-      background-image: linear-gradient(
+      /* background-image: linear-gradient(
         to left,
         var(--darkmode) 50%,
         color(var(--darkmode) a(0%)) 100%
-      );
+      ); */
+      background-image: linear-gradient(270deg, #191b1f 50%, rgba(25, 27, 31, 0));
     }
 
     table th {
@@ -485,7 +499,8 @@ export const PostFullContent = styled.section`
 
     table th,
     table td {
-      border: color(var(--darkmode) l(+8%)) 1px solid;
+      /* border: color(var(--darkmode) l(+8%)) 1px solid; */
+      border: ${lighten('0.08', colors.darkmode)} 1px solid;
     }
 
     .kg-bookmark-container,
