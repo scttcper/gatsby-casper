@@ -228,7 +228,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
             </div>
           </div>
 
-          <div css={[outer]} className="site-header-background no-image">
+          <div css={outer} className="site-header-background no-image">
             <div css={inner}>
               <SiteHeaderContent css={AuthorHeader} className="site-header-content">
                 <img

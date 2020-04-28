@@ -4,12 +4,12 @@ import React from 'react';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 
-import { SiteNavLogo } from '../components/header/SiteNavLogo';
+import SiteNav from '../components/header/SiteNav';
 import { PostCard } from '../components/PostCard';
 import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
-import { inner, outer, PostFeed, SiteHeader } from '../styles/shared';
+import { inner, outer, PostFeed, SiteHeader, SiteNavMain } from '../styles/shared';
 import { PageContext } from '../templates/post';
 
 interface NotFoundTemplateProps {
@@ -30,72 +30,32 @@ const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
     <IndexLayout>
       <Wrapper>
         <header css={[SiteHeader, outer]}>
-          <div className="inner">
-            <SiteNavCenter>
-              <SiteNavLogo />
-            </SiteNavCenter>
+          <div css={[outer, SiteNavMain]}>
+            <div css={inner}>
+              <SiteNav isHome={false} />
+            </div>
           </div>
         </header>
-        <main id="site-main" css={[ErrorTemplate, outer]}>
+        <main id="site-main" css={[outer, ErrorTemplate]}>
           <div css={inner}>
-            <section style={{ textAlign: 'center' }}>
+            <section style={{ textAlign: 'center', paddingBottom: '10vw' }}>
               <ErrorCode>404</ErrorCode>
               <ErrorDescription>Page not found</ErrorDescription>
               <Link css={ErrorLink} to="">
                 Go to the front page →
               </Link>
             </section>
-          </div>
-        </main>
-        <aside css={outer}>
-          <div css={inner}>
             <div css={PostFeed}>
               {edges.map(({ node }) => (
                 <PostCard key={node.fields.slug} post={node} />
               ))}
             </div>
           </div>
-        </aside>
+        </main>
       </Wrapper>
     </IndexLayout>
   );
 };
-
-const SiteNavCenter = styled.nav`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  .site-nav-logo {
-    margin-right: 0;
-  }
-`;
-
-const ErrorTemplate = css`
-  padding: 7vw 4vw;
-`;
-
-const ErrorCode = styled.h1`
-  margin: 0;
-  font-size: 12vw;
-  line-height: 1em;
-  letter-spacing: -5px;
-  opacity: 0.3;
-`;
-
-const ErrorDescription = styled.p`
-  margin: 0;
-  color: ${colors.midgrey};
-  font-size: 3rem;
-  line-height: 1.3em;
-  font-weight: 400;
-`;
-
-const ErrorLink = css`
-  display: inline-block;
-  margin-top: 5px;
-`;
 
 export const pageQuery = graphql`
   query {
@@ -137,6 +97,31 @@ export const pageQuery = graphql`
       }
     }
   }
+`;
+
+const ErrorTemplate = css`
+  padding: 14vw 4vw 6vw;
+`;
+
+const ErrorCode = styled.h1`
+  margin: 0;
+  font-size: 12vw;
+  line-height: 1em;
+  letter-spacing: -5px;
+  opacity: 0.3;
+`;
+
+const ErrorDescription = styled.p`
+  margin: 0;
+  color: ${colors.midgrey};
+  font-size: 3rem;
+  line-height: 1.3em;
+  font-weight: 400;
+`;
+
+const ErrorLink = css`
+  display: inline-block;
+  margin-top: 5px;
 `;
 
 export default NotFoundPage;

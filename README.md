@@ -1,6 +1,6 @@
 # gatsby-casper
 
-Demo: https://gatsby-casper.netlify.com/
+Demo: https://gatsby-casper.netlify.app
 
 This is a static blog generator and starter gatsby repo. A port of [Casper](https://github.com/TryGhost/Casper) v2 a theme from [Ghost](https://ghost.org/) for [GatsbyJS](https://www.gatsbyjs.org/) using [TypeScript](https://www.typescriptlang.org/).
 
@@ -33,14 +33,13 @@ Now push to whatever repo you want!
   - [x] subscribe form - using [mailchimp](https://mailchimp.com)
   - [ ] full width images in markdown? - not sure if possible
   - [x] multiple post authors
-  - [ ] floating reading progress bar
 - [x] 404 page
 - [x] subscribe modal/overlay
 - [x] rss feed (on production build)
-- [x] polish ✨
+- [ ] polish ✨
   - [x] meta tags
   - [x] page titles
-  - [x] pagination
+  - [ ] pagination
 
 ### Deploy to Netlify
 
