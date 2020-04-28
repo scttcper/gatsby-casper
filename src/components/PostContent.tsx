@@ -195,13 +195,13 @@ export const PostFullContent = styled.section`
     padding: 20px;
     max-width: 100%;
     /* border: color(var(--darkgrey) l(-10%)) 1px solid; */
-    border: ${lighten('-0.1', colors.darkgrey)} 1px solid;
+    /* border: ${lighten('-0.1', colors.darkgrey)} 1px solid; */
     /* color: var(--whitegrey); */
     color: ${colors.whitegrey};
     font-size: 1.4rem;
     line-height: 1.5em;
     /* background: color(var(--darkgrey) l(-3%)); */
-    background: ${lighten('-0.03', colors.darkgrey)};
+    /* background: ${lighten('-0.03', colors.darkgrey)}; */
     border-radius: 5px;
   }
 

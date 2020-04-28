@@ -17,13 +17,13 @@ GitHub - https://github.com/scttcper/gatsby-casper
 
 Clone this repo.
 
-```
+```bash
 git clone https://github.com/scttcper/gatsby-casper.git --depth=1
 ```
 
 Remove .git folder and setup a new one
 
-```
+```bash
 rm -rf .git && git init
 ```
 
