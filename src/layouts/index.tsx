@@ -480,6 +480,21 @@ const IndexLayout: React.FC<IndexProps> = props => {
             font-size: 1.4rem;
             font-weight: 500;
           }
+
+          /* globals from screen.css */
+          body {
+            background: #fff;
+          }
+
+          @media (prefers-color-scheme: dark) {
+            body {
+              color: rgba(255, 255, 255, 0.75);
+              background: var(--darkmode);
+            }
+            img {
+              opacity: 0.9;
+            }
+          }
         `}
       />
       {props.children}

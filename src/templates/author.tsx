@@ -183,7 +183,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
 
     let authorParticipated = false;
     if (edge.node.frontmatter.author) {
-      edge.node.frontmatter.author.forEach(function (element) {
+      edge.node.frontmatter.author.forEach(element => {
         if (element.id === author.id) {
           authorParticipated = true;
         }
@@ -225,14 +225,14 @@ const Author: React.FC<AuthorTemplateProps> = props => {
         )}
       </Helmet>
       <Wrapper css={NoImage}>
-        <header className={`site-archive-header no-image`} css={[SiteHeader, SiteArchiveHeader]}>
+        <header className="site-archive-header no-image" css={[SiteHeader, SiteArchiveHeader]}>
           <div css={[outer, SiteNavMain]}>
             <div css={inner}>
               <SiteNav isHome={false} />
             </div>
           </div>
 
-          <div css={[outer]} className={`site-header-background no-image`}>
+          <div css={[outer]} className="site-header-background no-image">
             <div css={inner}>
               <SiteHeaderContent css={AuthorHeader} className="site-header-content">
                 <img
