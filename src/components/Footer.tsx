@@ -33,8 +33,8 @@ export const Footer: React.FC = () => {
             </a>
           )}
 
-          <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">
-            Ghost
+          <a href="https://github.com/scttcper/gatsby-casper" target="_blank" rel="noopener noreferrer">
+            Casper
           </a>
 
           <a href="/rss.xml">RSS</a>
