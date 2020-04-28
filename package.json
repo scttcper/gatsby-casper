@@ -7,7 +7,6 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "clean": "rimraf public",
     "dev": "gatsby develop",
     "lint": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx .",
@@ -48,7 +47,6 @@
     "gatsby-transformer-sharp": "2.4.7",
     "gatsby-transformer-yaml": "2.3.4",
     "lodash": "4.17.15",
-    "modern-normalize": "0.6.0",
     "normalize.css": "8.0.1",
     "polished": "3.5.2",
     "postcss-color-function": "4.1.0",
@@ -58,7 +56,6 @@
     "react-dom": "16.13.1",
     "react-emotion": "10.0.0",
     "react-helmet": "6.0.0",
-    "react-use": "^14.2.0",
     "rehype-react": "5.0.1"
   },
   "devDependencies": {
@@ -77,7 +74,6 @@
     "eslint-plugin-import": "2.20.2",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "3.0.0",
-    "rimraf": "3.0.2",
     "typescript": "3.8.3"
   },
   "browserslist": [
