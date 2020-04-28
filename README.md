@@ -1,10 +1,11 @@
 # gatsby-casper
 
-Demo: https://gatsby-casper.netlify.com/  
+Demo: https://gatsby-casper.netlify.com/
 
 This is a static blog generator and starter gatsby repo. A port of [Casper](https://github.com/TryGhost/Casper) v2 a theme from [Ghost](https://ghost.org/) for [GatsbyJS](https://www.gatsbyjs.org/) using [TypeScript](https://www.typescriptlang.org/).
 
 ## Getting Started
+
 Clone this repo.
 
 ```
@@ -22,8 +23,8 @@ Either disable subscribe or setup a mailchimp list and add the form action and h
 
 Now push to whatever repo you want!
 
-
 ### Progress
+
 - [x] emotion / component styles
 - [x] home page
 - [x] tag page
@@ -31,7 +32,7 @@ Now push to whatever repo you want!
 - [x] blog page
   - [x] subscribe form - using [mailchimp](https://mailchimp.com)
   - [ ] full width images in markdown? - not sure if possible
-  - [ ] multiple post authors
+  - [x] multiple post authors
   - [ ] floating reading progress bar
 - [x] 404 page
 - [x] subscribe modal/overlay
@@ -46,8 +47,8 @@ Now push to whatever repo you want!
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/scttcper/gatsby-casper)
 
 ## How to configure Google Analytics
-Edit `gatsby-config.js` and add your tracking ID
 
+Edit `gatsby-config.js` and add your tracking ID
 
 ```javascript
 {
@@ -72,6 +73,7 @@ Edit `gatsby-config.js` and add your tracking ID
 ```
 
 ## How to edit your site title and description
+
 Edit `gatsby-config.js` section `siteMetadata`
 
 ```javascript
@@ -83,5 +85,6 @@ Edit `gatsby-config.js` section `siteMetadata`
 ```
 
 ## How to adjust pagination
+
 In `gatsby-node.js`, edit the `postsPerPage` constant. The default value is
 six posts per page.

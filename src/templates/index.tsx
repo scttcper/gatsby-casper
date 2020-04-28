@@ -1,70 +1,29 @@
 import { graphql } from 'gatsby';
-import * as React from 'react';
+import { FixedObject } from 'gatsby-image';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+
 import { css } from '@emotion/core';
-import Helmet from 'react-helmet';
 
-import Footer from '../components/Footer';
+import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
-import IndexLayout from '../layouts';
-import config from '../website-config';
 import Pagination from '../components/Pagination';
-
+import { PostCard } from '../components/PostCard';
+import { Wrapper } from '../components/Wrapper';
+import IndexLayout from '../layouts';
 import {
   inner,
   outer,
   PostFeed,
-  PostFeedRaise,
+  Posts,
   SiteDescription,
   SiteHeader,
   SiteHeaderContent,
   SiteMain,
   SiteTitle,
 } from '../styles/shared';
+import config from '../website-config';
 import { PageContext } from './post';
-
-const HomePosts = css`
-  @media (min-width: 795px) {
-    .post-card:nth-of-type(6n + 1):not(.no-image) {
-      flex: 1 1 100%;
-      flex-direction: row;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-image-link {
-      position: relative;
-      flex: 1 1 auto;
-      border-radius: 5px 0 0 5px;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-image {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-content {
-      flex: 0 1 357px;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) h2 {
-      font-size: 2.6rem;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) p {
-      font-size: 1.8rem;
-      line-height: 1.55em;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-content-link {
-      padding: 30px 40px 0;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-meta {
-      padding: 0 40px 30px;
-    }
-  }
-`;
 
 export interface IndexProps {
   pageContext: {
@@ -74,12 +33,12 @@ export interface IndexProps {
   data: {
     logo: {
       childImageSharp: {
-        fixed: any;
+        fixed: FixedObject;
       };
     };
     header: {
       childImageSharp: {
-        fluid: any;
+        fixed: FixedObject;
       };
     };
     allMarkdownRemark: {
@@ -91,8 +50,7 @@ export interface IndexProps {
 }
 
 const IndexPage: React.FC<IndexProps> = props => {
-  const width = props.data.header.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-  const height = String(Number(width) / props.data.header.childImageSharp.fluid.aspectRatio);
+  const { width, height } = props.data.header.childImageSharp.fixed;
 
   return (
     <IndexLayout css={HomePosts}>
@@ -107,17 +65,19 @@ const IndexPage: React.FC<IndexProps> = props => {
         <meta property="og:url" content={config.siteUrl} />
         <meta
           property="og:image"
-          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
+          content={`${config.siteUrl}${props.data.header.childImageSharp.fixed.src}`}
         />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
-        {config.googleSiteVerification && <meta name="google-site-verification" content={config.googleSiteVerification} />}
+        {config.googleSiteVerification && (
+          <meta name="google-site-verification" content={config.googleSiteVerification} />
+        )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={config.title} />
         <meta name="twitter:description" content={config.description} />
         <meta name="twitter:url" content={config.siteUrl} />
         <meta
           name="twitter:image"
-          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
+          content={`${config.siteUrl}${props.data.header.childImageSharp.fixed.src}`}
         />
         {config.twitter && (
           <meta
@@ -125,22 +85,23 @@ const IndexPage: React.FC<IndexProps> = props => {
             content={`@${config.twitter.split('https://twitter.com/')[1]}`}
           />
         )}
-        <meta property="og:image:width" content={width} />
-        <meta property="og:image:height" content={height} />
+        <meta property="og:image:width" content={width.toString()} />
+        <meta property="og:image:height" content={height.toString()} />
       </Helmet>
       <Wrapper>
         <header
           css={[outer, SiteHeader]}
           style={{
-            backgroundImage: `url('${props.data.header.childImageSharp.fluid.src}')`,
+            backgroundImage: `url('${props.data.header.childImageSharp.fixed.src}')`,
           }}
         >
           <div css={inner}>
+            <SiteNav isHome />
             <SiteHeaderContent>
               <SiteTitle>
                 {props.data.logo ? (
                   <img
-                    style={{ maxHeight: '45px' }}
+                    style={{ maxHeight: '55px' }}
                     src={props.data.logo.childImageSharp.fixed.src}
                     alt={config.title}
                   />
@@ -150,18 +111,17 @@ const IndexPage: React.FC<IndexProps> = props => {
               </SiteTitle>
               <SiteDescription>{config.description}</SiteDescription>
             </SiteHeaderContent>
-            <SiteNav isHome />
           </div>
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
-          <div css={inner}>
-            <div css={[PostFeed, PostFeedRaise]}>
-              {props.data.allMarkdownRemark.edges.map(post => {
+          <div css={[inner, Posts]}>
+            <div css={[PostFeed]}>
+              {props.data.allMarkdownRemark.edges.map((post, index) => {
                 // filter out drafts in production
                 return (
                   (post.node.frontmatter.draft !== true ||
                     process.env.NODE_ENV !== 'production') && (
-                    <PostCard key={post.node.fields.slug} post={post.node} />
+                    <PostCard key={post.node.fields.slug} post={post.node} large={index === 0} />
                   )
                 );
               })}
@@ -169,14 +129,17 @@ const IndexPage: React.FC<IndexProps> = props => {
           </div>
         </main>
         {props.children}
-        <Pagination currentPage={props.pageContext.currentPage} numPages={props.pageContext.numPages} />
+        {props.pageContext.numPages > 1 && (
+          <Pagination
+            currentPage={props.pageContext.currentPage}
+            numPages={props.pageContext.numPages}
+          />
+        )}
         <Footer />
       </Wrapper>
     </IndexLayout>
   );
 };
-
-export default IndexPage;
 
 export const pageQuery = graphql`
   query blogPageQuery($skip: Int!, $limit: Int!) {
@@ -189,19 +152,19 @@ export const pageQuery = graphql`
         }
       }
     }
-    header: file(relativePath: { eq: "img/blog-cover.jpg" }) {
+    header: file(relativePath: { eq: "img/blog-cover.png" }) {
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 2000) {
-          ...GatsbyImageSharpFluid
+        fixed(width: 2000, quality: 100) {
+          ...GatsbyImageSharpFixed
         }
       }
     }
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC },
-      filter: { frontmatter: { draft: { ne: true } } },
-      limit: $limit,
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { draft: { ne: true } } }
+      limit: $limit
       skip: $skip
     ) {
       edges {
@@ -212,6 +175,7 @@ export const pageQuery = graphql`
             date
             tags
             draft
+            excerpt
             image {
               childImageSharp {
                 fluid(maxWidth: 3720) {
@@ -225,8 +189,8 @@ export const pageQuery = graphql`
               avatar {
                 children {
                   ... on ImageSharp {
-                    fixed(quality: 90) {
-                      src
+                    fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
+                      ...GatsbyImageSharpFluid
                     }
                   }
                 }
@@ -243,3 +207,63 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+const HomePosts = css`
+  @media (min-width: 795px) {
+    .post-card-large {
+      flex: 1 1 100%;
+      flex-direction: row;
+      padding-bottom: 40px;
+      min-height: 280px;
+      border-top: 0;
+    }
+
+    .post-card-large .post-card-title {
+      margin-top: 0;
+      font-size: 3.2rem;
+    }
+
+    .post-card-large:not(.no-image) .post-card-header {
+      margin-top: 0;
+    }
+
+    .post-card-large .post-card-image-link {
+      position: relative;
+      flex: 1 1 auto;
+      margin-bottom: 0;
+      min-height: 380px;
+    }
+
+    .post-card-large .post-card-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .post-card-large .post-card-content {
+      flex: 0 1 361px;
+      justify-content: center;
+    }
+
+    .post-card-large .post-card-title {
+      margin-top: 0;
+      font-size: 3.2rem;
+    }
+
+    .post-card-large .post-card-content-link {
+      padding: 0 0 0 40px;
+    }
+
+    .post-card-large .post-card-meta {
+      padding: 0 0 0 40px;
+    }
+
+    .post-card-large .post-card-excerpt p {
+      margin-bottom: 1.5em;
+      font-size: 1.8rem;
+      line-height: 1.5em;
+    }
+  }
+`;
+
+export default IndexPage;

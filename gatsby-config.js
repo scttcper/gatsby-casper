@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'Ghost',
-    description: 'The professional publishing platform',
+    title: 'Gatsby Casper',
+    description: 'A port of the casper blog built for gatsby',
     siteUrl: 'https://gatsby-casper.netlify.com', // full path to blog - no ending slash
   },
   mapping: {
@@ -11,7 +12,13 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-sitemap',
-    'gatsby-plugin-sharp',
+    {
+      resolve: 'gatsby-plugin-sharp',
+      options: {
+        quality: 100,
+        stripMetadata: true,
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
@@ -36,8 +43,8 @@ module.exports = {
           {
             resolve: 'gatsby-remark-images',
             options: {
-              maxWidth: 1170,
-              quality: 90,
+              maxWidth: 2000,
+              quality: 100,
             },
           },
         ],
@@ -63,7 +70,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-XXXX-Y',
         // Puts tracking script in the head instead of the body

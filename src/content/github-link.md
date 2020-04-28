@@ -2,12 +2,14 @@
 layout: post
 title: Github Source
 image: img/callum-shaw-555357-unsplash.jpg
-author: Ghost
+author: [Ghost]
 date: 2019-03-10T10:00:00.000Z
 tags:
   - Source
+excerpt: Where to find this project on GitHub.
 ---
 
+## __A few things you should know__
 You'll find the source of this blog on GitHub.  
 GitHub - https://github.com/scttcper/gatsby-casper
 

@@ -1,20 +1,15 @@
 import { graphql, StaticQuery } from 'gatsby';
-import * as React from 'react';
-import styled from '@emotion/styled';
+import { FixedObject } from 'gatsby-image';
+import React from 'react';
+
+import { css } from '@emotion/core';
 
 import config from '../../website-config';
-
-const SubscribeOverlayLogo = styled.img`
-  position: fixed;
-  top: 23px;
-  left: 30px;
-  height: 30px;
-`;
 
 interface SiteNavLogoProps {
   logo?: {
     childImageSharp: {
-      fixed: any;
+      fixed: FixedObject;
     };
   };
 }
@@ -27,19 +22,35 @@ const SubscribeLogo = () => (
           childImageSharp {
             # Specify the image processing specifications right in the query.
             # Makes it trivial to update as your page's design changes.
-            fixed {
+            fixed(quality: 100 width: 500) {
               ...GatsbyImageSharpFixed
             }
           }
         }
       }
     `}
-    // tslint:disable-next-line:react-this-binding-issue
-    render={(data: SiteNavLogoProps) =>
-      data.logo && (
-        <SubscribeOverlayLogo src={data.logo.childImageSharp.fixed.src} alt={config.title} />
-      )}
+    render={(data: SiteNavLogoProps) => {
+      if (!data.logo) {
+        return;
+      }
+
+      return (
+        <img
+          css={SubscribeOverlayLogo}
+          className="subscribe-overlay-logo"
+          src={data.logo.childImageSharp.fixed.src}
+          alt={config.title}
+        />
+      );
+    }}
   />
 );
+
+const SubscribeOverlayLogo = css`
+  position: fixed;
+  top: 23px;
+  left: 30px;
+  height: 30px;
+`;
 
 export default SubscribeLogo;
