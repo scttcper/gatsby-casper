@@ -344,7 +344,7 @@ export const PostFullContent = styled.section`
   @media (min-width: 1180px) {
     h5 {
       max-width: 1060px;
-      width: 100vw;
+      /* width: 100vw; */
     }
   }
   @media (max-width: 800px) {
