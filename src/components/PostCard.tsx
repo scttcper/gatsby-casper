@@ -10,6 +10,7 @@ import styled from '@emotion/styled';
 
 import { colors } from '../styles/colors';
 import { PageContext } from '../templates/post';
+import { AuthorList } from './AuthorList';
 
 export interface PostCardProps {
   post: PageContext;
@@ -58,23 +59,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
           </PostCardExcerpt>
         </Link>
         <PostCardMeta className="post-card-meta">
-          <AuthorList className="author-list">
-            {post.frontmatter.author.map(author => {
-              return (
-                <AuthorListItem key={author.id} className="author-list-item">
-                  <AuthorNameTooltip className="author-name-tooltip">{author.id}</AuthorNameTooltip>
-                  <Link css={StaticAvatar} to={`/author/${_.kebabCase(author.id)}/`}>
-                    <Img
-                      css={AuthorProfileImage}
-                      fluid={author.avatar.children[0].fluid}
-                      alt={author.id}
-                      fadeIn={false}
-                    />
-                  </Link>
-                </AuthorListItem>
-              );
-            })}
-          </AuthorList>
+          <AuthorList authors={post.frontmatter.author} tooltip="small" />
           <PostCardBylineContent className="post-card-byline-content">
             <span>
               {post.frontmatter.author.map((author, index) => {
@@ -263,52 +248,8 @@ const PostCardBylineContent = styled.div`
   }
 `;
 
-export const AuthorList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 0 0 4px;
-  padding: 0;
-  list-style: none;
-`;
-
-export const AuthorListItem = styled.li`
-  position: relative;
-  flex-shrink: 0;
-  margin: 0;
-  padding: 0;
-
-  :hover .author-name-tooltip {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-`;
-
 const PostCardHeader = styled.header`
   margin: 15px 0 0;
-`;
-
-const AuthorNameTooltip = styled.div`
-  position: absolute;
-  bottom: 105%;
-  z-index: 999;
-  display: block;
-  padding: 2px 8px;
-  color: white;
-  font-size: 1.2rem;
-  letter-spacing: 0.2px;
-  white-space: nowrap;
-  /* background: var(--darkgrey); */
-  background: ${colors.darkgrey};
-  border-radius: 3px;
-  box-shadow: rgba(39, 44, 49, 0.08) 0 12px 26px, rgba(39, 44, 49, 0.03) 1px 3px 8px;
-  opacity: 0;
-  transition: all 0.35s cubic-bezier(0.4, 0.01, 0.165, 0.99);
-  transform: translateY(6px);
-  pointer-events: none;
-
-  @media (max-width: 700px) {
-    display: none;
-  }
 `;
 
 export const StaticAvatar = css`
