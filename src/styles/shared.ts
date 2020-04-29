@@ -114,10 +114,11 @@ export const SiteHeaderContent = styled.div`
 
 export const SiteHeaderStyles = css`
   position: relative;
-  margin-top: 64px;
+  /* margin-top: 64px; */
   padding-bottom: 12px;
   color: #fff;
-  background: color(var(--darkgrey) l(-5%)) no-repeat center center;
+  /* background: color(var(--darkgrey) l(-5%)) no-repeat center center; */
+  background: ${lighten('-0.05', colors.darkgrey)} no-repeat center center;
   background-size: cover;
 
   :before {
