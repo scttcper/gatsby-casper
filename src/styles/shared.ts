@@ -57,6 +57,10 @@ export const SiteDescription = styled.h2`
   line-height: 1.4em;
   font-weight: 400;
   opacity: 0.8;
+
+  @media (max-width: 500px) {
+    font-size: 1.8rem;
+  }
 `;
 
 export const Posts = css`
@@ -147,6 +151,12 @@ export const SiteHeaderStyles = css`
     display: block;
     height: 140px;
     background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :before {
+      background: rgba(0, 0, 0, 0.6);
+    }
   }
 `;
 
