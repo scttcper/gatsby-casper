@@ -25,8 +25,6 @@ import {
 } from '../styles/shared';
 import config from '../website-config';
 import { PageContext } from './post';
-import { lighten } from 'polished';
-import { colors } from '../styles/colors';
 
 export interface IndexProps {
   pageContext: {

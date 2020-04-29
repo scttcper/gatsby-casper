@@ -43,6 +43,10 @@ export const SiteTitle = styled.h1`
   font-size: 5rem;
   line-height: 1em;
   font-weight: 600;
+
+  @media (max-width: 500px) {
+    font-size: 4.2rem;
+  }
 `;
 
 export const SiteDescription = styled.h2`
