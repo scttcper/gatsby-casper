@@ -10,19 +10,17 @@ excerpt: Where to find this project on GitHub.
 ---
 
 ## __A few things you should know__
-You'll find the source of this blog on GitHub.  
-GitHub - [gatsby-casper](https://github.com/scttcper/gatsby-casper)
+Find the source of this blog on GitHub - [scttcper/gatsby-casper](https://github.com/scttcper/gatsby-casper)
 
 ### Getting Started
+Use this repo to start your own blog with the same theme.
 
-Clone this repo.
-
+__Clone this repo.__
 ```bash
 git clone https://github.com/scttcper/gatsby-casper.git --depth=1
 ```
 
-Remove .git folder and setup a new one
-
+__Remove .git folder and setup a new one__
 ```bash
 rm -rf .git && git init
 ```
