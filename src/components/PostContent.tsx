@@ -47,6 +47,9 @@ export const PostFullContent = styled.section`
     font-size: 1.8rem;
   }
   @media (max-width: 500px) {
+    padding: 0;
+  }
+  @media (max-width: 500px) {
     .post-full-custom-excerpt {
       font-size: 1.9rem;
       line-height: 1.5em;
@@ -657,12 +660,6 @@ export const PostFullContent = styled.section`
     background: #011627;
     -webkit-overflow-scrolling: touch;
     overflow: auto;
-  }
-
-  @media (max-width: 672px) {
-    .gatsby-highlight {
-      border-radius: 0;
-    }
   }
 
   .gatsby-highlight pre[class*='language-'] {
