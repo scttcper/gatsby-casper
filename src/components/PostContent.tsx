@@ -568,11 +568,11 @@ export const PostFullContent = styled.section`
   }
 
   /* Inline code */
-  :not(pre) > code[class*='language-'] {
+  *:not(pre) > code[class*='language-'] {
     border-radius: 0.3em;
-    background: var(--inlineCode-bg);
-    color: var(--inlineCode-text);
-    padding: 0.15em 0.2em 0.05em;
+    background: rgb(1, 22, 39);
+    color: white;
+    padding: 0.15em 0.5em;
     white-space: normal;
   }
 
