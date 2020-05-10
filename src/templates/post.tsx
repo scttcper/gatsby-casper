@@ -156,7 +156,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
           />
         )}
         <meta name="twitter:label1" content="Written by" />
-        <meta name="twitter:data1" content={post.frontmatter.author.id} />
+        <meta name="twitter:data1" content={post.frontmatter.author[0].id} />
         <meta name="twitter:label2" content="Filed under" />
         {post.frontmatter.tags && <meta name="twitter:data2" content={post.frontmatter.tags[0]} />}
         {config.twitter && (
@@ -214,7 +214,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                           {displayDatetime}
                         </time>
                         <span className="byline-reading-time">
-                          <span className="bull">&bull;</span> 20 min
+                          <span className="bull">&bull;</span> 20 min read
                         </span>
                       </div>
                     </section>
