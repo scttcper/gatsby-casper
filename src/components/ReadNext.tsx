@@ -11,6 +11,7 @@ import { ReadNextCard } from './ReadNextCard';
 
 interface ReadNextProps {
   tags: string[];
+  currentPageSlug: string;
   relatedPosts: {
     totalCount: number;
     edges: Array<{
@@ -39,7 +40,13 @@ export const ReadNext: React.FC<ReadNextProps> = props => {
     <ReadNextAside className="read-next" css={outer}>
       <div css={inner}>
         <ReadNextFeed className="read-next-feed">
-          {showRelatedPosts && <ReadNextCard tags={props.tags} relatedPosts={props.relatedPosts} />}
+          {showRelatedPosts && (
+            <ReadNextCard
+              currentPageSlug={props.currentPageSlug}
+              tags={props.tags}
+              relatedPosts={props.relatedPosts}
+            />
+          )}
 
           {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
           {props.pageContext.next && <PostCard post={props.pageContext.next} />}

@@ -240,6 +240,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         </main>
 
         <ReadNext
+          currentPageSlug={props.pathContext.slug}
           tags={post.frontmatter.tags}
           relatedPosts={props.data.relatedPosts}
           pageContext={props.pageContext}
@@ -480,8 +481,15 @@ export const query = graphql`
       }
     }
     relatedPosts: allMarkdownRemark(
-      filter: { frontmatter: { tags: { in: [$primaryTag] }, draft: { ne: true } } }
-      limit: 3
+      filter: {
+        frontmatter: { tags: { in: [$primaryTag] },
+        draft: { ne: true } }
+      }
+      limit: 5
+      sort: {
+        fields: [frontmatter___date]
+        order: DESC
+      }
     ) {
       totalCount
       edges {

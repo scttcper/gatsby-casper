@@ -9,6 +9,7 @@ import { format } from 'date-fns';
 
 export interface ReadNextProps {
   tags: string[];
+  currentPageSlug: string;
   relatedPosts: {
     totalCount: number;
     edges: Array<{
@@ -27,6 +28,9 @@ export interface ReadNextProps {
 }
 
 export const ReadNextCard: React.FC<ReadNextProps> = props => {
+  // filter out current post and limit to 3 related posts
+  const relatedPosts = props.relatedPosts.edges.filter(post => post.node.fields.slug !== props.currentPageSlug).slice(0, 3);
+
   return (
     <ReadNextCardArticle className="read-next-card">
       <header className="read-next-card-header">
@@ -37,7 +41,7 @@ export const ReadNextCard: React.FC<ReadNextProps> = props => {
       </header>
       <ReadNextCardContent className="read-next-card-content">
         <ul>
-          {props.relatedPosts.edges.map(n => {
+          {relatedPosts.map(n => {
             const date = new Date(n.node.frontmatter.date);
             // 2018-08-20
             const datetime = format(date, 'yyyy-MM-dd');
