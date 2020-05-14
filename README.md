@@ -2,7 +2,7 @@
 
 Demo: https://gatsby-casper.netlify.app
 
-This is a static blog generator and starter gatsby repo. A port of [Casper](https://github.com/TryGhost/Casper) v2 a theme from [Ghost](https://ghost.org/) for [GatsbyJS](https://www.gatsbyjs.org/) using [TypeScript](https://www.typescriptlang.org/).
+This is a static blog generator and starter gatsby repo. A port of [Casper](https://github.com/TryGhost/Casper) v3 a theme from [Ghost](https://ghost.org/) for [GatsbyJS](https://www.gatsbyjs.org/) using [TypeScript](https://www.typescriptlang.org/).
 
 ## Getting Started
 
@@ -68,7 +68,7 @@ Edit `gatsby-config.js` and add your tracking ID
       // Determines how often site speed tracking beacons will be sent
       siteSpeedSampleRate: 10,
     },
-  },
+},
 ```
 
 ## How to edit your site title and description
