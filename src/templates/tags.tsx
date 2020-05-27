@@ -19,6 +19,7 @@ import {
   SiteNavMain,
   SiteArchiveHeader,
   NoImage,
+  ResponsiveHeaderBackground,
 } from '../styles/shared';
 import { PageContext } from './post';
 import { Helmet } from 'react-helmet';
@@ -68,10 +69,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
         <title>
           {tag} - {config.title}
         </title>
-        <meta
-          name="description"
-          content={tagData?.node ? tagData.node.description : ''}
-        />
+        <meta name="description" content={tagData?.node ? tagData.node.description : ''} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`${tag} - ${config.title}`} />
@@ -89,7 +87,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
       </Helmet>
       <Wrapper css={NoImage}>
         <header
-          className={`site-archive-header ${tagData?.node?.image ? '' : 'no-image'}`}
+          className="site-archive-header"
           css={[SiteHeader, SiteArchiveHeader]}
         >
           <div css={[outer, SiteNavMain]}>
@@ -97,7 +95,11 @@ const Tags: React.FC<TagTemplateProps> = props => {
               <SiteNav isHome={false} />
             </div>
           </div>
-          <div css={outer} className={`site-header-background ${tagData?.node?.image ? '' : 'no-image'}`}>
+          <ResponsiveHeaderBackground
+            css={[outer, tagData?.node?.image ? '' : NoImage]}
+            backgroundImage={tagData?.node?.image?.childImageSharp?.fluid?.src}
+            className="site-header-background"
+          >
             <SiteHeaderContent css={inner} className="site-header-content">
               <SiteTitle className="site-title">{tag}</SiteTitle>
               <SiteDescription className="site-description">
@@ -112,7 +114,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
                 )}
               </SiteDescription>
             </SiteHeaderContent>
-          </div>
+          </ResponsiveHeaderBackground>
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>

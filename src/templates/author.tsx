@@ -21,6 +21,7 @@ import {
   SiteArchiveHeader,
   NoImage,
   SiteNavMain,
+  ResponsiveHeaderBackground,
 } from '../styles/shared';
 import { PageContext } from './post';
 import { Helmet } from 'react-helmet';
@@ -116,16 +117,20 @@ const Author: React.FC<AuthorTemplateProps> = props => {
         )}
       </Helmet>
       <Wrapper css={NoImage}>
-        <header className="site-archive-header no-image" css={[SiteHeader, SiteArchiveHeader]}>
+        <header className="site-archive-header" css={[SiteHeader, SiteArchiveHeader]}>
           <div css={[outer, SiteNavMain]}>
             <div css={inner}>
               <SiteNav isHome={false} />
             </div>
           </div>
 
-          <div css={outer} className="site-header-background no-image">
+          <ResponsiveHeaderBackground
+            backgroundImage={author.profile_image?.childImageSharp.fluid.src}
+            css={[outer, author.profile_image?.childImageSharp ? '' : NoImage]}
+            className="site-header-background"
+          >
             <div css={inner}>
-              <SiteHeaderContent css={AuthorHeader} className="site-header-content">
+              <SiteHeaderContent css={AuthorHeader} className="site-header-content author-header">
                 <img
                   style={{ marginTop: '8px' }}
                   css={[AuthorProfileImage, AuthorProfileBioImage]}
@@ -183,7 +188,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
                 </AuthHeaderContent>
               </SiteHeaderContent>
             </div>
-          </div>
+          </ResponsiveHeaderBackground>
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
@@ -282,6 +287,7 @@ const AuthorHeader = css`
   align-items: flex-start;
   padding: 10vw 0 10px;
   align-items: center;
+
   @media (max-width: 500px) {
     padding: 10px 0 0;
 
