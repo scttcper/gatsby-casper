@@ -18,8 +18,8 @@ import {
   SiteTitle,
   SiteNavMain,
   SiteArchiveHeader,
-  NoImage,
   ResponsiveHeaderBackground,
+  SiteHeaderBackground,
 } from '../styles/shared';
 import { PageContext } from './post';
 import { Helmet } from 'react-helmet';
@@ -85,7 +85,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
           />
         )}
       </Helmet>
-      <Wrapper css={NoImage}>
+      <Wrapper>
         <header
           className="site-archive-header"
           css={[SiteHeader, SiteArchiveHeader]}
@@ -96,7 +96,7 @@ const Tags: React.FC<TagTemplateProps> = props => {
             </div>
           </div>
           <ResponsiveHeaderBackground
-            css={[outer, tagData?.node?.image ? '' : NoImage]}
+            css={[outer, SiteHeaderBackground]}
             backgroundImage={tagData?.node?.image?.childImageSharp?.fluid?.src}
             className="site-header-background"
           >

@@ -19,9 +19,9 @@ import {
   SiteTitle,
   SiteMain,
   SiteArchiveHeader,
-  NoImage,
   SiteNavMain,
   ResponsiveHeaderBackground,
+  SiteHeaderBackground,
 } from '../styles/shared';
 import { PageContext } from './post';
 import { Helmet } from 'react-helmet';
@@ -116,7 +116,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
           />
         )}
       </Helmet>
-      <Wrapper css={NoImage}>
+      <Wrapper>
         <header className="site-archive-header" css={[SiteHeader, SiteArchiveHeader]}>
           <div css={[outer, SiteNavMain]}>
             <div css={inner}>
@@ -126,7 +126,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
 
           <ResponsiveHeaderBackground
             backgroundImage={author.profile_image?.childImageSharp.fluid.src}
-            css={[outer, author.profile_image?.childImageSharp ? '' : NoImage]}
+            css={[outer, SiteHeaderBackground]}
             className="site-header-background"
           >
             <div css={inner}>
