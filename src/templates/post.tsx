@@ -214,7 +214,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                           {displayDatetime}
                         </time>
                         <span className="byline-reading-time">
-                          <span className="bull">&bull;</span> 20 min read
+                          <span className="bull">&bull;</span> {post.timeToRead} min read
                         </span>
                       </div>
                     </section>
@@ -481,15 +481,9 @@ export const query = graphql`
       }
     }
     relatedPosts: allMarkdownRemark(
-      filter: {
-        frontmatter: { tags: { in: [$primaryTag] },
-        draft: { ne: true } }
-      }
+      filter: { frontmatter: { tags: { in: [$primaryTag] }, draft: { ne: true } } }
       limit: 5
-      sort: {
-        fields: [frontmatter___date]
-        order: DESC
-      }
+      sort: { fields: [frontmatter___date], order: DESC }
     ) {
       totalCount
       edges {
