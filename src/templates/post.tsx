@@ -107,7 +107,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
   const post = props.data.markdownRemark;
   let width = '';
   let height = '';
-  if (post.frontmatter.image && post.frontmatter.image.childImageSharp) {
+  if (post.frontmatter.image?.childImageSharp) {
     width = post.frontmatter.image.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
     height = String(Number(width) / post.frontmatter.image.childImageSharp.fluid.aspectRatio);
   }
@@ -124,13 +124,13 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <html lang={config.lang} />
         <title>{post.frontmatter.title}</title>
 
-        <meta name="description" content={post.excerpt} />
+        <meta name="description" content={post.frontmatter.excerpt || post.excerpt} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.frontmatter.title} />
-        <meta property="og:description" content={post.excerpt} />
+        <meta property="og:description" content={post.frontmatter.excerpt || post.excerpt} />
         <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
-        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+        {post.frontmatter.image?.childImageSharp && (
           <meta
             property="og:image"
             content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
@@ -147,9 +147,9 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         {config.facebook && <meta property="article:author" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
-        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
         <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
-        {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+        {post.frontmatter.image?.childImageSharp && (
           <meta
             name="twitter:image"
             content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
@@ -222,7 +222,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                 </PostFullByline>
               </PostFullHeader>
 
-              {post.frontmatter.image && post.frontmatter.image.childImageSharp && (
+              {post.frontmatter.image?.childImageSharp && (
                 <PostFullImage>
                   <Img
                     style={{ height: '100%' }}
