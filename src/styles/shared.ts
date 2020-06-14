@@ -28,7 +28,6 @@ export const SiteNavMain = css`
 `;
 
 export const SiteMain = css`
-  z-index: 100;
   flex-grow: 1;
 
   @media (prefers-color-scheme: dark) {
