@@ -18,7 +18,7 @@ const navCss = css`
   a {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell;
     background-color: #fff;
-    color: white;
+    color: ${colors.flotiqGreen};
     float: left;
     font-size: 18px;
     font-weight: bold;
@@ -37,6 +37,7 @@ const navCss = css`
 
     &.active {
       background-color: ${colors.flotiqGreen};
+      color: white;
     }
 
     &:hover:not(.active) {

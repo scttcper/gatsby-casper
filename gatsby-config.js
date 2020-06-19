@@ -14,7 +14,9 @@ module.exports = {
       resolve: 'gatsby-source-flotiq',
       options: {
         baseUrl: process.env.GATSBY_FLOTIQ_BASE_URL,
-        authToken: process.env.FLOTIQ_API_KEY,
+        authToken: process.env.GATSBY_FLOTIQ_API_KEY,
+        forceReload: true,
+        includeTypes: ['flotiqBlogAuthor', 'flotiqBlogPost', 'flotiqBlogTag', '_media'],
       },
     },
     'gatsby-plugin-sitemap',
@@ -23,8 +25,8 @@ module.exports = {
       options: {
         host: 'https://flotiq.com',
         sitemap: 'https://flotiq.com/blog/sitemap.xml',
-        policy: [{ userAgent: '*', allow: '/' }]
-      }
+        policy: [{ userAgent: '*', allow: '/' }],
+      },
     },
     'gatsby-plugin-sharp',
     {
@@ -71,7 +73,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-10126793-18',
         // Puts tracking script in the head instead of the body
