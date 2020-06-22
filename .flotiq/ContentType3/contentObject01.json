@@ -1,0 +1,28 @@
+{
+  "id": "flotiqBlogPost-1",
+  "slug": "advantages-of-headless-cms",
+  "tags": [
+    {
+      "type": "internal",
+      "dataUrl": "/api/v1/content/flotiqBlogTag/flotiqBlogTag-1"
+    }
+  ],
+  "title": "5 advantages of headless Content Management Systems",
+  "author": [
+    {
+      "type": "internal",
+      "dataUrl": "/api/v1/content/flotiqBlogAuthor/flotiqBlogAuthor-1"
+    }
+  ],
+  "status": "public",
+  "content": "<h1>Advantages of Headless CMS</h1>\n\n<p>Are Headless Content Management Systems the future? Hard to say. This kind of systems are becoming more and more popular for several reasons, but it doesn't mean that other kinds of CMS will vanish quickly. In fact - there are many obstacles, that will be difficult to overcome with headless systems and only a very specific group of users can benefit from their advantages.</p>\n\n<h3>&nbsp;</h3>\n\n<h3>What are headless CMS systems?</h3>\n\n<p>In general - it's a type of CMS that doesn't bother with how the content will be presented to the users. There's no place for defining layouts, colors, etc. The only thing that matters is content - be it text, images, videos, etc. A headless system will store the content in its repository and make it available for consumption in other systems.</p>\n\n<p><a href=\"https://flotiq.com/blog/content-management-systems\" target=\"_blank\">Read more about different kinds of CMS systems.</a></p>\n\n<p>&nbsp;</p>\n\n<p><strong>Headless CMS is just a content repository. You will still need other tools to make that content available to your end users.</strong></p>\n\n<p>&nbsp;</p>\n\n<h2>5 important benefits of using a headless CMS system</h2>\n\n<p>Here are the most important benefits of using a headless CMS system in your next project.</p>\n\n<h3>Speed</h3>\n\n<p>Speed plays an important role in web development these days. It's one of the reasons why static site generators like [Gatsby](https://gatsbyjs.org) are becoming so popular. Headless CMS systems fit really well with static site generators and many of them offer great integrations.</p>\n\n<h3><br />\nScalability</h3>\n\n<p>Using a CMS system as a content repository makes systems easier to scale. Quite often the content can be easily cached or rendered into a static form, e.g. through the use of static site generators.&nbsp;</p>\n\n<h3>Security</h3>\n\n<p>On a similar note - using statically generated sites, which pull content from a headless CMS improves security by a great deal. You can host the content repository in an environment that is tightly secured and only export its contents when generating the final pages. No server-side code to render your web pages means less chance an attack might hurt you.</p>\n\n<h3>Omnichannel</h3>\n\n<p>Headless systems forcefully split the content (data) from how it's presented to the users. This has a significant benefit when reusing the same content for multiple channels. If your content is kept pure, not mixed with medium-specific description of how it should be presented to the user - it will be easier to repurpose for different channels.</p>\n\n<h3>Flexibility</h3>\n\n<p>Finally, headless CMS systems are usuall meant to integrate well with other systems. See, for example, how Flotiq opens up its content through <a href=\"https://zapier.com/apps/flotiq/integrations\" target=\"_blank\">Flotiq Zapier integrations</a>, OpenAPI support, SDKs and its API docs. A good headless content repository helps developers consume the content in any kind of application they need it in.</p>\n\n<p>&nbsp;</p>\n\n<h3>Summary</h3>\n\n<p>Headless CMS systems are usually intended for teams working hand-in-hand with developers. Some of the systems in this class offer easy-to-use interfaces for non-techies to work with content, few have a good set of pre-made templates that can be used with a couple of clicks to put together a website. Where a headless CMS shines the most is in projects that demand complex integrations, multi-channel content delivery and speed and scalability. If you're only planning to run a simple blog - you can still stick with Wordpress. But if you're planning to build a business where your content plays a major role - look into headless CMS as it will pay off big time.</p>\n",
+  "excerpt": "Headless Content Management Systems have several advantages over traditional CMS. Find out what to look for and when to choose a headless CMS for your project.",
+  "headerImage": [
+    {
+      "type": "internal",
+      "dataUrl": "/api/v1/content/_media/_media-5e5e66f5e7701"
+    }
+  ],
+  "relatedPosts": [],
+  "metaDescription": "Headless Content Management Systems have several advantages over traditional CMS. Find out what to look for and when to choose a headless CMS for your project."
+}

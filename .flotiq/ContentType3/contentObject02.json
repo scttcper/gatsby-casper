@@ -1,0 +1,28 @@
+{
+  "id": "flotiqBlogPost-2",
+  "slug": "do-i-need-a-cms",
+  "tags": [
+    {
+      "type": "internal",
+      "dataUrl": "/api/v1/content/flotiqBlogTag/flotiqBlogTag-1"
+    }
+  ],
+  "title": "Shoud I use a CMS?",
+  "author": [
+    {
+      "type": "internal",
+      "dataUrl": "/api/v1/content/flotiqBlogAuthor/flotiqBlogAuthor-1"
+    }
+  ],
+  "status": "public",
+  "content": "<p>If you\u2019re a beginning website owner you might be wondering what a CMS is and if you need one. This article will look at some valid reasons to invest in a CMS, but also will try to shed some light on the caveats, so read on.</p>\n\n<h2>What is a CMS?</h2>\n\n<p>A Content Management System, or CMS, is a kind of software that helps you create and manage content. What is content? In general - anything you want it to be. Blog posts, articles, product descriptions, images, you name it.&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<p>Good CMS software doesn\u2019t limit you in the type of content you can store. Yet, the most frequent use of a CMS is for managing content that displays on a website. It is the place where you write, save and publish your articles or update the content of the News section. It handles making these updates visible to your readers.&nbsp;</p>\n\n<p>&nbsp;</p>\n\n<p>A good CMS helps you manage elements necessary for SEO, i.e. the web site's performance, HTML structure, updates to the Google index. Click <a href=\"https://flotiq.com/blog/content-management-systems\">here</a> to read about a different kind of Content Management Systems.</p>\n\n<h2>Should I use a CMS?</h2>\n\n<p>It usually depends on the kind and amount of content you are producing and how fast you\u2019re doing it. Let\u2019s look at some scenarios.</p>\n\n<h3>Small website, rarely updated</h3>\n\n<p>If you have a simple website (or a single page) and you update the site rarely - it doesn't make sense to have a full-blown CMS. It's better if you use a simple HTML page and update it yourself (no, it\u2019s not that difficult). You can even use a website or landing page builder, like Wix. The main drawback of these tools is that it\u2019s hard to separate the writing from the visual layer of the website.</p>\n\n<p>&nbsp;</p>\n\n<p><strong>Answer: </strong>Choose CMS if you\u2019re planning to grow your website. But even then you have simpler and cheaper alternatives.</p>\n\n<h3>Medium website</h3>\n\n<p>If you\u2019re a blogger or your business requires you publish updates often - your content base will grow. You\u2019ll want to make visual changes without altering the content or to use page templates.&nbsp;</p>\n\n<p>Think of Wikipedia articles - the same page layout but different text and images inside. An identical visual style across the website is something your readers will look for. At this point, you will look at a more sophisticated tool than a simple landing page builder. You will either host your website on a shared hosting platform, e.g. <a href=\"http://wordpress.com/\">Wordpress.com</a> or host it on your own. Go <a href=\"https://flotiq.com/blog/wordpress-alternatives\">here</a> to look at the Wordpress alternatives.&nbsp;</p>\n\n<p><strong>Answer:</strong> yes, but&nbsp;you&nbsp;may&nbsp;choose&nbsp;between&nbsp;shared&nbsp;hosting&nbsp;or&nbsp;your&nbsp;servers&nbsp;running&nbsp;CMS software.&nbsp;</p>\n\n<h3>Large website, more frequent updates</h3>\n\n<p>If you publish complex content and your website grows fast, you need a system to manage that content. Otherwise, your site will become difficult - to navigate for your readers and manage for you. You may have copywriters for creating content/proofreading.&nbsp;</p>\n\n<p>A proper CMS will help you manage the process. How? By assigning specific permissions to different roles. For example, you want to approve the content of junior copywriters before publishing. You will also pay more attention to analytics, performance and other key features of a Web CMS.</p>\n\n<p><strong>Answer:</strong> Definitely&nbsp;yes. At&nbsp;this&nbsp;point,&nbsp;your&nbsp;content&nbsp;and&nbsp;user&nbsp;base&nbsp;is&nbsp;large&nbsp;enough&nbsp;and&nbsp;you&nbsp;need&nbsp;a&nbsp; good&nbsp;CMS&nbsp;solution&nbsp;for&nbsp;it.&nbsp;Consider&nbsp;hiring&nbsp;engineers&nbsp;to&nbsp;deploy&nbsp;and&nbsp;manage&nbsp; the system on a&nbsp;scalable&nbsp;architecture.</p>\n\n<p>&nbsp;</p>\n\n<h3>Conclusion</h3>\n\n<p>It all depends on the type of your site and the amount of content you produce.&nbsp; Think about what necessary functionalities, what would be a nice addition and what you don't need at all. Think it over and then decide!</p>\n",
+  "excerpt": "If you\u2019re a beginning website owner you might be wondering what a Content Management System is and if you should use a CMS. This article will look at some valid reasons to invest in a CMS, but also will try to shed some light on the caveats, so read on.",
+  "headerImage": [
+    {
+      "type": "internal",
+      "dataUrl": "/api/v1/content/_media/_media-5e5cf6e78eac4"
+    }
+  ],
+  "relatedPosts": [],
+  "metaDescription": "If you\u2019re a beginning website owner you might be wondering what a Content Management System is and if you should use a CMS. This article will help you decide."
+}

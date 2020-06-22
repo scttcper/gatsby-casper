@@ -1,0 +1,63 @@
+{
+  "name": "flotiqBlogTag",
+  "label": "Flotiq blog tag",
+  "schemaDefinition": {
+    "type": "object",
+    "allOf": [
+      {
+        "$ref": "#/components/schemas/AbstractContentTypeSchemaDefinition"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "type": "string",
+            "minLength": 1
+          },
+          "image": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataSource"
+            },
+            "minItems": 0
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    ],
+    "required": [
+      "tag"
+    ],
+    "additionalProperties": false
+  },
+  "metaDefinition": {
+    "order": [
+      "tag",
+      "description",
+      "image"
+    ],
+    "propertiesConfig": {
+      "tag": {
+        "unique": true,
+        "helpText": "",
+        "inputType": "text",
+        "isTitlePart": true
+      },
+      "image": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "datasource",
+        "validation": {
+          "relationContenttype": "_media"
+        }
+      },
+      "description": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "textarea"
+      }
+    }
+  }
+}

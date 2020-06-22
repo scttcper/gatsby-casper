@@ -1,0 +1,12 @@
+{
+  "id": "flotiqBlogAuthor-1",
+  "bio": "",
+  "name": "Flotiq team",
+  "slug": "flotiq-team",
+  "avatar": [
+    {
+      "type": "internal",
+      "dataUrl": "/api/v1/content/_media/_media-5e39725973d90"
+    }
+  ]
+}

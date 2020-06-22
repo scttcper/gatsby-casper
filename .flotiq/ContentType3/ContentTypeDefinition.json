@@ -1,0 +1,164 @@
+{
+  "name": "flotiqBlogPost",
+  "label": "Flotiq blog post",
+  "schemaDefinition": {
+    "type": "object",
+    "allOf": [
+      {
+        "$ref": "#/components/schemas/AbstractContentTypeSchemaDefinition"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataSource"
+            },
+            "minItems": 0
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "author": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataSource"
+            },
+            "minItems": 0
+          },
+          "status": {
+            "type": "string",
+            "default": "draft",
+            "minLength": 1
+          },
+          "content": {
+            "type": "string",
+            "minLength": 1
+          },
+          "excerpt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "headerImage": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataSource"
+            },
+            "minItems": 0
+          },
+          "relatedPosts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DataSource"
+            },
+            "minItems": 0
+          },
+          "metaDescription": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    ],
+    "required": [
+      "slug",
+      "title",
+      "status",
+      "excerpt",
+      "metaDescription",
+      "content"
+    ],
+    "additionalProperties": false
+  },
+  "metaDefinition": {
+    "order": [
+      "slug",
+      "title",
+      "status",
+      "excerpt",
+      "metaDescription",
+      "content",
+      "headerImage",
+      "tags",
+      "author",
+      "relatedPosts"
+    ],
+    "propertiesConfig": {
+      "slug": {
+        "unique": true,
+        "helpText": "",
+        "inputType": "text"
+      },
+      "tags": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "datasource",
+        "validation": {
+          "relationMultiple": true,
+          "relationContenttype": "flotiqBlogTag"
+        }
+      },
+      "title": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "text",
+        "isTitlePart": true
+      },
+      "author": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "datasource",
+        "validation": {
+          "relationContenttype": "flotiqBlogAuthor"
+        }
+      },
+      "status": {
+        "unique": false,
+        "options": [
+          "draft",
+          "public"
+        ],
+        "helpText": "",
+        "inputType": "select"
+      },
+      "content": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "richtext"
+      },
+      "excerpt": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "textarea"
+      },
+      "headerImage": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "datasource",
+        "validation": {
+          "relationContenttype": "_media"
+        }
+      },
+      "relatedPosts": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "datasource",
+        "validation": {
+          "relationMultiple": true,
+          "relationContenttype": "flotiqBlogPost"
+        }
+      },
+      "metaDescription": {
+        "unique": false,
+        "helpText": "",
+        "inputType": "textarea"
+      }
+    }
+  }
+}
