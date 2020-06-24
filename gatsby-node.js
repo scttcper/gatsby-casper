@@ -148,7 +148,7 @@ exports.createPages = async ({ graphql, actions }) => {
         slug,
         prev,
         next,
-        primaryTag: node.tags ? node.tags[0].tag : '',
+        primaryTag: (node.tags && node.tags[0]) ? node.tags[0].tag : '',
       },
     });
   });
