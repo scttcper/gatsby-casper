@@ -14,10 +14,10 @@ jobs:
     - name: Enter data to .env file
       run: |
         echo GATSBY_FLOTIQ_BASE_URL=https://api.flotiq.com >> .env
-        echo FLOTIQ_API_KEY="$FLOTIQ_API_KEY" >> .env
+        echo GATSBY_FLOTIQ_API_KEY="$GATSBY_FLOTIQ_API_KEY" >> .env
       shell: bash
       env:
-        FLOTIQ_API_KEY: ${{ secrets.FLOTIQ_API_KEY }}
+        GATSBY_FLOTIQ_API_KEY: ${{ secrets.GATSBY_FLOTIQ_API_KEY }}
     
     - uses: actions/setup-node@v1
       with:
