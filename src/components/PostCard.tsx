@@ -241,7 +241,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       {post.headerImage && (
         <Link className="post-card-image-link" css={PostCardImageLink} to={post.slug}>
           <PostCardImage className="post-card-image" >
-            {post.headerImage &&
+            {post.headerImage && post.headerImage[0] &&
               post.headerImage[0].id &&
               post.headerImage[0].extension && (
               <div css={PostCardImageBackground} style={{ backgroundImage: `url(${process.env.GATSBY_FLOTIQ_BASE_URL + '/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension})` }} />
