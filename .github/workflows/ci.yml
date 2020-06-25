@@ -37,14 +37,14 @@ jobs:
       run: |
         npm install -g @cloudflare/wrangler
         wrangler init --site flotiq-blog
-        sed 's+account_id = ""+account_id = '"'"$ACCOUNT_ID"'"'+g' wrangler.toml > temp1
-        sed 's+bucket = ""+bucket = "./public"+g' temp1 > wrangler.toml
-        sed 's+zone_id = ""+zone_id = '"'"$ZONE_ID"'"'+g' wrangler.toml > temp1
-        sed 's+route = ""+route = "flotiq.com/blog/*"+g' temp1 > wrangler.toml
-        cat wrangler.toml > temp1
-        sed 's+workers_dev = true++g' temp1 > wrangler.toml
+        sed -i 's+account_id = ""+account_id = '"'"$ACCOUNT_ID"'"'+g' wrangler.toml
+        sed -i 's+bucket = ""+bucket = "./public"+g' wrangler.toml
+        sed -i 's+zone_id = ""+zone_id = '"'"$ZONE_ID"'"'+g' wrangler.toml
+        sed -i 's+route = ""+route = "flotiq.com/blog/*"+g' wrangler.toml        
+        sed -i 's+workers_dev = true++g' wrangler.toml
         mkdir -p /home/runner/.wrangler/config/
         echo api_token = '"'"$API_TOKEN"'"' > /home/runner/.wrangler/config/default.toml
+        cat wrangler.toml
         wrangler publish
       shell: bash
       env:
