@@ -45,7 +45,7 @@ jobs:
         sed 's+workers_dev = true++g' temp1 > wrangler.toml
         mkdir -p /home/runner/.wrangler/config/
         echo api_token = '"'"$API_TOKEN"'"' > /home/runner/.wrangler/config/default.toml
-        wrangler publish --env=production
+        wrangler publish
       shell: bash
       env:
         API_TOKEN: ${{ secrets.API_TOKEN }}
