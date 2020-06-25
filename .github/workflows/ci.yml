@@ -1,16 +1,16 @@
 name: CI
-# Controls when the action will run. Triggers the workflow on push 
+# Controls when the action will run. Triggers the workflow on push
 # events but only for the master branch
 on:
   push:
     branches: [ master ]
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest # The type of runner that the job will run on
     steps: # Steps represent a sequence of tasks that will be executed as part of the job
     - uses: actions/checkout@v2 # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    
+
     - name: Enter data to .env file
       run: |
         echo GATSBY_FLOTIQ_BASE_URL=https://api.flotiq.com >> .env
@@ -18,28 +18,30 @@ jobs:
       shell: bash
       env:
         GATSBY_FLOTIQ_API_KEY: ${{ secrets.GATSBY_FLOTIQ_API_KEY }}
-    
+
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
     - run: npm install
-      
+
     - name: Gatsby
-      run: | 
+      run: |
         npm install -g gatsby-cli
         gatsby clean
         gatsby build
-        
+
     - name: Cloudflare
       run: |
         npm install -g @cloudflare/wrangler
-        wrangler init --site my-static-site
+        wrangler init --site flotiq-blog
         sed 's+account_id = ""+account_id = '"'"$ACCOUNT_ID"'"'+g' wrangler.toml > temp1
         sed 's+bucket = ""+bucket = "./public"+g' temp1 > wrangler.toml
+        cat wrangler.toml > temp1
+        sed 's+route = ""+route = "flotiq.com/blog/*"+g' temp1 > wrangler.toml
         mkdir -p /home/runner/.wrangler/config/
         echo api_token = '"'"$API_TOKEN"'"' > /home/runner/.wrangler/config/default.toml
         wrangler publish
       shell: bash
-      env: 
+      env:
         API_TOKEN: ${{ secrets.API_TOKEN }}
         ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
