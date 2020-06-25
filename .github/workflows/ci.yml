@@ -50,3 +50,4 @@ jobs:
       env:
         API_TOKEN: ${{ secrets.API_TOKEN }}
         ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
+        ZONE_ID: ${{ secrets.ZONE_ID }}
