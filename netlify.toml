@@ -3,5 +3,5 @@
   publish = "public/"
 
 [template.environment]
-  GATSBY_FLOTIQ_BASE_URL="LINK TO FLOTIQ API (in most cases use: https://api.flotiq.com)"
+  GATSBY_FLOTIQ_BASE_URL="LINK TO FLOTIQ API (use: https://api.flotiq.com)"
   GATSBY_FLOTIQ_API_KEY="YOUR FLOTIQ API KEY"
