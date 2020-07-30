@@ -28,12 +28,7 @@ import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
 interface AuthorTemplateProps {
-  pathContext: {
-    slug: string;
-  };
-  pageContext: {
-    author: string;
-  };
+  path: string;
   data: {
     logo: {
       childImageSharp: {
@@ -67,10 +62,10 @@ interface AuthorTemplateProps {
   };
 }
 
-const Author: React.FC<AuthorTemplateProps> = props => {
-  const author = props.data.authorYaml;
+const Author = ({ data, path }: AuthorTemplateProps) => {
+  const author = data.authorYaml;
 
-  const edges = props.data.allMarkdownRemark.edges.filter(edge => {
+  const edges = data.allMarkdownRemark.edges.filter(edge => {
     const isDraft = edge.node.frontmatter.draft !== true || process.env.NODE_ENV === 'development';
 
     let authorParticipated = false;
@@ -97,12 +92,12 @@ const Author: React.FC<AuthorTemplateProps> = props => {
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="profile" />
         <meta property="og:title" content={`${author.id} - ${config.title}`} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta property="og:url" content={config.siteUrl + path} />
         <meta property="article:publisher" content="https://www.facebook.com/ghost" />
         <meta property="article:author" content="https://www.facebook.com/ghost" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={`${author.id} - ${config.title}`} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta name="twitter:url" content={config.siteUrl + path} />
         {config.twitter && (
           <meta
             name="twitter:site"
@@ -134,7 +129,7 @@ const Author: React.FC<AuthorTemplateProps> = props => {
                 <img
                   style={{ marginTop: '8px' }}
                   css={[AuthorProfileImage, AuthorProfileBioImage]}
-                  src={props.data.authorYaml.avatar.childImageSharp.fluid.src}
+                  src={data.authorYaml.avatar.childImageSharp.fluid.src}
                   alt={author.id}
                 />
                 <AuthHeaderContent className="author-header-content">
