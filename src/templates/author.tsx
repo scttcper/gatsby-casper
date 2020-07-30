@@ -28,7 +28,7 @@ import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
 interface AuthorTemplateProps {
-  path: string;
+  location: Location;
   data: {
     logo: {
       childImageSharp: {
@@ -62,7 +62,7 @@ interface AuthorTemplateProps {
   };
 }
 
-const Author = ({ data, path }: AuthorTemplateProps) => {
+const Author = ({ data, location }: AuthorTemplateProps) => {
   const author = data.authorYaml;
 
   const edges = data.allMarkdownRemark.edges.filter(edge => {
@@ -92,12 +92,12 @@ const Author = ({ data, path }: AuthorTemplateProps) => {
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="profile" />
         <meta property="og:title" content={`${author.id} - ${config.title}`} />
-        <meta property="og:url" content={config.siteUrl + path} />
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
         <meta property="article:publisher" content="https://www.facebook.com/ghost" />
         <meta property="article:author" content="https://www.facebook.com/ghost" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={`${author.id} - ${config.title}`} />
-        <meta name="twitter:url" content={config.siteUrl + path} />
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
         {config.twitter && (
           <meta
             name="twitter:site"

@@ -26,7 +26,7 @@ import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
 interface TagTemplateProps {
-  path: string;
+  location: Location;
   pageContext: {
     tag: string;
   };
@@ -53,7 +53,7 @@ interface TagTemplateProps {
   };
 }
 
-const Tags = ({ pageContext, data, path }: TagTemplateProps) => {
+const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
   const tag = pageContext.tag ? pageContext.tag : '';
   const { edges, totalCount } = data.allMarkdownRemark;
   const tagData = data.allTagYaml.edges.find(
@@ -71,11 +71,11 @@ const Tags = ({ pageContext, data, path }: TagTemplateProps) => {
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`${tag} - ${config.title}`} />
-        <meta property="og:url" content={config.siteUrl + path} />
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${tag} - ${config.title}`} />
-        <meta name="twitter:url" content={config.siteUrl + path} />
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
         {config.twitter && (
           <meta
             name="twitter:site"

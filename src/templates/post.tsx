@@ -32,7 +32,7 @@ export interface Author {
 }
 
 interface PageTemplateProps {
-  path: string;
+  location: Location;
   data: {
     logo: {
       childImageSharp: {
@@ -101,7 +101,7 @@ export interface PageContext {
   };
 }
 
-const PageTemplate = ({ data, path, pageContext }: PageTemplateProps) => {
+const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   const post = data.markdownRemark;
   let width = '';
   let height = '';
@@ -127,7 +127,7 @@ const PageTemplate = ({ data, path, pageContext }: PageTemplateProps) => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta property="og:url" content={config.siteUrl + path} />
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
         {post.frontmatter.image?.childImageSharp && (
           <meta
             property="og:image"
@@ -146,7 +146,7 @@ const PageTemplate = ({ data, path, pageContext }: PageTemplateProps) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta name="twitter:url" content={config.siteUrl + path} />
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
         {post.frontmatter.image?.childImageSharp && (
           <meta
             name="twitter:image"
@@ -238,7 +238,7 @@ const PageTemplate = ({ data, path, pageContext }: PageTemplateProps) => {
         </main>
 
         <ReadNext
-          currentPageSlug={path}
+          currentPageSlug={location.pathname}
           tags={post.frontmatter.tags}
           relatedPosts={data.relatedPosts}
           pageContext={pageContext}
