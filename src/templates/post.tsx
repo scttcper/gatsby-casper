@@ -32,9 +32,7 @@ export interface Author {
 }
 
 interface PageTemplateProps {
-  pathContext: {
-    slug: string;
-  };
+  location: Location;
   data: {
     logo: {
       childImageSharp: {
@@ -103,8 +101,8 @@ export interface PageContext {
   };
 }
 
-const PageTemplate: React.FC<PageTemplateProps> = props => {
-  const post = props.data.markdownRemark;
+const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
+  const post = data.markdownRemark;
   let width = '';
   let height = '';
   if (post.frontmatter.image?.childImageSharp) {
@@ -129,7 +127,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta property="og:type" content="article" />
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
         {post.frontmatter.image?.childImageSharp && (
           <meta
             property="og:image"
@@ -148,7 +146,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
         {post.frontmatter.image?.childImageSharp && (
           <meta
             name="twitter:image"
@@ -240,10 +238,10 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         </main>
 
         <ReadNext
-          currentPageSlug={props.pathContext.slug}
+          currentPageSlug={location.pathname}
           tags={post.frontmatter.tags}
-          relatedPosts={props.data.relatedPosts}
-          pageContext={props.pageContext}
+          relatedPosts={data.relatedPosts}
+          pageContext={pageContext}
         />
 
         <Footer />

@@ -26,9 +26,7 @@ import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
 interface TagTemplateProps {
-  pathContext: {
-    slug: string;
-  };
+  location: Location;
   pageContext: {
     tag: string;
   };
@@ -55,10 +53,10 @@ interface TagTemplateProps {
   };
 }
 
-const Tags: React.FC<TagTemplateProps> = props => {
-  const tag = props.pageContext.tag ? props.pageContext.tag : '';
-  const { edges, totalCount } = props.data.allMarkdownRemark;
-  const tagData = props.data.allTagYaml.edges.find(
+const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
+  const tag = pageContext.tag ? pageContext.tag : '';
+  const { edges, totalCount } = data.allMarkdownRemark;
+  const tagData = data.allTagYaml.edges.find(
     n => n.node.id.toLowerCase() === tag.toLowerCase(),
   );
 
@@ -73,11 +71,11 @@ const Tags: React.FC<TagTemplateProps> = props => {
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`${tag} - ${config.title}`} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${tag} - ${config.title}`} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
         {config.twitter && (
           <meta
             name="twitter:site"

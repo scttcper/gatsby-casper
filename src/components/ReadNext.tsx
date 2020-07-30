@@ -33,8 +33,8 @@ interface ReadNextProps {
   };
 }
 
-export const ReadNext: React.FC<ReadNextProps> = props => {
-  const showRelatedPosts = props.relatedPosts.totalCount > 1;
+export const ReadNext = ({ relatedPosts, currentPageSlug, tags, pageContext }: ReadNextProps) => {
+  const showRelatedPosts = relatedPosts.totalCount > 1;
 
   return (
     <ReadNextAside className="read-next" css={outer}>
@@ -42,14 +42,14 @@ export const ReadNext: React.FC<ReadNextProps> = props => {
         <ReadNextFeed className="read-next-feed">
           {showRelatedPosts && (
             <ReadNextCard
-              currentPageSlug={props.currentPageSlug}
-              tags={props.tags}
-              relatedPosts={props.relatedPosts}
+              currentPageSlug={currentPageSlug}
+              tags={tags}
+              relatedPosts={relatedPosts}
             />
           )}
 
-          {props.pageContext.prev && <PostCard post={props.pageContext.prev} />}
-          {props.pageContext.next && <PostCard post={props.pageContext.next} />}
+          {pageContext.prev && <PostCard post={pageContext.prev} />}
+          {pageContext.next && <PostCard post={pageContext.next} />}
         </ReadNextFeed>
       </div>
     </ReadNextAside>
