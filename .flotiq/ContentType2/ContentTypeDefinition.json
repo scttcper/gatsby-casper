@@ -46,22 +46,26 @@
     ],
     "propertiesConfig": {
       "bio": {
+        "label": "Bio",
         "unique": false,
         "helpText": "",
         "inputType": "richtext"
       },
       "name": {
+        "label": "Name",
         "unique": true,
         "helpText": "",
         "inputType": "text",
         "isTitlePart": true
       },
       "slug": {
+        "label": "Slug",
         "unique": true,
         "helpText": "",
         "inputType": "text"
       },
       "avatar": {
+        "label": "Avatar",
         "unique": false,
         "helpText": "",
         "inputType": "datasource",

@@ -91,11 +91,13 @@
     ],
     "propertiesConfig": {
       "slug": {
+        "label": "slug",
         "unique": true,
         "helpText": "",
         "inputType": "text"
       },
       "tags": {
+        "label": "Tags",
         "unique": false,
         "helpText": "",
         "inputType": "datasource",
@@ -105,12 +107,14 @@
         }
       },
       "title": {
+        "label": "Title",
         "unique": false,
         "helpText": "",
         "inputType": "text",
         "isTitlePart": true
       },
       "author": {
+        "label": "Author",
         "unique": false,
         "helpText": "",
         "inputType": "datasource",
@@ -119,6 +123,7 @@
         }
       },
       "status": {
+        "label": "Status",
         "unique": false,
         "options": [
           "draft",
@@ -128,16 +133,19 @@
         "inputType": "select"
       },
       "content": {
+        "label": "Content",
         "unique": false,
         "helpText": "",
         "inputType": "richtext"
       },
       "excerpt": {
+        "label": "Excerpt",
         "unique": false,
         "helpText": "",
         "inputType": "textarea"
       },
       "headerImage": {
+        "label": "Header image",
         "unique": false,
         "helpText": "",
         "inputType": "datasource",
@@ -146,6 +154,7 @@
         }
       },
       "relatedPosts": {
+        "label": "Related posts",
         "unique": false,
         "helpText": "",
         "inputType": "datasource",
@@ -155,6 +164,7 @@
         }
       },
       "metaDescription": {
+        "label": "Meta description",
         "unique": false,
         "helpText": "",
         "inputType": "textarea"
