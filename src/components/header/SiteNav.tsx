@@ -82,61 +82,63 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
   render(): JSX.Element {
     const { isHome = false, isPost = false, post = {} } = this.props;
     return (
-      <nav css={SiteNavStyles}>
-        <SiteNavLeft className="site-nav-left">
-          {!isHome && <SiteNavLogo />}
-          <SiteNavContent css={[this.state.showTitle ? HideNav : '']}>
-            <ul css={NavStyles} role="menu">
-              {/* TODO: mark current nav item - add class nav-current */}
-              <li role="menuitem">
-                <Link to="/">Home</Link>
-              </li>
-              <li role="menuitem">
-                <Link to="/about">About</Link>
-              </li>
-              <li role="menuitem">
-                <Link to="/tags/getting-started/">Getting Started</Link>
-              </li>
-            </ul>
-            {isPost && (
-              <NavPostTitle ref={this.titleRef} className="nav-post-title">
-                {post.title}
-              </NavPostTitle>
+      <>
+        {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
+        <nav css={SiteNavStyles}>
+          <SiteNavLeft className="site-nav-left">
+            {!isHome && <SiteNavLogo />}
+            <SiteNavContent css={[this.state.showTitle ? HideNav : '']}>
+              <ul css={NavStyles} role="menu">
+                {/* TODO: mark current nav item - add class nav-current */}
+                <li role="menuitem">
+                  <Link to="/">Home</Link>
+                </li>
+                <li role="menuitem">
+                  <Link to="/about">About</Link>
+                </li>
+                <li role="menuitem">
+                  <Link to="/tags/getting-started/">Getting Started</Link>
+                </li>
+              </ul>
+              {isPost && (
+                <NavPostTitle ref={this.titleRef} className="nav-post-title">
+                  {post.title}
+                </NavPostTitle>
+              )}
+            </SiteNavContent>
+          </SiteNavLeft>
+          <SiteNavRight>
+            <SocialLinks>
+              {config.facebook && (
+                <a
+                  className="social-link-fb"
+                  css={[SocialLink, SocialLinkFb]}
+                  href={config.facebook}
+                  target="_blank"
+                  title="Facebook"
+                  rel="noopener noreferrer"
+                >
+                  <Facebook />
+                </a>
+              )}
+              {config.twitter && (
+                <a
+                  css={SocialLink}
+                  href={config.twitter}
+                  title="Twitter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Twitter />
+                </a>
+              )}
+            </SocialLinks>
+            {config.showSubscribe && (
+              <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
             )}
-          </SiteNavContent>
-        </SiteNavLeft>
-        <SiteNavRight>
-          <SocialLinks>
-            {config.facebook && (
-              <a
-                className="social-link-fb"
-                css={[SocialLink, SocialLinkFb]}
-                href={config.facebook}
-                target="_blank"
-                title="Facebook"
-                rel="noopener noreferrer"
-              >
-                <Facebook />
-              </a>
-            )}
-            {config.twitter && (
-              <a
-                css={SocialLink}
-                href={config.twitter}
-                title="Twitter"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Twitter />
-              </a>
-            )}
-          </SocialLinks>
-          {config.showSubscribe && (
-            <SubscribeButton onClick={this.openModal}>Subscribe</SubscribeButton>
-          )}
-          {config.showSubscribe && <SubscribeModal ref={this.subscribe} />}
-        </SiteNavRight>
-      </nav>
+          </SiteNavRight>
+        </nav>
+      </>
     );
   }
 }
