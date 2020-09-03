@@ -1,0 +1,22 @@
+---
+label: lol
+hide_body: false
+fields:
+- type: text
+  name: layout
+  label: layout
+- type: text
+  name: title
+  label: title
+- type: file
+  name: image
+  label: image
+- type: list
+  name: author
+  label: author
+- type: datetime
+  name: date
+  label: date
+- type: list
+  name: tags
+  label: tags
