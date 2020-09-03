@@ -4,6 +4,11 @@ auto_deploy: false
 admin_path: 
 webhook_url: 
 sections:
+- type: directory
+  path: src
+  label: ELS
+  create: all
+  match: "**/*"
 - type: document
   path: src/website-config.ts
   label: Home
