@@ -14,7 +14,7 @@ sections:
   create: all
   match: "**/*"
 upload_dir: src/content/img
-public_path: "/img"
+public_path: img
 front_matter_path: ''
 use_front_matter_path: false
 file_template: ":filename:"
