@@ -6,8 +6,7 @@ webhook_url:
 sections:
 - type: document
   path: src/website-config.ts
-  label: Главная
-  match: "**/*"
+  label: Home
 - type: directory
   path: src/content
   label: Posts
