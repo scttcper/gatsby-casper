@@ -7,6 +7,7 @@ sections:
 - type: document
   path: src/website-config.ts
   label: Home
+  read_only: true
 - type: directory
   path: src/content
   label: Posts
