@@ -52,7 +52,7 @@ const config: WebsiteConfig = {
   title: 'Донбасс юридический',
   description: 'Юристический юрист юристом юристам',
   coverImage: 'img/blog-cover.png',
-  logo: 'img/ghost-logo.png',
+  logo: 'img/log.png',
   lang: 'en',
   siteUrl: 'https://gatsby-casper.netlify.com',
   facebook: 'https://www.facebook.com/ghost',
