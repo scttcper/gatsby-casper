@@ -26,7 +26,6 @@ export const SiteNavLogo = () => (
         }
       }
     `}
-    // tslint:disable-next-line:react-this-binding-issue
     render={(data: SiteNavLogoProps) => (
       <Link className="site-nav-logo" css={SiteNavLogoStyles} to="/">
         {data.logo ? (
