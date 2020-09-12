@@ -18,7 +18,7 @@ interface AuthorListItemProps {
 
 export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
   const [hovered, setHover] = useState(false);
-  let timeout: NodeJS.Timeout;
+  let timeout: ReturnType<typeof setTimeout>;
   function handleMouseEnter() {
     if (props.tooltip !== 'large') {
       return;

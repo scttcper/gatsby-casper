@@ -79,7 +79,7 @@ class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
     this.ticking = false;
   };
 
-  render(): JSX.Element {
+  render() {
     const { isHome = false, isPost = false, post = {} } = this.props;
     return (
       <>
