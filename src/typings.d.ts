@@ -1,6 +1,4 @@
-interface CSSModule {
-  [className: string]: string;
-}
+type CSSModule = Record<string, string>;
 
 // type shims for CSS modules
 
