@@ -39,7 +39,6 @@ Screenshot
     You need to create a file called `.env` inside the root of the directory, with the following structure:
 
     ```
-    GATSBY_FLOTIQ_BASE_URL=https://api.flotiq.com
     GATSBY_FLOTIQ_API_KEY=YOUR FLOTIQ API KEY
     ```
 
@@ -71,11 +70,11 @@ Screenshot
     
     Open a project directory in your code editor of choice and edit `src/templates/index.js`. Save your changes, and the browser will update in real time!
 
-1. **Manage your recipes using Flotiq editor**
+1. **Manage your posts using Flotiq editor**
       
-    You can now easily manage your recipes using [Flotiq editor](https://editor.flotiq.com)
+    You can now easily manage your posts using [Flotiq editor](https://editor.flotiq.com)
     
-    ![Managing recipes using Flotiq](docs/manage-recipes.png)
+    ![Managing posts using Flotiq](docs/manage-posts.png)
 
 # Deploy
 
