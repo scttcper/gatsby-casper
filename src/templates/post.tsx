@@ -169,8 +169,8 @@ interface PageTemplateProps {
         image: {
           id: string;
           extension: string;
-        }
-      }]
+        };
+      }];
       author: [{
         id: string;
         bio: string;
@@ -199,7 +199,7 @@ interface PageTemplateProps {
           id: string;
           tag: string;
           description: string;
-        }]
+        }];
         author: [{
           id: string;
           bio: string;
@@ -255,15 +255,15 @@ export interface PageContext {
     name: string;
     avatar: [{
       id: string;
-      extension: string
+      extension: string;
     }];
   }];
 }
 
 const PageTemplate: React.FC<PageTemplateProps> = props => {
   const post = props.data.flotiqBlogPost;
-  let width = '';
-  let height = '';
+  const width = '';
+  const height = '';
 
   return post && (
     <IndexLayout className="post-template">
@@ -316,9 +316,9 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
         </header>
         <main id="site-main" className="site-main" css={[SiteMain, outer]}>
           <div css={SocialSharing}>
-          <Twitter small link={config.siteUrl + '/blog/' + props.pathContext.slug} />
-	  <Facebook small link={config.siteUrl + '/blog/' + props.pathContext.slug}/>
-          <Linkedin small link={config.siteUrl + '/blog/' + props.pathContext.slug}/> 
+            <Twitter small link={config.siteUrl + '/blog/' + props.pathContext.slug} />
+            <Facebook small link={config.siteUrl + '/blog/' + props.pathContext.slug}/>
+            <Linkedin small link={config.siteUrl + '/blog/' + props.pathContext.slug}/>
           </div>
           <div css={inner}>
             {/* TODO: no-image css tag? */}
@@ -326,7 +326,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
               <PostFullHeader>
                 <PostFullMeta>
                   <PostFullMetaDate dateTime={post.flotiqInternal.createdAt}>
-                    {post.flotiqInternal.createdAt.substr(0,10)}
+                    {post.flotiqInternal.createdAt.substr(0, 10)}
                   </PostFullMetaDate>
                   {post.tags &&
                     post.tags.length > 0 && (
@@ -343,7 +343,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
 
               {(post.headerImage && post.headerImage[0].id) && (
                 <PostFullImage>
-                  <img alt={post.title} src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension} style={{ height: '100%' }} alt={post.title} />
+                  <img alt={post.title} src={'https://api.flotiq.com/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension} style={{ height: '100%' }} />
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.content} />
@@ -359,16 +359,16 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
           </div>
         </main>
         <SchemaOrg
-          isBlogPost={true}
+          isBlogPost
           url={config.siteUrl + '/blog/' + props.pathContext.slug}
           title={post.title}
-          image={(post.headerImage && post.headerImage[0].id) && process.env.GATSBY_FLOTIQ_BASE_URL + '/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
+          image={(post.headerImage && post.headerImage[0].id) && 'https://api.flotiq.com/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
           description={post.metaDescription}
           datePublished={post.flotiqInternal.createdAt}
           dateModified={post.flotiqInternal.updatedAt}
           canonicalUrl={config.siteUrl}
-          author={{name: post.author[0].slug}}
-          organization={{url: config.siteUrl, logo: config.companyLogo, name:config.companyName}}
+          author={{ name: post.author[0].slug }}
+          organization={{ url: config.siteUrl, logo: config.companyLogo, name: config.companyName }}
           defaultTitle={post.title}
         />
         {/* Links to Previous/Next posts */}
@@ -379,9 +379,8 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                 <ReadNextCard tags={post.tags} relatedPosts={props.data.relatedPostsFromTags} />
               )}
               {post.relatedPosts && post.relatedPosts.map(postCardPost => {
-                  return (postCardPost.status === 'public') && (<PostCard post={postCardPost}/>)
-                })
-              }
+                return (postCardPost.status === 'public') && (<PostCard post={postCardPost}/>);
+              })}
             </ReadNextFeed>
           </div>
         </aside>

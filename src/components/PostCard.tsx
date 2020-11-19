@@ -228,11 +228,11 @@ const AuthorProfileImage = styled.img`
 
 export interface PostCardProps {
   post: PageContext;
-  isIndex?: boolean
+  isIndex?: boolean;
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  let size = '960x600';
+  const size = '960x600';
   return (
     <article
       className={`post-card ${post.headerImage ? '' : 'no-image'}`}
@@ -244,7 +244,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             {post.headerImage && post.headerImage[0] &&
               post.headerImage[0].id &&
               post.headerImage[0].extension && (
-              <div css={PostCardImageBackground} style={{ backgroundImage: `url(${process.env.GATSBY_FLOTIQ_BASE_URL + '/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension})` }} />
+              <div css={PostCardImageBackground} style={{ backgroundImage: `url(${'https://api.flotiq.com/image/' + size + '/' + post.headerImage[0].id + '.' + post.headerImage[0].extension})` }} />
             )}
           </PostCardImage>
         </Link>
@@ -264,7 +264,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
             <AuthorListItem>
               <Link css={StaticAvatar} to={`/author/${_.kebabCase(post.author[0].slug)}/`}>
                 <AuthorProfileImage
-                  src={process.env.GATSBY_FLOTIQ_BASE_URL + '/image/40x40/' + post.author[0].avatar[0].id + '.' + post.author[0].avatar[0].extension}
+                  src={'https://api.flotiq.com/image/40x40/' + post.author[0].avatar[0].id + '.' + post.author[0].avatar[0].extension}
                   alt={post.author[0].name}
                 />
                 <p>{post.author[0].name}</p>
