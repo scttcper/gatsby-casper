@@ -2,7 +2,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import { FixedObject } from 'gatsby-image';
 import React from 'react';
 
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 
 import config from '../../website-config';
 
