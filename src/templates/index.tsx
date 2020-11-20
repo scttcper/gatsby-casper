@@ -3,6 +3,7 @@ import { FixedObject } from 'gatsby-image';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
+import {} from '@emotion/react/types/css-prop';
 import { css } from '@emotion/react';
 
 import { Footer } from '../components/Footer';
