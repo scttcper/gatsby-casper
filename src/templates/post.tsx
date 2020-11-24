@@ -5,9 +5,8 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Helmet } from 'react-helmet';
-import { Twitter } from 'react-social-sharing';
-import { Facebook } from 'react-social-sharing';
-import { Linkedin } from 'react-social-sharing';
+// @ts-ignore
+import { Twitter, Facebook, Linkedin } from 'react-social-sharing';
 
 import AuthorCard from '../components/AuthorCard';
 import Footer from '../components/Footer';
@@ -19,6 +18,7 @@ import PostFullFooterRight from '../components/PostFullFooterRight';
 import ReadNextCard from '../components/ReadNextCard';
 import Subscribe from '../components/subscribe/Subscribe';
 import Wrapper from '../components/Wrapper';
+// @ts-ignore
 import SchemaOrg from '../components/SEO/SchemaOrg';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
@@ -268,55 +268,57 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
   return post && (
     <IndexLayout className="post-template">
       <Helmet>
-        <html lang={config.lang} />
+        <html lang={config.lang}/>
         <title>{post.title} - {config.title}</title>
 
-        <meta name="description" content={post.metaDescription} />
-        <meta property="og:site_name" content={config.title} />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.metaDescription} />
-        <meta property="og:url" content={config.siteUrl + '/blog/' + props.pathContext.slug} />
+        <meta name="description" content={post.metaDescription}/>
+        <meta property="og:site_name" content={config.title}/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content={post.title}/>
+        <meta property="og:description" content={post.metaDescription}/>
+        <meta property="og:url" content={config.siteUrl + '/blog/' + props.pathContext.slug}/>
         {(post.headerImage) && (
-          <meta property="og:image" content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`} />
+          <meta property="og:image"
+            content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`}/>
         )}
-        <meta property="article:published_time" content={post.flotiqInternal.createdAt} />
+        <meta property="article:published_time" content={post.flotiqInternal.createdAt}/>
         {/* not sure if modified time possible */}
         {/* <meta property="article:modified_time" content="2018-08-20T15:12:00.000Z" /> */}
         {post.tags && (
-          <meta property="article:tag" content={post.tags[0].tag} />
+          <meta property="article:tag" content={post.tags[0].tag}/>
         )}
 
-        {config.facebook && <meta property="article:publisher" content={config.facebook} />}
-        {config.facebook && <meta property="article:author" content={config.facebook} />}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={post.metaDescription} />
-        <meta name="twitter:url" content={config.siteUrl + '/blog/' + props.pathContext.slug} />
+        {config.facebook && <meta property="article:publisher" content={config.facebook}/>}
+        {config.facebook && <meta property="article:author" content={config.facebook}/>}
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:title" content={post.title}/>
+        <meta name="twitter:description" content={post.metaDescription}/>
+        <meta name="twitter:url" content={config.siteUrl + '/blog/' + props.pathContext.slug}/>
         {(post.headerImage) && (
-          <meta name="twitter:image" content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`} />
+          <meta name="twitter:image"
+            content={`${config.siteUrl}/image/0x0/${post.headerImage[0].id}.${post.headerImage[0].extension}`}/>
         )}
-        <meta name="twitter:label1" content="Written by" />
-        <meta name="twitter:data1" content={post.author[0].id} />
-        <meta name="twitter:label2" content="Filed under" />
-        {post.tags && <meta name="twitter:data2" content={post.tags[0].tag} />}
-        {config.twitter && <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[1]}`} />}
+        <meta name="twitter:label1" content="Written by"/>
+        <meta name="twitter:data1" content={post.author[0].id}/>
+        <meta name="twitter:label2" content="Filed under"/>
+        {post.tags && <meta name="twitter:data2" content={post.tags[0].tag}/>}
+        {config.twitter && <meta name="twitter:site" content={`@${config.twitter.split('https://twitter.com/')[1]}`}/>}
         {config.twitter && <meta
           name="twitter:creator"
           content={`@${config.twitter.split('https://twitter.com/')[1]}`}
         />}
-        {width && <meta property="og:image:width" content={width} />}
-        {height && <meta property="og:image:height" content={height} />}
+        {width && <meta property="og:image:width" content={width}/>}
+        {height && <meta property="og:image:height" content={height}/>}
       </Helmet>
       <Wrapper css={PostTemplate}>
         <header css={[outer, SiteHeader]}>
           <div css={inner}>
-            <SiteNav />
+            <SiteNav/>
           </div>
         </header>
         <main id="site-main" className="site-main" css={[SiteMain, outer]}>
           <div css={SocialSharing}>
-            <Twitter small link={config.siteUrl + '/blog/' + props.pathContext.slug} />
+            <Twitter small link={config.siteUrl + '/blog/' + props.pathContext.slug}/>
             <Facebook small link={config.siteUrl + '/blog/' + props.pathContext.slug}/>
             <Linkedin small link={config.siteUrl + '/blog/' + props.pathContext.slug}/>
           </div>
@@ -329,13 +331,13 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
                     {post.flotiqInternal.createdAt.substr(0, 10)}
                   </PostFullMetaDate>
                   {post.tags &&
-                    post.tags.length > 0 && (
-                      <>
-                        <DateDivider>/</DateDivider>
-                        <Link className="post-tag-pill" to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
-                          {post.tags[0].tag}
-                        </Link>
-                      </>
+                  post.tags.length > 0 && (
+                    <>
+                      <DateDivider>/</DateDivider>
+                      <Link className="post-tag-pill" to={`/tags/${_.kebabCase(post.tags[0].tag)}/`}>
+                        {post.tags[0].tag}
+                      </Link>
+                    </>
                   )}
                 </PostFullMeta>
                 <PostFullTitle>{post.title}</PostFullTitle>
@@ -343,17 +345,19 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
 
               {(post.headerImage && post.headerImage[0].id) && (
                 <PostFullImage>
-                  <img alt={post.title} src={'https://api.flotiq.com/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension} style={{ height: '100%' }} />
+                  <img alt={post.title}
+                    src={'https://api.flotiq.com/image/1450x800/' + post.headerImage[0].id + '.' + post.headerImage[0].extension}
+                    style={{ height: '100%' }}/>
                 </PostFullImage>
               )}
-              <PostContent htmlAst={post.content} />
+              <PostContent htmlAst={post.content}/>
 
               {/* The big email subscribe modal content */}
-              {config.showSubscribe && <Subscribe title={config.title} />}
+              {config.showSubscribe && <Subscribe title={config.title}/>}
 
               <PostFullFooter>
-                <AuthorCard author={post.author} />
-                <PostFullFooterRight authorId={post.author[0].slug} />
+                <AuthorCard author={post.author}/>
+                <PostFullFooterRight authorId={post.author[0].slug}/>
               </PostFullFooter>
             </article>
           </div>
@@ -376,7 +380,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
           <div css={inner}>
             <ReadNextFeed>
               {props.data.relatedPostsFromTags && (
-                <ReadNextCard tags={post.tags} relatedPosts={props.data.relatedPostsFromTags} />
+                <ReadNextCard tags={post.tags} relatedPosts={props.data.relatedPostsFromTags}/>
               )}
               {post.relatedPosts && post.relatedPosts.map(postCardPost => {
                 return (postCardPost.status === 'public') && (<PostCard post={postCardPost}/>);
@@ -384,7 +388,7 @@ const PageTemplate: React.FC<PageTemplateProps> = props => {
             </ReadNextFeed>
           </div>
         </aside>
-        <Footer />
+        <Footer/>
       </Wrapper>
     </IndexLayout>
   );

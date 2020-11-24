@@ -137,15 +137,15 @@ const ReadNextCardFooter = styled.footer`
 
 export interface ReadNextProps {
   tags: [{
-      id: string;
-      tag: string;
+    id: string;
+    tag: string;
   }];
   relatedPosts: {
     totalCount: number;
     edges: Array<{
       node: {
-          title: string;
-          slug: string;
+        title: string;
+        slug: string;
       };
     }>;
   };
@@ -188,7 +188,7 @@ const ReadNextCard: React.FC<ReadNextProps> = props => {
               {props.relatedPosts.edges.map(n => {
                 return (
                   <li key={n.node.title}>
-                    <Link to={n.node.slug}>{n.node.title}</Link>
+                    <Link to={`/${n.node.slug}`}>{n.node.title}</Link>
                   </li>
                 );
               })}

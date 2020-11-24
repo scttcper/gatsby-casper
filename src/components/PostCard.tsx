@@ -239,7 +239,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       css={PostCardStyles}
     >
       {post.headerImage && (
-        <Link className="post-card-image-link" css={PostCardImageLink} to={post.slug}>
+        <Link className="post-card-image-link" css={PostCardImageLink} to={`/${post.slug}`}>
           <PostCardImage className="post-card-image" >
             {post.headerImage && post.headerImage[0] &&
               post.headerImage[0].id &&
@@ -250,7 +250,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         </Link>
       )}
       <PostCardContent className="post-card-content">
-        <Link className="post-card-content-link" css={PostCardContentLink} to={post.slug}>
+        <Link className="post-card-content-link" css={PostCardContentLink} to={`/${post.slug}`}>
           <header className="post-card-header">
             {post.tags && post.tags[0] && post.tags[0].tag && <PostCardTags className="postcard-tag-pill">{post.tags[0].tag}</PostCardTags>}
             <PostCardTitle>{post.title}</PostCardTitle>
