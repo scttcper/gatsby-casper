@@ -316,7 +316,8 @@ export const ResponsiveHeaderBackground = styled.div<{ backgroundImage?: string 
 
     .site-header-content {
       /* border-bottom-color: color(var(--darkmode) l(+15%)); */
-      border-bottom-color: ${lighten('0.15', colors.darkmode)};
+      /* border-bottom-color: ${lighten('0.15', colors.darkmode)}; */
+      border-bottom-color: #272a30;
     }
 
     .author-social-link a {
