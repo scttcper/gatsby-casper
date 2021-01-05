@@ -30,14 +30,20 @@ export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
 
   function handleMouseLeave() {
     clearTimeout(timeout);
-    timeout = setTimeout(() => setHover(false), 600);
+    timeout = setTimeout(() => {
+      setHover(false);
+    }, 600);
   }
 
   return (
     <AuthorListItemLi
       className="author-list-item"
-      onMouseEnter={() => handleMouseEnter()}
-      onMouseLeave={() => handleMouseLeave()}
+      onMouseEnter={() => {
+        handleMouseEnter();
+      }}
+      onMouseLeave={() => {
+        handleMouseLeave();
+      }}
     >
       {props.tooltip === 'small' && (
         <AuthorNameTooltip className="author-name-tooltip">{props.author.id}</AuthorNameTooltip>

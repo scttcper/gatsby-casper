@@ -24,5 +24,6 @@ module.exports = {
     '@typescript-eslint/prefer-readonly-parameter-types': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/comma-dangle': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off',
   },
 };
