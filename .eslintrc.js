@@ -7,7 +7,7 @@ module.exports = {
   },
   extends: ['xo-space/esnext', 'xo-react/space', 'xo-typescript'],
   rules: {
-    'object-curly-spacing': ['error', 'always'],
+    '@typescript-eslint/object-curly-spacing': ['error', 'always'],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'capitalized-comments': 'off',
