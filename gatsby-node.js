@@ -57,7 +57,6 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             excerpt
-            timeToRead
             frontmatter {
               title
               tags
@@ -94,6 +93,9 @@ exports.createPages = async ({ graphql, actions }) => {
               }
             }
             fields {
+              readingTime {
+                text
+              }
               layout
               slug
             }

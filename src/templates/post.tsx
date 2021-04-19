@@ -43,7 +43,6 @@ interface PageTemplateProps {
       html: string;
       htmlAst: any;
       excerpt: string;
-      timeToRead: string;
       frontmatter: {
         title: string;
         date: string;
@@ -56,6 +55,11 @@ interface PageTemplateProps {
         excerpt: string;
         tags: string[];
         author: Author[];
+      };
+      fields: {
+        readingTime: {
+          text: string;
+        };
       };
     };
     relatedPosts: {
@@ -82,9 +86,11 @@ interface PageTemplateProps {
 
 export interface PageContext {
   excerpt: string;
-  timeToRead: number;
   fields: {
     slug: string;
+    readingTime: {
+      text: string;
+    };
   };
   frontmatter: {
     image: {
@@ -212,7 +218,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                           {displayDatetime}
                         </time>
                         <span className="byline-reading-time">
-                          <span className="bull">&bull;</span> {post.timeToRead} min read
+                          <span className="bull">&bull;</span>{post.fields.readingTime.text}
                         </span>
                       </div>
                     </section>
@@ -449,7 +455,11 @@ export const query = graphql`
       html
       htmlAst
       excerpt
-      timeToRead
+      fields {
+        readingTime {
+          text
+        }
+      }
       frontmatter {
         title
         userDate: date(formatString: "D MMMM YYYY")
@@ -487,13 +497,15 @@ export const query = graphql`
       edges {
         node {
           id
-          timeToRead
           excerpt
           frontmatter {
             title
             date
           }
           fields {
+            readingTime {
+              text
+            }
             slug
           }
         }
