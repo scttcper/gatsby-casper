@@ -71,16 +71,8 @@ exports.createPages = async ({ graphql, actions }) => {
             id
             bio
             avatar {
-              children {
-                ... on ImageSharp {
-                  fluid(quality: 100) {
-                    aspectRatio
-                    base64
-                    sizes
-                    src
-                    srcSet
-                  }
-                }
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
               }
             }
           }

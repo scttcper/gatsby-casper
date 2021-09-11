@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage, getSrc, getImage } from "gatsby-plugin-image";
 
 import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -95,7 +95,7 @@ const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
           </div>
           <ResponsiveHeaderBackground
             css={[outer, SiteHeaderBackground]}
-            backgroundImage={tagData?.node?.image?.childImageSharp?.gatsbyImageData?.src}
+            backgroundImage={getSrc(tagData?.node?.image)}
             className="site-header-background"
           >
             <SiteHeaderContent css={inner} className="site-header-content">
@@ -168,12 +168,8 @@ export const pageQuery = graphql`query ($tag: String) {
             id
             bio
             avatar {
-              children {
-                ... on ImageSharp {
-                  fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
+              childImageSharp {
+                gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
               }
             }
           }

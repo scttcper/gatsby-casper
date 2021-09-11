@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import * as _ from 'lodash';
 import { lighten } from 'polished';
 import React, { useState } from 'react';
@@ -50,9 +50,9 @@ export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
       )}
       {props.tooltip === 'large' && (
         <div css={[AuthorCardStyles, hovered && Hovered]} className="author-card">
-          {props.author.avatar.children.length && (
+          {props.author.avatar && (
             <GatsbyImage
-              image={props.author.avatar.children.childImageSharp.gatsbyImageData}
+              image={getImage(props.author.avatar)}
               css={AuthorProfileImage}
               className="author-profile-image"
               fadeIn={false} />
@@ -74,8 +74,9 @@ export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
         className="author-avatar"
         to={`/author/${_.kebabCase(props.author.id)}/`}
       >
+
         <GatsbyImage
-          image={props.author.avatar.children.childImageSharp.gatsbyImageData}
+          image={getImage(props.author.avatar)}
           css={AuthorProfileImage}
           className="author-profile-image"
           alt={props.author.id}

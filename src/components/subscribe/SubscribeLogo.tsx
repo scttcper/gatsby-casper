@@ -1,5 +1,5 @@
 import { graphql, StaticQuery } from 'gatsby';
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage, getSrc } from "gatsby-plugin-image";
 import React from 'react';
 
 import { css } from '@emotion/react';
@@ -9,7 +9,7 @@ import config from '../../website-config';
 interface SiteNavLogoProps {
   logo?: {
     childImageSharp: {
-      fixed: GatsbyImage;
+      gatsbyImageData(layout: FIXED);
     };
   };
 }
@@ -33,7 +33,7 @@ const SubscribeLogo = () => (
         <img
           css={SubscribeOverlayLogo}
           className="subscribe-overlay-logo"
-          src={data.logo.childImageSharp.gatsbyImageData.src}
+          src={getSrc(data.logo)}
           alt={config.title}
         />
       );
