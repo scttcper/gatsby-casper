@@ -1,19 +1,19 @@
 version: 2.1
+orbs:
+  node: circleci/node@4
+  codecov: codecov/codecov@1
 jobs:
   test:
-    docker:
-      - image: circleci/node:12
+    executor:
+      name: node/default
+      tag: 'current'
     steps:
       - checkout
-      - run:
-          name: npm-install
-          command: npm ci
+      - node/install-packages
       - run:
           name: lint
           command: npm run lint
-      - run:
-          name: lint
-          command: npm run build
+      - codecov/upload
 
 workflows:
   version: 2
