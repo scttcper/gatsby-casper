@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import { graphql, Link } from 'gatsby';
-import Img, { FluidObject } from 'gatsby-image';
+import { GatsbyImage, getSrc, getImage } from "gatsby-plugin-image";
 import * as _ from 'lodash';
 import { lighten, setLightness } from 'polished';
 import React from 'react';
@@ -95,7 +95,7 @@ export interface PageContext {
   frontmatter: {
     image: {
       childImageSharp: {
-        fluid: FluidObject;
+        fluid: GatsbyImage;
       };
     };
     excerpt: string;
@@ -111,9 +111,9 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   const post = data.markdownRemark;
   let width = '';
   let height = '';
-  if (post.frontmatter.image?.childImageSharp) {
-    width = post.frontmatter.image.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-    height = String(Number(width) / post.frontmatter.image.childImageSharp.fluid.aspectRatio);
+  if (post.frontmatter.image) {
+    width = getImage(post.frontmatter.image).width;
+    height = getImage(post.frontmatter.image).height;
   }
 
   const date = new Date(post.frontmatter.date);
@@ -134,10 +134,10 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta property="og:title" content={post.frontmatter.title} />
         <meta property="og:description" content={post.frontmatter.excerpt || post.excerpt} />
         <meta property="og:url" content={config.siteUrl + location.pathname} />
-        {post.frontmatter.image?.childImageSharp && (
+        {post.frontmatter.image && (
           <meta
             property="og:image"
-            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
+            content={`${config.siteUrl}${getSrc(post.frontmatter.image)}`}
           />
         )}
         <meta property="article:published_time" content={post.frontmatter.date} />
@@ -153,10 +153,10 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
         <meta name="twitter:title" content={post.frontmatter.title} />
         <meta name="twitter:description" content={post.frontmatter.excerpt || post.excerpt} />
         <meta name="twitter:url" content={config.siteUrl + location.pathname} />
-        {post.frontmatter.image?.childImageSharp && (
+        {post.frontmatter.image && (
           <meta
             name="twitter:image"
-            content={`${config.siteUrl}${post.frontmatter.image.childImageSharp.fluid.src}`}
+            content={`${config.siteUrl}${getSrc(post.frontmatter.image)}`}
           />
         )}
         <meta name="twitter:label1" content="Written by" />
@@ -226,13 +226,12 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                 </PostFullByline>
               </PostFullHeader>
 
-              {post.frontmatter.image?.childImageSharp && (
+              {post.frontmatter.image && (
                 <PostFullImage>
-                  <Img
+                  <GatsbyImage
+                    image={getImage(post.frontmatter.image)}
                     style={{ height: '100%' }}
-                    fluid={post.frontmatter.image.childImageSharp.fluid}
-                    alt={post.frontmatter.title}
-                  />
+                    alt={post.frontmatter.title} />
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.htmlAst} />
@@ -442,76 +441,69 @@ const PostFullImage = styled.figure`
   }
 `;
 
-export const query = graphql`
-  query($slug: String, $primaryTag: String) {
-    logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
-      childImageSharp {
-        fixed {
-          ...GatsbyImageSharpFixed
-        }
+export const query = graphql`query ($slug: String, $primaryTag: String) {
+  logo: file(relativePath: {eq: "img/ghost-logo.png"}) {
+    childImageSharp {
+      gatsbyImageData(layout: FIXED)
+    }
+  }
+  markdownRemark(fields: {slug: {eq: $slug}}) {
+    html
+    htmlAst
+    excerpt
+    fields {
+      readingTime {
+        text
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
-      htmlAst
+    frontmatter {
+      title
+      userDate: date(formatString: "D MMMM YYYY")
+      date
+      tags
       excerpt
-      fields {
-        readingTime {
-          text
+      image {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
         }
       }
-      frontmatter {
-        title
-        userDate: date(formatString: "D MMMM YYYY")
-        date
-        tags
-        excerpt
-        image {
-          childImageSharp {
-            fluid(maxWidth: 3720) {
-              ...GatsbyImageSharpFluid
+      author {
+        id
+        bio
+        avatar {
+          children {
+            ... on ImageSharp {
+              gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
             }
-          }
-        }
-        author {
-          id
-          bio
-          avatar {
-            children {
-              ... on ImageSharp {
-                fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    relatedPosts: allMarkdownRemark(
-      filter: { frontmatter: { tags: { in: [$primaryTag] }, draft: { ne: true } } }
-      limit: 5
-      sort: { fields: [frontmatter___date], order: DESC }
-    ) {
-      totalCount
-      edges {
-        node {
-          id
-          excerpt
-          frontmatter {
-            title
-            date
-          }
-          fields {
-            readingTime {
-              text
-            }
-            slug
           }
         }
       }
     }
   }
+  relatedPosts: allMarkdownRemark(
+    filter: {frontmatter: {tags: {in: [$primaryTag]}, draft: {ne: true}}}
+    limit: 5
+    sort: {fields: [frontmatter___date], order: DESC}
+  ) {
+    totalCount
+    edges {
+      node {
+        id
+        excerpt
+        frontmatter {
+          title
+          date
+        }
+        fields {
+          readingTime {
+            text
+          }
+          slug
+        }
+      }
+    }
+  }
+}
 `;
 
 export default PageTemplate;

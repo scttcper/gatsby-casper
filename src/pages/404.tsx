@@ -58,48 +58,43 @@ const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
   );
 };
 
-export const pageQuery = graphql`
-  query {
-    allMarkdownRemark(limit: 3, sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          frontmatter {
-            title
-            date
-            tags
-            image {
-              childImageSharp {
-                fluid(maxWidth: 3720) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+export const pageQuery = graphql`{
+  allMarkdownRemark(limit: 3, sort: {fields: [frontmatter___date], order: DESC}) {
+    edges {
+      node {
+        frontmatter {
+          title
+          date
+          tags
+          image {
+            childImageSharp {
+              gatsbyImageData(layout: FULL_WIDTH)
             }
-            author {
-              id
-              bio
-              avatar {
-                children {
-                  ... on ImageSharp {
-                    fluid(quality: 100, srcSetBreakpoints: [40, 80, 120]) {
-                      ...GatsbyImageSharpFluid
-                    }
-                  }
+          }
+          author {
+            id
+            bio
+            avatar {
+              children {
+                ... on ImageSharp {
+                  gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
                 }
               }
             }
           }
-          excerpt
-          fields {
-            readingTime {
-              text
-            }
-            layout
-            slug
+        }
+        excerpt
+        fields {
+          readingTime {
+            text
           }
+          layout
+          slug
         }
       }
     }
   }
+}
 `;
 
 const ErrorContent = css`
