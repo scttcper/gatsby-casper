@@ -47,25 +47,33 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
-        limit: 2000
-        sort: { fields: [frontmatter___date], order: ASC }
-        filter: { frontmatter: { draft: { ne: true } } }
-      ) {
-        edges {
-          node {
-            excerpt
-            frontmatter {
-              title
-              tags
-              date
-              draft
-              excerpt
-              image {
-                childImageSharp {
-                  fluid(maxWidth: 3720) {
+  const result = await graphql(`{
+  allMarkdownRemark(
+    limit: 2000
+    sort: {fields: [frontmatter___date], order: ASC}
+    filter: {frontmatter: {draft: {ne: true}}}
+  ) {
+    edges {
+      node {
+        excerpt
+        frontmatter {
+          title
+          tags
+          date
+          draft
+          excerpt
+          image {
+            childImageSharp {
+              gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+            }
+          }
+          author {
+            id
+            bio
+            avatar {
+              children {
+                ... on ImageSharp {
+                  fluid(quality: 100) {
                     aspectRatio
                     base64
                     sizes
@@ -74,43 +82,28 @@ exports.createPages = async ({ graphql, actions }) => {
                   }
                 }
               }
-              author {
-                id
-                bio
-                avatar {
-                  children {
-                    ... on ImageSharp {
-                      fluid(quality: 100) {
-                        aspectRatio
-                        base64
-                        sizes
-                        src
-                        srcSet
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            fields {
-              readingTime {
-                text
-              }
-              layout
-              slug
             }
           }
         }
-      }
-      allAuthorYaml {
-        edges {
-          node {
-            id
+        fields {
+          readingTime {
+            text
           }
+          layout
+          slug
         }
       }
     }
-  `);
+  }
+  allAuthorYaml {
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+`);
 
   if (result.errors) {
     console.error(result.errors);
