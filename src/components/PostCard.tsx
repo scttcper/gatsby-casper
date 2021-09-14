@@ -11,6 +11,7 @@ import styled from '@emotion/styled';
 import { colors } from '../styles/colors';
 import { PageContext } from '../templates/post';
 import { AuthorList } from './AuthorList';
+import config from '../website-config';
 
 export interface PostCardProps {
   post: PageContext;
@@ -46,7 +47,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
       <PostCardContent className="post-card-content">
         <Link className="post-card-content-link" css={PostCardContentLink} to={post.fields.slug}>
           <PostCardHeader className="post-card-header">
-            {post.frontmatter.tags && (
+            {post.frontmatter.tags && config.showAllTags && (
               <PostCardPrimaryTag className="post-card-primary-tag">
                 {post.frontmatter.tags.map(
                   function(t){
@@ -57,6 +58,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
                     )
                   }
                 )}
+              </PostCardPrimaryTag>
+            )}
+            {post.frontmatter.tags && !config.showAllTags && (
+              <PostCardPrimaryTag className="post-card-primary-tag">
+                <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                  {post.frontmatter.tags[0]}
+                </Link>
               </PostCardPrimaryTag>
             )}
             <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>
