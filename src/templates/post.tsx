@@ -195,11 +195,12 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                   {post.frontmatter.tags && post.frontmatter.tags.length > 0 && config.showAllTags && (
                     post.frontmatter.tags.map(
                       function(t){
-                        return (
+                        return ([
                           <Link to={`/tags/${_.kebabCase(t)}/`}>
-                            {t}&nbsp;
-                          </Link>
-                        )
+                            {t}
+                          </Link>,
+                          <b>&nbsp;</b>,
+                        ])
                       }
                     )
                   )}

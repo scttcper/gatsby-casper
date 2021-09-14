@@ -51,11 +51,12 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
               <PostCardPrimaryTag className="post-card-primary-tag">
                 {post.frontmatter.tags.map(
                   function(t){
-                    return (
+                    return ([
                       <Link to={`/tags/${_.kebabCase(t)}/`}>
-                        {t}&nbsp;
-                      </Link>
-                    )
+                        {t}
+                      </Link>,
+                      <b>&nbsp;</b>,
+                    ])
                   }
                 )}
               </PostCardPrimaryTag>
