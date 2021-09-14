@@ -193,9 +193,15 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
                   {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
-                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                      {post.frontmatter.tags[0]}
-                    </Link>
+                    post.frontmatter.tags.map(
+                      function(t){
+                        return (
+                          <Link to={`/tags/${_.kebabCase(t)}/`}>
+                            {t}&nbsp; 
+                          </Link>
+                        )
+                      }
+                    )
                   )}
                 </PostFullTags>
                 <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
