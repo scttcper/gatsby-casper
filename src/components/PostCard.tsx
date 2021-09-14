@@ -48,9 +48,15 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
           <PostCardHeader className="post-card-header">
             {post.frontmatter.tags && (
               <PostCardPrimaryTag className="post-card-primary-tag">
-                <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                  {post.frontmatter.tags[0]}
-                </Link>
+                {post.frontmatter.tags.map(
+                  function(t){
+                    return (
+                      <Link to={`/tags/${_.kebabCase(t)}/`}>
+                        {t}&nbsp;
+                      </Link>
+                    )
+                  }
+                )}
               </PostCardPrimaryTag>
             )}
             <PostCardTitle className="post-card-title">{post.frontmatter.title}</PostCardTitle>

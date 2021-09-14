@@ -197,7 +197,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
                       function(t){
                         return (
                           <Link to={`/tags/${_.kebabCase(t)}/`}>
-                            {t}&nbsp; 
+                            {t}&nbsp;
                           </Link>
                         )
                       }
