@@ -12,6 +12,11 @@ declare module '*.module.css' {
   export = cssModule;
 }
 
+declare module '*.ico' {
+  const ico: any;
+  export = ico;
+}
+
 declare module 'rehype-react' {
   interface RehypeOptions {
     createElement: any;

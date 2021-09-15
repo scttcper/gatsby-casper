@@ -189,8 +189,8 @@ export const SiteHeaderBackground = css`
 
 export const ResponsiveHeaderBackground = styled.div<{ backgroundImage?: string }>`
   ${p =>
-    p.backgroundImage &&
-    `
+    p.backgroundImage
+    && `
     position: relative;
     margin-top: 64px;
     padding-bottom: 12px;
@@ -233,8 +233,8 @@ export const ResponsiveHeaderBackground = styled.div<{ backgroundImage?: string 
   `}
 
   ${p =>
-    !p.backgroundImage &&
-    `
+    !p.backgroundImage
+    && `
 
     padding-top: 0;
     padding-bottom: 0;

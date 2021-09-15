@@ -180,9 +180,7 @@ const Author = ({ data, location }: AuthorTemplateProps) => {
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
             <div css={[PostFeed]}>
-              {edges.map(({ node }) => {
-                return <PostCard key={node.fields.slug} post={node} />;
-              })}
+              {edges.map(({ node }) => <PostCard key={node.fields.slug} post={node} />)}
             </div>
           </div>
         </main>

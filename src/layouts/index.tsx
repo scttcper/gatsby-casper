@@ -3,8 +3,6 @@ import { Helmet } from 'react-helmet';
 import { Global, css } from '@emotion/react';
 import { lighten } from 'polished';
 
-// eslint-disable-next-line @typescript-eslint/prefer-ts-expect-error
-// @ts-ignore
 import favicon from '../../src/favicon.ico';
 import { colors } from '../styles/colors';
 
@@ -12,14 +10,13 @@ interface IndexProps {
   className?: string;
 }
 
-const IndexLayout: React.FC<IndexProps> = props => {
-  return (
-    <div className={props.className}>
-      <Helmet>
-        <link rel="icon" href={favicon} type="image/x-icon" />
-      </Helmet>
-      <Global
-        styles={css`
+const IndexLayout: React.FC<IndexProps> = props => (
+  <div className={props.className}>
+    <Helmet>
+      <link rel="icon" href={favicon} type="image/x-icon" />
+    </Helmet>
+    <Global
+      styles={css`
           html,
           body,
           div,
@@ -493,10 +490,9 @@ const IndexLayout: React.FC<IndexProps> = props => {
             }
           }
         `}
-      />
-      {props.children}
-    </div>
-  );
-};
+    />
+    {props.children}
+  </div>
+);
 
 export default IndexLayout;

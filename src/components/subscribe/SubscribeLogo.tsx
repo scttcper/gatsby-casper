@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import { graphql, StaticQuery } from 'gatsby';
 import { getSrc } from 'gatsby-plugin-image';
 import React from 'react';
@@ -6,9 +7,9 @@ import { css } from '@emotion/react';
 
 import config from '../../website-config';
 
-interface SiteNavLogoProps {
+type SiteNavLogoProps = {
   logo?: any;
-}
+};
 
 const SubscribeLogo = () => (
   <StaticQuery
@@ -21,7 +22,7 @@ const SubscribeLogo = () => (
         }
       }
     `}
-    render={({logo}: SiteNavLogoProps) => {
+    render={({ logo }: SiteNavLogoProps) => {
       if (!logo) {
         return;
       }

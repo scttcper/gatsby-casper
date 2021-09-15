@@ -7,37 +7,35 @@ import { css } from '@emotion/react';
 import { colors } from '../../styles/colors';
 import config from '../../website-config';
 
-export const SubscribeForm: React.FC = () => {
-  return (
-    <form
-      noValidate
-      css={SubscribeFormStyles}
-      action={config.mailchimpAction}
-      method="post"
-      id="mc-embedded-subscribe-form"
-      name="mc-embedded-subscribe-form"
-      className="subscribe-form"
-      target="_blank"
-    >
-      {/* This is required for the form to work correctly  */}
-      <FormGroup className="form-group">
-        <SubscribeEmail
-          className="subscribe-email"
-          type="email"
-          name={config.mailchimpEmailFieldName}
-          id={config.mailchimpEmailFieldName}
-          placeholder="youremail@example.com"
-        />
-      </FormGroup>
-      <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-        <input type="text" name={config.mailchimpName} tabIndex={-1} />
-      </div>
-      <SubscribeFormButton type="submit">
-        <span>Subscribe</span>
-      </SubscribeFormButton>
-    </form>
-  );
-};
+export const SubscribeForm: React.FC = () => (
+  <form
+    noValidate
+    css={SubscribeFormStyles}
+    action={config.mailchimpAction}
+    method="post"
+    id="mc-embedded-subscribe-form"
+    name="mc-embedded-subscribe-form"
+    className="subscribe-form"
+    target="_blank"
+  >
+    {/* This is required for the form to work correctly  */}
+    <FormGroup className="form-group">
+      <SubscribeEmail
+        className="subscribe-email"
+        type="email"
+        name={config.mailchimpEmailFieldName}
+        id={config.mailchimpEmailFieldName}
+        placeholder="youremail@example.com"
+      />
+    </FormGroup>
+    <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+      <input type="text" name={config.mailchimpName} tabIndex={-1} />
+    </div>
+    <SubscribeFormButton type="submit">
+      <span>Subscribe</span>
+    </SubscribeFormButton>
+  </form>
+);
 
 const SubscribeFormStyles = css`
   display: flex;

@@ -5,7 +5,7 @@ module.exports = {
     jest: true,
     browser: true,
   },
-  extends: ['xo-space/esnext', 'xo-react/space', 'xo-typescript'],
+  extends: ['xo-space', 'xo-react/space', 'xo-typescript'],
   rules: {
     '@typescript-eslint/object-curly-spacing': ['error', 'always'],
     '@typescript-eslint/indent': ['error', 2, { SwitchCase: 1 }],
@@ -25,5 +25,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/comma-dangle': 'off',
     '@typescript-eslint/no-confusing-void-expression': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-require-imports': 'off',
   },
 };

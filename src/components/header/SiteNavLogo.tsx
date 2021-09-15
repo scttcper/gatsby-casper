@@ -1,7 +1,7 @@
 import { graphql, Link, StaticQuery } from 'gatsby';
 import React from 'react';
 import { css } from '@emotion/react';
-import { getSrc } from "gatsby-plugin-image";
+import { getSrc } from 'gatsby-plugin-image';
 
 import config from '../../website-config';
 

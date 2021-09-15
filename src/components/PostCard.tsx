@@ -74,14 +74,12 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
           <AuthorList authors={post.frontmatter.author} tooltip="small" />
           <PostCardBylineContent className="post-card-byline-content">
             <span>
-              {post.frontmatter.author.map((author, index) => {
-                return (
-                  <React.Fragment key={author.id}>
-                    <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
-                    {post.frontmatter.author.length - 1 > index && ', '}
-                  </React.Fragment>
-                );
-              })}
+              {post.frontmatter.author.map((author, index) => (
+                <React.Fragment key={author.id}>
+                  <Link to={`/author/${_.kebabCase(author.id)}/`}>{author.id}</Link>
+                  {post.frontmatter.author.length - 1 > index && ', '}
+                </React.Fragment>
+              ))}
             </span>
             <span className="post-card-byline-date">
               <time dateTime={datetime}>{displayDatetime}</time>{' '}
