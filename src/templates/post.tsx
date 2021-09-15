@@ -26,7 +26,7 @@ export interface Author {
   bio: string;
   avatar: {
     children: Array<{
-      fluid: FluidObject;
+      fluid: any;
     }>;
   };
 }
@@ -47,11 +47,7 @@ interface PageTemplateProps {
         title: string;
         date: string;
         userDate: string;
-        image: {
-          childImageSharp: {
-            fluid: any;
-          };
-        };
+        image: any;
         excerpt: string;
         tags: string[];
         author: Author[];
@@ -93,11 +89,7 @@ export interface PageContext {
     };
   };
   frontmatter: {
-    image: {
-      childImageSharp: {
-        fluid: GatsbyImage;
-      };
-    };
+    image: any;
     excerpt: string;
     title: string;
     date: string;
@@ -109,11 +101,11 @@ export interface PageContext {
 
 const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
   const post = data.markdownRemark;
-  let width = '';
-  let height = '';
+  let width: number | undefined;
+  let height: number | undefined;
   if (post.frontmatter.image) {
-    width = getImage(post.frontmatter.image).width;
-    height = getImage(post.frontmatter.image).height;
+    width = getImage(post.frontmatter.image)?.width;
+    height = getImage(post.frontmatter.image)?.height;
   }
 
   const date = new Date(post.frontmatter.date);
@@ -175,8 +167,8 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
             content={`@${config.twitter.split('https://twitter.com/')[1]}`}
           />
         )}
-        {width && <meta property="og:image:width" content={width} />}
-        {height && <meta property="og:image:height" content={height} />}
+        {width && <meta property="og:image:width" content={width?.toString()} />}
+        {height && <meta property="og:image:height" content={height?.toString()} />}
       </Helmet>
       <Wrapper css={PostTemplate}>
         <header className="site-header">
@@ -193,16 +185,11 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
                   {post.frontmatter.tags && post.frontmatter.tags.length > 0 && config.showAllTags && (
-                    post.frontmatter.tags.map(
-                      function(t){
-                        return ([
-                          <Link to={`/tags/${_.kebabCase(t)}/`}>
-                            {t}
-                          </Link>,
-                          <b>&nbsp;</b>,
-                        ])
-                      }
-                    )
+                    post.frontmatter.tags.map(tag => (
+                      <React.Fragment key={tag}>
+                        <Link to={`/tags/${_.kebabCase(tag)}/`}>{tag}</Link>,<b>&nbsp;</b>
+                      </React.Fragment>
+                    ))
                   )}
                   {post.frontmatter.tags && post.frontmatter.tags.length > 0 && !config.showAllTags && (
                     <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
@@ -241,7 +228,7 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
               {post.frontmatter.image && (
                 <PostFullImage>
                   <GatsbyImage
-                    image={getImage(post.frontmatter.image)}
+                    image={getImage(post.frontmatter.image)!}
                     style={{ height: '100%' }}
                     alt={post.frontmatter.title} />
                 </PostFullImage>
