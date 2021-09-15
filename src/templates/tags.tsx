@@ -1,6 +1,6 @@
 import { graphql } from 'gatsby';
 import React from 'react';
-import { GatsbyImage, getSrc, getImage } from "gatsby-plugin-image";
+import { getSrc } from 'gatsby-plugin-image';
 
 import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
@@ -36,11 +36,7 @@ interface TagTemplateProps {
         node: {
           id: string;
           description: string;
-          image?: {
-            childImageSharp: {
-              fluid: GatsbyImage;
-            };
-          };
+          image?: any;
         };
       }>;
     };
@@ -56,9 +52,7 @@ interface TagTemplateProps {
 const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
   const tag = pageContext.tag ? pageContext.tag : '';
   const { edges, totalCount } = data.allMarkdownRemark;
-  const tagData = data.allTagYaml.edges.find(
-    n => n.node.id.toLowerCase() === tag.toLowerCase(),
-  );
+  const tagData = data.allTagYaml.edges.find(n => n.node.id.toLowerCase() === tag.toLowerCase());
 
   return (
     <IndexLayout>
@@ -84,10 +78,7 @@ const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
         )}
       </Helmet>
       <Wrapper>
-        <header
-          className="site-archive-header"
-          css={[SiteHeader, SiteArchiveHeader]}
-        >
+        <header className="site-archive-header" css={[SiteHeader, SiteArchiveHeader]}>
           <div css={[outer, SiteNavMain]}>
             <div css={inner}>
               <SiteNav isHome={false} />
@@ -131,58 +122,59 @@ const Tags = ({ pageContext, data, location }: TagTemplateProps) => {
 
 export default Tags;
 
-export const pageQuery = graphql`query ($tag: String) {
-  allTagYaml {
-    edges {
-      node {
-        id
-        description
-        image {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH)
-          }
-        }
-      }
-    }
-  }
-  allMarkdownRemark(
-    limit: 2000
-    sort: {fields: [frontmatter___date], order: DESC}
-    filter: {frontmatter: {tags: {in: [$tag]}, draft: {ne: true}}}
-  ) {
-    totalCount
-    edges {
-      node {
-        excerpt
-        frontmatter {
-          title
-          excerpt
-          tags
-          date
+export const pageQuery = graphql`
+  query ($tag: String) {
+    allTagYaml {
+      edges {
+        node {
+          id
+          description
           image {
             childImageSharp {
               gatsbyImageData(layout: FULL_WIDTH)
             }
           }
-          author {
-            id
-            bio
-            avatar {
+        }
+      }
+    }
+    allMarkdownRemark(
+      limit: 2000
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { tags: { in: [$tag] }, draft: { ne: true } } }
+    ) {
+      totalCount
+      edges {
+        node {
+          excerpt
+          frontmatter {
+            title
+            excerpt
+            tags
+            date
+            image {
               childImageSharp {
-                gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
+                gatsbyImageData(layout: FULL_WIDTH)
+              }
+            }
+            author {
+              id
+              bio
+              avatar {
+                childImageSharp {
+                  gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
+                }
               }
             }
           }
-        }
-        fields {
-          readingTime {
-            text
+          fields {
+            readingTime {
+              text
+            }
+            layout
+            slug
           }
-          layout
-          slug
         }
       }
     }
   }
-}
 `;

@@ -24,11 +24,7 @@ import { AuthorList } from '../components/AuthorList';
 export interface Author {
   id: string;
   bio: string;
-  avatar: {
-    children: Array<{
-      fluid: any;
-    }>;
-  };
+  avatar: any;
 }
 
 interface PageTemplateProps {

@@ -14,4 +14,3 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
 `;
-

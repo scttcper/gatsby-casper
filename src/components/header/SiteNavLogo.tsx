@@ -1,16 +1,12 @@
 import { graphql, Link, StaticQuery } from 'gatsby';
 import React from 'react';
 import { css } from '@emotion/react';
-import { GatsbyImage, getSrc } from "gatsby-plugin-image";
+import { getSrc } from "gatsby-plugin-image";
 
 import config from '../../website-config';
 
 interface SiteNavLogoProps {
-  logo?: {
-    childImageSharp: {
-      fixed: GatsbyImage;
-    };
-  };
+  logo?: any;
 }
 
 export const SiteNavLogo = () => (
