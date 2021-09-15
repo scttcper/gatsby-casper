@@ -192,7 +192,19 @@ const PageTemplate = ({ data, pageContext, location }: PageTemplateProps) => {
             <article css={[PostFull, !post.frontmatter.image && NoImage]}>
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
-                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && (
+                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && config.showAllTags && (
+                    post.frontmatter.tags.map(
+                      function(t){
+                        return ([
+                          <Link to={`/tags/${_.kebabCase(t)}/`}>
+                            {t}
+                          </Link>,
+                          <b>&nbsp;</b>,
+                        ])
+                      }
+                    )
+                  )}
+                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && !config.showAllTags && (
                     <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
                       {post.frontmatter.tags[0]}
                     </Link>
