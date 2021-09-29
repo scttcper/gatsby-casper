@@ -13,7 +13,7 @@ draft: false
 ### Perhaps you want to create something unique but don't know where to begin?
 Let us handle the design.
 
-![Test Image](img/neor-logo-mp.jpg)
+![Test Image](img/greengarnetlogos2.jpg)
 
 We'll assist you in identifying the jewellery styles that appeal to you. Our designers will accompany you as you peruse our extensive jewellery selection, assisting you in identifying the design elements that appeal to you. Our designers will create an original piece of jewellery that fits your lifestyle and budget after assisting you in discovering the possibilities. 
 
