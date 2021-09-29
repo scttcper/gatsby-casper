@@ -2,7 +2,7 @@
 title: 'Design Your Own Dream'
 author: [Another Author]
 tags: [DESIGN]
-image: sketch-designer-jewellery-1-1.jpg
+image: img/sketch-designer-jewellery-1-1.jpg
 date: '2018-12-12T10:00:00.000Z'
 draft: false
 ---
