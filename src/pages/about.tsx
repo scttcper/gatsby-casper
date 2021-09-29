@@ -62,9 +62,11 @@ const About: React.FC = () => (
                 </h5>
                 <p>
                   Green-Garnet is restorative and liberating. It’s a growth stone that is also a powerful conduit of birth, creation, development, and renewal.
-                  It’s a powerful aid in nurturing a fledgling relationship or a new business endeavor. It will also promote a strengthened commitment to your higher purpose and spiritual growth.
+                  It’s a powerful aid in nurturing a fledgling relationship or a new business endeavor. It will also promote a strengthened commitment to your 
+                  higher purpose and spiritual growth.
                   It will bring new strength when you are experiencing a difficult time or a challenging period in your life.
-                  It’s a stone that will cleanse the heart chakra, which will increase your physical vitality and zest for life. It will also induce feelings of kindness, compassion, and charity.
+                  It’s a stone that will cleanse the heart chakra, which will increase your physical vitality and zest for life. It will also induce feelings 
+                  of kindness, compassion, and charity.
                   Beautiful Green Garnet beads
                   Green-Garnet is a known gemstone that has the power of regeneration and growth.
                   Its beautiful green color is a symbol of Mother Earth.
@@ -92,7 +94,8 @@ const About: React.FC = () => (
                   It will even make you thankful for the bad, because without them, you will never realize just how blessed you are!
                   Green-Garnet will inspire you to be of service to the people you love. You will do things for them without expecting anything in return.
                   You will do it simply because you love them and you just want to see them happy and okay.
-                  This gemstone will promote a relaxed and laidback attitude in your relationship. It will encourage you to go with the flow and not to be too rigid in your ways.
+                  This gemstone will promote a relaxed and laidback attitude in your relationship. It will encourage you to go with the flow and not to be too rigid 
+                  in your ways.
                   Green-Garnet will inspire you to inject good old-fashioned romance and silly fun into a serious relationship.
                   It will remind you to never lose passion or energy for one another, especially during times when you’re filled with stress, fear, or worry.
                 </p>
