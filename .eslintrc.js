@@ -27,5 +27,6 @@ module.exports = {
     '@typescript-eslint/no-confusing-void-expression': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-require-imports': 'off',
+    '@typescript-eslint/naming-convention': 'off',
   },
 };
