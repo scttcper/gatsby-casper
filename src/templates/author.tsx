@@ -192,8 +192,8 @@ const Author = ({ data, location }: AuthorTemplateProps) => {
 
 export const pageQuery = graphql`
   query ($author: String) {
-    authorYaml(id: { eq: $author }) {
-      id
+    authorYaml(name: { eq: $author }) {
+      name
       website
       twitter
       bio
