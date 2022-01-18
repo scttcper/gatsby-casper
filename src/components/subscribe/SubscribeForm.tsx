@@ -8,6 +8,7 @@ import { colors } from '../../styles/colors';
 import config from '../../website-config';
 
 export const SubscribeForm: React.FC = () => (
+  // eslint-disable-next-line react/jsx-no-target-blank
   <form
     noValidate
     css={SubscribeFormStyles}
