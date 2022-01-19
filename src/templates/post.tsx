@@ -467,10 +467,8 @@ export const query = graphql`query ($slug: String, $primaryTag: String) {
         name
         bio
         avatar {
-          children {
-            ... on ImageSharp {
-              gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
-            }
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
           }
         }
       }
