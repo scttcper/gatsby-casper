@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-var-requires */
 const path = require('path');
 const _ = require('lodash');
+const readingTime = require('reading-time');
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -39,6 +40,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         node,
         name: 'primaryTag',
         value: primaryTag || '',
+      });
+
+      createNodeField({
+        node,
+        name: 'readingTime',
+        value: readingTime(node.rawMarkdownBody),
       });
     }
   }
