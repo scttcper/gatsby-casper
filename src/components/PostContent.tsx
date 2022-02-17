@@ -19,7 +19,7 @@ export interface PostContentProps {
   htmlAst: any;
 }
 
-const PostContent: React.FC<PostContentProps> = ({ htmlAst }) => (
+const PostContent = ({ htmlAst }: PostContentProps) => (
   <PostFullContent className="post-full-content">
     <Ast className="post-content" ast={htmlAst} />
   </PostFullContent>

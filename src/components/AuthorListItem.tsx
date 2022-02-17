@@ -16,7 +16,7 @@ interface AuthorListItemProps {
   author: Author;
 }
 
-export const AuthorListItem: React.FC<AuthorListItemProps> = props => {
+export const AuthorListItem = (props: AuthorListItemProps) => {
   const [hovered, setHover] = useState(false);
   let timeout: ReturnType<typeof setTimeout>;
   function handleMouseEnter() {
