@@ -28,5 +28,6 @@ module.exports = {
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-require-imports': 'off',
     '@typescript-eslint/naming-convention': 'off',
+    '@typescript-eslint/no-unnecessary-type-arguments': 'off',
   },
 };

@@ -23,7 +23,7 @@ interface NotFoundTemplateProps {
   };
 }
 
-const NotFoundPage: React.FC<NotFoundTemplateProps> = props => {
+const NotFoundPage = (props: NotFoundTemplateProps) => {
   const { edges } = props.data.allMarkdownRemark;
 
   return (
