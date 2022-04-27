@@ -33,7 +33,7 @@ interface ReadNextProps {
   };
 }
 
-export const ReadNext = ({ relatedPosts, currentPageSlug, tags, pageContext }: ReadNextProps) => {
+export function ReadNext({ relatedPosts, currentPageSlug, tags, pageContext }: ReadNextProps) {
   const showRelatedPosts = relatedPosts.totalCount > 1;
 
   return (
@@ -54,7 +54,7 @@ export const ReadNext = ({ relatedPosts, currentPageSlug, tags, pageContext }: R
       </div>
     </ReadNextAside>
   );
-};
+}
 
 const ReadNextAside = styled.aside`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);

@@ -11,9 +11,10 @@ type SiteNavLogoProps = {
   logo?: any;
 };
 
-const SubscribeLogo = () => (
-  <StaticQuery
-    query={graphql`
+function SubscribeLogo() {
+  return (
+    <StaticQuery
+      query={graphql`
       query SubscribeOverlayLogo {
         logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
           childImageSharp {
@@ -22,22 +23,23 @@ const SubscribeLogo = () => (
         }
       }
     `}
-    render={({ logo }: SiteNavLogoProps) => {
-      if (!logo) {
-        return;
-      }
+      render={({ logo }: SiteNavLogoProps) => {
+        if (!logo) {
+          return;
+        }
 
-      return (
-        <img
-          css={SubscribeOverlayLogo}
-          className="subscribe-overlay-logo"
-          src={getSrc(logo)}
-          alt={config.title}
-        />
-      );
-    }}
-  />
-);
+        return (
+          <img
+            css={SubscribeOverlayLogo}
+            className="subscribe-overlay-logo"
+            src={getSrc(logo)}
+            alt={config.title}
+          />
+        );
+      }}
+    />
+  );
+}
 
 const SubscribeOverlayLogo = css`
   position: fixed;

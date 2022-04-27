@@ -27,7 +27,7 @@ export interface ReadNextProps {
   };
 }
 
-export const ReadNextCard: React.FC<ReadNextProps> = props => {
+export function ReadNextCard(props: ReadNextProps) {
   // filter out current post and limit to 3 related posts
   const relatedPosts = props.relatedPosts.edges
     .filter(post => post.node.fields.slug !== props.currentPageSlug)
@@ -74,7 +74,7 @@ export const ReadNextCard: React.FC<ReadNextProps> = props => {
       </ReadNextCardFooter>
     </ReadNextCardArticle>
   );
-};
+}
 
 const ReadNextCardArticle = styled.article`
   position: relative;

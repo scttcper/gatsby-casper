@@ -10,13 +10,15 @@ interface AuthorListProps {
   authors: Author[];
 }
 
-export const AuthorList = (props: AuthorListProps) => (
-  <AuthorListUl className="author-list">
-    {props.authors.map(author => (
-      <AuthorListItem key={author.name} author={author} tooltip={props.tooltip} />
-    ))}
-  </AuthorListUl>
-);
+export function AuthorList(props: AuthorListProps) {
+  return (
+    <AuthorListUl className="author-list">
+      {props.authors.map(author => (
+        <AuthorListItem key={author.name} author={author} tooltip={props.tooltip} />
+      ))}
+    </AuthorListUl>
+  );
+}
 
 export const AuthorListUl = styled.ul`
   display: flex;

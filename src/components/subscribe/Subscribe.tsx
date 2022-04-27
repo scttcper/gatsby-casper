@@ -10,13 +10,15 @@ export interface SubscribeProps {
   title: string;
 }
 
-export const Subscribe = (props: SubscribeProps) => (
-  <SubscribeFormSection>
-    <h3 css={SubscribeFormTitle}>Subscribe to {props.title}</h3>
-    <p>Get the latest posts delivered right to your inbox</p>
-    <SubscribeForm />
-  </SubscribeFormSection>
-);
+export function Subscribe(props: SubscribeProps) {
+  return (
+    <SubscribeFormSection>
+      <h3 css={SubscribeFormTitle}>Subscribe to {props.title}</h3>
+      <p>Get the latest posts delivered right to your inbox</p>
+      <SubscribeForm />
+    </SubscribeFormSection>
+  );
+}
 
 const SubscribeFormSection = styled.section`
   margin: 1.5em 0;

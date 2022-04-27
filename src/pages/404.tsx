@@ -23,7 +23,7 @@ interface NotFoundTemplateProps {
   };
 }
 
-const NotFoundPage = (props: NotFoundTemplateProps) => {
+function NotFoundPage(props: NotFoundTemplateProps) {
   const { edges } = props.data.allMarkdownRemark;
 
   return (
@@ -56,7 +56,7 @@ const NotFoundPage = (props: NotFoundTemplateProps) => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export const pageQuery = graphql`
   {

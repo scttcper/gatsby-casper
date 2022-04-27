@@ -16,8 +16,8 @@ interface AuthorListItemProps {
   author: Author;
 }
 
-export const AuthorListItem = (props: AuthorListItemProps) => {
-  const [hovered, setHover] = useState(false);
+export function AuthorListItem(props: AuthorListItemProps) {
+  const [hovered, setHovered] = useState(false);
   let timeout: ReturnType<typeof setTimeout>;
   function handleMouseEnter() {
     if (props.tooltip !== 'large') {
@@ -25,13 +25,13 @@ export const AuthorListItem = (props: AuthorListItemProps) => {
     }
 
     clearTimeout(timeout);
-    setHover(true);
+    setHovered(true);
   }
 
   function handleMouseLeave() {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      setHover(false);
+      setHovered(false);
     }, 600);
   }
 
@@ -84,7 +84,7 @@ export const AuthorListItem = (props: AuthorListItemProps) => {
       </Link>
     </AuthorListItemLi>
   );
-};
+}
 
 const Hovered = css`
   opacity: 1;
