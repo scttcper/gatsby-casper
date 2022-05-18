@@ -18,7 +18,7 @@ export interface PostCardProps {
   large?: boolean;
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
+export function PostCard({ post, large = false }: PostCardProps) {
   const date = new Date(post.frontmatter.date);
   // 2018-08-20
   const datetime = format(date, 'yyyy-MM-dd');
@@ -91,7 +91,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, large = false }) => {
       </PostCardContent>
     </article>
   );
-};
+}
 
 const PostCardStyles = css`
   position: relative;

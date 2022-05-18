@@ -5,7 +5,7 @@ jobs:
   test:
     executor:
       name: node/default
-      tag: 'current'
+      tag: '16.15'
     steps:
       - checkout
       - node/install-packages

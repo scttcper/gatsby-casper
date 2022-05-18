@@ -3,11 +3,12 @@ import styled from '@emotion/styled';
 
 interface WrapperProps {
   className?: string;
+  children: React.ReactNode;
 }
 
-export const Wrapper: React.FC<WrapperProps> = ({ children, className }) => (
-  <StyledWrapper className={className}>{children}</StyledWrapper>
-);
+export function Wrapper({ children, className }: WrapperProps) {
+  return <StyledWrapper className={className}>{children}</StyledWrapper>;
+}
 
 const StyledWrapper = styled.div`
   display: flex;

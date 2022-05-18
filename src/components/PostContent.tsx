@@ -19,11 +19,13 @@ export interface PostContentProps {
   htmlAst: any;
 }
 
-const PostContent = ({ htmlAst }: PostContentProps) => (
-  <PostFullContent className="post-full-content">
-    <Ast className="post-content" ast={htmlAst} />
-  </PostFullContent>
-);
+function PostContent({ htmlAst }: PostContentProps) {
+  return (
+    <PostFullContent className="post-full-content">
+      <Ast className="post-content" ast={htmlAst} />
+    </PostFullContent>
+  );
+}
 
 export const PostFullContent = styled.section`
   position: relative;

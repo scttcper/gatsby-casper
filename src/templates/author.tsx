@@ -54,7 +54,7 @@ interface AuthorTemplateProps {
   };
 }
 
-const Author = ({ data, location }: AuthorTemplateProps) => {
+function Author({ data, location }: AuthorTemplateProps) {
   const author = data.authorYaml;
 
   const edges = data.allMarkdownRemark.edges.filter(edge => {
@@ -188,7 +188,7 @@ const Author = ({ data, location }: AuthorTemplateProps) => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export const pageQuery = graphql`
   query ($author: String) {

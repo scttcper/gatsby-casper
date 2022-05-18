@@ -8,15 +8,17 @@ import { colors } from '../styles/colors';
 
 interface IndexProps {
   className?: string;
+  children: React.ReactNode;
 }
 
-const IndexLayout: React.FC<IndexProps> = props => (
-  <div className={props.className}>
-    <Helmet>
-      <link rel="icon" href={favicon} type="image/x-icon" />
-    </Helmet>
-    <Global
-      styles={css`
+function IndexLayout(props: IndexProps) {
+  return (
+    <div className={props.className}>
+      <Helmet>
+        <link rel="icon" href={favicon} type="image/x-icon" />
+      </Helmet>
+      <Global
+        styles={css`
           html,
           body,
           div,
@@ -490,9 +492,10 @@ const IndexLayout: React.FC<IndexProps> = props => (
             }
           }
         `}
-    />
-    {props.children}
-  </div>
-);
+      />
+      {props.children}
+    </div>
+  );
+}
 
 export default IndexLayout;

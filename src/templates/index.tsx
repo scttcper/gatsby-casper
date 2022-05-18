@@ -27,6 +27,7 @@ import config from '../website-config';
 import { PageContext } from './post';
 
 export interface IndexProps {
+  children: React.ReactNode;
   pageContext: {
     currentPage: number;
     numPages: number;
@@ -42,7 +43,7 @@ export interface IndexProps {
   };
 }
 
-const IndexPage: React.FC<IndexProps> = props => {
+function IndexPage(props: IndexProps) {
   const width = getImage(props.data.header)?.width;
   const height = getImage(props.data.header)?.height;
 
@@ -128,7 +129,7 @@ const IndexPage: React.FC<IndexProps> = props => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export const pageQuery = graphql`
   query blogPageQuery($skip: Int!, $limit: Int!) {
