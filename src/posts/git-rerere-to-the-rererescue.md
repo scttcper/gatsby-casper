@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Git rerere to the rererescue"
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/abraham-osorio-184519.jpg
 date: "2017-10-18"

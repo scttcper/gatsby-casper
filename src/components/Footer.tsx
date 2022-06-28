@@ -1,12 +1,43 @@
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Link } from 'gatsby';
 import { setLightness } from 'polished';
-import * as React from 'react';
-import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 
 import { colors } from '../styles/colors';
-import { outer, inner } from '../styles/shared';
+import { inner, outer } from '../styles/shared';
 import config from '../website-config';
+
+export function Footer() {
+  return (
+    <footer css={[outer, SiteFooter]}>
+      <div css={[inner, SiteFooterContent]}>
+        <section className="copyright">
+          <Link to="/">{config.title}</Link> &copy; {new Date().getFullYear()}{' '}
+          {config.footer && (
+            <Link to="/">
+              | {config.title} {config.footer}
+            </Link>
+          )}
+        </section>
+        <SiteFooterNav>
+          <Link to="/">Latest Posts</Link>
+          {config.facebook && (
+            <a href={config.facebook} target="_blank" rel="noopener noreferrer">
+              Facebook
+            </a>
+          )}
+          {config.twitter && (
+            <a href={config.twitter} target="_blank" rel="noopener noreferrer">
+              Twitter
+            </a>
+          )}
+
+          <a href="/rss.xml">RSS</a>
+        </SiteFooterNav>
+      </div>
+    </footer>
+  );
+}
 
 const SiteFooter = css`
   position: relative;
@@ -59,42 +90,8 @@ const SiteFooterNav = styled.nav`
     display: none;
   }
   @media (max-width: 650px) {
-    a:first-child {
+    a:first-of-type {
       margin-left: 0;
     }
   }
 `;
-
-const Footer: React.FC = () => {
-  return (
-    <footer css={[outer, SiteFooter]}>
-      <div css={[inner, SiteFooterContent]}>
-        <section className="copyright">
-          <Link to="/">{config.title}</Link> &copy; {new Date().getFullYear()}{' '}
-          {config.footer && (
-            <Link to="/">
-              | {config.title} {config.footer}
-            </Link>
-          )}
-        </section>
-        <SiteFooterNav>
-          <Link to="/">Latest Posts</Link>
-          {config.facebook && (
-            <a href={config.facebook} target="_blank" rel="noopener noreferrer">
-              Facebook
-            </a>
-          )}
-          {config.twitter && (
-            <a href={config.twitter} target="_blank" rel="noopener noreferrer">
-              Twitter
-            </a>
-          )}
-
-          <a href="/rss.xml">RSS</a>
-        </SiteFooterNav>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "What's wrong with StackOverflow"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/stackoverflow.png
 date: "2016-11-25"

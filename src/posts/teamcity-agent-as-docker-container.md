@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Teamcity agent as Docker container"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/teamcity-post-banner.jpg
 date: "2016-10-16"

@@ -1,7 +1,7 @@
 export interface WebsiteConfig {
   title: string;
   description: string;
-  coverImage: string;
+  coverImage?: string;
   logo: string;
   /**
    * Specifying a valid BCP 47 language helps screen readers announce text properly.
@@ -46,6 +46,11 @@ export interface WebsiteConfig {
    * Appears alongside the footer, after the credits
    */
   footer?: string;
+  /**
+   * Shows all post tags in main index view and post view if true
+   * Otherwise only shows first (primary) tag
+   */
+  showAllTags: boolean;
 }
 
 const config: WebsiteConfig = {
@@ -62,7 +67,8 @@ const config: WebsiteConfig = {
   mailchimpName: 'b_e751f209dff476297e609e4d2_876a986ffe',
   mailchimpEmailFieldName: 'MERGE0',
   googleSiteVerification: 'GoogleCode',
-  footer: 'is build with love and Gatsby',
+  footer: 'is based on Gatsby Casper',
+  showAllTags: true,
 };
 
 export default config;

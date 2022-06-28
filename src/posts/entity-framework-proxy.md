@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Entity Framework Proxy GetType() mess"
-author: masimplo
+author: [masimplo]
 tags: [".Net"]
 image: ../images/headers/jake-hills-36605-unsplash.jpg
 date: "2011-07-07T23:46:37.121Z"

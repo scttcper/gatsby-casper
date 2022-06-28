@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Android blogging"
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/patrick-fore-381200-unsplash.jpg
 date: "2011-07-17"

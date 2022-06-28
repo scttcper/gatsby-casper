@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Testing RxJS5 async methods in Angular2"
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/rxjs-testing.jpg
 date: "2017-03-15"

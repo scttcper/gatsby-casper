@@ -1,30 +1,32 @@
 import { graphql } from 'gatsby';
 import React from 'react';
+import { getSrc } from 'gatsby-plugin-image';
 
-import Footer from '../components/Footer';
+import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
+import { PostCard } from '../components/PostCard';
+import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import {
   inner,
   outer,
   PostFeed,
-  PostFeedRaise,
   SiteDescription,
   SiteHeader,
   SiteHeaderContent,
   SiteMain,
   SiteTitle,
+  SiteNavMain,
+  SiteArchiveHeader,
+  ResponsiveHeaderBackground,
+  SiteHeaderBackground,
 } from '../styles/shared';
 import { PageContext } from './post';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
 interface TagTemplateProps {
-  pathContext: {
-    slug: string;
-  };
+  location: Location;
   pageContext: {
     tag: string;
   };
@@ -32,13 +34,9 @@ interface TagTemplateProps {
     allTagYaml: {
       edges: Array<{
         node: {
-          id: string;
+          yamlId: string;
           description: string;
-          image?: {
-            childImageSharp: {
-              fluid: any;
-            };
-          };
+          image?: any;
         };
       }>;
     };
@@ -51,12 +49,10 @@ interface TagTemplateProps {
   };
 }
 
-const Tags: React.FC<TagTemplateProps> = props => {
-  const tag = (props.pageContext.tag) ? props.pageContext.tag : '';
-  const { edges, totalCount } = props.data.allMarkdownRemark;
-  const tagData = props.data.allTagYaml.edges.find(
-    n => n.node.id.toLowerCase() === tag.toLowerCase(),
-  );
+function Tags({ pageContext, data, location }: TagTemplateProps) {
+  const tag = pageContext.tag ? pageContext.tag : '';
+  const { edges, totalCount } = data.allMarkdownRemark;
+  const tagData = data.allTagYaml.edges.find(n => n.node.yamlId.toLowerCase() === tag.toLowerCase());
 
   return (
     <IndexLayout>
@@ -65,18 +61,15 @@ const Tags: React.FC<TagTemplateProps> = props => {
         <title>
           {tag} - {config.title}
         </title>
-        <meta
-          name="description"
-          content={tagData && tagData.node ? tagData.node.description : ''}
-        />
+        <meta name="description" content={tagData?.node ? tagData.node.description : ''} />
         <meta property="og:site_name" content={config.title} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={`${tag} - ${config.title}`} />
-        <meta property="og:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta property="og:url" content={config.siteUrl + location.pathname} />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${tag} - ${config.title}`} />
-        <meta name="twitter:url" content={config.siteUrl + props.pathContext.slug} />
+        <meta name="twitter:url" content={config.siteUrl + location.pathname} />
         {config.twitter && (
           <meta
             name="twitter:site"
@@ -85,22 +78,21 @@ const Tags: React.FC<TagTemplateProps> = props => {
         )}
       </Helmet>
       <Wrapper>
-        <header
-          className={`${tagData && tagData.node.image ? '' : 'no-cover'}`}
-          css={[outer, SiteHeader]}
-          style={{
-            backgroundImage:
-              tagData && tagData.node.image ?
-                `url('${tagData.node.image.childImageSharp.fluid.src}')` :
-                '',
-          }}
-        >
-          <div css={inner}>
-            <SiteNav isHome={false} />
-            <SiteHeaderContent>
-              <SiteTitle>{tag}</SiteTitle>
-              <SiteDescription>
-                {tagData && tagData.node.description ? (
+        <header className="site-archive-header" css={[SiteHeader, SiteArchiveHeader]}>
+          <div css={[outer, SiteNavMain]}>
+            <div css={inner}>
+              <SiteNav isHome={false} />
+            </div>
+          </div>
+          <ResponsiveHeaderBackground
+            css={[outer, SiteHeaderBackground]}
+            backgroundImage={getSrc(tagData?.node?.image)}
+            className="site-header-background"
+          >
+            <SiteHeaderContent css={inner} className="site-header-content">
+              <SiteTitle className="site-title">{tag}</SiteTitle>
+              <SiteDescription className="site-description">
+                {tagData?.node.description ? (
                   tagData.node.description
                 ) : (
                   <>
@@ -111,11 +103,11 @@ const Tags: React.FC<TagTemplateProps> = props => {
                 )}
               </SiteDescription>
             </SiteHeaderContent>
-          </div>
+          </ResponsiveHeaderBackground>
         </header>
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
-            <div css={[PostFeed, PostFeedRaise]}>
+            <div css={[PostFeed]}>
               {edges.map(({ node }) => (
                 <PostCard key={node.fields.slug} post={node} />
               ))}
@@ -126,22 +118,20 @@ const Tags: React.FC<TagTemplateProps> = props => {
       </Wrapper>
     </IndexLayout>
   );
-};
+}
 
 export default Tags;
 
 export const pageQuery = graphql`
-  query($tag: String) {
+  query ($tag: String) {
     allTagYaml {
       edges {
         node {
-          id
+          yamlId
           description
           image {
             childImageSharp {
-              fluid(maxWidth: 3720) {
-                ...GatsbyImageSharpFluid
-              }
+              gatsbyImageData(layout: FULL_WIDTH)
             }
           }
         }
@@ -156,33 +146,30 @@ export const pageQuery = graphql`
       edges {
         node {
           excerpt
-          timeToRead
           frontmatter {
             title
+            excerpt
             tags
             date
             image {
               childImageSharp {
-                fluid(maxWidth: 1240) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
             author {
-              id
+              name
               bio
               avatar {
-                children {
-                  ... on ImageSharp {
-                    fixed(quality: 90) {
-                      src
-                    }
-                  }
+                childImageSharp {
+                  gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
                 }
               }
             }
           }
           fields {
+            readingTime {
+              text
+            }
             layout
             slug
           }

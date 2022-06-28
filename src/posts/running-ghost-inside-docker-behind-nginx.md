@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Running Ghost inside docker behind nginx"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/docker.png
 date: "2016-09-25"

@@ -1,87 +1,38 @@
 import { graphql } from 'gatsby';
-import * as React from 'react';
-import { css } from '@emotion/core';
-import Helmet from 'react-helmet';
+import { getImage, getSrc } from 'gatsby-plugin-image';
+import React from 'react';
+import { Helmet } from 'react-helmet';
 
-import Footer from '../components/Footer';
+import { css } from '@emotion/react';
+
+import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
-import PostCard from '../components/PostCard';
-import Wrapper from '../components/Wrapper';
-import IndexLayout from '../layouts';
-import config from '../website-config';
 import Pagination from '../components/Pagination';
-
+import { PostCard } from '../components/PostCard';
+import { Wrapper } from '../components/Wrapper';
+import IndexLayout from '../layouts';
 import {
   inner,
   outer,
   PostFeed,
-  PostFeedRaise,
+  Posts,
   SiteDescription,
   SiteHeader,
-  SiteHeaderContent,
-  SiteMain,
-  SiteTitle,
+  SiteHeaderContent, SiteHeaderStyles, SiteMain,
+  SiteTitle
 } from '../styles/shared';
+import config from '../website-config';
 import { PageContext } from './post';
 
-const HomePosts = css`
-  @media (min-width: 795px) {
-    .post-card:nth-of-type(6n + 1):not(.no-image) {
-      flex: 1 1 100%;
-      flex-direction: row;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-image-link {
-      position: relative;
-      flex: 1 1 auto;
-      border-radius: 5px 0 0 5px;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-image {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-content {
-      flex: 0 1 357px;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) h2 {
-      font-size: 2.6rem;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) p {
-      font-size: 1.8rem;
-      line-height: 1.55em;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-content-link {
-      padding: 30px 40px 0;
-    }
-
-    .post-card:nth-of-type(6n + 1):not(.no-image) .post-card-meta {
-      padding: 0 40px 30px;
-    }
-  }
-`;
-
 export interface IndexProps {
+  children: React.ReactNode;
   pageContext: {
     currentPage: number;
     numPages: number;
   };
   data: {
-    logo: {
-      childImageSharp: {
-        fixed: any;
-      };
-    };
-    header: {
-      childImageSharp: {
-        fluid: any;
-      };
-    };
+    logo: any;
+    header: any;
     allMarkdownRemark: {
       edges: Array<{
         node: PageContext;
@@ -90,9 +41,9 @@ export interface IndexProps {
   };
 }
 
-const IndexPage: React.FC<IndexProps> = props => {
-  const width = props.data.header.childImageSharp.fluid.sizes.split(', ')[1].split('px')[0];
-  const height = String(Number(width) / props.data.header.childImageSharp.fluid.aspectRatio);
+function IndexPage(props: IndexProps) {
+  const width = getImage(props.data.header)?.width;
+  const height = getImage(props.data.header)?.height;
 
   return (
     <IndexLayout css={HomePosts}>
@@ -105,43 +56,41 @@ const IndexPage: React.FC<IndexProps> = props => {
         <meta property="og:title" content={config.title} />
         <meta property="og:description" content={config.description} />
         <meta property="og:url" content={config.siteUrl} />
-        <meta
-          property="og:image"
-          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
-        />
+        <meta property="og:image" content={`${config.siteUrl}${getSrc(props.data.header)}`} />
         {config.facebook && <meta property="article:publisher" content={config.facebook} />}
-        {config.googleSiteVerification && <meta name="google-site-verification" content={config.googleSiteVerification} />}
+        {config.googleSiteVerification && (
+          <meta name="google-site-verification" content={config.googleSiteVerification} />
+        )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={config.title} />
         <meta name="twitter:description" content={config.description} />
         <meta name="twitter:url" content={config.siteUrl} />
-        <meta
-          name="twitter:image"
-          content={`${config.siteUrl}${props.data.header.childImageSharp.fluid.src}`}
-        />
+        <meta name="twitter:image" content={`${config.siteUrl}${getSrc(props.data.header)}`} />
         {config.twitter && (
           <meta
             name="twitter:site"
             content={`@${config.twitter.split('https://twitter.com/')[1]}`}
           />
         )}
-        <meta property="og:image:width" content={width} />
-        <meta property="og:image:height" content={height} />
+        <meta property="og:image:width" content={width?.toString()} />
+        <meta property="og:image:height" content={height?.toString()} />
       </Helmet>
       <Wrapper>
-        <header
-          css={[outer, SiteHeader]}
+        <div
+          css={[outer, SiteHeader, SiteHeaderStyles]}
+          className="site-header-background"
           style={{
-            backgroundImage: `url('${props.data.header.childImageSharp.fluid.src}')`,
+            backgroundImage: `url('${getSrc(props.data.header)}')`,
           }}
         >
           <div css={inner}>
-            <SiteHeaderContent>
-              <SiteTitle>
+            <SiteNav isHome />
+            <SiteHeaderContent className="site-header-content">
+              <SiteTitle className="site-title">
                 {props.data.logo ? (
                   <img
-                    style={{ maxHeight: '45px' }}
-                    src={props.data.logo.childImageSharp.fixed.src}
+                    style={{ maxHeight: '55px' }}
+                    src={getSrc(props.data.logo)}
                     alt={config.title}
                   />
                 ) : (
@@ -150,91 +99,82 @@ const IndexPage: React.FC<IndexProps> = props => {
               </SiteTitle>
               <SiteDescription>{config.description}</SiteDescription>
             </SiteHeaderContent>
-            <SiteNav isHome />
           </div>
-        </header>
+        </div>
         <main id="site-main" css={[SiteMain, outer]}>
-          <div css={inner}>
-            <div css={[PostFeed, PostFeedRaise]}>
-              {props.data.allMarkdownRemark.edges.map(post => {
+          <div css={[inner, Posts]}>
+            <div css={[PostFeed]}>
+              {props.data.allMarkdownRemark.edges.map((post, index) =>
                 // filter out drafts in production
-                return (
-                  (post.node.frontmatter.draft !== true ||
-                    process.env.NODE_ENV !== 'production') && (
-                    <PostCard key={post.node.fields.slug} post={post.node} />
+                (
+                  (post.node.frontmatter.draft !== true
+                    || process.env.NODE_ENV !== 'production') && (
+                    <PostCard key={post.node.fields.slug} post={post.node} large={index === 0} />
                   )
-                );
-              })}
+                ),
+              )}
             </div>
           </div>
         </main>
         {props.children}
-        <Pagination currentPage={props.pageContext.currentPage} numPages={props.pageContext.numPages} />
+        {props.pageContext.numPages > 1 && (
+          <Pagination
+            currentPage={props.pageContext.currentPage}
+            numPages={props.pageContext.numPages}
+          />
+        )}
         <Footer />
       </Wrapper>
     </IndexLayout>
   );
-};
-
-export default IndexPage;
+}
 
 export const pageQuery = graphql`
   query blogPageQuery($skip: Int!, $limit: Int!) {
     logo: file(relativePath: { eq: "logo.png" }) {
       childImageSharp {
-        # Specify the image processing specifications right in the query.
-        # Makes it trivial to update as your page's design changes.
-        fixed {
-          ...GatsbyImageSharpFixed
-        }
+        gatsbyImageData(layout: FIXED)
       }
     }
     header: file(relativePath: { eq: "blog-cover.jpg" }) {
       childImageSharp {
-        # Specify the image processing specifications right in the query.
-        # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 2800) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 2000, quality: 100, layout: FIXED)
       }
     }
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC },
-      filter: { frontmatter: { draft: { ne: true } } },
-      limit: $limit,
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { draft: { ne: true } } }
+      limit: $limit
       skip: $skip
     ) {
       edges {
         node {
-          timeToRead
           frontmatter {
             title
             date
             tags
             draft
+            excerpt
             image {
               childImageSharp {
-                fluid(maxWidth: 3720) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FULL_WIDTH)
               }
             }
             author {
-              id
+              name
               bio
               avatar {
-                children {
-                  ... on ImageSharp {
-                    fixed(quality: 90) {
-                      src
-                    }
-                  }
+                childImageSharp {
+                  gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
                 }
               }
             }
           }
           excerpt
           fields {
+            readingTime {
+              text
+            }
             layout
             slug
           }
@@ -243,3 +183,63 @@ export const pageQuery = graphql`
     }
   }
 `;
+
+const HomePosts = css`
+  @media (min-width: 795px) {
+    .post-card-large {
+      flex: 1 1 100%;
+      flex-direction: row;
+      padding-bottom: 40px;
+      min-height: 280px;
+      border-top: 0;
+    }
+
+    .post-card-large .post-card-title {
+      margin-top: 0;
+      font-size: 3.2rem;
+    }
+
+    .post-card-large:not(.no-image) .post-card-header {
+      margin-top: 0;
+    }
+
+    .post-card-large .post-card-image-link {
+      position: relative;
+      flex: 1 1 auto;
+      margin-bottom: 0;
+      min-height: 380px;
+    }
+
+    .post-card-large .post-card-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .post-card-large .post-card-content {
+      flex: 0 1 361px;
+      justify-content: center;
+    }
+
+    .post-card-large .post-card-title {
+      margin-top: 0;
+      font-size: 3.2rem;
+    }
+
+    .post-card-large .post-card-content-link {
+      padding: 0 0 0 40px;
+    }
+
+    .post-card-large .post-card-meta {
+      padding: 0 0 0 40px;
+    }
+
+    .post-card-large .post-card-excerpt p {
+      margin-bottom: 1.5em;
+      font-size: 1.8rem;
+      line-height: 1.5em;
+    }
+  }
+`;
+
+export default IndexPage;

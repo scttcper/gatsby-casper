@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-var-requires */
 const path = require('path');
 const _ = require('lodash');
+const readingTime = require('reading-time');
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
@@ -8,6 +10,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   // interpreter if not a single content uses it. Therefore, we're putting them
   // through `createNodeField` so that the fields still exist and GraphQL won't
   // trip up. An empty string is still required in replacement to `null`.
+  // eslint-disable-next-line default-case
   switch (node.internal.type) {
     case 'MarkdownRemark': {
       const { permalink, layout, primaryTag } = node.frontmatter;
@@ -38,6 +41,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         name: 'primaryTag',
         value: primaryTag || '',
       });
+
+      createNodeField({
+        node,
+        name: 'readingTime',
+        value: readingTime(node.rawMarkdownBody),
+      });
     }
   }
 };
@@ -45,63 +54,56 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
-        limit: 2000
-        sort: { fields: [frontmatter___date], order: ASC }
-        filter: { frontmatter: { draft: { ne: true } } }
-      ) {
-        edges {
-          node {
-            excerpt
-            timeToRead
-            frontmatter {
-              title
-              tags
-              date
-              draft
-              image {
-                childImageSharp {
-                  fluid(maxWidth: 3720) {
-                    aspectRatio
-                    base64
-                    sizes
-                    src
-                    srcSet
-                  }
-                }
-              }
-              author {
-                id
-                bio
-                avatar {
-                  children {
-                    ... on ImageSharp {
-                      fixed(quality: 90) {
-                        src
-                      }
-                    }
-                  }
-                }
-              }
+  const result = await graphql(`{
+  allMarkdownRemark(
+    limit: 2000
+    sort: {fields: [frontmatter___date], order: ASC}
+    filter: {frontmatter: {draft: {ne: true}}}
+  ) {
+    edges {
+      node {
+        excerpt
+        frontmatter {
+          title
+          tags
+          date
+          draft
+          excerpt
+          image {
+            childImageSharp {
+              gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
             }
-            fields {
-              layout
-              slug
+          }
+          author {
+            name
+            bio
+            avatar {
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+              }
             }
           }
         }
-      }
-      allAuthorYaml {
-        edges {
-          node {
-            id
+        fields {
+          readingTime {
+            text
           }
+          layout
+          slug
         }
       }
     }
-  `);
+  }
+  allAuthorYaml {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}
+`);
 
   if (result.errors) {
     console.error(result.errors);
@@ -159,9 +161,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const tagTemplate = path.resolve('./src/templates/tags.tsx');
   const tags = _.uniq(
     _.flatten(
-      result.data.allMarkdownRemark.edges.map(edge => {
-        return _.castArray(_.get(edge, 'node.frontmatter.tags', []));
-      }),
+      result.data.allMarkdownRemark.edges.map(edge => _.castArray(_.get(edge, 'node.frontmatter.tags', []))),
     ),
   );
   tags.forEach(tag => {
@@ -178,10 +178,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const authorTemplate = path.resolve('./src/templates/author.tsx');
   result.data.allAuthorYaml.edges.forEach(edge => {
     createPage({
-      path: `/author/${_.kebabCase(edge.node.id)}/`,
+      path: `/author/${_.kebabCase(edge.node.name)}/`,
       component: authorTemplate,
       context: {
-        author: edge.node.id,
+        author: edge.node.name,
       },
     });
   });

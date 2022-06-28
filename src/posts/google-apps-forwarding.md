@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Google Apps forwarding"
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/gaelle-marcel-161096-unsplash.jpg
 date: "2011-07-20"

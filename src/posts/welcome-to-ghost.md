@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Welcome to Ghost"
-author: masimplo
+author: [masimplo]
 tags: ["Docker"]
 image: ../images/headers/ghost-logo.png
 date: "2016-09-21"

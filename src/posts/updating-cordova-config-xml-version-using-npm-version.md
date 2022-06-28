@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Updating Cordova config.xml version using npm version"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/cordova_logo_normal_dark_large.png
 date: "2016-11-17"

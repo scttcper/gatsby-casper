@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Annoying online salesrobot"
-author: masimplo
+author: [masimplo]
 tags: ["Online Shopping"]
 image: ../images/headers/hello-i-m-nik-616779-unsplash.jpg
 date: "2012-01-03"

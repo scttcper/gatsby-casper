@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Adding highlight.js to Ghost"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/highlighted-code.png
 date: "2016-10-17"

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Waiting for progress"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/ben-white-292680-unsplash.jpg
 date: "2012-11-22"

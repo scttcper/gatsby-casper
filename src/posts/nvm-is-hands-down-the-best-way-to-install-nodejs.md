@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "NVM is hands down the best way to install nodejs"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/sven-read-623749-unsplash.jpg
 date: "2016-11-02"

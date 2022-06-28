@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Measure real world web performance"
-author: masimplo
+author: [masimplo]
 tags: ['performance']
 image: ../images/headers/veri-ivanova-17904-unsplash.jpg
 date: "2019-03-23"

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "A picture is a thousand words. GreenShot"
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/patrick-tomasso-71909-unsplash.jpg
 date: "2012-01-04"

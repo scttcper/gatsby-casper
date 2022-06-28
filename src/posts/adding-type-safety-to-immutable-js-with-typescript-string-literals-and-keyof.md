@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Adding type safety to Immutable.js with Typescript string literals and keyof"
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/ts.png
 date: "2017-05-08"

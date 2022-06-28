@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Breaking promises...and asking santa for internet access."
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/caleb-woods-170974-unsplash.jpg
 date: "2012-01-02"

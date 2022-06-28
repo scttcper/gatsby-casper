@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "NodeJS async/await with retry"
-author: masimplo
+author: [masimplo]
 tags: []
 image: ../images/headers/async-javascript.jpg
 date: "2017-10-15"

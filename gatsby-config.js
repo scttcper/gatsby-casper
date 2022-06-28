@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 
 module.exports = {
@@ -7,16 +8,23 @@ module.exports = {
     siteUrl: 'https://masimplo.com/', // full path to blog - no ending slash
   },
   mapping: {
-    'MarkdownRemark.frontmatter.author': 'AuthorYaml',
+    'MarkdownRemark.frontmatter.author': 'AuthorYaml.name',
   },
   plugins: [
     'gatsby-plugin-sitemap',
-    'gatsby-plugin-sharp',
+    'gatsby-plugin-image',
+    {
+      resolve: 'gatsby-plugin-sharp',
+      options: {
+        defaultQuality: 100,
+        stripMetadata: true,
+      },
+    },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'content',
-        path: path.join(__dirname, 'src', 'views'),
+        path: path.join(__dirname, 'src', 'content'),
       },
     },
     {
@@ -46,12 +54,11 @@ module.exports = {
           'gatsby-remark-prismjs',
           'gatsby-remark-copy-linked-files',
           'gatsby-remark-smartypants',
-          'gatsby-remark-abbr',
           {
             resolve: 'gatsby-remark-images',
             options: {
-              maxWidth: 1170,
-              quality: 90,
+              maxWidth: 2000,
+              quality: 100,
             },
           },
         ],
@@ -64,12 +71,63 @@ module.exports = {
         siteUrl: 'https://masimplo.com',
       },
     },
-    'gatsby-plugin-emotion',
     'gatsby-plugin-typescript',
+    'gatsby-plugin-emotion',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-yaml',
-    'gatsby-plugin-feed',
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => allMarkdownRemark.edges.map(edge => ({
+              ...edge.node.frontmatter,
+              description: edge.node.excerpt,
+              date: edge.node.frontmatter.date,
+              url: `${site.siteMetadata.siteUrl}${edge.node.fields.slug}`,
+              guid: `${site.siteMetadata.siteUrl}${edge.node.fields.slug}`,
+              custom_elements: [{ 'content:encoded': edge.node.html }],
+            })),
+            query: `
+              {
+                allMarkdownRemark(
+                  filter: { frontmatter: { draft: { ne: true } } }
+                  sort: { order: DESC, fields: [frontmatter___date] },
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      fields { slug }
+                      frontmatter {
+                        title
+                        date
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: '/rss.xml',
+            title: 'Ghost\'s Blog',
+            match: '^/blog/',
+          },
+        ],
+      },
+    },
     {
       resolve: 'gatsby-plugin-postcss',
       options: {
@@ -77,7 +135,7 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: 'UA-28844594-2',
         // Puts tracking script in the head instead of the body

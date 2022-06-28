@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Removing sensitive data from github"
-author: masimplo
+author: [masimplo]
 tags: [""]
 image: ../images/headers/bfg.png
 date: "2016-10-28"
