@@ -56,29 +56,29 @@ function About() {
 
               <PostFullContent className="post-full-content">
                 <div className="post-content">
-                <p>
-                I am a professional Software Developer for the past 15 years or so. Since a very young age
-                I tinkered with computers and always remember myself enjoying building things. I always take
-                on new challenges and try to find solutions to everyday problems in the most creative and efficient
-                way possible.
-              </p>
-              <p>
-                During the day I make a lot of architecture and design decisions over <a href="https://covve.com">@Covve</a> but I also get my hands *dirty* writing
-                lots and lots of code. I feel at home when working inside a fully automated workflow, with lots of tests supporting
-                my refactoring frenzies and code reviews that make both me and my collegues better developers and better people.
-              </p>
-              <p>
-                I have done a lot of freelancing in the past, which gave me the opportunity to work with different
-                technologies, but also people. I have done about 7+ years of C# development, mostly for Geographic Information
-                Systems, 3D and Data Intensive applications. Half the last decade I am more into javascript (or more accurately typescript)
-                development mostly for front end and mobile, but also some interesting nodejs backend microservices.
-              </p>
-              <p>
-                I love to cook, I love carpentry, I love teaching myself new things and I love spending time with my two little boys, teaching them as many things
-                about our universe as they can possibly handle. I sometimes tweet some interesting stuff over on Twitter <a href="https://twitter.com/masimplo">@masimplo</a>, write a short blog article at masimplo.dev and
-                enjoy taking pictures of things I cook on Instagram <a href="https://www.instagram.com/masimplo/">@masimplo</a>. I do not have a Facebook account and I am
-                not interested in getting one, so don't look me up there.
-              </p>
+                  <p>
+                    I am a professional Software Developer for the past 20 years or so. Since a very young age
+                    I tinkered with computers and always remember myself enjoying building things. I always take
+                    on new challenges and try to find solutions to everyday problems in the most creative and efficient
+                    way possible.
+                  </p>
+                  <p>
+                    During the day I make a lot of architecture and design decisions and manage a great team over <a href="https://covve.com">@Covve</a> but I also get my hands *dirty* writing
+                    lots and lots of code. I feel at home when working inside a fully automated workflow, with lots of tests supporting
+                    my refactoring frenzies and code reviews that make both me and my collegues better developers and better people.
+                  </p>
+                  <p>
+                    I have done a lot of freelancing in the past, which gave me the opportunity to work with different
+                    technologies, but also people. I have done about 7+ years of C# development, mostly for Geographic Information
+                    Systems, 3D and Data Intensive applications. Half the last decade I am more into javascript (or more accurately typescript)
+                    development mostly for front end and mobile, but also some interesting nodejs backend microservices.
+                  </p>
+                  <p>
+                    I love to cook, I love 3d printing, I love carpentry, I love travelling, I love teaching myself new things and I love spending time with my two little boys, teaching them as many things
+                    about our universe as they can possibly handle. I sometimes tweet some interesting stuff over on Twitter <a href="https://twitter.com/masimplo">@masimplo</a>, write a short blog article at masimplo.com and
+                    enjoy taking pictures of things I cook on Instagram <a href="https://www.instagram.com/masimplo/">@masimplo</a>. I do not have a Facebook account and I am
+                    not interested in getting one, so please don&apos;t look me up there.
+                  </p>
                 </div>
               </PostFullContent>
             </article>
