@@ -23,11 +23,11 @@ import {
   ResponsiveHeaderBackground,
   SiteHeaderBackground,
 } from '../styles/shared';
-import { PageContext } from './post';
+import type { PageContext } from './post';
 import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
-interface AuthorTemplateProps {
+type AuthorTemplateProps = {
   location: Location;
   data: {
     logo: {
@@ -52,7 +52,7 @@ interface AuthorTemplateProps {
       avatar: any;
     };
   };
-}
+};
 
 function Author({ data, location }: AuthorTemplateProps) {
   const author = data.authorYaml;

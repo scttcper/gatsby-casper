@@ -5,11 +5,11 @@ import styled from '@emotion/styled';
 
 import { colors } from '../styles/colors';
 import { inner, outer } from '../styles/shared';
-import { PageContext } from '../templates/post';
+import type { PageContext } from '../templates/post';
 import { PostCard } from './PostCard';
 import { ReadNextCard } from './ReadNextCard';
 
-interface ReadNextProps {
+type ReadNextProps = {
   tags: string[];
   currentPageSlug: string;
   relatedPosts: {
@@ -31,7 +31,7 @@ interface ReadNextProps {
     prev: PageContext;
     next: PageContext;
   };
-}
+};
 
 export function ReadNext({ relatedPosts, currentPageSlug, tags, pageContext }: ReadNextProps) {
   const showRelatedPosts = relatedPosts.totalCount > 1;

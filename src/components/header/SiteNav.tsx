@@ -13,15 +13,15 @@ import { Twitter } from '../icons/twitter';
 import { SubscribeModal } from '../subscribe/SubscribeModal';
 import { SiteNavLogo } from './SiteNavLogo';
 
-interface SiteNavProps {
+type SiteNavProps = {
   isHome?: boolean;
   isPost?: boolean;
   post?: any;
-}
+};
 
-interface SiteNavState {
+type SiteNavState = {
   showTitle: boolean;
-}
+};
 
 class SiteNav extends React.Component<SiteNavProps, SiteNavState> {
   subscribe = React.createRef<SubscribeModal>();

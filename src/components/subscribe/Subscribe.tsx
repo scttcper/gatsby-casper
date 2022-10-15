@@ -6,9 +6,9 @@ import { css } from '@emotion/react';
 import { colors } from '../../styles/colors';
 import { SubscribeForm } from './SubscribeForm';
 
-export interface SubscribeProps {
+export type SubscribeProps = {
   title: string;
-}
+};
 
 export function Subscribe(props: SubscribeProps) {
   return (

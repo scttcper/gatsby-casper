@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-interface WrapperProps {
+type WrapperProps = {
   className?: string;
   children: React.ReactNode;
-}
+};
 
 export function Wrapper({ children, className }: WrapperProps) {
   return <StyledWrapper className={className}>{children}</StyledWrapper>;

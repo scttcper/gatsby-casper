@@ -15,9 +15,9 @@ const Ast = ({ ast, ...props }: any) => {
   return renderAst(ast);
 };
 
-export interface PostContentProps {
+export type PostContentProps = {
   htmlAst: any;
-}
+};
 
 function PostContent({ htmlAst }: PostContentProps) {
   return (

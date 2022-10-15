@@ -24,9 +24,9 @@ import {
   SiteHeaderStyles,
 } from '../styles/shared';
 import config from '../website-config';
-import { PageContext } from './post';
+import type { PageContext } from './post';
 
-export interface IndexProps {
+export type IndexProps = {
   children: React.ReactNode;
   pageContext: {
     currentPage: number;
@@ -41,7 +41,7 @@ export interface IndexProps {
       }>;
     };
   };
-}
+};
 
 function IndexPage(props: IndexProps) {
   const width = getImage(props.data.header)?.width;
@@ -106,14 +106,13 @@ function IndexPage(props: IndexProps) {
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={[inner, Posts]}>
             <div css={[PostFeed]}>
-              {props.data.allMarkdownRemark.edges.map((post, index) =>
-                // filter out drafts in production
-                (
-                  (post.node.frontmatter.draft !== true
-                    || process.env.NODE_ENV !== 'production') && (
-                    <PostCard key={post.node.fields.slug} post={post.node} large={index === 0} />
-                  )
-                ),
+              {props.data.allMarkdownRemark.edges.map(
+                (post, index) =>
+                  // filter out drafts in production
+                  (post.node.frontmatter.draft !== true ||
+                    process.env.NODE_ENV !== 'production') && (
+                    <PostCard key={post.node.fields.slug} post={post.node} isLarge={index === 0} />
+                  ),
               )}
             </div>
           </div>

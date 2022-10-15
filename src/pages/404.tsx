@@ -10,9 +10,9 @@ import { Wrapper } from '../components/Wrapper';
 import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, PostFeed, SiteHeader, SiteNavMain } from '../styles/shared';
-import { PageContext } from '../templates/post';
+import type { PageContext } from '../templates/post';
 
-interface NotFoundTemplateProps {
+type NotFoundTemplateProps = {
   data: {
     allMarkdownRemark: {
       totalCount: number;
@@ -21,7 +21,7 @@ interface NotFoundTemplateProps {
       }>;
     };
   };
-}
+};
 
 function NotFoundPage(props: NotFoundTemplateProps) {
   const { edges } = props.data.allMarkdownRemark;

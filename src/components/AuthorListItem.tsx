@@ -7,14 +7,14 @@ import React, { useState } from 'react';
 import { css } from '@emotion/react';
 
 import { colors } from '../styles/colors';
-import { Author } from '../templates/post';
+import type { Author } from '../templates/post';
 import { AuthorProfileImage } from './PostCard';
 import styled from '@emotion/styled';
 
-interface AuthorListItemProps {
+type AuthorListItemProps = {
   tooltip: 'small' | 'large';
   author: Author;
-}
+};
 
 export function AuthorListItem(props: AuthorListItemProps) {
   const [hovered, setHovered] = useState(false);

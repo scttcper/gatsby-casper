@@ -16,7 +16,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'no-warning-comments': 'off',
-    'complexity': 'off',
+    complexity: 'off',
     'jsx-quotes': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-unnecessary-condition': 'off',
@@ -31,5 +31,6 @@ module.exports = {
     '@typescript-eslint/no-require-imports': 'off',
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-unnecessary-type-arguments': 'off',
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },
 };

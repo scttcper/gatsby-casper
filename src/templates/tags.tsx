@@ -21,11 +21,11 @@ import {
   ResponsiveHeaderBackground,
   SiteHeaderBackground,
 } from '../styles/shared';
-import { PageContext } from './post';
+import type { PageContext } from './post';
 import { Helmet } from 'react-helmet';
 import config from '../website-config';
 
-interface TagTemplateProps {
+type TagTemplateProps = {
   location: Location;
   pageContext: {
     tag: string;
@@ -47,7 +47,7 @@ interface TagTemplateProps {
       }>;
     };
   };
-}
+};
 
 function Tags({ pageContext, data, location }: TagTemplateProps) {
   const tag = pageContext.tag ? pageContext.tag : '';
