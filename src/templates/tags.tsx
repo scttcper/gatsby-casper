@@ -52,7 +52,9 @@ type TagTemplateProps = {
 function Tags({ pageContext, data, location }: TagTemplateProps) {
   const tag = pageContext.tag ? pageContext.tag : '';
   const { edges, totalCount } = data.allMarkdownRemark;
-  const tagData = data.allTagYaml.edges.find(n => n.node.yamlId.toLowerCase() === tag.toLowerCase());
+  const tagData = data.allTagYaml.edges.find(
+    n => n.node.yamlId.toLowerCase() === tag.toLowerCase(),
+  );
 
   return (
     <IndexLayout>
@@ -139,7 +141,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { tags: { in: [$tag] }, draft: { ne: true } } }
     ) {
       totalCount

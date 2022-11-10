@@ -60,7 +60,7 @@ function NotFoundPage(props: NotFoundTemplateProps) {
 
 export const pageQuery = graphql`
   {
-    allMarkdownRemark(limit: 3, sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(limit: 3, sort: { frontmatter: { date: DESC } }) {
       edges {
         node {
           frontmatter {

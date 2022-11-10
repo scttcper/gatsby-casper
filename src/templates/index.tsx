@@ -143,7 +143,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { draft: { ne: true } } }
       limit: $limit
       skip: $skip
