@@ -31,6 +31,9 @@ module.exports = {
     '@typescript-eslint/no-require-imports': 'off',
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-unnecessary-type-arguments': 'off',
+    '@typescript-eslint/quotes': 'off',
+    '@typescript-eslint/indent': 'off',
+    'operator-linebreak': 'off',
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },
 };
