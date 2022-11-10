@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby';
-import { getSrc, getImage } from 'gatsby-plugin-image';
+import { getSrc, getImage, StaticImage, GatsbyImage } from 'gatsby-plugin-image';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -91,7 +91,7 @@ function IndexPage(props: IndexProps) {
               <SiteTitle className="site-title">
                 {props.data.logo ? (
                   <img
-                    style={{ maxHeight: '55px' }}
+                    style={{ maxHeight: '55px', height: '55px' }}
                     src={getSrc(props.data.logo)}
                     alt={config.title}
                   />
@@ -139,7 +139,7 @@ export const pageQuery = graphql`
     }
     header: file(relativePath: { eq: "img/blog-cover.png" }) {
       childImageSharp {
-        gatsbyImageData(width: 2000, quality: 100, layout: FIXED)
+        gatsbyImageData(width: 2000, quality: 100, layout: FIXED, formats: [AUTO, WEBP, AVIF])
       }
     }
     allMarkdownRemark(
@@ -158,7 +158,11 @@ export const pageQuery = graphql`
             excerpt
             image {
               childImageSharp {
-                gatsbyImageData(layout: FULL_WIDTH)
+                gatsbyImageData(
+                  layout: FULL_WIDTH
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
               }
             }
             author {
