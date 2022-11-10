@@ -1,5 +1,5 @@
 import { graphql } from 'gatsby';
-import { getSrc, getImage, StaticImage, GatsbyImage } from 'gatsby-plugin-image';
+import { getSrc, getImage } from 'gatsby-plugin-image';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -158,11 +158,7 @@ export const pageQuery = graphql`
             excerpt
             image {
               childImageSharp {
-                gatsbyImageData(
-                  layout: FULL_WIDTH
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
+                gatsbyImageData(layout: FULL_WIDTH, formats: [AUTO, WEBP, AVIF])
               }
             }
             author {

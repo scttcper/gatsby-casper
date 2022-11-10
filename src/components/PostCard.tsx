@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import _ from 'lodash';
+import { kebabCase } from 'lodash';
 import { lighten } from 'polished';
 import React from 'react';
 
@@ -40,6 +40,7 @@ export function PostCard({ post, isLarge = false }: PostCardProps) {
                 image={getImage(post.frontmatter.image)!}
                 alt={`${post.frontmatter.title} cover image`}
                 style={{ height: '100%' }}
+                loading={isLarge ? 'eager' : 'lazy'}
               />
             )}
           </PostCardImage>
@@ -53,14 +54,14 @@ export function PostCard({ post, isLarge = false }: PostCardProps) {
                 {post.frontmatter.tags.map((tag, idx) => (
                   <React.Fragment key={tag}>
                     {idx > 0 && <>, &nbsp;</>}
-                    <Link to={`/tags/${_.kebabCase(tag)}/`}>{tag}</Link>
+                    <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
                   </React.Fragment>
                 ))}
               </PostCardPrimaryTag>
             )}
             {post.frontmatter.tags && !config.showAllTags && (
               <PostCardPrimaryTag className="post-card-primary-tag">
-                <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                <Link to={`/tags/${kebabCase(post.frontmatter.tags[0])}/`}>
                   {post.frontmatter.tags[0]}
                 </Link>
               </PostCardPrimaryTag>
@@ -77,7 +78,7 @@ export function PostCard({ post, isLarge = false }: PostCardProps) {
             <span>
               {post.frontmatter.author.map((author, index) => (
                 <React.Fragment key={author.name}>
-                  <Link to={`/author/${_.kebabCase(author.name)}/`}>{author.name}</Link>
+                  <Link to={`/author/${kebabCase(author.name)}/`}>{author.name}</Link>
                   {post.frontmatter.author.length - 1 > index && ', '}
                 </React.Fragment>
               ))}

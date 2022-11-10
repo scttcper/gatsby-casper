@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { graphql, Link } from 'gatsby';
 import { GatsbyImage, getSrc, getImage } from 'gatsby-plugin-image';
-import * as _ from 'lodash';
+import { kebabCase } from 'lodash-es';
 import { lighten, setLightness } from 'polished';
 import React from 'react';
 import { Helmet } from 'react-helmet';
@@ -181,13 +181,13 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                     post.frontmatter.tags.map((tag, idx) => (
                       <React.Fragment key={tag}>
                         {idx > 0 && <>, &nbsp;</>}
-                        <Link to={`/tags/${_.kebabCase(tag)}/`}>{tag}</Link>
+                        <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
                       </React.Fragment>
                     ))}
                   {post.frontmatter.tags &&
                     post.frontmatter.tags.length > 0 &&
                     !config.showAllTags && (
-                      <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                      <Link to={`/tags/${kebabCase(post.frontmatter.tags[0])}/`}>
                         {post.frontmatter.tags[0]}
                       </Link>
                     )}
@@ -202,7 +202,7 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                     <section className="post-full-byline-meta">
                       <h4 className="author-name">
                         {post.frontmatter.author.map(author => (
-                          <Link key={author.name} to={`/author/${_.kebabCase(author.name)}/`}>
+                          <Link key={author.name} to={`/author/${kebabCase(author.name)}/`}>
                             {author.name}
                           </Link>
                         ))}

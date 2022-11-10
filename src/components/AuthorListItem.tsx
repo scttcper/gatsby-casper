@@ -1,6 +1,6 @@
 import { Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import * as _ from 'lodash';
+import { kebabCase } from 'lodash-es';
 import { lighten } from 'polished';
 import React, { useState } from 'react';
 
@@ -63,7 +63,7 @@ export function AuthorListItem(props: AuthorListItemProps) {
               <h2>{props.author.name}</h2>
               <p>{props.author.bio}</p>
               <p>
-                <Link to={`/author/${_.kebabCase(props.author.name)}/`}>More posts</Link> by{' '}
+                <Link to={`/author/${kebabCase(props.author.name)}/`}>More posts</Link> by{' '}
                 {props.author.name}.
               </p>
             </div>
@@ -73,7 +73,7 @@ export function AuthorListItem(props: AuthorListItemProps) {
       <Link
         css={AuthorAvatar}
         className="author-avatar"
-        to={`/author/${_.kebabCase(props.author.name)}/`}
+        to={`/author/${kebabCase(props.author.name)}/`}
       >
         <GatsbyImage
           image={getImage(props.author.avatar)!}
