@@ -18,9 +18,9 @@ Resizing images can be a tedious task, especially if you have a large batch of t
 
 4) Once all images are selected, go to Tools > Adjust Size.
 
-5) Enter the width or height value to resize the photos to your liking. If you’re only going to resize the width, for example, make sure “Scale Proportionally” is selected. This will ensure that your images are proportionally resized. Take a minute to explore all the options here.
+5) Enter the desired width or height value to resize the photos. If you only want to resize the width, for example, ensure that "Scale Proportionally" is selected to keep the image proportions consistent. Take a moment to explore the other options available.
 
-6) Click Ok. The images are resized and saved to the original location by replacing the original files.
+6) Once you have made your selections, click "OK". The images will be resized and saved to their original location, replacing the previous files.
 
 Once you’ve entered the new size for the images, click Ok. The images will be resized and saved to the original location, replacing the original files.
 
