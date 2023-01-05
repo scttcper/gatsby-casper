@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { format } from 'date-fns';
 import { graphql, Link } from 'gatsby';
 import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image';
-import * as _ from 'lodash';
+import { kebabCase } from 'lodash-es';
 import { lighten, setLightness } from 'polished';
 import React from 'react';
 import { Helmet } from 'react-helmet';
@@ -19,8 +19,6 @@ import { colors } from '../styles/colors';
 import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 
-
-
 export type Author = {
   name: string;
   bio: string;
@@ -30,11 +28,6 @@ export type Author = {
 type PageTemplateProps = {
   location: Location;
   data: {
-    logo: {
-      childImageSharp: {
-        fixed: any;
-      };
-    };
     markdownRemark: {
       html: string;
       htmlAst: any;
@@ -186,13 +179,13 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                     post.frontmatter.tags.map((tag, idx) => (
                       <React.Fragment key={tag}>
                         {idx > 0 && <>, &nbsp;</>}
-                        <Link to={`/tags/${_.kebabCase(tag)}/`}>{tag}</Link>
+                        <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
                       </React.Fragment>
                     ))}
                   {post.frontmatter.tags &&
                     post.frontmatter.tags.length > 0 &&
                     !config.showAllTags && (
-                      <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                      <Link to={`/tags/${kebabCase(post.frontmatter.tags[0])}/`}>
                         {post.frontmatter.tags[0]}
                       </Link>
                     )}
@@ -207,7 +200,7 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                     <section className="post-full-byline-meta">
                       <h4 className="author-name">
                         {post.frontmatter.author.map(author => (
-                          <Link key={author.name} to={`/author/${_.kebabCase(author.name)}/`}>
+                          <Link key={author.name} to={`/author/${kebabCase(author.name)}/`}>
                             {author.name}
                           </Link>
                         ))}
@@ -444,11 +437,6 @@ const PostFullImage = styled.figure`
 
 export const query = graphql`
   query ($slug: String, $primaryTag: String) {
-    logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
-      childImageSharp {
-        gatsbyImageData(layout: FIXED)
-      }
-    }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       htmlAst
@@ -466,7 +454,7 @@ export const query = graphql`
         excerpt
         image {
           childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH)
+            gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
           }
         }
         author {

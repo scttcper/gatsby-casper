@@ -5,10 +5,10 @@ import { css } from '@emotion/react';
 
 import { colors } from '../styles/colors';
 
-export interface PaginationProps {
+export type PaginationProps = {
   currentPage: number;
   numPages: number;
-}
+};
 
 function Pagination({ currentPage, numPages }: PaginationProps) {
   const isFirst = currentPage === 1;

@@ -16,7 +16,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'no-warning-comments': 'off',
-    'complexity': 'off',
+    complexity: 'off',
     'jsx-quotes': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/no-unnecessary-condition': 'off',

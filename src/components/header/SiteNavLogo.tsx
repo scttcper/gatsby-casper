@@ -4,9 +4,9 @@ import { getSrc } from 'gatsby-plugin-image';
 
 import config from '../../website-config';
 
-interface SiteNavLogoProps {
+type SiteNavLogoProps = {
   logo?: any;
-}
+};
 
 export function SiteNavLogo() {
   return (

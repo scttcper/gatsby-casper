@@ -2,13 +2,13 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { Author } from '../templates/post';
+import type { Author } from '../templates/post';
 import { AuthorListItem } from './AuthorListItem';
 
-interface AuthorListProps {
+type AuthorListProps = {
   tooltip: 'small' | 'large';
   authors: Author[];
-}
+};
 
 export function AuthorList(props: AuthorListProps) {
   return (

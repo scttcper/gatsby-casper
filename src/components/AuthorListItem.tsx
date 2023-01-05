@@ -1,20 +1,20 @@
 import { Link } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import * as _ from 'lodash';
+import { kebabCase } from 'lodash-es';
 import { lighten } from 'polished';
 import React, { useState } from 'react';
 
 import { css } from '@emotion/react';
 
 import { colors } from '../styles/colors';
-import { Author } from '../templates/post';
+import type { Author } from '../templates/post';
 import { AuthorProfileImage } from './PostCard';
 import styled from '@emotion/styled';
 
-interface AuthorListItemProps {
+type AuthorListItemProps = {
   tooltip: 'small' | 'large';
   author: Author;
-}
+};
 
 export function AuthorListItem(props: AuthorListItemProps) {
   const [hovered, setHovered] = useState(false);
@@ -63,7 +63,7 @@ export function AuthorListItem(props: AuthorListItemProps) {
               <h2>{props.author.name}</h2>
               <p>{props.author.bio}</p>
               <p>
-                <Link to={`/author/${_.kebabCase(props.author.name)}/`}>More posts</Link> by{' '}
+                <Link to={`/author/${kebabCase(props.author.name)}/`}>More posts</Link> by{' '}
                 {props.author.name}.
               </p>
             </div>
@@ -73,7 +73,7 @@ export function AuthorListItem(props: AuthorListItemProps) {
       <Link
         css={AuthorAvatar}
         className="author-avatar"
-        to={`/author/${_.kebabCase(props.author.name)}/`}
+        to={`/author/${kebabCase(props.author.name)}/`}
       >
         <GatsbyImage
           image={getImage(props.author.avatar)!}

@@ -18,8 +18,7 @@ import {
 import config from '../website-config';
 import { PageContext } from './post';
 
-
-interface AuthorTemplateProps {
+type AuthorTemplateProps = {
   location: Location;
   data: {
     logo: {
@@ -44,7 +43,7 @@ interface AuthorTemplateProps {
       avatar: any;
     };
   };
-}
+};
 
 function Author({ data, location }: AuthorTemplateProps) {
   const author = data.authorYaml;
@@ -172,7 +171,7 @@ function Author({ data, location }: AuthorTemplateProps) {
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
             <div css={[PostFeed]}>
-            {edges.map(({ node }) => (
+              {edges.map(({ node }) => (
                 <PostCard key={node.fields.slug} post={node} />
               ))}
             </div>

@@ -1,4 +1,4 @@
-export interface WebsiteConfig {
+export type WebsiteConfig = {
   title: string;
   description: string;
   coverImage?: string;
@@ -51,7 +51,7 @@ export interface WebsiteConfig {
    * Otherwise only shows first (primary) tag
    */
   showAllTags: boolean;
-}
+};
 
 const config: WebsiteConfig = {
   title: 'masimplo.com',

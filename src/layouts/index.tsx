@@ -6,10 +6,10 @@ import { lighten } from 'polished';
 import favicon from '../../src/favicon.ico';
 import { colors } from '../styles/colors';
 
-interface IndexProps {
+type IndexProps = {
   className?: string;
   children: React.ReactNode;
-}
+};
 
 function IndexLayout(props: IndexProps) {
   return (

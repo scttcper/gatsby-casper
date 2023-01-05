@@ -17,7 +17,6 @@ import {
 import config from '../website-config';
 import type { PageContext } from './post';
 
-
 type TagTemplateProps = {
   location: Location;
   pageContext: {
