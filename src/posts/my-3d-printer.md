@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Building my own 3d printer"
+title: "Building my own 3D printer"
 author: [masimplo]
 tags: []
 image: ../images/headers/kadir-celep-HsefvbLbNWc-unsplash.jpg
@@ -25,3 +25,37 @@ I have since upgraded my build multiple times, keeping up with the community but
 I think it is a great hobby for anyone that likes to build high tech stuff, likes to learn new things constantly in a multitude of domains like plastics, mechanics, physics, electronics, software to mention a few. As a sideeffect, you have a very capable machine that can fabricate anything you can think of and design in a matter of minutes or hours.
 
 I might post more specific things about my build and its software in the future, but I just wanted to encourage anyone thinking about going into this hobby to do so.
+
+If you want a ready made printer then I would suggesting looking into Ender 3 and clones for a budget solution (they are great to start tinkering), Prusa i3 MKS3S or mini (great work horse) or the more new but very promising Bamboolabs X1 Carbon that incorporates many of the improvements contributed by the DIY communities into a commercial product that is reasonably priced.
+
+
+Some interesting links to visit:
+
+DIY printers
+- https://vorondesign.com/
+- https://github.com/Annex-Engineering
+- https://github.com/VzBoT3D/VzBoT-Vz330
+- https://github.com/superjamie/lazyweb/wiki/3D-Printing-HyperCube
+- https://ratrig.com
+
+
+3D model sites
+- https://www.thingiverse.com/
+- https://www.printables.com/
+- https://cults3d.com/en
+- https://www.myminifactory.com/
+
+Great Youtube channels
+- https://www.youtube.com/@TeachingTech
+- https://www.youtube.com/@FilamentFriday
+- https://www.youtube.com/@Tombof3DPrintedHorrors
+- https://www.youtube.com/@MadeWithLayers
+- https://www.youtube.com/@TheEdgeofTech
+- https://www.youtube.com/@make.anything
+- https://www.youtube.com/@MakersMuse
+- https://www.youtube.com/@CNCKitchen
+- https://www.youtube.com/@3DPrintingNerd
+- https://www.youtube.com/@MihaiDesigns
+- https://www.youtube.com/@properprinting
+- https://www.youtube.com/@Vez3D
+- https://www.youtube.com/@VisionMiner
