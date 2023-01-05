@@ -1,10 +1,8 @@
+import { css } from '@emotion/react';
 import { graphql } from 'gatsby';
 import { getImage, getSrc } from 'gatsby-plugin-image';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
-import { css } from '@emotion/react';
-
 import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
 import Pagination from '../components/Pagination';
@@ -23,6 +21,8 @@ import {
 } from '../styles/shared';
 import config from '../website-config';
 import { PageContext } from './post';
+
+
 
 export interface IndexProps {
   children: React.ReactNode;
@@ -142,7 +142,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { draft: { ne: true } } }
       limit: $limit
       skip: $skip

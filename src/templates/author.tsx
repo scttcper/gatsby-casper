@@ -1,9 +1,9 @@
-import { graphql } from 'gatsby';
-import React from 'react';
-import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { graphql } from 'gatsby';
 import { getSrc } from 'gatsby-plugin-image';
-
+import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
 import { PostCard } from '../components/PostCard';
@@ -13,19 +13,11 @@ import {
   AuthorProfileImage,
   inner,
   outer,
-  PostFeed,
-  SiteHeader,
-  SiteHeaderContent,
-  SiteTitle,
-  SiteMain,
-  SiteArchiveHeader,
-  SiteNavMain,
-  ResponsiveHeaderBackground,
-  SiteHeaderBackground,
+  PostFeed, ResponsiveHeaderBackground, SiteArchiveHeader, SiteHeader, SiteHeaderBackground, SiteHeaderContent, SiteMain, SiteNavMain, SiteTitle
 } from '../styles/shared';
-import { PageContext } from './post';
-import { Helmet } from 'react-helmet';
 import config from '../website-config';
+import { PageContext } from './post';
+
 
 interface AuthorTemplateProps {
   location: Location;
@@ -180,7 +172,9 @@ function Author({ data, location }: AuthorTemplateProps) {
         <main id="site-main" css={[SiteMain, outer]}>
           <div css={inner}>
             <div css={[PostFeed]}>
-              {edges.map(({ node }) => <PostCard key={node.fields.slug} post={node} />)}
+            {edges.map(({ node }) => (
+                <PostCard key={node.fields.slug} post={node} />
+              ))}
             </div>
           </div>
         </main>
@@ -212,7 +206,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       filter: { frontmatter: { draft: { ne: true } } }
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: ASC } }
       limit: 2000
     ) {
       edges {

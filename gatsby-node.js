@@ -19,7 +19,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       let slug = permalink;
 
       if (!slug) {
-        slug = `/posts/${relativePath.replace('.md', '')}/`;
+        slug = `/${relativePath.replace('.md', '')}/`;
       }
 
       // Used to generate URL to view this content.
@@ -54,56 +54,57 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const result = await graphql(`{
-  allMarkdownRemark(
-    limit: 2000
-    sort: {fields: [frontmatter___date], order: ASC}
-    filter: {frontmatter: {draft: {ne: true}}}
-  ) {
-    edges {
-      node {
-        excerpt
-        frontmatter {
-          title
-          tags
-          date
-          draft
-          excerpt
-          image {
-            childImageSharp {
-              gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
-            }
-          }
-          author {
-            name
-            bio
-            avatar {
-              childImageSharp {
-                gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+  const result = await graphql(`
+    {
+      allMarkdownRemark(
+        limit: 2000
+        sort: { frontmatter: { date: ASC } }
+        filter: { frontmatter: { draft: { ne: true } } }
+      ) {
+        edges {
+          node {
+            excerpt
+            frontmatter {
+              title
+              tags
+              date
+              draft
+              excerpt
+              image {
+                childImageSharp {
+                  gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+                }
+              }
+              author {
+                name
+                bio
+                avatar {
+                  childImageSharp {
+                    gatsbyImageData(placeholder: BLURRED, layout: FULL_WIDTH)
+                  }
+                }
               }
             }
+            fields {
+              readingTime {
+                text
+              }
+              layout
+              slug
+            }
           }
         }
-        fields {
-          readingTime {
-            text
+      }
+      allAuthorYaml {
+        edges {
+          node {
+            id
+            name
           }
-          layout
-          slug
         }
       }
     }
-  }
-  allAuthorYaml {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
-}
-`);
+  `);
 
   if (result.errors) {
     console.error(result.errors);
@@ -114,7 +115,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const posts = result.data.allMarkdownRemark.edges;
 
   // Create paginated index
-  const postsPerPage = 12;
+  // TODO: new pagination
+  const postsPerPage = 1000;
   const numPages = Math.ceil(posts.length / postsPerPage);
 
   Array.from({ length: numPages }).forEach((_, i) => {
@@ -161,7 +163,9 @@ exports.createPages = async ({ graphql, actions }) => {
   const tagTemplate = path.resolve('./src/templates/tags.tsx');
   const tags = _.uniq(
     _.flatten(
-      result.data.allMarkdownRemark.edges.map(edge => _.castArray(_.get(edge, 'node.frontmatter.tags', []))),
+      result.data.allMarkdownRemark.edges.map(edge =>
+        _.castArray(_.get(edge, 'node.frontmatter.tags', [])),
+      ),
     ),
   );
   tags.forEach(tag => {

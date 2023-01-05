@@ -1,9 +1,7 @@
-import { graphql, Link } from 'gatsby';
-import React from 'react';
-
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-
+import { graphql, Link } from 'gatsby';
+import React from 'react';
 import SiteNav from '../components/header/SiteNav';
 import { PostCard } from '../components/PostCard';
 import { Wrapper } from '../components/Wrapper';
@@ -11,6 +9,8 @@ import IndexLayout from '../layouts';
 import { colors } from '../styles/colors';
 import { inner, outer, PostFeed, SiteHeader, SiteNavMain } from '../styles/shared';
 import { PageContext } from '../templates/post';
+
+
 
 interface NotFoundTemplateProps {
   data: {
@@ -60,7 +60,7 @@ function NotFoundPage(props: NotFoundTemplateProps) {
 
 export const pageQuery = graphql`
   {
-    allMarkdownRemark(limit: 3, sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(limit: 3, sort: { frontmatter: { date: DESC } }) {
       edges {
         node {
           frontmatter {

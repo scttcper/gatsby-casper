@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby';
-import React from 'react';
 import { getSrc } from 'gatsby-plugin-image';
-
+import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Footer } from '../components/Footer';
 import SiteNav from '../components/header/SiteNav';
 import { PostCard } from '../components/PostCard';
@@ -10,22 +10,15 @@ import IndexLayout from '../layouts';
 import {
   inner,
   outer,
-  PostFeed,
-  SiteDescription,
-  SiteHeader,
-  SiteHeaderContent,
-  SiteMain,
-  SiteTitle,
-  SiteNavMain,
-  SiteArchiveHeader,
-  ResponsiveHeaderBackground,
-  SiteHeaderBackground,
+  PostFeed, ResponsiveHeaderBackground, SiteArchiveHeader, SiteDescription,
+  SiteHeader, SiteHeaderBackground, SiteHeaderContent,
+  SiteMain, SiteNavMain, SiteTitle
 } from '../styles/shared';
-import { PageContext } from './post';
-import { Helmet } from 'react-helmet';
 import config from '../website-config';
+import type { PageContext } from './post';
 
-interface TagTemplateProps {
+
+type TagTemplateProps = {
   location: Location;
   pageContext: {
     tag: string;
@@ -47,12 +40,14 @@ interface TagTemplateProps {
       }>;
     };
   };
-}
+};
 
 function Tags({ pageContext, data, location }: TagTemplateProps) {
   const tag = pageContext.tag ? pageContext.tag : '';
   const { edges, totalCount } = data.allMarkdownRemark;
-  const tagData = data.allTagYaml.edges.find(n => n.node.yamlId.toLowerCase() === tag.toLowerCase());
+  const tagData = data.allTagYaml.edges.find(
+    n => n.node.yamlId.toLowerCase() === tag.toLowerCase(),
+  );
 
   return (
     <IndexLayout>
@@ -139,7 +134,7 @@ export const pageQuery = graphql`
     }
     allMarkdownRemark(
       limit: 2000
-      sort: { fields: [frontmatter___date], order: DESC }
+      sort: { frontmatter: { date: ASC } }
       filter: { frontmatter: { tags: { in: [$tag] }, draft: { ne: true } } }
     ) {
       totalCount

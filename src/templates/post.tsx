@@ -1,3 +1,5 @@
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { format } from 'date-fns';
 import { graphql, Link } from 'gatsby';
 import { GatsbyImage, getImage, getSrc } from 'gatsby-plugin-image';
@@ -5,10 +7,6 @@ import * as _ from 'lodash';
 import { lighten, setLightness } from 'polished';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-
 import { AuthorList } from '../components/AuthorList';
 import { Footer } from '../components/Footer';
 import SiteNav, { SiteNavMain } from '../components/header/SiteNav';
@@ -21,13 +19,15 @@ import { colors } from '../styles/colors';
 import { inner, outer, SiteMain } from '../styles/shared';
 import config from '../website-config';
 
-export interface Author {
+
+
+export type Author = {
   name: string;
   bio: string;
   avatar: any;
-}
+};
 
-interface PageTemplateProps {
+type PageTemplateProps = {
   location: Location;
   data: {
     logo: {
@@ -74,9 +74,9 @@ interface PageTemplateProps {
     prev: PageContext;
     next: PageContext;
   };
-}
+};
 
-export interface PageContext {
+export type PageContext = {
   excerpt: string;
   fields: {
     slug: string;
@@ -93,7 +93,7 @@ export interface PageContext {
     tags: string[];
     author: Author[];
   };
-}
+};
 
 function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
   const post = data.markdownRemark;
@@ -180,19 +180,22 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
             <article css={[PostFull, !post.frontmatter.image && NoImage]}>
               <PostFullHeader className="post-full-header">
                 <PostFullTags className="post-full-tags">
-                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && config.showAllTags && (
+                  {post.frontmatter.tags &&
+                    post.frontmatter.tags.length > 0 &&
+                    config.showAllTags &&
                     post.frontmatter.tags.map((tag, idx) => (
                       <React.Fragment key={tag}>
-                        {idx > 0 && (<>, &nbsp;</>)}
+                        {idx > 0 && <>, &nbsp;</>}
                         <Link to={`/tags/${_.kebabCase(tag)}/`}>{tag}</Link>
                       </React.Fragment>
-                    ))
-                  )}
-                  {post.frontmatter.tags && post.frontmatter.tags.length > 0 && !config.showAllTags && (
-                    <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
-                      {post.frontmatter.tags[0]}
-                    </Link>
-                  )}
+                    ))}
+                  {post.frontmatter.tags &&
+                    post.frontmatter.tags.length > 0 &&
+                    !config.showAllTags && (
+                      <Link to={`/tags/${_.kebabCase(post.frontmatter.tags[0])}/`}>
+                        {post.frontmatter.tags[0]}
+                      </Link>
+                    )}
                 </PostFullTags>
                 <PostFullTitle className="post-full-title">{post.frontmatter.title}</PostFullTitle>
                 <PostFullCustomExcerpt className="post-full-custom-excerpt">
@@ -214,7 +217,8 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                           {displayDatetime}
                         </time>
                         <span className="byline-reading-time">
-                          <span className="bull">&bull;</span>{post.fields.readingTime.text}
+                          <span className="bull">&bull;</span>
+                          {post.fields.readingTime.text}
                         </span>
                       </div>
                     </section>
@@ -227,7 +231,8 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
                   <GatsbyImage
                     image={getImage(post.frontmatter.image)!}
                     style={{ height: '100%' }}
-                    alt={post.frontmatter.title} />
+                    alt={post.frontmatter.title}
+                  />
                 </PostFullImage>
               )}
               <PostContent htmlAst={post.htmlAst} />
@@ -437,67 +442,68 @@ const PostFullImage = styled.figure`
   }
 `;
 
-export const query = graphql`query ($slug: String, $primaryTag: String) {
-  logo: file(relativePath: {eq: "logo.png"}) {
-    childImageSharp {
-      gatsbyImageData(layout: FIXED)
-    }
-  }
-  markdownRemark(fields: {slug: {eq: $slug}}) {
-    html
-    htmlAst
-    excerpt
-    fields {
-      readingTime {
-        text
+export const query = graphql`
+  query ($slug: String, $primaryTag: String) {
+    logo: file(relativePath: { eq: "img/ghost-logo.png" }) {
+      childImageSharp {
+        gatsbyImageData(layout: FIXED)
       }
     }
-    frontmatter {
-      title
-      userDate: date(formatString: "D MMMM YYYY")
-      date
-      tags
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      html
+      htmlAst
       excerpt
-      image {
-        childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
+      fields {
+        readingTime {
+          text
         }
       }
-      author {
-        name
-        bio
-        avatar {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
-          }
-        }
-      }
-    }
-  }
-  relatedPosts: allMarkdownRemark(
-    filter: {frontmatter: {tags: {in: [$primaryTag]}, draft: {ne: true}}}
-    limit: 5
-    sort: {fields: [frontmatter___date], order: DESC}
-  ) {
-    totalCount
-    edges {
-      node {
-        id
+      frontmatter {
+        title
+        userDate: date(formatString: "D MMMM YYYY")
+        date
+        tags
         excerpt
-        frontmatter {
-          title
-          date
-        }
-        fields {
-          readingTime {
-            text
+        image {
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH)
           }
-          slug
+        }
+        author {
+          name
+          bio
+          avatar {
+            childImageSharp {
+              gatsbyImageData(layout: FULL_WIDTH, breakpoints: [40, 80, 120])
+            }
+          }
+        }
+      }
+    }
+    relatedPosts: allMarkdownRemark(
+      filter: { frontmatter: { tags: { in: [$primaryTag] }, draft: { ne: true } } }
+      limit: 5
+      sort: { frontmatter: { date: ASC } }
+    ) {
+      totalCount
+      edges {
+        node {
+          id
+          excerpt
+          frontmatter {
+            title
+            date
+          }
+          fields {
+            readingTime {
+              text
+            }
+            slug
+          }
         }
       }
     }
   }
-}
 `;
 
 export default PageTemplate;
