@@ -94,6 +94,6 @@ profile.emails.clearAll(); // only allow this whenever appropriate
 profile.emails; // get the emails array as normal
 ```
 
-By using an array-extending class, you can take advantage of the built-in array methods like map, filter, and find, while also adding custom methods like addEmail, updateEmail, and deleteEmail. Additionally, using the Symbol.species getter prevent mutations of the array.
+By using an array-extending class, you can take advantage of the built-in array methods like `map`, `filter`, and `find`, while also adding custom methods like `addEmail`, `updateEmail`, and `deleteEmail`. Additionally, using the `Symbol.species` getter prevent mutations of the array.
 
 It's important to note that this approach is not suitable for all use cases, and the choice of how to manage collections will depend on the specific requirements of the application. However, using an array-extending class can provide a good balance between control and flexibility, and can make code more maintainable and less prone to errors.
