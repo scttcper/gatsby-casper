@@ -230,6 +230,11 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
               )}
               <PostContent htmlAst={post.htmlAst} />
 
+              <TwitterFooterWrapper>
+                <footer>
+                  <p>Thanks for reading! To stay updated on my latest posts and thoughts, follow me on Twitter <a href="https://twitter.com/masimplo">@masimplo</a></p>
+                </footer>
+              </TwitterFooterWrapper>
               {/* The big email subscribe modal content */}
               {config.showSubscribe && <Subscribe title={config.title} />}
             </article>
@@ -248,6 +253,12 @@ function PageTemplate({ data, pageContext, location }: PageTemplateProps) {
     </IndexLayout>
   );
 }
+
+const TwitterFooterWrapper = styled.div`
+  text-align: center;
+  padding: 0 8vw;
+  margin-bottom: 4vh;
+`;
 
 const PostTemplate = css`
   .site-main {
