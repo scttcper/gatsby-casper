@@ -35,5 +35,50 @@ module.exports = {
     '@typescript-eslint/indent': 'off',
     'operator-linebreak': 'off',
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
+    '@typescript-eslint/no-unsafe-argument': 'off',
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        extendDefaults: false,
+        types: {
+          String: {
+            message: 'Use `string` instead.',
+            fixWith: 'string',
+          },
+          Number: {
+            message: 'Use `number` instead.',
+            fixWith: 'number',
+          },
+          Boolean: {
+            message: 'Use `boolean` instead.',
+            fixWith: 'boolean',
+          },
+          Symbol: {
+            message: 'Use `symbol` instead.',
+            fixWith: 'symbol',
+          },
+          Object: {
+            message:
+              'The `Object` type is mostly the same as `unknown`. You probably want `Record<string, unknown>` instead. See https://github.com/typescript-eslint/typescript-eslint/pull/848',
+            fixWith: 'Record<string, unknown>',
+          },
+          '{}': {
+            message:
+              'The `{}` type is mostly the same as `unknown`. You probably want `Record<string, unknown>` instead.',
+            fixWith: 'Record<string, unknown>',
+          },
+          object: {
+            message:
+              'The `object` type is hard to use. Use `Record<string, unknown>` instead. See: https://github.com/typescript-eslint/typescript-eslint/pull/848',
+            fixWith: 'Record<string, unknown>',
+          },
+          Function: 'Use a specific function type instead, like `() => void`.',
+          '[]': "Don't use the empty array type `[]`. It only allows empty arrays. Use `SomeType[]` instead.",
+          '[[]]':
+            "Don't use `[[]]`. It only allows an array with a single element which is an empty array. Use `SomeType[][]` instead.",
+          '[[[]]]': "Don't use `[[[]]]`. Use `SomeType[][][]` instead.",
+        },
+      },
+    ],
   },
 };
